@@ -1,0 +1,137 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<!-- CONTENT -->
+<section class="py-12">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h2 class="mb-7">Login</h2>
+      </div>
+      <div class="col-12 col-md-5">
+
+        <!-- Card -->
+        <div class="card card-lg mb-10 mb-md-0">
+          <div class="card-body">
+            <div class="col-12">
+              <p>
+                {% for message in messages %}
+                <span class="text-danger center" id="error_login">{{message}}!!!</span><br />
+                {% endfor %}
+              </p>
+            </div>
+
+            <!-- Heading -->
+
+
+            <!-- Form -->
+            <form method="post" action="{% url 'customer_login' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12">
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label class="sr-only" for="loginEmail">
+                      Email Address *
+                    </label>
+                    <input class="form-control form-control-sm" id="loginEmail" name="email" type="email"
+                      placeholder="Email Address *" required>
+                  </div>
+
+                </div>
+                <div class="col-12">
+
+                  <!-- Password -->
+                  <div class="form-group">
+                    <label class="sr-only" for="loginPassword">
+                      Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="loginPassword" type="password" name="password"
+                      placeholder="Password *" required>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md">
+
+                  <!-- Remember -->
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" id="loginRemember" type="checkbox">
+                      <label class="custom-control-label" for="loginRemember">
+                        Remember me
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-auto">
+
+                  <!-- Link -->
+                  <div class="form-group">
+                    <a class="font-size-sm text-reset" data-toggle="modal" href="#modalPasswordReset">Forgot
+                      Password?</a>
+                  </div>
+
+                </div>
+                <div class="col-12">
+
+                  <!-- Button -->
+                  <button class="btn btn-sm btn-dark" type="submit">
+                    Sign In
+                  </button>
+
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-2 text-center" style="margin-top: 100px;">
+        <p>Or</p>
+      </div>
+      <div class="col-md-5">
+        <div class="card card-lg mb-10 mb-md-0">
+          <div class="card-body">
+
+
+
+            <!-- Form -->
+            <form>
+              <div class="row">
+                <div class="col-12">
+
+                  <!-- Email -->
+                  <div class="form-group">
+                    <label class="sr-only" for="loginEmail">
+                      Mobile Number
+                    </label>
+                    <input class="form-control form-control-sm" id="loginEmail" type="text"
+                      placeholder="Enter Mobile Number" required>
+                  </div>
+
+                </div>
+
+
+                <div class="col-12">
+
+                  <!-- Button -->
+                  <button class="btn btn-sm btn-dark" type="submit">
+                    Sign In
+                  </button>
+
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

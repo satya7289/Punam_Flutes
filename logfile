@@ -1,0 +1,33 @@
+2020-06-14 16:20:45.459 IST [4044] LOG:  starting PostgreSQL 12.2, compiled by Visual C++ build 1914, 64-bit
+2020-06-14 16:20:45.467 IST [4044] LOG:  listening on IPv6 address "::1", port 5434
+2020-06-14 16:20:45.468 IST [4044] LOG:  listening on IPv4 address "127.0.0.1", port 5434
+2020-06-14 16:20:46.209 IST [1624] LOG:  database system was interrupted; last known up at 2020-06-11 17:05:32 IST
+2020-06-14 16:22:09.469 IST [1624] LOG:  database system was not properly shut down; automatic recovery in progress
+2020-06-14 16:22:09.526 IST [1624] LOG:  redo starts at 0/19DE448
+2020-06-14 16:22:09.527 IST [1624] LOG:  invalid record length at 0/19DE480: wanted 24, got 0
+2020-06-14 16:22:09.528 IST [1624] LOG:  redo done at 0/19DE448
+2020-06-14 16:22:09.956 IST [4044] LOG:  database system is ready to accept connections
+2020-06-14 16:47:15.125 IST [1116] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2020-06-14 18:33:54.900 IST [6492] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2020-06-14 19:19:47.093 IST [10588] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2020-06-19 18:45:56.504 IST [4044] LOG:  received fast shutdown request
+2020-06-19 18:45:56.628 IST [4044] LOG:  aborting any active transactions
+2020-06-19 18:45:56.661 IST [2316] ERROR:  canceling statement due to user request
+2020-06-19 18:45:56.741 IST [3508] FATAL:  terminating connection due to administrator command
+2020-06-19 18:45:56.746 IST [4044] LOG:  background worker "logical replication launcher" (PID 2316) exited with exit code 1
+2020-06-19 18:45:56.763 IST [10656] LOG:  shutting down
+2020-06-19 18:45:57.204 IST [4044] LOG:  database system is shut down
+2020-08-08 09:57:19.604 IST [11620] LOG:  starting PostgreSQL 12.2, compiled by Visual C++ build 1914, 64-bit
+2020-08-08 09:57:19.612 IST [11620] LOG:  listening on IPv6 address "::1", port 5434
+2020-08-08 09:57:19.613 IST [11620] LOG:  listening on IPv4 address "127.0.0.1", port 5434
+2020-08-08 09:57:20.242 IST [15728] LOG:  database system was interrupted; last known up at 2020-08-03 19:16:23 IST
+2020-08-08 09:58:40.177 IST [15728] LOG:  database system was not properly shut down; automatic recovery in progress
+2020-08-08 09:58:40.269 IST [15728] LOG:  redo starts at 0/1B057D0
+2020-08-08 09:58:40.269 IST [15728] LOG:  invalid record length at 0/1B05808: wanted 24, got 0
+2020-08-08 09:58:40.269 IST [15728] LOG:  redo done at 0/1B057D0
+2020-08-08 09:58:40.662 IST [11620] LOG:  database system is ready to accept connections
+2020-08-08 11:27:30.512 IST [17124] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
