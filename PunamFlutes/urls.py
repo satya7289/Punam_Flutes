@@ -7,7 +7,7 @@ urlpatterns = [
     path('', HomePageView.as_view(), name='dashboard'),
     path('customer_login/', customer_login, name='customer_login'),
     path('customer_register/', customer_register, name='customer_register'),
-    path('cart/', cart, name='cart'),
+    # path('cart/', cart, name='cart'),
     path('checkout/', checkout, name='checkout'),
     path('contact/', contact, name='contact'),
     path('wishlist/', wishlist, name='wishlist'),
@@ -15,4 +15,5 @@ urlpatterns = [
             activate, name='activate'),
     path('logout/', customer_logout, name='logout'),
     path('product/', include('product.urls')),
+    path('cart', include('cart.urls')),
 ]

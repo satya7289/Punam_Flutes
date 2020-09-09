@@ -48,7 +48,8 @@ LOCAL_APPS = [
     'product',
     'address',
     'blog',
-    'tax_rules'
+    'tax_rules',
+    'cart'
 ]
 
 THIRD_PARTY_APPS = [
