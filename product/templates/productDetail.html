@@ -75,27 +75,12 @@
                   <!-- Slider -->
                   <div data-flickity='{"draggable": false, "fade": true}' id="productSlider">
 
-                    <!-- Item -->
-                    <a href="{{ product.image.product_image_1.url }}" data-fancybox>
-                      <img src="{{ product.image.product_image_1.url }}" alt="..." class="card-img-top">
-                    </a>
-
-                    <!-- Item -->
-                    <a href="{{ product.image.product_image_2.url }}" data-fancybox>
-                      <img src="{{ product.image.product_image_2.url }}" alt="..." class="card-img-top">
-                    </a>
-
-                    <!-- Item -->
-                    <a href="{{ product.image.product_image_3.url }}" data-fancybox>
-                      <img src="{{ product.image.product_image_3.url }}" alt="..." class="card-img-top">
-                    </a>
-
-                    <!-- Item -->
-                    <a href="{{ product.image.product_image_4.url }}" data-fancybox>
-                      <img src="{{ product.image.product_image_4.url }}" alt="..." class="card-img-top">
-
-                    </a>
-
+                    {% for image in product.images.all%}
+                      <!-- Item -->
+                      <a href="{{ image.image.url }}" data-fancybox>
+                        <img src="{{ image.image.url }}" alt="..." class="card-img-top">
+                      </a>
+                    {% endfor %}
                   </div>
 
                 </div>
