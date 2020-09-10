@@ -8,7 +8,7 @@ def get_ip_of_the_customer(request):
     return ip
 
 def get_currency_from_ip(ip):
-    if ip!='0.0.0.0':
+    if ip!='0.0.0.0' and ip!='127.0.0.1':
         headers = {'accept': 'application/json'}
         geoplugin_url = 'http://www.geoplugin.net/json.gp?ip=' + str(ip)
         geoplugin = requests.get(geoplugin_url)
@@ -16,9 +16,11 @@ def get_currency_from_ip(ip):
         if geoplugin.status_code == 200:
             return {
                 'message': 'success',
-                'currency': geoplugin.json()['geoplugin_currencyCode']
+                'country':geoplugin.json()['geoplugin_countryName'],
+                'currency': geoplugin.json()['geoplugin_currencyCode'],
+
             }
-    return {'currency': 'Any country', 'message': 'fail'}
+    return {'country': 'Any', 'message': 'fail'}
 
 
 def get_ip_location(request):

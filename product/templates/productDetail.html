@@ -15,7 +15,7 @@
             <a class="text-gray-400" href="index.html">Home</a>
           </li>
           <li class="breadcrumb-item">
-            <a class="text-gray-400" href="shop.html">{{product.category}}</a>
+            <a class="text-gray-400" href="shop.html">{{category}}</a>
           </li>
           <li class="breadcrumb-item active">
             {{product.title}}
@@ -111,7 +111,7 @@
               <div class="col">
 
                 <!-- Preheading -->
-                <a class="text-muted" href="shop.html">{{product.category}}</a>
+                <a class="text-muted" href="shop.html">{{category}}</a>
 
               </div>
               <div class="col-auto">
@@ -147,7 +147,7 @@
 
             <!-- Price -->
             <div class="mb-7 text-gray-400">
-              <span class="ml-1 font-size-h5 font-weight-bold">$30.00</span>
+              <span class="ml-1 font-size-h5 font-weight-bold">{{ price.selling_price}}</span>
             </div>
 
             <div class="mb-8 ml-n1">

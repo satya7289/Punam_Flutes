@@ -744,9 +744,8 @@
         <!-- Header -->
         <div class="row align-items-center mb-7">
           <div class="col-12 col-md">
-
             <!-- Heading -->
-            <h3 class="mb-1">{{products.0.category}}</h3>
+            <h3 class="mb-1">{{ category }}</h3>
 
             <!-- Breadcrumb -->
             <ol class="breadcrumb mb-md-0 font-size-xs text-gray-400">
@@ -754,7 +753,7 @@
                 <a class="text-gray-400" href="index.html">Home</a>
               </li>
               <li class="breadcrumb-item active">
-                {{products.0.category}}
+                {{ category }}
               </li>
             </ol>
 
@@ -818,7 +817,7 @@
         </div> {% endcomment %}
 
         <!-- Products -->
-        {% for prod in products %}
+        {% for product in products %}
         <div class="row">
           <div class="col-6 col-md-4">
 
@@ -834,30 +833,30 @@
               <div class="card-img">
 
                 <!-- Image -->
-                <a class="card-img-hover" href="{% url 'product:product_detail' prod.id %}">
-                  <img class="card-img-top card-img-back" src="{{ prod.image.product_image_1.url }}" alt="...">
-                  <img class="card-img-top card-img-front" src="{{ prod.image.product_image_2.url }}" alt="...">
+                <a class="card-img-hover" href="{% url 'product:product_detail' product_id=product.id category_id=category.id %}">
+                  <img class="card-img-top card-img-back" src="{{ product.images.all.0 }}" alt="...">
+                  <img class="card-img-top card-img-front" src="{{ product.images.all.1 }}" alt="...">
                 </a>
 
                 <!-- Actions -->
-                <div class="card-actions">
-                  <!-- <span class="card-action">
+                <!-- <div class="card-actions">
+                  <span class="card-action">
                     <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="modal"
                       data-target="#modalProduct">
                       <i class="fe fe-eye"></i>
                     </button>
-                  </span> -->
+                  </span>
                   <span class="card-action">
                     <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
                       <i class="fe fe-shopping-cart"></i>
                     </button>
                   </span>
-                  <!-- <span class="card-action">
+                  <span class="card-action">
                     <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
                       <i class="fe fe-heart"></i>
                     </button>
-                  </span> -->
-                </div>
+                  </span>
+                </div> -->
 
               </div>
 
@@ -866,12 +865,12 @@
 
                 <!-- Category -->
                 <div class="font-size-xs">
-                  <p class="text-muted">{{prod.search_tags}}</p>
+                  <p class="text-muted">{{product.search_tags}}</p>
                 </div>
 
                 <!-- Title -->
                 <div class="font-weight-bold">
-                  <p class="text-body">{{prod.title}}</p>
+                  <p class="text-body">{{product.title}}</p>
                 </div>
 
                 <!-- Price -->
