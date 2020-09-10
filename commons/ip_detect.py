@@ -1,4 +1,24 @@
-from django.contrib.gis.geoip2 import GeoIP2, GeoIP2Exception
+import requests
+
+def get_ip_of_the_customer(request):
+    try:
+        ip = request.META.get('REMOTE_ADDR')
+    except:
+        ip = '0.0.0.0'
+    return ip
+
+def get_currency_from_ip(ip):
+    if ip!='0.0.0.0':
+        headers = {'accept': 'application/json'}
+        geoplugin_url = 'http://www.geoplugin.net/json.gp?ip=' + str(ip)
+        geoplugin = requests.get(geoplugin_url)
+
+        if geoplugin.status_code == 200:
+            return {
+                'message': 'success',
+                'currency': geoplugin.json()['geoplugin_currencyCode']
+            }
+    return {'currency': 'Any country', 'message': 'fail'}
 
 
 def get_ip_location(request):
@@ -15,5 +35,5 @@ def get_ip_location(request):
     #     country = loc['country_name']
     # except Exception as e:
     #     print('Unable to find Ip', e)
-
+    print("DFg")
     return country
