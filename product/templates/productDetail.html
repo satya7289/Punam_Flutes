@@ -153,9 +153,9 @@
 
                     <!-- Submit -->
                     <select class="custom-select custom-select-xl w-auto " name="quantity">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                      <option value="1">3</option>
+                      {% for i in '1234567890'|make_list %}
+                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                      {% endfor %}
                     </select>
 
                   </div>
@@ -955,7 +955,9 @@
 {% block script %}
 <script>
 
-
+$(document).ready(()=>{
+    $("#product_price").html('{{ cart_length }}');
+});
 </script>
 
 {% endblock %}

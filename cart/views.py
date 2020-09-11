@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.conf import settings
 from decimal import Decimal
@@ -41,10 +41,7 @@ class AddToCart(View):
             cart = Cart.objects.create(user=user)
             cart.product.add(product)
 
-        context = {
-            'cart': Cart.objects.filter(user=user,is_checkout=False).first()
-        }
-        return render(request, self.template_name, context)
+        return redirect('cart')
 
 
 class Checkout(View):
