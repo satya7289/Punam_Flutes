@@ -20,8 +20,8 @@ class Product(models.Model):
     title = models.CharField(max_length=200, default='Flute')
     search_tags = models.CharField(max_length=200)
     description = models.TextField()
-    category = models.ManyToManyField(Category, null=True, blank=True)
-    images = models.ManyToManyField(ProductImage, null=True, blank=True)
+    category = models.ManyToManyField(Category, blank=True)
+    images = models.ManyToManyField(ProductImage, blank=True)
 
     def __str__(self):
         return self.title

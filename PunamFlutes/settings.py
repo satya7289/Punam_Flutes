@@ -49,7 +49,8 @@ LOCAL_APPS = [
     'address',
     'blog',
     'tax_rules',
-    'cart'
+    'cart',
+    'paypal.standard.ipn'
 ]
 
 THIRD_PARTY_APPS = [
@@ -178,3 +179,8 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
+
+# Paypal Detail
+PAYPAL_RECEIVER_EMAIL = 'satyaprakashaman60@gmail.com'
+
+PAYPAL_TEST = True
