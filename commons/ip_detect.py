@@ -1,26 +1,37 @@
 import requests
 
-def get_ip_of_the_customer(request):
-    try:
-        ip = request.META.get('REMOTE_ADDR')
-    except:
-        ip = '0.0.0.0'
-    return ip
-
-def get_currency_from_ip(ip):
-    if ip!='0.0.0.0' and ip!='127.0.0.1':
-        headers = {'accept': 'application/json'}
-        geoplugin_url = 'http://www.geoplugin.net/json.gp?ip=' + str(ip)
+def request_to_geoplugin(user_ip, base_currency='USD'):
+    if user_ip!='0.0.0.0' and user_ip!='127.0.0.1':
+        '''
+            Get the Ip detail with country name by using `geoplugin`.
+        '''
+        geoplugin_url = 'http://www.geoplugin.net/json.gp?ip=' + str(user_ip) + '&base_currency=' + base_currency
         geoplugin = requests.get(geoplugin_url)
 
         if geoplugin.status_code == 200:
             return {
                 'message': 'success',
                 'country':geoplugin.json()['geoplugin_countryName'],
-                'currency': geoplugin.json()['geoplugin_currencyCode'],
+                'data':geoplugin.json(),
+                'user_ip': user_ip
+        }
+    return None
 
-            }
-    return {'country': 'Any', 'message': 'fail'}
+def get_ip_detail(request):
+    # Get the IP of the logged in user
+    try:              
+        user_ip = request.META.get('REMOTE_ADDR')
+    except:
+        user_ip = '0.0.0.0'
+
+    ip_detail = request_to_geoplugin(request)
+    if ip_detail:
+        return ip_detail
+
+    return {
+        'message':'fail',
+        'user_ip':user_ip
+    }
 
 
 def get_ip_location(request):
