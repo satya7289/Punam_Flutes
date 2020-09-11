@@ -132,7 +132,7 @@
 
             <!-- Price -->
             <div class="mb-7 text-gray-400">
-              <span class="ml-1 font-size-h5 font-weight-bold" id="product_price">{{ price.selling_price}}</span>
+              <span class="ml-1 font-size-h5 font-weight-bold" id="product_price">{{ currency }} {{ price }}</span>
             </div>
 
             <div class="mb-8 ml-n1">
@@ -956,7 +956,7 @@
 <script>
 
 $(document).ready(()=>{
-    $("#product_price").html('{{ cart_length }}');
+   
 });
 </script>
 
