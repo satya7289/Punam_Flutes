@@ -12,6 +12,7 @@ from cart.models import Cart
 from customer.models import User
 from customer.models import Profile
 from product.models import Product
+from commons.product_price import get_price_of_product
 
 
 class CartView(View):
@@ -19,8 +20,22 @@ class CartView(View):
 
     def get(self, request, *args, **kwargs):
         user = request.user
+        cart = Cart.objects.filter(user=user,is_checkout=False).first()
+
+        products = cart.product.all()
+        currency = '$'
+
+        # Add the price and currency according to the user's location to the product
+        for product in products:
+            price_list = get_price_of_product(request,product)
+            product.price = price_list['price']
+            product.currency = price_list['currency']
+            currency = price_list['currency']
+
         context = {
-            'cart':Cart.objects.filter(user=user,is_checkout=False).first()
+            'cart': cart,
+            'products': products,
+            'currency': currency
         }
         return render(request, self.template_name, context)
 
