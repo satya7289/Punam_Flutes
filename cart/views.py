@@ -94,14 +94,26 @@ class Checkout(View):
     template_name = 'checkout.html'
 
     def get(self, request, *args, **kwargs):
-        # form = CheckoutForm()
 
         user = request.user
-        # profile = Profile.objects.get(id=user.id)
+        cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
-        context = {}
-        print("satya-----------------------")
-        print(user.id)
+        product_details = cart.product_detail.all()
+        currency = '$'
+
+        # Add the price and currency according to the user's location to the product
+        for product in product_details:
+            price_list = get_price_of_product(request,product.product)
+            product.price = price_list['price']
+            product.currency = price_list['currency']
+            currency = price_list['currency']
+
+        context = {
+            'cart': cart,
+            'orders': product_details,
+            'currency': currency
+        }
+
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
