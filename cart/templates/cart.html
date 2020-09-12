@@ -290,7 +290,8 @@ function removeProductFromCart(e,product_id, cart_id){
         },
         success: function(res) {
             if(res.message=='success'){
-              $(e).closest('.list-group-item').hide()
+              $(e).closest('.list-group-item').remove();
+              updateSubTotal();
             }
         }
   });
