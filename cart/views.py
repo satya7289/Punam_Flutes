@@ -66,8 +66,13 @@ class Checkout(View):
 
     def get(self, request, *args, **kwargs):
         # form = CheckoutForm()
+
+        user = request.user
+        # profile = Profile.objects.get(id=user.id)
+
         context = {}
         print("satya-----------------------")
+        print(user.id)
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
