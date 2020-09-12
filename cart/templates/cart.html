@@ -43,10 +43,10 @@
             <li class="list-group-item">
               <div class="row align-items-center">
                 <div class="col-3">
-
+                  
                   <!-- Image -->
                   <a href="product.html">
-                    <img src="{{ product.images.all.0.image.url }}" alt="..." class="img-fluid">
+                    <img src="{{ product.product.images.all.0.image.url }}" alt="..." class="img-fluid">
                   </a>
 
                 </div>
@@ -54,7 +54,7 @@
 
                   <!-- Title -->
                   <div class="d-flex mb-2 font-weight-bold">
-                    <a class="text-body" href="product.html">{{ product.title }}</a> <span class="ml-auto" id="product_price{{forloop.counter}}" data-total="{{ product.price }}">{{ product.currency }} {{ product.price }}</span>
+                    <a class="text-body" href="product.html">{{ product.product.title }}</a> <span class="ml-auto" id="product_price{{forloop.counter}}" data-total="{{ product.price }}">{{ product.currency }} {{ product.price }}</span>
                   </div>
 
                   <!-- Text -->
@@ -68,13 +68,17 @@
 
                     <!-- Select -->
                     <select class="custom-select custom-select-xxs w-auto" name="quantity" id="{{ forloop.counter }}" data-price="{{ product.price }}">
-                      {% for i in '1234567890'|make_list %}
-                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                      {% for i in range %}
+                        {% if i is product.quantity %}
+                          <option value="{{ i }}" selected>{{ i }}</option>
+                        {% else %}
+                          <option value="{{ i }}">{{ i }}</option>
+                        {% endif %}
                       {% endfor %}
                     </select>
 
                     <!-- Remove -->
-                    <a class="font-size-xs text-gray-400 ml-auto" href="javascript:void(null)" onclick="removeProductFromCart(this,'{{ product.id }}', '{{ cart.id }}')">
+                    <a class="font-size-xs text-gray-400 ml-auto" href="javascript:void(null)" onclick="removeProductFromCart(this,'{{ product.product.id }}', '{{ cart.id }}')">
                       <i class="fe fe-x"></i> Remove
                     </a>
 
@@ -276,7 +280,10 @@
 <script>
 
 $(document).ready(()=>{
-  updateSubTotal();
+  $("[name=quantity]").each(function(){
+    updateProductPrice(this);
+  })
+  // updateSubTotal();
 });
 
 function removeProductFromCart(e,product_id, cart_id){
@@ -312,14 +319,19 @@ function updateSubTotal(){
   $('#total').attr('data-total', Subtotal);
 }
 
-$("[name=quantity]").on('change', function() {
+function updateProductPrice(e){
   let currency = '{{ currency }}';
-  let price = $(this).attr("data-price")
-  let total_price = (price*this.value).toFixed(2);
-  let total = this.value + ' * ' + currency + price +' = ' + currency + total_price;
-  $('#product_price'+this.id).html(total);
-  $('#product_price'+this.id).attr("data-total",total_price);
+  let price = $(e).attr("data-price")
+  let total_price = (price*e.value).toFixed(2);
+  let total = e.value + ' * ' + currency + price +' = ' + currency + total_price;
+
+  $('#product_price'+e.id).html(total);
+  $('#product_price'+e.id).attr("data-total",total_price);
   updateSubTotal();
+}
+
+$("[name=quantity]").on('change', function() {
+  updateProductPrice(this);
 });
 
 </script>

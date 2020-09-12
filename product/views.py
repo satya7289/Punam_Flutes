@@ -51,6 +51,7 @@ class ProductDetailView(View):
             'product': product,
             'category': category,
             'price': get_price['price'],
-            'currency': get_price['currency']
+            'currency': get_price['currency'],
+            'range': [i+1 for i in range(10)]
         }
         return render(request, self.template_name, context)

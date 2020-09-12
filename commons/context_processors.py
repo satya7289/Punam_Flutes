@@ -13,7 +13,7 @@ def extras(request):
         user = request.user    
 
         # Get the number of product in the cart of logged in user
-        cart_length = Cart.objects.filter(user=user,is_checkout=False).first().product.count()
+        cart_length = Cart.objects.filter(user=user,is_checkout=False).first().product_detail.count()
     except:
         cart_length = 0
 

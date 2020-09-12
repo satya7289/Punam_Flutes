@@ -22,6 +22,8 @@ class Product(models.Model):
     description = models.TextField()
     category = models.ManyToManyField(Category, blank=True)
     images = models.ManyToManyField(ProductImage, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    update_at = models.DateTimeField(auto_now=True, null=False, blank=False)
 
     def __str__(self):
         return self.title

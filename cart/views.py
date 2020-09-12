@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 
-from cart.models import Cart
+from cart.models import Cart, ProductQuantity
 from customer.models import User
 from customer.models import Profile
 from product.models import Product
@@ -22,20 +22,21 @@ class CartView(View):
         user = request.user
         cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
-        products = cart.product.all()
+        product_details = cart.product_detail.all()
         currency = '$'
 
         # Add the price and currency according to the user's location to the product
-        for product in products:
-            price_list = get_price_of_product(request,product)
+        for product in product_details:
+            price_list = get_price_of_product(request,product.product)
             product.price = price_list['price']
             product.currency = price_list['currency']
             currency = price_list['currency']
 
         context = {
             'cart': cart,
-            'products': products,
-            'currency': currency
+            'products': product_details,
+            'currency': currency,
+            'range': [i+1 for i in range(10)]
         }
         return render(request, self.template_name, context)
 
@@ -45,15 +46,25 @@ class AddToCart(View):
         '''
         Add products to the user's cart.
         '''
-        user = request.user                                                 # Get the logged in user.
-        product = Product.objects.get(id=request.POST.get('product_id'))    # Get the product
-        cart = Cart.objects.filter(user=user,is_checkout=False).first()     # Get the user's cart(which has not been checked in).
+        user = request.user                                                 
+        product_id = request.POST.get('product_id')
+        quantity = request.POST.get('quantity')
+
+        product = Product.objects.get(id=product_id)
+        cart = Cart.objects.filter(user=user,is_checkout=False).first() 
 
         if cart:
-            cart.product.add(product)
+            product_quantity = ProductQuantity.objects.filter(product=product, cart=cart).first()
+            if product_quantity:
+                product_quantity.quantity = quantity
+                product_quantity.save()
+            else:
+                product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity) 
+                cart.product_detail.add(product_quantity)
         else:
             cart = Cart.objects.create(user=user)
-            cart.product.add(product)
+            product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity) 
+            cart.product_detail.add(product_quantity)
 
         return redirect('cart')
 
@@ -63,12 +74,15 @@ class RemoveFromCart(View):
         '''
         Remove product from the user's cart.
         '''
-        user = request.user                                             
-        product = Product.objects.get(id=request.GET.get('product_id'))    
-        cart = Cart.objects.get(id=request.GET.get('cart_id'))     
+        product_id = request.GET.get('product_id')
+        cart_id = request.GET.get('cart_id')
+        user = request.user                         
+        cart = Cart.objects.get(id=cart_id)          
+        product = Product.objects.get(id=product_id)                   
 
         if cart:
-            cart.product.remove(product)
+            product_detail = ProductQuantity.objects.filter(product=product, cart=cart).first() 
+            cart.product_detail.remove(product_detail)
             data = {'message': 'success'}
             return JsonResponse(data)
             

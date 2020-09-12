@@ -153,8 +153,8 @@
 
                     <!-- Submit -->
                     <select class="custom-select custom-select-xl w-auto " name="quantity">
-                      {% for i in '1234567890'|make_list %}
-                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                      {% for i in range %}
+                        <option value="{{ i }}">{{ i }}</option>
                       {% endfor %}
                     </select>
 
