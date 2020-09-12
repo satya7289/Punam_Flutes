@@ -6,6 +6,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 from cart.models import Cart
 from customer.models import User
@@ -25,8 +26,6 @@ class CartView(View):
 
 
 class AddToCart(View):
-    template_name = 'cart.html'
-
     def post(self, request, *args, **kwargs):
         '''
         Add products to the user's cart.
@@ -43,6 +42,24 @@ class AddToCart(View):
 
         return redirect('cart')
 
+
+class RemoveFromCart(View):
+    def get(self, request, *args, **kwargs):
+        '''
+        Remove product from the user's cart.
+        '''
+        user = request.user                                             
+        product = Product.objects.get(id=request.GET.get('product_id'))    
+        cart = Cart.objects.get(id=request.GET.get('cart_id'))     
+
+        if cart:
+            cart.product.remove(product)
+            data = {'message': 'success'}
+            return JsonResponse(data)
+            
+        data = {'message': 'fail'}
+        return JsonResponse(data)
+        
 
 class Checkout(View):
     template_name = 'checkout.html'
