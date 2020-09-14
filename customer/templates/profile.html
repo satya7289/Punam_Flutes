@@ -1,0 +1,88 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<section class="pt-7 pb-12">
+    <div class="container">
+        <div class="col-12 text-center">
+            <h3 class="mb-4">Profile</h3>
+        </div>
+
+        <div class="col-12">
+            <form action="{% url 'customer_profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row mb-9">
+                    <div class="col-12 col-md-4">
+    
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        {% if profile %}
+                            <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name" value="{{ profile.first_name}}">
+                        {% else %}
+                            <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name">
+                        {% endif %}
+                    </div>
+    
+                    </div>
+                    <!-- Middle name -->
+                    <div class="col-12 col-md-4">
+    
+                        <!-- Last Name -->
+                        <div class="form-group">
+                        <label for="middleName">Middle Name *</label>
+                        {% if profile %}
+                            <input class="form-control form-control-sm" id="middleName" type="text" placeholder="Middle Name" required name="middle_name" value="{{ profile.middle_name}}">
+                        {% else %}
+                            <input class="form-control form-control-sm" id="middleName" type="text" placeholder="Middle Name" required name="middle_name">
+                        {% endif %}
+                        </div>
+    
+                    </div>
+                    <div class="col-12 col-md-4">
+    
+                        <!-- Last Name -->
+                        <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        {% if profile %}
+                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name" value="{{ profile.last_name}}">
+                        {% else %}
+                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name">
+                        {% endif %}
+                        </div>
+    
+                    </div>
+                    <div class="col-6 col-md-6">
+    
+                        <!-- Email -->
+                        <div class="form-group">
+                        <label for="checkoutBillingEmail">Email *</label>
+                        <p id="checkoutBillingEmail">{{ email }}</p>
+                        </div>
+    
+                    </div>
+                    <div class="col-6 col-md-6">
+    
+                        <!-- Mobile Phone -->
+                        <div class="form-group mb-0">
+                        <label for="checkoutBillingPhone">Mobile Phone *</label>
+                        {% if profile %}
+                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number" value="{{ profile.contact_number}}">
+                        {% else %}
+                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number">
+                        {% endif %}
+                        </div>
+    
+                    </div>
+                    <div class="col-md-2 offset-md-5 text-center mt-5">
+                        <button class="btn btn-block btn-dark" type="submit">
+                            Update
+                          </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

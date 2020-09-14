@@ -1,4 +1,5 @@
 import os
+from django.views.generic import View
 from datetime import datetime, timedelta
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
@@ -12,6 +13,8 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from category.models import Category
 from PunamFlutes.tokens import account_activation_token
+
+from customer.models import Profile
 
 User = get_user_model()
 
@@ -143,3 +146,39 @@ def customer_logout(request):
         logout(request)
 
     return redirect('/')
+
+class CustomerProfile(View):
+    template_name = 'profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        profile = Profile.objects.filter(user=user).first()
+        if not profile:
+            profile = None
+
+        context ={
+            'profile': profile,
+            'email' : user.email
+        }
+        print(profile)
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        first_name = request.POST.get('first_name')
+        middle_name = request.POST.get('middle_name')
+        last_name = request.POST.get('last_name')
+        contact_number = request.POST.get('contact_number')
+
+        user = request.user
+        profile = Profile.objects.filter(user=user).first()
+        
+        if profile:
+            profile.first_name = first_name
+            profile.middle_name = middle_name
+            profile.last_name = last_name
+            profile.contact_number = contact_number
+            profile.save()
+            return redirect('customer_profile')
+
+        profile = Profile.objects.create(user=user, first_name=first_name, middle_name=middle_name, last_name=last_name, contact_number=contact_number)
+        return redirect('customer_profile')

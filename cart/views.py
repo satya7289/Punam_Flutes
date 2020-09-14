@@ -131,15 +131,26 @@ class Checkout(View):
 
 
 def process_payment(request):
-    cart_id = request.session.get('cart_id')
-    order = get_object_or_404(Cart, id=cart_id)
+    # cart_id = request.session.get('cart_id')
+    # order = get_object_or_404(Cart, id=cart_id)
     host = request.get_host()
+
+    # paypal_dict = {
+    #     'business': settings.PAYPAL_RECEIVER_EMAIL,
+    #     'amount': '%.2f' % order.total_cost().quantize(Decimal('.01')),
+    #     'item_name': 'Order {}'.format(order.id),
+    #     'invoice': str(order.id),
+    #     'currency_code': 'USD',
+    #     'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
+    #     'return_url': 'http://{}{}'.format(host, reverse('payment_done')),
+    #     'cancel_return': 'http://{}{}'.format(host, reverse('payment_cancelled')),
+    # }
 
     paypal_dict = {
         'business': settings.PAYPAL_RECEIVER_EMAIL,
-        'amount': '%.2f' % order.total_cost().quantize(Decimal('.01')),
-        'item_name': 'Order {}'.format(order.id),
-        'invoice': str(order.id),
+        'amount': '100',
+        'item_name': 'Order {}'.format(11),
+        'invoice': str(11),
         'currency_code': 'USD',
         'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
         'return_url': 'http://{}{}'.format(host, reverse('payment_done')),
@@ -147,7 +158,7 @@ def process_payment(request):
     }
 
     form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request, 'process_payment.html', {'order': order, 'form': form})
+    return render(request, 'process_payment.html', {'order': 'order', 'form': form})
 
 @csrf_exempt
 def payment_done(request):

@@ -34,11 +34,12 @@
   
               <!-- Heading -->
               <h3 class="mb-4">Checkout</h3>
-  
-              <!-- Subheading -->
-              <p class="mb-10">
-                Already have an account? <a class="font-weight-bold text-reset" href="#!">Click here to login</a>
-              </p>
+              {% if not request.user.is_authenticated %}
+                <!-- Subheading -->
+                <p class="mb-10">
+                  Already have an account? <a class="font-weight-bold text-reset" href="{% url 'customer_login' %}">Click here to login</a>
+                </p>
+              {% endif %}
   
             </div>
           </div>
@@ -58,152 +59,85 @@
                     <!-- First Name -->
                     <div class="form-group">
                       <label for="checkoutBillingFirstName">First Name *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingFirstName" type="text" placeholder="First Name" required>
+                      <input class="form-control form-control-sm" id="checkoutBillingFirstName" type="text" placeholder="First Name" required name="first_name">
                     </div>
   
-                  </div>
-                  <div class="col-12 col-md-6">
-  
-                    <!-- Last Name -->
-                    <div class="form-group">
-                      <label for="checkoutBillingLastName">Last Name *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingLastName" type="text" placeholder="Last Name" required>
                     </div>
-  
-                  </div>
-                  <div class="col-12">
-  
-                    <!-- Email -->
-                    <div class="form-group">
-                      <label for="checkoutBillingEmail">Email *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingEmail" type="email" placeholder="Email" required>
+                    <div class="col-12 col-md-6">
+    
+                      <!-- Last Name -->
+                      <div class="form-group">
+                        <label for="checkoutBillingLastName">Last Name *</label>
+                        <input class="form-control form-control-sm" id="checkoutBillingLastName" type="text" placeholder="Last Name" required name="last_name">
+                      </div>
+    
                     </div>
-  
-                  </div>
-                  <div class="col-12">
-  
-                    <!-- Company Name -->
-                    <div class="form-group">
-                      <label for="checkoutBillingCompany">Company name *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingCompany" type="text" placeholder="Company name (optional)">
+                    <div class="col-12">
+    
+                      <!-- Email -->
+                      <div class="form-group">
+                        <label for="checkoutBillingEmail">Email *</label>
+                        <input class="form-control form-control-sm" id="checkoutBillingEmail" type="email" placeholder="Email" required name="email">
+                      </div>
+    
                     </div>
+                    <div class="col-12">
   
-                  </div>
-                  <div class="col-12">
-  
-                    <!-- Country -->
-                    <div class="form-group">
-                      <label for="checkoutBillingCountry">Country *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingCountry" type="text" placeholder="Country" required>
+                      <!-- Mobile Phone -->
+                      <div class="form-group mb-0">
+                        <label for="checkoutBillingPhone">Mobile Phone *</label>
+                        <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number">
+                      </div>
+    
                     </div>
-  
-                  </div>
-                  <div class="col-12">
-  
-                    <!-- Address Line 1 -->
-                    <div class="form-group">
-                      <label for="checkoutBillingAddress">Address Line 1 *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingAddress" type="text" placeholder="Address Line 1" required>
-                    </div>
-  
-                  </div>
-                  <div class="col-12">
-  
-                    <!-- Address Line 2 -->
-                    <div class="form-group">
-                      <label for="checkoutBillingAddressTwo">Address Line 2</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingAddressTwo" type="text" placeholder="Address Line 2 (optional)">
-                    </div>
-  
-                  </div>
-                  <div class="col-12 col-md-6">
-  
-                    <!-- Town / City -->
-                    <div class="form-group">
-                      <label for="checkoutBillingTown">Town / City *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingTown" type="text" placeholder="Town / City" required>
-                    </div>
-  
-                  </div>
-                  <div class="col-12 col-md-6">
-  
-                    <!-- ZIP / Postcode -->
-                    <div class="form-group">
-                      <label for="checkoutBillingZIP">ZIP / Postcode *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingZIP" type="text" placeholder="ZIP / Postcode" required>
-                    </div>
-  
-                  </div>
-                  <div class="col-12">
-  
-                    <!-- Mobile Phone -->
-                    <div class="form-group mb-0">
-                      <label for="checkoutBillingPhone">Mobile Phone *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required>
-                    </div>
-  
-                  </div>
                 </div>
   
                 <!-- Heading -->
-                <h6 class="mb-7">Shipping Details</h6>
-  
-                <!-- Shipping details -->
-                <div class="table-responsive mb-6">
-                  <table class="table table-bordered table-sm table-hover mb-0">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="custom-control custom-radio">
-                            <input class="custom-control-input" id="checkoutShippingStandard" name="shipping" type="radio">
-                            <label class="custom-control-label text-body text-nowrap" for="checkoutShippingStandard">
-                              Standard Shipping
-                            </label>
-                          </div>
-                        </td>
-                        <td>Delivery in 5 - 7 working days</td>
-                        <td>$8.00</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="custom-control custom-radio">
-                            <input class="custom-control-input" id="checkoutShippingExpress" name="shipping" type="radio">
-                            <label class="custom-control-label text-body text-nowrap" for="checkoutShippingExpress">
-                              Express Shipping
-                            </label>
-                          </div>
-                        </td>
-                        <td>Delivery in 3 - 5 working days</td>
-                        <td>$12.00</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="custom-control custom-radio">
-                            <input class="custom-control-input" id="checkoutShippingShort" name="shipping" type="radio">
-                            <label class="custom-control-label text-body text-nowrap" for="checkoutShippingShort">
-                              1 - 2 Shipping
-                            </label>
-                          </div>
-                        </td>
-                        <td>Delivery in 1 - 2 working days</td>
-                        <td>$18.00</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="custom-control custom-radio">
-                            <input class="custom-control-input" id="checkoutShippingFree" name="shipping" type="radio">
-                            <label class="custom-control-label text-body text-nowrap" for="checkoutShippingFree">
-                              Free Shipping
-                            </label>
-                          </div>
-                        </td>
-                        <td>Living won't the He one every subdue
-                          meat replenish face was you morning
-                          firmament darkness.</td>
-                        <td>$0.00</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <h6 class="mb-7">Shipping Address</h6>
+                <div class="col-12">
+
+                <!-- Country -->
+                <div class="form-group">
+                  <label for="checkoutBillingCountry">Country *</label>
+                  <input class="form-control form-control-sm" id="checkoutBillingCountry" type="text" placeholder="Country" required name="country">
+                </div>
+
+                </div>
+                <div class="col-12">
+
+                <!-- Address Line 1 -->
+                <div class="form-group">
+                  <label for="checkoutBillingAddress">Address Line 1 *</label>
+                  <input class="form-control form-control-sm" id="checkoutBillingAddress" type="text" placeholder="Address Line 1" required name="address1">
+                </div>
+
+                </div>
+                <div class="col-12">
+
+                  <!-- Address Line 2 -->
+                  <div class="form-group">
+                    <label for="checkoutBillingAddressTwo">Address Line 2</label>
+                    <input class="form-control form-control-sm" id="checkoutBillingAddressTwo" type="text" placeholder="Address Line 2 (optional)" name="address2">
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-6">
+
+                  <!-- Town / City -->
+                  <div class="form-group">
+                    <label for="checkoutBillingTown">Town / City *</label>
+                    <input class="form-control form-control-sm" id="checkoutBillingTown" type="text" placeholder="Town / City" required name="city">
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-6">
+
+                  <!-- ZIP / Postcode -->
+                  <div class="form-group">
+                    <label for="checkoutBillingZIP">ZIP / Postcode *</label>
+                    <input class="form-control form-control-sm" id="checkoutBillingZIP" type="text" placeholder="ZIP / Postcode" required name="pincode">
+                  </div>
+
                 </div>
   
                 <!-- Address -->
@@ -284,92 +218,39 @@
   
                 <!-- List group -->
                 <div class="list-group list-group-sm mb-7">
+                  
                   <div class="list-group-item">
-  
+
                     <!-- Radio -->
                     <div class="custom-control custom-radio">
-  
+
                       <!-- Input -->
-                      <input class="custom-control-input" id="checkoutPaymentCard" name="payment" type="radio" data-toggle="collapse" data-action="show" data-target="#checkoutPaymentCardCollapse">
-  
-                      <!-- Label -->
-                      <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentCard">
-                        Credit Card <img class="ml-2" src="{% static 'assets/img/brands/color/cards.svg' %}" alt="...">
-                      </label>
-  
-                    </div>
-  
-                  </div>
-                  <div class="list-group-item collapse py-0" id="checkoutPaymentCardCollapse">
-  
-                    <!-- Form -->
-                    <div class="form-row py-5">
-                      <div class="col-12">
-                        <div class="form-group mb-4">
-                          <label class="sr-only" for="checkoutPaymentCardNumber">Card Number</label>
-                          <input class="form-control form-control-sm" id="checkoutPaymentCardNumber" type="text" placeholder="Card Number *" required>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-group mb-4">
-                          <label class="sr-only" for="checkoutPaymentCardName">Name on Card</label>
-                          <input class="form-control form-control-sm" id="checkoutPaymentCardName" type="text" placeholder="Name on Card *" required>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <div class="form-group mb-md-0">
-                          <label class="sr-only" for="checkoutPaymentMonth">Month</label>
-                          <select class="custom-select custom-select-sm" id="checkoutPaymentMonth">
-                            <option>January</option>
-                            <option>February</option>
-                            <option>March</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <div class="form-group mb-md-0">
-                          <label class="sr-only" for="checkoutPaymentCardYear">Year</label>
-                          <select class="custom-select custom-select-sm" id="checkoutPaymentCardYear">
-                            <option>2017</option>
-                            <option>2018</option>
-                            <option>2019</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-12 col-md-4">
-                        <div class="input-group input-group-merge">
-                          <input class="form-control form-control-sm" id="checkoutPaymentCardCVV" type="text" placeholder="CVV *" required>
-                          <div class="input-group-append">
-                            <span class="input-group-text" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="The CVV Number on your credit card or debit card is a 3 digit number on VISA, MasterCard and Discover branded credit and debit cards.">
-                              <i class="fe fe-help-circle"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-  
-                  </div>
-                  <div class="list-group-item">
-  
-                    <!-- Radio -->
-                    <div class="custom-control custom-radio">
-  
-                      <!-- Input -->
-                      <input class="custom-control-input" id="checkoutPaymentPaypal" name="payment" type="radio" data-toggle="collapse" data-action="hide" data-target="#checkoutPaymentCardCollapse">
+                      <input class="custom-control-input" id="checkoutPaymentPaypal" name="paypal" type="radio">
   
                       <!-- Label -->
                       <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
                         <img src="{% static 'assets/img/brands/color/paypal.svg' %}" alt="...">
                       </label>
+                    </div>
   
+                  </div>
+
+                  <div class="list-group-item">
+
+                    <!-- Radio -->
+                    <div class="custom-control custom-radio">
+
+                      <!-- Input -->
+                      <input class="custom-control-input" id="checkoutPaymentPayu" name="payu" type="radio">
+  
+                      <!-- Label -->
+                      <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPayu">
+                        <img src="{% static 'assets/img/brands/color/payu.svg' %}" alt="...">
+                      </label>
                     </div>
   
                   </div>
                 </div>
-  
-                <!-- Notes -->
-                <textarea class="form-control form-control-sm mb-9 mb-md-0 font-size-xs" rows="5" placeholder="Order Notes (optional)"></textarea>
-  
               </form>
   
             </div>
