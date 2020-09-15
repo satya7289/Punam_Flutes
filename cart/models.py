@@ -21,12 +21,13 @@ class Cart(models.Model):
     def __str__(self):
         return self.user.email + " " + str(self.is_checkout)
 
-class Checkout(models.Model):
+class Order(models.Model):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    total = models.FloatField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     update_at = models.DateTimeField(auto_now=True, null=False, blank=False)
 
     def __str__(self):
-        return self.profile
+        return self.profile.first_name +' '+ self.profile.last_name

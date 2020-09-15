@@ -33,7 +33,6 @@ class Address(models.Model):
 
 
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=1024, null=False, blank=False)
     # Field for City/Town.
     city = models.CharField(max_length=16, null=False, blank=False)

@@ -33,7 +33,7 @@ class UpdateAddress(View):
         state = request.POST.get('state')
         postal_code = request.POST.get('postal_code')
         country = request.POST.get('country')
-        address_id = request.POST.get('id')
+        address_id = request.POST.get('address_id')
 
         address = Address.objects.get(id=address_id)
         

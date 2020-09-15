@@ -106,163 +106,136 @@
   
                 <!-- Heading -->
                 <h6 class="mb-7">Shipping Address</h6>
+                <!-- <div class="col-12">
+                  {% for add in user_address %}
+                    {% if forloop.counter is 1%}
+                      <div class="radio"><label><input type="radio" name="address" id='address' checked data-id="{{ add.id }}">{{ add }}</label></div>
+                    {% else %}
+                      <div class="radio"><label><input type="radio" name="address" id='address' data-id="{{ add.id }}">{ add }</label></div>
+                    {% endif %}
+                  {% endfor %}
+                </div> -->
+
                 <div class="col-12">
-
-                <!-- Country -->
-                <div class="form-group">
-                  <label for="checkoutBillingCountry">Country *</label>
-                  <input class="form-control form-control-sm" id="checkoutBillingCountry" type="text" placeholder="Country" required name="country">
+                  <select class="form-control" name="address">
+                    {% for add in user_address %}
+                      {% if forloop.counter is 1%}
+                        <option selected value="{{ cart.id }}"> {{ add }}</option>
+                      {% else %}
+                        <option value="{{ cart.id }}"> {{ add }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
                 </div>
 
-                </div>
+                <!-- {% if user_address %}
                 <div class="col-12">
-
-                <!-- Address Line 1 -->
-                <div class="form-group">
-                  <label for="checkoutBillingAddress">Address Line 1 *</label>
-                  <input class="form-control form-control-sm" id="checkoutBillingAddress" type="text" placeholder="Address Line 1" required name="address1">
-                </div>
-
-                </div>
-                <div class="col-12">
-
-                  <!-- Address Line 2 -->
                   <div class="form-group">
-                    <label for="checkoutBillingAddressTwo">Address Line 2</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingAddressTwo" type="text" placeholder="Address Line 2 (optional)" name="address2">
+                      <label for="country">Country *</label>
+                      <input class="form-control form-control-sm" id="country" type="text" placeholder="Country" required name="country" value="{{ user_address.country }}">
                   </div>
-
-                </div>
-                <div class="col-12 col-md-6">
-
-                  <!-- Town / City -->
-                  <div class="form-group">
-                    <label for="checkoutBillingTown">Town / City *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingTown" type="text" placeholder="Town / City" required name="city">
-                  </div>
-
-                </div>
-                <div class="col-12 col-md-6">
-
-                  <!-- ZIP / Postcode -->
-                  <div class="form-group">
-                    <label for="checkoutBillingZIP">ZIP / Postcode *</label>
-                    <input class="form-control form-control-sm" id="checkoutBillingZIP" type="text" placeholder="ZIP / Postcode" required name="pincode">
-                  </div>
-
-                </div>
   
+                  </div>
+                  <div class="col-12">
+                  <div class="form-group">
+                      <label for="street">Street Address *</label>
+                      <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address" value="{{ user_address.street_address }}">
+                  </div>
+  
+                  </div>
+                 
+                  <div class="col-12">
+  
+                      <div class="form-group">
+                      <label for="city">Town / City *</label>
+                      <input class="form-control form-control-sm" id="city" type="text" placeholder="City" required name="city" value="{{ user_address.city }}">
+                      </div>
+  
+                  </div>
+
+                  <div class="col-12">
+                      <div class="form-group">
+                      <label for="state">State *</label>
+                      <input class="form-control form-control-sm" id="state" type="text" placeholder="State" required name="state" value="{{ user_address.state }}">
+                      </div>
+  
+                  </div>
+                  <div class="col-12">
+  
+                      <div class="form-group">
+                      <label for="postal_code">ZIP / Postcode *</label>
+                      <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code" value="{{ user_address.postal_code }}">
+                      </div>
+  
+                  </div>
+
+                {% endif %} -->
                 <!-- Address -->
-                <div class="mb-9">
-  
-                  <!-- Checkbox -->
+                <!-- <div class="mb-9">
                   <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" id="checkoutShippingAddress" type="checkbox">
                     <label class="custom-control-label font-size-sm" data-toggle="collapse" data-target="#checkoutShippingAddressCollapse" for="checkoutShippingAddress">
                       Ship to a different address?
                     </label>
                   </div>
-  
-                  <!-- Collapse -->
                   <div class="collapse" id="checkoutShippingAddressCollapse">
                     <div class="row mt-6">
-                      <div class="col-12">
-  
-                        <!-- Country -->
-                        <div class="form-group">
-                          <label for="checkoutShippingAddressCountry">Country *</label>
-                          <input class="form-control form-control-sm" id="checkoutShippingAddressCountry" type="text" placeholder="Country">
-                        </div>
-  
-                      </div>
-                      <div class="col-12">
-  
-                        <!-- Address Line 1 -->
-                        <div class="form-group">
-                          <label for="checkoutShippingAddressLineOne">Address Line 1 *</label>
-                          <input class="form-control form-control-sm" id="checkoutShippingAddressLineOne" type="text" placeholder="Address Line 1">
-                        </div>
-  
-                      </div>
-                      <div class="col-12">
-  
-                        <!-- Address Line 2 -->
-                        <div class="form-group">
-                          <label for="checkoutShippingAddressLineTwo">Address Line 2</label>
-                          <input class="form-control form-control-sm" id="checkoutShippingAddressLineTwo" type="text" placeholder="Address Line 2 (optional)">
-                        </div>
-  
-                      </div>
-                      <div class="col-6">
-  
-                        <!-- Town / City -->
-                        <div class="form-group">
-                          <label for="checkoutShippingAddressTown">Town / City *</label>
-                          <input class="form-control form-control-sm" id="checkoutShippingAddressTown" type="text" placeholder="Town / City">
-                        </div>
-  
-                      </div>
-                      <div class="col-6">
-  
-                        <!-- Town / City -->
-                        <div class="form-group">
-                          <label for="checkoutShippingAddressZIP">ZIP / Postcode *</label>
-                          <input class="form-control form-control-sm" id="checkoutShippingAddressZIP" type="text" placeholder="ZIP / Postcode">
-                        </div>
-  
-                      </div>
-                      <div class="col-12">
-  
-                        <!-- Button -->
-                        <button class="btn btn-sm btn-outline-dark" type="submit">
-                          Save Address
-                        </button>
-  
-                      </div>
+                      <form action="{% url 'create_address' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                          <div class="col-12">
+                          <div class="form-group">
+                              <label for="country">Country *</label>
+                              <input class="form-control form-control-sm" id="country" type="text" placeholder="Country" required name="country">
+                          </div>
+          
+                          </div>
+                          <div class="col-12">
+                          <div class="form-group">
+                              <label for="street">Street Address *</label>
+                              <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address">
+                          </div>
+          
+                          </div>
+                         
+                          <div class="col-12 col-md-4">
+                              <div class="form-group">
+                              <label for="city">Town / City *</label>
+                              <input class="form-control form-control-sm" id="city" type="text" placeholder="City" required name="city">
+                              </div>
+          
+                          </div>
+      
+                          <div class="col-12 col-md-4">
+                              <div class="form-group">
+                              <label for="state">State *</label>
+                              <input class="form-control form-control-sm" id="state" type="text" placeholder="State" required name="state">
+                              </div>
+          
+                          </div>
+                          <div class="col-12 col-md-4">
+                              <div class="form-group">
+                              <label for="postal_code">ZIP / Postcode *</label>
+                              <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code">
+                              </div>
+          
+                          </div>
+                          <div class="col-12">
+                              <button class="btn btn-sm btn-outline-dark" type="submit">
+                              Save Address
+                              </button>
+      
+                          </div>
+                      </form>
+
                     </div>
                   </div>
   
-                </div>
+                </div> -->
   
   
-                <!-- Heading -->
-                <h6 class="mb-7">Payment</h6>
-  
-                <!-- List group -->
-                <div class="list-group list-group-sm mb-7">
-                  
-                  <div class="list-group-item">
-
-                    <!-- Radio -->
-                    <div class="custom-control custom-radio">
-
-                      <!-- Input -->
-                      <input class="custom-control-input" id="checkoutPaymentPaypal" name="paypal" type="radio">
-  
-                      <!-- Label -->
-                      <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
-                        <img src="{% static 'assets/img/brands/color/paypal.svg' %}" alt="...">
-                      </label>
-                    </div>
-  
-                  </div>
-
-                  <div class="list-group-item">
-
-                    <!-- Radio -->
-                    <div class="custom-control custom-radio">
-
-                      <!-- Input -->
-                      <input class="custom-control-input" id="checkoutPaymentPayu" name="payu" type="radio">
-  
-                      <!-- Label -->
-                      <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPayu">
-                        <img src="{% static 'assets/img/brands/color/payu.svg' %}" alt="...">
-                      </label>
-                    </div>
-  
-                  </div>
-                </div>
+               
+                <input type="hidden" name="total" value="0">
+                <input type="hidden" name='cart_id' value="{{ cart.id }}">
               </form>
   
             </div>
@@ -296,10 +269,10 @@
                       </p>
   
                       <!-- Text -->
-                      <div class="font-size-sm text-muted">
+                      <!-- <div class="font-size-sm text-muted">
                         Size: M <br>
                         Color: Red
-                      </div>
+                      </div> -->
   
                     </div>
                   </div>
@@ -328,11 +301,11 @@
               </div>
   
               <!-- Disclaimer -->
-              <p class="mb-7 font-size-xs text-gray-500">
+              <!-- <p class="mb-7 font-size-xs text-gray-500">
                 Your personal data will be used to process your order, support
                 your experience throughout this website, and for other purposes
                 described in our privacy policy.
-              </p>
+              </p> -->
   
               <!-- Button -->
               <button class="btn btn-block btn-dark" id='process-btn'>
@@ -372,6 +345,7 @@ function updateSubTotal(){
   $('#total').html(currency + Subtotal);
   $('#tax').html(currency + tax);
   $('#shipping').html(currency + Shipping);
+  $('[name=total]').val(Subtotal);
 }
 
 </script>
