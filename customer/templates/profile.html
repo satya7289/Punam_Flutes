@@ -5,6 +5,9 @@
 <section class="pt-7 pb-12">
     <div class="container">
         <div class="col-12 text-center">
+            {% for message in messages %}
+                <span class="text-sucess center" id="error_login">{{message}}!!!</span><br />
+            {% endfor %}
             <h3 class="mb-4">Profile</h3>
         </div>
 
@@ -18,7 +21,7 @@
                     <div class="form-group">
                         <label for="firstName">First Name *</label>
                         {% if profile %}
-                            <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name" value="{{ profile.first_name}}">
+                            <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name" value="{{ address.first_name}}">
                         {% else %}
                             <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name">
                         {% endif %}
@@ -32,7 +35,7 @@
                         <div class="form-group">
                         <label for="middleName">Middle Name *</label>
                         {% if profile %}
-                            <input class="form-control form-control-sm" id="middleName" type="text" placeholder="Middle Name" required name="middle_name" value="{{ profile.middle_name}}">
+                            <input class="form-control form-control-sm" id="middleName" type="text" placeholder="Middle Name" required name="middle_name" value="{{ address.middle_name}}">
                         {% else %}
                             <input class="form-control form-control-sm" id="middleName" type="text" placeholder="Middle Name" required name="middle_name">
                         {% endif %}
@@ -45,7 +48,7 @@
                         <div class="form-group">
                         <label for="lastName">Last Name *</label>
                         {% if profile %}
-                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name" value="{{ profile.last_name}}">
+                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name" value="{{ address.last_name}}">
                         {% else %}
                             <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name">
                         {% endif %}
@@ -67,7 +70,7 @@
                         <div class="form-group mb-0">
                         <label for="checkoutBillingPhone">Mobile Phone *</label>
                         {% if profile %}
-                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number" value="{{ profile.contact_number}}">
+                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number" value="{{ address.contact_number}}">
                         {% else %}
                             <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number">
                         {% endif %}
@@ -84,5 +87,164 @@
         </div>
 
     </div>
+
+
+    <div class="container mt-5">
+        <div class="col-12 text-center">
+            <h3 class="mb-4">Address</h3>
+        </div>
+
+        <div class="col-12">
+            {% for address in addresses %}
+            <form action="{% url 'update_address' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h6>Address No 1</h6>
+                <div class="row mb-9">
+                    <div class="col-12">
+
+                    <!-- Country -->
+                    <div class="form-group">
+                        <label for="country{{ forloop.counter }}">Country *</label>
+                        <input class="form-control form-control-sm" id="country{{ forloop.counter }}" type="text" placeholder="Country" required name="country" value="{{ address.country }}">
+                    </div>
+    
+                    </div>
+                    <div class="col-12">
+
+                    <!-- Street Address -->
+                    <div class="form-group">
+                        <label for="street{{ forloop.counter }}">Street Address *</label>
+                        <input class="form-control form-control-sm" id="street{{ forloop.counter }}" type="text" placeholder="street address" required name="street_address" value="{{ address.street_address }}">
+                    </div>
+    
+                    </div>
+                   
+                    <div class="col-12 col-md-4">
+    
+                        <!-- City -->
+                        <div class="form-group">
+                        <label for="city{{ forloop.counter }}">Town / City *</label>
+                        <input class="form-control form-control-sm" id="city{{ forloop.counter }}" type="text" placeholder="City" required name="city" value="{{ address.city }}">
+                        </div>
+    
+                    </div>
+
+                    <div class="col-12 col-md-4">
+    
+                        <!-- State -->
+                        <div class="form-group">
+                        <label for="state{{ forloop.counter }}">State *</label>
+                        <input class="form-control form-control-sm" id="state{{ forloop.counter }}" type="text" placeholder="State" required name="state" value="{{ address.state }}">
+                        </div>
+    
+                    </div>
+                    <div class="col-12 col-md-4">
+    
+                        <!-- ZIP / Postcode -->
+                        <div class="form-group">
+                        <label for="postal_code{{ forloop.counter }}">ZIP / Postcode *</label>
+                        <input class="form-control form-control-sm" id="postal_code{{ forloop.counter }}" type="text" placeholder="ZIP / Postcode" required name="postal_code" value="{{ address.postal_code }}">
+                        </div>
+    
+                    </div>
+                    <input type="hidden" name="address_id" value="{{ address.id }}">
+                    <div class="col-12">
+                        
+                        <!-- Button -->
+                        <button class="btn btn-sm btn-outline-dark" type="submit">
+                        Update Address
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+            <hr>
+            {% endfor %}
+
+            <!-- Add another Address -->
+            <div class="mb-9">
+
+                <!-- Checkbox -->
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" id="checkoutShippingAddress" type="checkbox">
+                    <label class="custom-control-label font-size-sm" data-toggle="collapse" data-target="#checkoutShippingAddressCollapse" for="checkoutShippingAddress">
+                    Add  address?
+                    </label>
+                </div>
+
+                <!-- Collapse -->
+                <div class="collapse" id="checkoutShippingAddressCollapse">
+                    <div class="row mt-6">
+                    <div class="col-12">
+
+                        <form action="{% url 'create_address' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <h6>Address No 1</h6>
+                            <div class="row mb-9">
+                                <div class="col-12">
+            
+                                <!-- Country -->
+                                <div class="form-group">
+                                    <label for="country">Country *</label>
+                                    <input class="form-control form-control-sm" id="country" type="text" placeholder="Country" required name="country">
+                                </div>
+                
+                                </div>
+                                <div class="col-12">
+            
+                                <!-- Street Address -->
+                                <div class="form-group">
+                                    <label for="street">Street Address *</label>
+                                    <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address">
+                                </div>
+                
+                                </div>
+                               
+                                <div class="col-12 col-md-4">
+                
+                                    <!-- City -->
+                                    <div class="form-group">
+                                    <label for="city">Town / City *</label>
+                                    <input class="form-control form-control-sm" id="city" type="text" placeholder="City" required name="city">
+                                    </div>
+                
+                                </div>
+            
+                                <div class="col-12 col-md-4">
+                
+                                    <!-- State -->
+                                    <div class="form-group">
+                                    <label for="state">State *</label>
+                                    <input class="form-control form-control-sm" id="state" type="text" placeholder="State" required name="state">
+                                    </div>
+                
+                                </div>
+                                <div class="col-12 col-md-4">
+                
+                                    <!-- ZIP / Postcode -->
+                                    <div class="form-group">
+                                    <label for="postal_code">ZIP / Postcode *</label>
+                                    <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code">
+                                    </div>
+                
+                                </div>
+                                <div class="col-12">
+            
+                                    <!-- Button -->
+                                    <button class="btn btn-sm btn-outline-dark" type="submit">
+                                    Save Address
+                                    </button>
+            
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
 </section>
 {% endblock %}

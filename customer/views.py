@@ -15,6 +15,9 @@ from category.models import Category
 from PunamFlutes.tokens import account_activation_token
 
 from customer.models import Profile
+from address.models import Address
+from cities_light.models import City
+from cities_light.models import Country
 
 User = get_user_model()
 
@@ -151,16 +154,26 @@ class CustomerProfile(View):
     template_name = 'profile.html'
 
     def get(self, request, *args, **kwargs):
+        # Get the logged in user
         user = request.user
+
+        # Get the profile of the user
         profile = Profile.objects.filter(user=user).first()
+
+        # Get all the address of the user
+        address = Address.objects.filter(user=user)
+
         if not profile:
             profile = None
+        
+        if not address:
+            address = None
 
         context ={
             'profile': profile,
-            'email' : user.email
+            'email' : user.email,
+            'addresses' : address
         }
-        print(profile)
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):

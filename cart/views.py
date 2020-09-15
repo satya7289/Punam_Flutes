@@ -96,6 +96,7 @@ class Checkout(View):
     def get(self, request, *args, **kwargs):
 
         user = request.user
+        profile = Profile.objects.filter(user=user).first()
         cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
         product_details = cart.product_detail.all()
@@ -111,20 +112,13 @@ class Checkout(View):
         context = {
             'cart': cart,
             'orders': product_details,
-            'currency': currency
+            'currency': currency,
+            'profile': profile
         }
-
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        # form = CheckoutForm(request.POST)
-        # if form.is_valid():
-        #     cleaned_data = form.cleaned_data
-
-        #     cart.clear(request)
-
-        #     request.session['order_id'] = o.id
-        #     return redirect('process_payment')
+        print(request.POST)
         return render(request, self.template_name)
 
 

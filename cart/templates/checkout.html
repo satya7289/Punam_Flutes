@@ -47,8 +47,8 @@
             <div class="col-12 col-md-7">
   
               <!-- Form -->
-              <form>
-  
+              <form id='checkout-form' action="{% url 'checkout' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <!-- Heading -->
                 <h6 class="mb-7">Billing Details</h6>
   
@@ -59,7 +59,11 @@
                     <!-- First Name -->
                     <div class="form-group">
                       <label for="checkoutBillingFirstName">First Name *</label>
-                      <input class="form-control form-control-sm" id="checkoutBillingFirstName" type="text" placeholder="First Name" required name="first_name">
+                      {% if profile %}
+                          <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name" value="{{ profile.first_name}}">
+                      {% else %}
+                          <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name">
+                      {% endif %}
                     </div>
   
                     </div>
@@ -67,8 +71,12 @@
     
                       <!-- Last Name -->
                       <div class="form-group">
-                        <label for="checkoutBillingLastName">Last Name *</label>
-                        <input class="form-control form-control-sm" id="checkoutBillingLastName" type="text" placeholder="Last Name" required name="last_name">
+                        <label for="lastName">Last Name *</label>
+                        {% if profile %}
+                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name" value="{{ profile.last_name}}">
+                        {% else %}
+                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name">
+                        {% endif %}
                       </div>
     
                     </div>
@@ -77,7 +85,7 @@
                       <!-- Email -->
                       <div class="form-group">
                         <label for="checkoutBillingEmail">Email *</label>
-                        <input class="form-control form-control-sm" id="checkoutBillingEmail" type="email" placeholder="Email" required name="email">
+                        <p id="checkoutBillingEmail">{{ email }}</p>  
                       </div>
     
                     </div>
@@ -86,7 +94,11 @@
                       <!-- Mobile Phone -->
                       <div class="form-group mb-0">
                         <label for="checkoutBillingPhone">Mobile Phone *</label>
-                        <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number">
+                        {% if profile %}
+                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number" value="{{ profile.contact_number}}">
+                        {% else %}
+                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number">
+                        {% endif %}
                       </div>
     
                     </div>
@@ -323,7 +335,7 @@
               </p>
   
               <!-- Button -->
-              <button class="btn btn-block btn-dark">
+              <button class="btn btn-block btn-dark" id='process-btn'>
                 Place Order
               </button>
   
@@ -339,6 +351,10 @@
 
 $(document).ready(()=>{
   updateSubTotal();
+});
+
+$('#process-btn').click(()=>{
+  $('#checkout-form').submit();
 });
 
 function updateSubTotal(){

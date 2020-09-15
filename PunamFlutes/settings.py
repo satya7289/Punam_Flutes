@@ -50,12 +50,13 @@ LOCAL_APPS = [
     'blog',
     'tax_rules',
     'cart',
-    'paypal.standard.ipn'
 ]
 
 THIRD_PARTY_APPS = [
     'django_countries',
-    'storages'
+    'storages',
+    'cities_light',
+    'paypal.standard.ipn',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
