@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6v)bpqv^z4vnope3^-y$$^#igfrs#d9!ehy5_lh*58jf_nv%c%'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -163,12 +163,7 @@ USE_TZ = True
 
 # AWS details
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = 'AKIA33VTCW2HOUXOEAMT'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'punam-flutes-prods'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
 
 STATIC_URL = AWS_S3_CUSTOM_DOMAIN + 'static/'
 STATICFILES_DIRS = (
