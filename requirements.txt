@@ -50,6 +50,7 @@ pyparsing==2.4.7
 pyquery==1.4.1
 psycopg2-binary
 python-dateutil==2.8.0
+python-decouple==3.4.0
 pytz==2020.1
 pywin32-ctypes==0.2.0
 PyYAML==5.3.1
