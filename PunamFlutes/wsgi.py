@@ -11,9 +11,7 @@ import os
 from decouple import config
 
 from django.core.wsgi import get_wsgi_application
-if config('DEPLOYMENT', cast=bool, default=False):
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PunamFlutes.deployment')
-else:
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PunamFlutes.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PunamFlutes.deployment')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PunamFlutes.settings')
 
 application = get_wsgi_application()
