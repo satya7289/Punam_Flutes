@@ -8,29 +8,20 @@
             {% for message in messages %}
                 <span class="text-sucess center" id="error_login">{{message}}!!!</span><br />
             {% endfor %}
-            <h3 class="mb-4">Payment</h3>
+            <h3 class="mb-4">Choose Payment Method</h3>
         </div>
 
         <div class="col-12 text-center">
             <form id='checkout-continue-form' action="{% url 'process_payment' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- List group -->
-                <div class="list-group list-group-sm mb-7">
-        
-                    <div class="list-group-item">
-
-                        <!-- Radio -->
-                        <div class="custom-control custom-radio">
-
-                        <!-- Input -->
+                <div class="col-12 mb-7">
+                    <!-- Radio -->
+                    <div class="custom-control custom-radio mb-1">
                         <input class="custom-control-input" id="checkoutPaymentPaypal" name="paypal" type="radio">
-
-                        <!-- Label -->
                         <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
                             <img src="{% static 'assets/img/brands/color/paypal.svg' %}" alt="...">
                         </label>
-                        </div>
-
                     </div>
                 </div>
                 <input type="hidden" name="order" value="{{ order.id }}">

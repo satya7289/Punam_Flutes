@@ -125,7 +125,6 @@ class Checkout(View):
 
     def post(self, request, *args, **kwargs):
 
-        print(request.POST)
         # Get all the form data
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
