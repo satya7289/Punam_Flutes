@@ -1,0 +1,277 @@
+[
+    {
+        "model": "product.Product",
+        "pk": 1,
+        "fields": {
+          "title": "product 1",
+          "search_tags": "tag",
+          "description": "description of product 1",
+          "category": "1",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 2,
+        "fields": {
+          "title": "product 2",
+          "search_tags": "tag",
+          "description": "description of product 2",
+          "category": "1",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 3,
+        "fields": {
+          "title": "product 3",
+          "search_tags": "tag",
+          "description": "description of product 3",
+          "category": "1",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 4,
+        "fields": {
+          "title": "product 4",
+          "search_tags": "tag",
+          "description": "description of product 4",
+          "category": "1",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 5,
+        "fields": {
+          "title": "product 5",
+          "search_tags": "tag",
+          "description": "description of product 5",
+          "category": "1",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 6,
+        "fields": {
+          "title": "product 6",
+          "search_tags": "tag",
+          "description": "description of product 6",
+          "category": "2",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 7,
+        "fields": {
+          "title": "product 7",
+          "search_tags": "tag",
+          "description": "description of product 7",
+          "category": "2",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 8,
+        "fields": {
+          "title": "product 8",
+          "search_tags": "tag",
+          "description": "description of product 8",
+          "category": "2",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 9,
+        "fields": {
+          "title": "product 9",
+          "search_tags": "tag",
+          "description": "description of product 9",
+          "category": "2",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 10,
+        "fields": {
+          "title": "product 10",
+          "search_tags": "tag",
+          "description": "description of product 10",
+          "category": "2",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 11,
+        "fields": {
+          "title": "product 11",
+          "search_tags": "tag",
+          "description": "description of product 11",
+          "category": "3",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 12,
+        "fields": {
+          "title": "product 12",
+          "search_tags": "tag",
+          "description": "description of product 12",
+          "category": "3",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 13,
+        "fields": {
+          "title": "product 13",
+          "search_tags": "tag",
+          "description": "description of product 13",
+          "category": "3",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 14,
+        "fields": {
+          "title": "product 14",
+          "search_tags": "tag",
+          "description": "description of product 14",
+          "category": "3",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 15,
+        "fields": {
+          "title": "product 15",
+          "search_tags": "tag",
+          "description": "description of product 15",
+          "category": "3",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 16,
+        "fields": {
+          "title": "product 16",
+          "search_tags": "tag",
+          "description": "description of product 16",
+          "category": "4",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 17,
+        "fields": {
+          "title": "product 17",
+          "search_tags": "tag",
+          "description": "description of product 17",
+          "category": "4",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 18,
+        "fields": {
+          "title": "product 18",
+          "search_tags": "tag",
+          "description": "description of product 18",
+          "category": "4",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 19,
+        "fields": {
+          "title": "product 19",
+          "search_tags": "tag",
+          "description": "description of product 19",
+          "category": "4",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 20,
+        "fields": {
+          "title": "product 20",
+          "search_tags": "tag",
+          "description": "description of product 20",
+          "category": "4",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 21,
+        "fields": {
+          "title": "product 21",
+          "search_tags": "tag",
+          "description": "description of product 21",
+          "category": "5",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 22,
+        "fields": {
+          "title": "product 22",
+          "search_tags": "tag",
+          "description": "description of product 22",
+          "category": "5",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 23,
+        "fields": {
+          "title": "product 23",
+          "search_tags": "tag",
+          "description": "description of product 23",
+          "category": "5",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 24,
+        "fields": {
+          "title": "product 24",
+          "search_tags": "tag",
+          "description": "description of product 24",
+          "category": "5",
+          "images": "1234"
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 25,
+        "fields": {
+          "title": "product 25",
+          "search_tags": "tag",
+          "description": "description of product 25",
+          "category": "5",
+          "images": "1234"
+        }
+    }    
+]

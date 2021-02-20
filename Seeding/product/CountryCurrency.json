@@ -1,0 +1,827 @@
+[
+    {
+        "model": "product.CountryCurrency",
+        "pk": 1,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "174",
+            "selling_price": "194",
+            "product": "1"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 2,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "144",
+            "selling_price": "158",
+            "product": "1"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 3,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "152",
+            "selling_price": "165",
+            "product": "1"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 4,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "152",
+            "selling_price": "163",
+            "product": "2"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 5,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "151",
+            "selling_price": "161",
+            "product": "2"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 6,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "161",
+            "selling_price": "178",
+            "product": "2"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 7,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "109",
+            "selling_price": "119",
+            "product": "3"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 8,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "138",
+            "selling_price": "155",
+            "product": "3"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 9,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "179",
+            "selling_price": "198",
+            "product": "3"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 10,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "157",
+            "selling_price": "173",
+            "product": "4"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 11,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "196",
+            "selling_price": "209",
+            "product": "4"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 12,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "148",
+            "selling_price": "161",
+            "product": "4"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 13,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "103",
+            "selling_price": "118",
+            "product": "5"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 14,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "111",
+            "selling_price": "128",
+            "product": "5"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 15,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "137",
+            "selling_price": "150",
+            "product": "5"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 16,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "145",
+            "selling_price": "158",
+            "product": "6"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 17,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "180",
+            "selling_price": "194",
+            "product": "6"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 18,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "101",
+            "selling_price": "119",
+            "product": "6"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 19,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "123",
+            "selling_price": "137",
+            "product": "7"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 20,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "118",
+            "selling_price": "136",
+            "product": "7"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 21,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "111",
+            "selling_price": "130",
+            "product": "7"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 22,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "115",
+            "selling_price": "135",
+            "product": "8"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 23,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "111",
+            "selling_price": "128",
+            "product": "8"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 24,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "146",
+            "selling_price": "156",
+            "product": "8"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 25,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "191",
+            "selling_price": "205",
+            "product": "9"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 26,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "177",
+            "selling_price": "195",
+            "product": "9"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 27,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "167",
+            "selling_price": "182",
+            "product": "9"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 28,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "108",
+            "selling_price": "122",
+            "product": "10"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 29,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "172",
+            "selling_price": "189",
+            "product": "10"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 30,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "120",
+            "selling_price": "133",
+            "product": "10"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 31,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "138",
+            "selling_price": "155",
+            "product": "11"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 32,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "196",
+            "selling_price": "209",
+            "product": "11"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 33,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "108",
+            "selling_price": "119",
+            "product": "11"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 34,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "111",
+            "selling_price": "130",
+            "product": "12"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 35,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "119",
+            "selling_price": "132",
+            "product": "12"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 36,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "198",
+            "selling_price": "215",
+            "product": "12"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 37,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "116",
+            "selling_price": "128",
+            "product": "13"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 38,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "199",
+            "selling_price": "215",
+            "product": "13"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 39,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "141",
+            "selling_price": "155",
+            "product": "13"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 40,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "193",
+            "selling_price": "204",
+            "product": "14"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 41,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "169",
+            "selling_price": "179",
+            "product": "14"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 42,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "197",
+            "selling_price": "212",
+            "product": "14"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 43,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "174",
+            "selling_price": "193",
+            "product": "15"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 44,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "109",
+            "selling_price": "122",
+            "product": "15"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 45,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "187",
+            "selling_price": "197",
+            "product": "15"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 46,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "156",
+            "selling_price": "170",
+            "product": "16"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 47,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "156",
+            "selling_price": "175",
+            "product": "16"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 48,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "158",
+            "selling_price": "170",
+            "product": "16"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 49,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "195",
+            "selling_price": "210",
+            "product": "17"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 50,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "132",
+            "selling_price": "146",
+            "product": "17"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 51,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "132",
+            "selling_price": "148",
+            "product": "17"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 52,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "163",
+            "selling_price": "182",
+            "product": "18"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 53,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "143",
+            "selling_price": "155",
+            "product": "18"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 54,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "178",
+            "selling_price": "194",
+            "product": "18"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 55,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "118",
+            "selling_price": "129",
+            "product": "19"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 56,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "169",
+            "selling_price": "188",
+            "product": "19"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 57,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "158",
+            "selling_price": "171",
+            "product": "19"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 58,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "145",
+            "selling_price": "160",
+            "product": "20"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 59,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "198",
+            "selling_price": "211",
+            "product": "20"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 60,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "170",
+            "selling_price": "182",
+            "product": "20"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 61,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "113",
+            "selling_price": "126",
+            "product": "21"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 62,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "158",
+            "selling_price": "171",
+            "product": "21"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 63,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "172",
+            "selling_price": "189",
+            "product": "21"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 64,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "119",
+            "selling_price": "130",
+            "product": "22"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 65,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "185",
+            "selling_price": "199",
+            "product": "22"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 66,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "182",
+            "selling_price": "197",
+            "product": "22"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 67,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "140",
+            "selling_price": "156",
+            "product": "23"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 68,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "145",
+            "selling_price": "157",
+            "product": "23"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 69,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "169",
+            "selling_price": "189",
+            "product": "23"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 70,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "163",
+            "selling_price": "182",
+            "product": "24"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 71,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "159",
+            "selling_price": "175",
+            "product": "24"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 72,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "156",
+            "selling_price": "175",
+            "product": "24"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 73,
+        "fields": {
+            "country": "India",
+            "currency": "INR",
+            "MRP": "134",
+            "selling_price": "145",
+            "product": "25"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 74,
+        "fields": {
+            "country": "USA",
+            "currency": "USD",
+            "MRP": "157",
+            "selling_price": "172",
+            "product": "25"
+        }
+    },
+    {
+        "model": "product.CountryCurrency",
+        "pk": 75,
+        "fields": {
+            "country": "Any",
+            "currency": "USD",
+            "MRP": "149",
+            "selling_price": "162",
+            "product": "25"
+        }
+    }
+]

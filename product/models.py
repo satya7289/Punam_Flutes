@@ -9,7 +9,8 @@ class ProductImage(models.Model):
     """
     Models to store all the uploaded product images to S3 bucket.
     """
-    image = models.ImageField(storage=S3Boto3Storage(bucket='punam-flutes-prods'), blank=False, null=False)
+    # image = models.ImageField(storage=S3Boto3Storage(bucket='punam-flutes-prods'), blank=False, null=False)
+    image = models.ImageField(upload_to='productImage/')
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -22,8 +23,8 @@ class Product(models.Model):
     description = models.TextField()
     category = models.ManyToManyField(Category, blank=True)
     images = models.ManyToManyField(ProductImage, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
-    update_at = models.DateTimeField(auto_now=True, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=False)
+    update_at = models.DateTimeField(auto_now=True, null=True, blank=False)
 
     def __str__(self):
         return self.title
