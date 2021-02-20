@@ -16,8 +16,6 @@ from PunamFlutes.tokens import account_activation_token
 
 from customer.models import Profile
 from address.models import Address
-from cities_light.models import City
-from cities_light.models import Country
 
 User = get_user_model()
 

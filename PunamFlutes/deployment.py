@@ -1,11 +1,19 @@
+import django_heroku
 import os
-from decouple import config, Csv
+from decouple import config
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+SECRET_KEY = 'tbs1-ceo3yd0b_#i*nctu^s&t_1*n-elsdfhjex0)kr(zwp$x@(%'
+# SECRET_KEY = config('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config('DEBUG', default=True, cast=bool)
+
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -83,15 +91,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'punam_flutes',
-    #     'user': 'Ravi',
-    #     'password': 'admin',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': '5434',
-    #     'default-character-set': 'utf8'
-    # }
 }
 
 # Password validation
@@ -173,3 +172,5 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
 # Paypal Detail
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
+
+django_heroku.settings(locals())
