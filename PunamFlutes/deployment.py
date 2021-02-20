@@ -135,7 +135,7 @@ USE_TZ = True
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'PunamFlutes/static'),
 # )
-
+django_heroku.settings(locals())
 # media Url
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -173,4 +173,4 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
