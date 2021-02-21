@@ -4,33 +4,31 @@ from storages.backends.s3boto3 import S3Boto3Storage
 from commons.country_currency import country, currency
 
 from category.models import Category
+from commons.models import TimeStampedModel
 
-class ProductImage(models.Model):
+class ProductImage(TimeStampedModel):
     """
     Models to store all the uploaded product images to S3 bucket.
     """
     # image = models.ImageField(storage=S3Boto3Storage(bucket='punam-flutes-prods'), blank=False, null=False)
     image = models.ImageField(upload_to='productImage/')
-    timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.image)
 
 
-class Product(models.Model):
+class Product(TimeStampedModel):
     title = models.CharField(max_length=200, default='Flute')
     search_tags = models.CharField(max_length=200)
     description = models.TextField()
     category = models.ManyToManyField(Category, blank=True)
     images = models.ManyToManyField(ProductImage, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=False)
-    update_at = models.DateTimeField(auto_now=True, null=True, blank=False)
 
     def __str__(self):
         return self.title
 
 
-class CountryCurrency(models.Model):
+class CountryCurrency(TimeStampedModel):
     country = models.CharField(
         max_length=100, blank=True, choices=country, null=True, default='')
     currency = models.CharField(

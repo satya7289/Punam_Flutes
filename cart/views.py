@@ -137,7 +137,7 @@ class Checkout(View):
 
         # get logged in user and update the profile
         user = request.user
-        profile = Profile.objects.get(user=user)
+        profile = Profile.objects.get(user=user.id)
         
         if not profile:
             profile = Profile.objects.create(user=user,first_name=first_name, last_name=last_name, contact_number=contact_number)

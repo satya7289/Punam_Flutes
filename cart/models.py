@@ -2,8 +2,10 @@ from django.db import models
 from customer.models import User, Profile
 from product.models import Product
 from address.models import Address
+from paypal.standard.ipn.models import PayPalIPN
+from commons.models import TimeStampedModel
 
-class ProductQuantity(models.Model):
+class ProductQuantity(TimeStampedModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
@@ -11,23 +13,26 @@ class ProductQuantity(models.Model):
         return str(self.quantity) + ' ' + str(self.product.title)
     
 
-class Cart(models.Model):
+class Cart(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product_detail = models.ManyToManyField(ProductQuantity)
     is_checkout = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
-    update_at = models.DateTimeField(auto_now=True, null=False, blank=False)
 
     def __str__(self):
         return self.user.email + " " + str(self.is_checkout)
 
-class Order(models.Model):
+class Order(TimeStampedModel):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     total = models.FloatField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
-    update_at = models.DateTimeField(auto_now=True, null=False, blank=False)
+    delivered = models.BooleanField(default=False, null=True)
 
     def __str__(self):
         return self.profile.first_name +' '+ self.profile.last_name
+
+class Receipt(TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    payment = models.OneToOneField(PayPalIPN, on_delete=models.CASCADE)
+

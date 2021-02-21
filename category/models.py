@@ -1,7 +1,8 @@
 from django.db import models
+from commons.models import TimeStampedModel
 
 
-class Category(models.Model):
+class Category(TimeStampedModel):
 
     display_name = models.CharField(max_length=200, null=False)
     description = models.TextField()

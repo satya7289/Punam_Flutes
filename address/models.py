@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 from customer.models import User
+from commons.models import TimeStampedModel
 
 User = get_user_model()
 
@@ -11,7 +12,7 @@ User = get_user_model()
 # Create your models here for address.
 
 
-class Address(models.Model):
+class Address(TimeStampedModel):
     """ 
     Address table for storing customer's address
 

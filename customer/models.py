@@ -1,4 +1,5 @@
 from django.db import models
+from commons.models import TimeStampedModel
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin)
 from django.utils.translation import ugettext_lazy as _
@@ -90,7 +91,7 @@ class User(AbstractBaseUser):
         return self.active
 
 
-class Profile(models.Model):
+class Profile(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
