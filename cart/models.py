@@ -27,12 +27,8 @@ class Order(TimeStampedModel):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     total = models.FloatField(blank=True, null=True)
     delivered = models.BooleanField(default=False, null=True)
+    payment = models.OneToOneField(PayPalIPN, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.profile.first_name +' '+ self.profile.last_name
-
-class Receipt(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
-    payment = models.OneToOneField(PayPalIPN, on_delete=models.CASCADE)
 

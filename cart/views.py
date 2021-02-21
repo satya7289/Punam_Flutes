@@ -199,6 +199,8 @@ def process_payment(request):
 
 @csrf_exempt
 def payment_done(request):
+    print(request)
+    # add payment id to the order
     return render(request, 'payment_done.html')
 
 
