@@ -27,6 +27,9 @@ class CartView(View):
             return render(request, self.template_name, {'cart': None})
         cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
+        if not cart:
+            return render(request, self.template_name, {'cart': None})
+
         product_details = cart.product_detail.all()
         currency = '$'
 
