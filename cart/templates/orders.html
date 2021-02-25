@@ -1,0 +1,86 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+
+<section class="pt-7 pb-12">
+    <div class="container">
+        {% if orders %}
+        <table class="table table-hover table-responsive">
+            <h3 class="text-center">Your orders </h3>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">Total</th>
+                <th scope="col">Address</th>
+                <th scope="col">Delivered</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for order in orders%}
+                                <!-- Modal -->
+                <div class="modal fade" id="cartDetail-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Product Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% if order.cart %}
+                                <div class="row">
+                                    <div class="col-8">
+                                      <div class="list-group" id="list-tab" role="tablist">
+                                        {% for product in order.cart.product_detail.all %}
+                                            <a class="list-group-item list-group-item-action" id="list-{{ forloop.counter }}" data-toggle="list" href="#list-detail-{{ forloop.counter }}" role="tab" aria-controls="home"> {{ product.product.title }} <br> <b>Quantity</b>{{ product.quantity }} </a>
+                                        {% endfor %}
+                                      </div>
+                                    </div>
+                                    <div class="col-4">
+                                      <div class="tab-content" id="nav-tabContent">
+                                        {% for product in order.cart.product_detail.all %}
+                                        <div class="tab-pane fade show active" id="list-detail-{{ forloop.counter }}" role="tabpanel" aria-labelledby="list-{{ forloop.counter }}">
+                                           <a href="#">
+                                               {% for image in product.product.images.all%}
+                                                    {% if forloop.counter <= 1 %}
+                                                        <img class="card-img-top card-img-back" src="{{ image.image.url }}" alt="..."> 
+                                                    {% endif %}
+                                               {% endfor %}
+                                            </a>
+                                        </div>
+                                        {% endfor %}
+                                      </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="" data-toggle="modal" data-target="#cartDetail-{{ forloop.counter }}">Products</a></td>
+                        <td>{{ order.total }}</td>
+                        <td>{{ order.address }}</td>
+                        <td>
+                            {% if order.delivered %}
+                                Delivered
+                            {% else %}
+                                Not Delivered
+                            {% endif %}
+                        </td>
+                    </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="p-5">No orders</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

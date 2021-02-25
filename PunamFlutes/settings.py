@@ -126,6 +126,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_REDIRECT_URL='/customer/login/'
+LOGIN_URL='/customer/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -173,3 +175,6 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
 # Paypal Detail
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
+
+RAZORPAY_KEY=config('RAZORPAY_KEY')
+RAZORPAY_SECRET=config('RAZORPAY_SECRET')

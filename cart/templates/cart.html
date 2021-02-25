@@ -25,6 +25,7 @@
   <!-- CONTENT -->
   <section class="pt-7 pb-12">
     <div class="container">
+      {% if cart and cart_length > 0 %}
       <div class="row">
         <div class="col-12">
 
@@ -122,6 +123,11 @@
 
         </div>
       </div>
+      {% else %}
+      <div class="text-center p-5">
+        Nothing in the cart.
+      </div>
+      {% endif %}
     </div>
   </section>
 {% endblock %}

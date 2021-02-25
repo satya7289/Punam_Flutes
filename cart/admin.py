@@ -1,6 +1,19 @@
 from django.contrib import admin
-from .models import Cart, ProductQuantity, Order
+from .models import Cart, ProductQuantity, Order, Payment
 
-admin.site.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'is_checkout', 'created_at')
+    list_filter = ('is_checkout', )
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'cart', 'profile', 'total', 'delivered', 'created_at')
+    list_filter = ('delivered', )
+
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'order', 'method', 'status', 'razorpay', 'created_at')
+    list_filter = ('status', 'method')
+
+admin.site.register(Cart, CartAdmin)
 admin.site.register(ProductQuantity)
-admin.site.register(Order)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(Payment, PaymentAdmin)

@@ -1077,6 +1077,13 @@
           </li>
           {% else %}
 
+          <li class="nav-item ">
+
+            <!-- Toggle -->
+            <a class="nav-link" href="{% url 'orders' %}">Order</a>
+          </li>
+
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
           </li>
@@ -1108,13 +1115,21 @@
               <i class="fe fe-heart"></i>
             </a>
           </li>
+          
           <li class="nav-item ml-lg-n4">
             <a class="nav-link" href="{% url 'cart' %}">
-              <span data-cart-items="{{ cart_length }}">
-                <i class="fe fe-shopping-cart"></i>
-              </span>
+              {% if request.user.is_authenticated and cart_length > 0 %}
+                <span data-cart-items="{{ cart_length }}">
+                  <i class="fe fe-shopping-cart"></i>
+                </span>
+              {% else %}
+                <span>
+                  <i class="fe fe-shopping-cart"></i>
+                </span>
+              {% endif %}
             </a>
           </li>
+          
         </ul>
 
       </div>
