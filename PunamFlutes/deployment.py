@@ -173,4 +173,7 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
 
+RAZORPAY_KEY=config('RAZORPAY_KEY')
+RAZORPAY_SECRET=config('RAZORPAY_SECRET')
+
 django_heroku.settings(locals(), staticfiles=False)
