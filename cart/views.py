@@ -205,7 +205,7 @@ def process_payment(request):
         if g['message']=='success':
             currency = g['data']['geoplugin_currencyCode']
         else:
-            currency = 'USD'
+            currency = settings.DEFAULT_CURRENCY
         
         if request.POST.get('razorpay'): # Razorpay
             client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))

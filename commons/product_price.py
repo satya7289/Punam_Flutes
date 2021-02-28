@@ -1,4 +1,5 @@
 from product.models import Product
+from django.conf import settings
 from commons.ip_detect import request_to_geoplugin, get_ip_detail
 
 def get_price_of_product(request, product):
@@ -8,7 +9,7 @@ def get_price_of_product(request, product):
     if ip_detail['message']!='fail':
         country = ip_detail['country']
     else:
-        country = 'Any'
+        country = settings.DEFAULT_COUNTRY
     
     # Get the default Any Country currency of the product.
     default = product.countrycurrency_set.filter(country='Any').first()

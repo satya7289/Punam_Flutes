@@ -178,3 +178,6 @@ PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
 
 RAZORPAY_KEY=config('RAZORPAY_KEY')
 RAZORPAY_SECRET=config('RAZORPAY_SECRET')
+
+DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='Any')
+DEFAULT_CURRENCY = config('DEFAULT_CURRENCY', default='USD')
