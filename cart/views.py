@@ -33,7 +33,7 @@ class CartView(View):
             return render(request, self.template_name, {'cart': None})
 
         product_details = cart.product_detail.all()
-        currency = '$'
+        currency = settings.DEFAULT_CURRENCY
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
