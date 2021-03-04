@@ -17,7 +17,7 @@ from customer.models import Profile
 from product.models import Product
 from commons.product_price import get_price_of_product, get_ip_detail
 from address.models import Address
-from mail import SendEmail
+from cart.mail import SendEmail
 import razorpay
 
 class CartView(View):
