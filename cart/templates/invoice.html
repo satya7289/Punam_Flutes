@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+<body>
+    
+    Your order details:
+
+    <table>
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product</th>
+              <th scope="col">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in cart.product_detail.all %}
+            <tr>
+                <td>
+                    {{ product.product }}
+                </td>
+                <td>
+                    {{ product.quantity }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    Total Amount: {{total }} <br>
+
+    Shipping to:
+    {{ address }}
+
+
+    Thankyou
+    Puname Flutes
+</body>
+</html>

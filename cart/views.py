@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 from cart.models import Cart, ProductQuantity, Order, Payment
 from customer.models import User
@@ -16,6 +17,7 @@ from customer.models import Profile
 from product.models import Product
 from commons.product_price import get_price_of_product, get_ip_detail
 from address.models import Address
+from mail import SendEmail
 import razorpay
 
 class CartView(View):
@@ -262,6 +264,21 @@ def process_payment(request):
 
     messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
     return redirect('checkout')
+
+
+def sendInvoice(request, orderId):
+    order = Order.objects.filter(id=orderId).first()
+    if order:
+        emailVarified = order.profile.email_verified
+        email = order.profile.user.email
+        data = {
+            'cart': order.cart,
+            'total': order.total,
+            'address': order.address
+        }
+        if emailVarified:
+            sendEmail = SendEmail('invoice.html', data)
+            sendEmail.send(email)
 
 @csrf_exempt
 def payment_done(request):
