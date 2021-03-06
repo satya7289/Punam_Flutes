@@ -2,6 +2,7 @@ from django.db import models
 from django_countries.fields import CountryField
 from storages.backends.s3boto3 import S3Boto3Storage
 from commons.country_currency import country, currency
+from django.conf import settings
 
 from category.models import Category
 from commons.models import TimeStampedModel
@@ -10,8 +11,8 @@ class ProductImage(TimeStampedModel):
     """
     Models to store all the uploaded product images to S3 bucket.
     """
-    # image = models.ImageField(storage=S3Boto3Storage(bucket='punam-flutes-prods'), blank=False, null=False)
-    image = models.ImageField(upload_to='productImage/')
+    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False)
+    # image = models.ImageField(upload_to='productImage/')
 
     def __str__(self):
         return str(self.image)
