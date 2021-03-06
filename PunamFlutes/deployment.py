@@ -161,6 +161,9 @@ AWS_DEFAULT_ACL = None
 
 # Email Setup
 SEND_EMAIL = False
+AWS_SES_REGION_NAME = 'ap-south-1'
+AWS_SES_REGION_ENDPOINT = 'email.ap-south-1.amazonaws.com'
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
