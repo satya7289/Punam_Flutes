@@ -140,7 +140,7 @@ USE_TZ = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# # AWS details
+# AWS details
 DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
 STATICFILES_STORAGE = config('STATICFILES_STORAGE')
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
