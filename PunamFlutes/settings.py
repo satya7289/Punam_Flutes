@@ -79,19 +79,19 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'commons/GeoLite2-Country.mmdb')
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'punam_flutes',
-    #     'user': 'Ravi',
-    #     'password': 'admin',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': '5434',
-    #     'default-character-set': 'utf8'
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.'+config('DB_CONNECTION'),
+        'NAME': config('DB_DATABASE'),
+        'USER': config('DB_USERNAME'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
+        'default-character-set': 'utf8'
+    }
 }
 
 # Password validation
