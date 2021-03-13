@@ -11,7 +11,7 @@ class ProductImage(TimeStampedModel):
     """
     Models to store all the uploaded product images to S3 bucket.
     """
-    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False)
+    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False,upload_to='productImage/%Y%m%d%M%S')
     # image = models.ImageField(upload_to='productImage/')
 
     def __str__(self):
