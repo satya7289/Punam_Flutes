@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.http import JsonResponse
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -14,8 +15,10 @@ from django.contrib import messages
 from category.models import Category
 from PunamFlutes.tokens import account_activation_token
 
-from customer.models import Profile
+from customer.models import Profile, normalize_phone
 from address.models import Address
+
+import phonenumbers
 
 User = get_user_model()
 
@@ -84,6 +87,85 @@ def customer_register(request):
 
     return render(request, 'store/register.html', {})
 
+class Registration(View):
+    template_name = "store/register.html"
+    message = ""
+    countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
+    def get(self, request):
+        return render(request, self.template_name, {'countryCodes':self.countryCodes})
+
+    def post(self, request):
+        registrationType = request.POST['type']
+        password = request.POST['password']
+        cnf_password = request.POST['cnf_password']
+        if password == cnf_password:
+            if registrationType=="email":
+                email = request.POST['email']
+                user = User.objects.filter(email=email)
+                if user.exists():
+                    self.message = "User with this email already exists."
+                    messages.add_message(request, messages.WARNING, self.message)
+                else:
+                    user = User.objects.create_user(email, password)
+                    # TODO send account activation code
+
+                    self.message = "User created successfully. We have sent an email for email verification."
+                    messages.add_message( request, messages.SUCCESS, self.message)
+            elif registrationType=="phone":
+                country_code = request.POST['country_code']
+                phone = request.POST['phone']
+                user = User.objects.filter(phone=phone)
+                if user.exists():
+                    self.message = "User with this phone already exists."
+                    messages.add_message(request, messages.WARNING, self.message)
+                else:
+                    user = User.objects.create_user(
+                        phone, 
+                        password, 
+                        country_code=country_code
+                    )
+                    print(user)
+                    # TODO send account activation code
+
+                    self.message = "User created successfully."
+                    messages.add_message( request, messages.SUCCESS, self.message)
+        else:  
+            self.message = "Password and Confirm Password are not same."
+            messages.add_message(request, messages.WARNING, self.message)
+        return render(request, self.template_name, {'countryCodes':self.countryCodes})
+
+
+class Login(View):
+    template_name = "store/login.html"
+    template_name2= 'store/index.html'
+    message = ""
+    countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
+    def get(self, request):
+        return render(request, self.template_name, {'countryCodes':self.countryCodes})
+
+    def post(self, request):
+        loginType = request.POST['type']
+        if loginType=="email":
+            email = request.POST['email']
+            password = request.POST['password']
+            user = authenticate(request, username=email, password=password)
+            if user:
+                login(request, user)
+                return render(request, self.template_name2)
+        elif loginType=="phone":
+            country_code = request.POST['country_code']
+            phone = request.POST['phone']
+            phone = normalize_phone(phone, country_code)
+            password = request.POST['password']
+            user = authenticate(request, username=phone, password=password)
+            if user:
+                login(request, user)
+                return render(request, self.template_name2)
+        
+        self.message = "Invalid login credentials."
+        messages.add_message(request, messages.WARNING, self.message)
+        return render(request, self.template_name)
+
 
 def activate(request, uidb64, token):
     """
@@ -110,14 +192,6 @@ def activate(request, uidb64, token):
 
 def customer_login(request):
     """
-    This is user login method
-
-    Parameters
-    request (POST request with user emailid and password.)
-
-    Returns
-    Return type
-    Redirects the user to their respective dashboard according to their roles defined.
 
     """
     context = {}
@@ -140,7 +214,6 @@ def customer_login(request):
 
     else:
         return render(request, template, context)
-
 
 def customer_logout(request):
     if request.user.is_authenticated:
@@ -193,3 +266,48 @@ class CustomerProfile(View):
 
         profile = Profile.objects.create(user=user, first_name=first_name, middle_name=middle_name, last_name=last_name, contact_number=contact_number)
         return redirect('customer_profile')
+
+class CheckUsername(View):
+    def get(self, request):
+        data = {
+            'status': '0',
+            'message': 'error'
+        }
+        registrationType = request.GET.get('type')
+        if registrationType=="email":
+            email = request.GET.get('email')
+            user = User.objects.filter(email=email)
+            if user.exists():
+                data = {
+                    'status': '1',
+                    'message': 'email exists.'
+                }
+            else:
+                data = {
+                    'status': '0',
+                    'message': 'email not exists.'
+                }
+        elif registrationType=="phone":
+            phone = request.GET.get('phone')
+            country_code = request.GET.get('country_code')
+            phone = normalize_phone(phone, country_code)
+            user = User.objects.filter(phone=phone)
+            if user.exists():
+                data = {
+                    'status': '1',
+                    'message': 'phone exists.'
+                }
+            else:
+                data = {
+                    'status': '0',
+                    'message': 'phone not exists.'
+                }
+        return JsonResponse(data)
+
+class SendPhoneOTP(View):
+    def get(self, request):
+        data = {
+            'status': '1',
+            'message': 'OTP send'
+        }
+        return JsonResponse(data)
