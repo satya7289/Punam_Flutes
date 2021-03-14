@@ -8,7 +8,8 @@ class UserAdmin(admin.ModelAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name')
-    list_display = ('__str__', 'first_name', 'last_name')
+    list_display = ('__str__', 'first_name', 'last_name', 'email_opt_in')
+    list_filter = ('email_opt_in',)
 
 # Register your models here.
 User = auth.get_user_model()

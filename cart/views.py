@@ -17,7 +17,7 @@ from customer.models import Profile
 from product.models import Product
 from commons.product_price import get_price_of_product, get_ip_detail
 from address.models import Address
-from cart.mail import SendEmail
+from commons.mail import SendEmail
 import razorpay
 
 class CartView(View):
@@ -268,17 +268,40 @@ def process_payment(request):
 
 def sendInvoice(request, orderId):
     order = Order.objects.filter(id=orderId).first()
+    message = "order is not created"
     if order:
-        emailVarified = order.profile.email_verified
-        email = order.profile.user.email
+        user = order.profile.user
+
+        product_details = order.cart.product_detail.all()
+        currency = settings.DEFAULT_CURRENCY
+
+        # Add the price and currency according to the user's location to the product
+        for product in product_details:
+            price_list = get_price_of_product(request,product.product)
+            product.price = price_list['price']
+            product.currency = price_list['currency']
+            currency = price_list['currency']
+        
         data = {
-            'cart': order.cart,
+            'products': product_details,
             'total': order.total,
-            'address': order.address
+            'address': order.address,
         }
-        if emailVarified:
-            sendEmail = SendEmail('invoice.html', data)
-            sendEmail.send(email)
+        if user.email and user.email_verified:
+            sendEmail = SendEmail('invoice.html', data, 'Your Invoice')
+            sendEmail.send((user.email,))
+            message = "Invoice sent"
+        else:
+            message = "either email is not there or email not verified."
+        
+        if user.phone and user.phone_verified:
+            # TODO send Mobile sms
+            message = "inbox sent"
+            pass
+        else:
+            message = "either phone is not there or phone not verified."
+        return message
+    return message
 
 @csrf_exempt
 def payment_done(request):
@@ -310,6 +333,9 @@ def razorpay_done(request):
                 # Update the checkout status
                 payment.order.cart.is_checkout = True
                 payment.order.cart.save()
+
+                # Send Invoice
+                invoice = sendInvoice(request, payment.order.id)
                 return redirect('orders')
     return redirect('dashboard')
 

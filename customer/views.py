@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import JsonResponse
+from django.urls import reverse
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -17,6 +18,7 @@ from PunamFlutes.tokens import account_activation_token
 
 from customer.models import Profile, normalize_phone
 from address.models import Address
+from commons.mail import SendEmail
 
 import phonenumbers
 
@@ -106,8 +108,27 @@ class Registration(View):
                     self.message = "User with this email already exists."
                     messages.add_message(request, messages.WARNING, self.message)
                 else:
+                    email_opt = request.POST.get('email_opt')
+                    if email_opt:
+                        email_opt=True
+                    else:
+                        email_opt=False
                     user = User.objects.create_user(email, password)
-                    # TODO send account activation code
+                    profile = Profile.objects.create(
+                        user=user,
+                        email_opt_in=email_opt
+                    )
+
+                    # send account activation code
+                    uid = urlsafe_base64_encode(force_bytes(user.pk))
+                    token = account_activation_token.make_token(user)
+                    url = request.scheme  + "://" + request.get_host() + reverse('activate', kwargs={'uidb64': uid, 'token':token})
+                    data = {
+                        "link": url
+                    }
+                    sendEmail = SendEmail('activation.html', data, 'Verify Account')
+                    # sendEmail.send(('satyaprakashaman60@gmail.com',))
+                    sendEmail.send((user.email,))
 
                     self.message = "User created successfully. We have sent an email for email verification."
                     messages.add_message( request, messages.SUCCESS, self.message)
@@ -178,16 +199,15 @@ def activate(request, uidb64, token):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
         user.active = True
-        # user.email_verified = True
+        user.email_verified = True
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         user.save()
         login(request, user)
 
         return render(request, 'store/index.html', {'email': user})
     else:
-        print('in else')
-        # logout(request)
-        # return render(request, 'store/index.html', {})
+        logout(request)
+        return redirect('dashboard')
 
 
 def customer_login(request):
@@ -249,22 +269,18 @@ class CustomerProfile(View):
 
     def post(self, request, *args, **kwargs):
         first_name = request.POST.get('first_name')
-        middle_name = request.POST.get('middle_name')
         last_name = request.POST.get('last_name')
-        contact_number = request.POST.get('contact_number')
 
         user = request.user
         profile = Profile.objects.filter(user=user).first()
         
         if profile:
             profile.first_name = first_name
-            profile.middle_name = middle_name
             profile.last_name = last_name
-            profile.contact_number = contact_number
             profile.save()
             return redirect('customer_profile')
 
-        profile = Profile.objects.create(user=user, first_name=first_name, middle_name=middle_name, last_name=last_name, contact_number=contact_number)
+        profile = Profile.objects.create(user=user, first_name=first_name, last_name=last_name)
         return redirect('customer_profile')
 
 class CheckUsername(View):

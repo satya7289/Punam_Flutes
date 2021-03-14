@@ -1,6 +1,8 @@
 import os
 from decouple import config, Csv
+from unipath import Path
 
+PROJECT_DIR = Path(__file__).parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -167,6 +169,7 @@ SEND_EMAIL = False
 AWS_SES_REGION_NAME = 'ap-south-1'
 AWS_SES_REGION_ENDPOINT = 'email.ap-south-1.amazonaws.com'
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_FILE_PATH = PROJECT_DIR.parent.child('maildumps')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')

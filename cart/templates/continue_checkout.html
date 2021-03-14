@@ -24,11 +24,17 @@
                         </label>
                     </div>
                     <div class="custom-control custom-radio mb-1">
+                        <input class="custom-control-input" id="COD" name="COD" type="radio">
+                        <label class="custom-control-label font-size-sm text-body text-nowrap" for="COD">
+                            Cash On dilivery
+                        </label>
+                    </div>
+                    <!-- <div class="custom-control custom-radio mb-1">
                         <input class="custom-control-input" id="checkoutPaymentPaypal" name="paypal" type="radio">
                         <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
                             <img src="{% static 'assets/img/brands/color/paypal.svg' %}" alt="...">
                         </label>
-                    </div>                    
+                    </div>  -->
                 </div>
                 <input type="hidden" name="order" value="{{ order.id }}">
             </form>

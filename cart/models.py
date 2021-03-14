@@ -21,7 +21,7 @@ class Cart(TimeStampedModel):
     is_checkout = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.email + " cart" 
+        return self.user.username + " cart" 
 
 class Order(TimeStampedModel):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
@@ -31,7 +31,7 @@ class Order(TimeStampedModel):
     delivered = models.BooleanField(default=False, null=True)
 
     def __str__(self):
-        return self.profile.first_name +' '+ self.profile.last_name
+        return self.profile.first_name +' '+ self.profile.last_name + ' order'
 
 class Payment(TimeStampedModel):
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
