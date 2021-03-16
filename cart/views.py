@@ -264,6 +264,28 @@ def process_payment(request):
 
             form = PayPalPaymentsForm(initial=paypal_dict)
             return render(request, 'process_payment.html', {'order': 'order', 'form': form})
+        
+        elif request.POST.get('COD'): # COD
+            payment = Payment.objects.filter(order=order.id).first()
+
+            if payment:
+                if payment.status:  # if payment is done
+                    return redirect('dashboard')
+                else:
+                    payment.method="COD"
+                    payment.save()
+            else:
+                payment = Payment.objects.create(
+                    order=order,
+                    method="COD"
+                )
+            # Checkout True
+            payment.order.cart.is_checkout = True
+            payment.order.cart.save()
+
+            # Send Invoice
+            invoice = sendInvoice(request, payment.order.id)
+            return redirect('orders')            
 
     messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
     return redirect('checkout')

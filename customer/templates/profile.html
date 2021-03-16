@@ -163,15 +163,13 @@
                                         <div class="col-12">
                     
                                         <div class="form-group">
-                                            <select class="form-control form-control-sm" id="CountryCode" name="country_code"
+                                            <select class="form-control form-control-sm" id="country" name="country"
                                                 placeholder="Country Code *" required>
                                                 <option value=""></option>
                                                 {% for c in country %}
-                                                    <option value="">{{ c.0 }}</option>
+                                                    <option value="{{ c.0 }}">{{ c.0 }}</option>
                                                 {% endfor %}
                                             </select>
-                                            <!-- <label for="country">Country *</label>
-                                            <input class="form-control form-control-sm" id="country" type="text" placeholder="Country" required name="country"> -->
                                         </div>                        
                                         </div>
                                         <div class="col-12">

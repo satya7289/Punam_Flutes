@@ -33,6 +33,9 @@ class Order(TimeStampedModel):
 
     def __str__(self):
         return self.profile.first_name +' '+ self.profile.last_name + ' order'
+    
+    class Meta:
+        ordering = ("delivered",)
 
 class Payment(TimeStampedModel):
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
@@ -44,6 +47,9 @@ class Payment(TimeStampedModel):
 
     def __str__(self):
         return self.method + ' ' + self.order.profile.first_name
+    
+    class Meta:
+        ordering = ("status","method")
 
 class CountryPayment(TimeStampedModel):
     country = models.CharField(max_length=100, blank=True, choices=country, null=True, default='')
