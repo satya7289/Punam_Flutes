@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from ckeditor.widgets import CKEditorWidget
 from .models import Product, CountryCurrency, ProductImage
+from category.models import Category
 
 # Register your models here.
 
@@ -20,6 +21,18 @@ class ProductAdminForm(forms.ModelForm):
 
 class CountryCurrencyInLine(admin.TabularInline):
     model = CountryCurrency
+    extra = 2
+
+
+class ProductImageInLine(admin.TabularInline):
+    model = Product.images.through
+    extra = 2
+
+
+class CategoryInLine(admin.TabularInline):
+    model = Product.category.through
+    extra = 1
+
 
 class CountryCurrencyAdmin(admin.ModelAdmin):
     list_display = ('id', 'country', 'currency', 'MRP', 'selling_price')
@@ -30,8 +43,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'title', 'search_tags', 'Description', 'created_at')
     list_filter = ('category', 'search_tags')
     form = ProductAdminForm
+    exclude = ('images', 'category', )
     inlines = [
-        CountryCurrencyInLine
+        CategoryInLine,
+        ProductImageInLine,
+        CountryCurrencyInLine,
     ]
 
     def Description(self, obj):
