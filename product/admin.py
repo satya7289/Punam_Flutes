@@ -7,7 +7,13 @@ from .models import Product, CountryCurrency, ProductImage
 # Register your models here.
 
 class ProductAdminForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['images'].disabled = True
+    #     self.fields['images'].widget.can_change_related = False
+
     description = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Product
         fields = '__all__'
