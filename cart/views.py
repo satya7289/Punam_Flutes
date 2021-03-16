@@ -109,6 +109,7 @@ class Checkout(View):
         user = request.user
         profile = Profile.objects.filter(user=user).first()
         user_address = Address.objects.filter(user=user)
+        shipping_address = Address.objects.filter(user=user, address_type='shipping')
         cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
         product_details = cart.product_detail.all()
@@ -127,7 +128,9 @@ class Checkout(View):
             'currency': currency,
             'profile': profile,
             'user_address': user_address,
-            'email': user.email
+            'shipping_address': shipping_address,
+            'email': user.email,
+            'phone': user.phone
         }
         return render(request, self.template_name, context)
 

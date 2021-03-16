@@ -81,25 +81,21 @@
 
               </div>
               <div class="col-12">
-
-                <!-- Email -->
+                {% if email %}
                 <div class="form-group">
                   <label for="checkoutBillingEmail">Email *</label>
                   <p id="checkoutBillingEmail">{{ email }}</p>  
                 </div>
+                {% endif %}
 
               </div>
               <div class="col-12">
-
-                <!-- Mobile Phone -->
-                <div class="form-group mb-0">
-                  <label for="checkoutBillingPhone">Mobile Phone *</label>
-                  {% if profile %}
-                      <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number" value="{{ profile.contact_number}}">
-                  {% else %}
-                      <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number">
-                  {% endif %}
+                {% if phone %}
+                <div class="form-group">
+                  <label for="checkoutBillingEmail">Phone *</label>
+                  <p id="checkoutBillingEmail">{{ phone }}</p>  
                 </div>
+                {% endif %}
 
               </div>
           </div>
@@ -117,14 +113,11 @@
           </div> -->
 
           <div class="col-12">
-            {% if user_address %}
+            {% if shipping_address %}
               <select class="form-control" name="address">
-                {% for add in user_address %}
-                  {% if forloop.counter is 1%}
-                    <option selected value="{{ add.id }}"> {{ add }}</option>
-                  {% else %}
-                    <option value="{{ add.id }}"> {{ add }}</option>
-                  {% endif %}
+                <option value="" selected>Select Billing Address</option>
+                {% for add in shipping_address %}
+                  <option value="{{ add.id }}"> {{ add }}</option>
                 {% endfor %}
               </select>
             {% else %}
@@ -248,12 +241,20 @@ function updateSubTotal(){
 }
 
 $('#terms__condition').change(function(){
-  if($(this).is(':checked')){
+  if($(this).is(':checked') && $('[name="address"]').val()!=""){
     $('#process-btn').prop('disabled', false);
   }else{
     $('#process-btn').prop('disabled', true);
   }
 })
+
+$('[name="address"]').change(function(){
+  if($(this).val()!="" && $('#terms__condition').is(':checked')){
+    $('#process-btn').prop('disabled', false);
+  }else{
+    $('#process-btn').prop('disabled', true);
+  }
+});
 
 </script>
 {% endblock %}
