@@ -197,8 +197,17 @@
           described in our privacy policy.
         </p>
 
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" id="terms__condition" name="terms" type="checkbox">
+            <label class="custom-control-label" for="terms__condition">
+              Accept all Terms & Condition.
+            </label>
+          </div>
+        </div>
+
         <!-- Button -->
-        <button class="btn btn-block btn-dark" id='process-btn'>
+        <button class="btn btn-block btn-dark" id='process-btn' disabled>
           Place Order
         </button>
 
@@ -237,6 +246,14 @@ function updateSubTotal(){
   $('#shipping').html(currency + Shipping);
   $('[name=total]').val(Subtotal);
 }
+
+$('#terms__condition').change(function(){
+  if($(this).is(':checked')){
+    $('#process-btn').prop('disabled', false);
+  }else{
+    $('#process-btn').prop('disabled', true);
+  }
+})
 
 </script>
 {% endblock %}
