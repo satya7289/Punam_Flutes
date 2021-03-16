@@ -6,43 +6,16 @@ from commons.models import TimeStampedModel
 
 User = get_user_model()
 
-# Initialize logger.
-# logger = logging.getLogger(__name__)
-
-# Create your models here for address.
-
+AddressType = [['billing', 'billing'], ['shipping', 'shipping']]
 
 class Address(TimeStampedModel):
-    """ 
-    Address table for storing customer's address
-
-    Atrributes:
-    -----------
-
-    address_id      : AutoField(primary_key)
-    street_address  : CharField
-    locality        : CharField
-    region          : CharField
-    postal_code     : CharField
-    country         : CharField
-
-    Methods:
-    --------
-
-    get_pk(self)
-        Returns the primary key of the address object.
-
-
-    """
     street_address = models.CharField(max_length=1024, null=False, blank=False)
-    # Field for City/Town.
     city = models.CharField(max_length=16, null=False, blank=False)
-    # Field for State/Province/County.
     state = models.CharField(max_length=16, null=True, blank=True)
-    # Field for ZIP/Postal Code.
     postal_code = models.CharField(max_length=16, null=True, blank=True)
-    # Field for Country.
     country = models.CharField(max_length=20, null=False, blank=False)
+    address_type = models.CharField(max_length=100, choices=AddressType, blank=True, null=True, default='')
+    default = models.BooleanField(default=False,blank=True,null=True)
 
     def __str__(self):
         postal_state = (
@@ -67,3 +40,4 @@ class Address(TimeStampedModel):
 
     class Meta():
         verbose_name_plural = 'addresses'
+        ordering = ("default",)

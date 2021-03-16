@@ -252,18 +252,24 @@ class CustomerProfile(View):
         profile = Profile.objects.filter(user=user).first()
 
         # Get all the address of the user
-        address = Address.objects.filter(user=user)
+        billing_address = Address.objects.filter(user=user, address_type='billing')
+        shipping_address = Address.objects.filter(user=user, address_type='shipping')
 
         if not profile:
             profile = None
         
-        if not address:
-            address = None
+        if not billing_address:
+            billing_address = None
+        
+        if not shipping_address:
+            shipping_address = None
 
         context ={
             'profile': profile,
             'email' : user.email,
-            'addresses' : address
+            'phone' : user.phone,
+            'billing_address' : billing_address,
+            'shipping_address': shipping_address,
         }
         return render(request, self.template_name, context)
 
@@ -275,8 +281,10 @@ class CustomerProfile(View):
         profile = Profile.objects.filter(user=user).first()
         
         if profile:
-            profile.first_name = first_name
-            profile.last_name = last_name
+            if first_name:
+                profile.first_name = first_name
+            if last_name:
+                profile.last_name = last_name
             profile.save()
             return redirect('customer_profile')
 

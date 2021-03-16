@@ -12,17 +12,21 @@ class CreateAddress(View):
         state = request.POST.get('state')
         postal_code = request.POST.get('postal_code')
         country = request.POST.get('country')
+        address_type = request.POST.get('address_type')
 
         user = request.user
-        user_add = Address.objects.filter(user=user)
+        # user_add = Address.objects.filter(user=user)
         
-        if not user_add:
-            user_add = Address.objects.create(user=user, street_address=street_address, city=city, state=state, postal_code=postal_code, country=country)
-            data = {'message': 'success'}
-            messages.add_message(request, messages.SUCCESS, 'Successfully, address is added.')
-            return redirect('customer_profile')
-        
-        messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
+        user_add = Address.objects.create(
+                user=user, 
+                street_address=street_address, 
+                city=city, 
+                state=state, 
+                postal_code=postal_code, 
+                country=country,
+                address_type=address_type
+        )
+        messages.add_message(request, messages.SUCCESS, 'Successfully, address is added.')
         return redirect('customer_profile')
 
 
@@ -34,6 +38,7 @@ class UpdateAddress(View):
         postal_code = request.POST.get('postal_code')
         country = request.POST.get('country')
         address_id = request.POST.get('address_id')
+        address_type = request.POST.get('address_type')
 
         address = Address.objects.get(id=address_id)
         
@@ -43,6 +48,7 @@ class UpdateAddress(View):
             address.state = state
             address.postal_code = postal_code
             address.country = country
+            address.address_type = address_type
             address.save()
             messages.add_message(request, messages.SUCCESS, 'Successfully, address is updated.')
             return redirect('customer_profile')

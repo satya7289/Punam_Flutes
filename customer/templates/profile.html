@@ -8,14 +8,14 @@
             {% for message in messages %}
                 <span class="text-sucess center" id="error_login">{{message}}!!!</span><br />
             {% endfor %}
-            <h3 class="mb-4">Profile</h3>
+            <h3 class="my-7">Profile</h3>
         </div>
 
         <div class="col-12">
             <form action="{% url 'customer_profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row mb-9">
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
     
                     <!-- First Name -->
                     <div class="form-group">
@@ -29,7 +29,7 @@
     
                     </div>
 
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
     
                         <!-- Last Name -->
                         <div class="form-group">
@@ -37,30 +37,28 @@
                         {% if profile %}
                             <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name" value="{{ profile.last_name}}">
                         {% else %}
-                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name">
+                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" name="last_name">
                         {% endif %}
                         </div>
     
                     </div>
+                    {% if email %}
                     <div class="col-6 col-md-6">
-    
-                        <!-- Email -->
                         <div class="form-group">
                         <label for="checkoutBillingEmail">Email *</label>
                         <p id="checkoutBillingEmail">{{ email }}</p>
                         </div>
     
                     </div>
-                    <!-- <div class="col-6 col-md-6">
-                        <div class="form-group mb-0">
-                        <label for="checkoutBillingPhone">Mobile Phone *</label>
-                        {% if profile %}
-                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number" value="{{ profile.contact_number}}">
-                        {% else %}
-                            <input class="form-control form-control-sm" id="checkoutBillingPhone" type="tel" placeholder="Mobile Phone" required name="contact_number">
-                        {% endif %}
+                    {% endif %}
+                    {% if phone %}
+                    <div class="col-6 col-md-6">
+                        <div class="form-group">
+                        <label for="checkoutBillingPhone">Phone *</label>
+                        <p id="checkoutBillingPhone">{{ phone }}</p>
                         </div>
-                    </div> -->
+                    </div>
+                    {% endif %}
                     <div class="col-md-2 offset-md-5 text-center mt-5">
                         <button class="btn btn-block btn-dark" type="submit">
                             Update
@@ -77,158 +75,280 @@
         <div class="col-12 text-center">
             <h3 class="mb-4">Address</h3>
         </div>
+        
+        <div class="row">
+            <!-- Shipping Address -->
+            <div class="col-12 col-md-6">
+                <h6>Shipping Address</h6>
+                <ul>
+                    {% for address in shipping_address %}
+                        <div class="modal fade" id="shipping__address__{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Shipping Address</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
 
-        <div class="col-12">
-            {% for address in addresses %}
-            <form action="{% url 'update_address' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <h6>Address No 1</h6>
-                <div class="row mb-9">
-                    <div class="col-12">
-
-                    <!-- Country -->
-                    <div class="form-group">
-                        <label for="country{{ forloop.counter }}">Country *</label>
-                        <input class="form-control form-control-sm" id="country{{ forloop.counter }}" type="text" placeholder="Country" required name="country" value="{{ address.country }}">
-                    </div>
-    
-                    </div>
-                    <div class="col-12">
-
-                    <!-- Street Address -->
-                    <div class="form-group">
-                        <label for="street{{ forloop.counter }}">Street Address *</label>
-                        <input class="form-control form-control-sm" id="street{{ forloop.counter }}" type="text" placeholder="street address" required name="street_address" value="{{ address.street_address }}">
-                    </div>
-    
-                    </div>
-                   
-                    <div class="col-12 col-md-4">
-    
-                        <!-- City -->
-                        <div class="form-group">
-                        <label for="city{{ forloop.counter }}">Town / City *</label>
-                        <input class="form-control form-control-sm" id="city{{ forloop.counter }}" type="text" placeholder="City" required name="city" value="{{ address.city }}">
-                        </div>
-    
-                    </div>
-
-                    <div class="col-12 col-md-4">
-    
-                        <!-- State -->
-                        <div class="form-group">
-                        <label for="state{{ forloop.counter }}">State *</label>
-                        <input class="form-control form-control-sm" id="state{{ forloop.counter }}" type="text" placeholder="State" required name="state" value="{{ address.state }}">
-                        </div>
-    
-                    </div>
-                    <div class="col-12 col-md-4">
-    
-                        <!-- ZIP / Postcode -->
-                        <div class="form-group">
-                        <label for="postal_code{{ forloop.counter }}">ZIP / Postcode *</label>
-                        <input class="form-control form-control-sm" id="postal_code{{ forloop.counter }}" type="text" placeholder="ZIP / Postcode" required name="postal_code" value="{{ address.postal_code }}">
-                        </div>
-    
-                    </div>
-                    <input type="hidden" name="address_id" value="{{ address.id }}">
-                    <div class="col-12">
+                                    <form action="{% url 'update_address' %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="country{{ forloop.counter }}">Country *</label>
+                                                        <input class="form-control form-control-sm" id="country{{ forloop.counter }}" type="text" placeholder="Country" required name="country" value="{{ address.country }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="street{{ forloop.counter }}">Street Address *</label>
+                                                        <input class="form-control form-control-sm" id="street{{ forloop.counter }}" type="text" placeholder="street address" required name="street_address" value="{{ address.street_address }}">
+                                                    </div>
+                                                </div>
+                                            
+                                                <div class="col-12 col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="city{{ forloop.counter }}">Town / City *</label>
+                                                        <input class="form-control form-control-sm" id="city{{ forloop.counter }}" type="text" placeholder="City" required name="city" value="{{ address.city }}">
+                                                    </div>
+                                                </div>
                         
-                        <!-- Button -->
-                        <button class="btn btn-sm btn-outline-dark" type="submit">
-                        Update Address
-                        </button>
+                                                <div class="col-12 col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="state{{ forloop.counter }}">State *</label>
+                                                        <input class="form-control form-control-sm" id="state{{ forloop.counter }}" type="text" placeholder="State" required name="state" value="{{ address.state }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="postal_code{{ forloop.counter }}">ZIP / Postcode *</label>
+                                                        <input class="form-control form-control-sm" id="postal_code{{ forloop.counter }}" type="text" placeholder="ZIP / Postcode" required name="postal_code" value="{{ address.postal_code }}">
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="address_id" value="{{ address.id }}">
+                                                <input type="hidden" name="address_type" value="shipping">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <li>
+                            <a href="" data-toggle="modal" data-target="#shipping__address__{{ forloop.counter }}">{{address}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
 
+                <div class="modal fade" id="add__shipping__address" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Shipping Address</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form action="{% url 'create_address' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                    
+                                        <div class="form-group">
+                                            <label for="country">Country *</label>
+                                            <input class="form-control form-control-sm" id="country" type="text" placeholder="Country" required name="country">
+                                        </div>                        
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="street">Street Address *</label>
+                                                <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="city">Town / City *</label>
+                                                <input class="form-control form-control-sm" id="city" type="text" placeholder="City" required name="city">
+                                            </div>
+                                        </div>
+                    
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="state">State *</label>
+                                                <input class="form-control form-control-sm" id="state" type="text" placeholder="State" required name="state">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="postal_code">ZIP / Postcode *</label>
+                                                <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="address_type" value="shipping">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </form>
-            <hr>
-            {% endfor %}
 
-            <!-- Add another Address -->
-            <div class="mb-9">
-
-                <!-- Checkbox -->
                 <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" id="checkoutShippingAddress" type="checkbox">
-                    <label class="custom-control-label font-size-sm" data-toggle="collapse" data-target="#checkoutShippingAddressCollapse" for="checkoutShippingAddress">
+                    <label class="custom-control-label font-size-sm" data-toggle="modal" data-target="#add__shipping__address" for="checkoutShippingAddress">
                     Add  address?
                     </label>
                 </div>
+            </div>
 
-                <!-- Collapse -->
-                <div class="collapse" id="checkoutShippingAddressCollapse">
-                    <div class="row mt-6">
-                    <div class="col-12">
-
-                        <form action="{% url 'create_address' %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <h6>Address No 1</h6>
-                            <div class="row mb-9">
-                                <div class="col-12">
-            
-                                <!-- Country -->
-                                <div class="form-group">
-                                    <label for="country">Country *</label>
-                                    <input class="form-control form-control-sm" id="country" type="text" placeholder="Country" required name="country">
-                                </div>
-                
-                                </div>
-                                <div class="col-12">
-            
-                                <!-- Street Address -->
-                                <div class="form-group">
-                                    <label for="street">Street Address *</label>
-                                    <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address">
-                                </div>
-                
-                                </div>
-                               
-                                <div class="col-12 col-md-4">
-                
-                                    <!-- City -->
-                                    <div class="form-group">
-                                    <label for="city">Town / City *</label>
-                                    <input class="form-control form-control-sm" id="city" type="text" placeholder="City" required name="city">
-                                    </div>
-                
-                                </div>
-            
-                                <div class="col-12 col-md-4">
-                
-                                    <!-- State -->
-                                    <div class="form-group">
-                                    <label for="state">State *</label>
-                                    <input class="form-control form-control-sm" id="state" type="text" placeholder="State" required name="state">
-                                    </div>
-                
-                                </div>
-                                <div class="col-12 col-md-4">
-                
-                                    <!-- ZIP / Postcode -->
-                                    <div class="form-group">
-                                    <label for="postal_code">ZIP / Postcode *</label>
-                                    <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code">
-                                    </div>
-                
-                                </div>
-                                <div class="col-12">
-            
-                                    <!-- Button -->
-                                    <button class="btn btn-sm btn-outline-dark" type="submit">
-                                    Save Address
+            <!-- Billing Address -->
+            <div class="col-12 col-md-6">
+                <h6>Billing Address</h6>
+                <ul>
+                    {% for address in billing_address %}
+                    <div class="modal fade" id="billing__address__{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Billing Address</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
                                     </button>
-            
                                 </div>
+
+                                <form action="{% url 'update_address' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="country{{ forloop.counter }}">Country *</label>
+                                                    <input class="form-control form-control-sm" id="country{{ forloop.counter }}" type="text" placeholder="Country" required name="country" value="{{ address.country }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="street{{ forloop.counter }}">Street Address *</label>
+                                                    <input class="form-control form-control-sm" id="street{{ forloop.counter }}" type="text" placeholder="street address" required name="street_address" value="{{ address.street_address }}">
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="city{{ forloop.counter }}">Town / City *</label>
+                                                    <input class="form-control form-control-sm" id="city{{ forloop.counter }}" type="text" placeholder="City" required name="city" value="{{ address.city }}">
+                                                </div>
+                                            </div>
+                    
+                                            <div class="col-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="state{{ forloop.counter }}">State *</label>
+                                                    <input class="form-control form-control-sm" id="state{{ forloop.counter }}" type="text" placeholder="State" required name="state" value="{{ address.state }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="postal_code{{ forloop.counter }}">ZIP / Postcode *</label>
+                                                    <input class="form-control form-control-sm" id="postal_code{{ forloop.counter }}" type="text" placeholder="ZIP / Postcode" required name="postal_code" value="{{ address.postal_code }}">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="address_id" value="{{ address.id }}">
+                                            <input type="hidden" name="address_type" value="billing">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
+                    <li>
+                        <a href="" data-toggle="modal" data-target="#billing__address__{{ forloop.counter }}">{{address}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="modal fade" id="add__billing__address" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Billing Address</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form action="{% url 'create_address' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                    
+                                        <div class="form-group">
+                                            <label for="country">Country *</label>
+                                            <input class="form-control form-control-sm" id="country" type="text" placeholder="Country" required name="country">
+                                        </div>                        
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="street">Street Address *</label>
+                                                <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="city">Town / City *</label>
+                                                <input class="form-control form-control-sm" id="city" type="text" placeholder="City" required name="city">
+                                            </div>
+                                        </div>
+                    
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="state">State *</label>
+                                                <input class="form-control form-control-sm" id="state" type="text" placeholder="State" required name="state">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="postal_code">ZIP / Postcode *</label>
+                                                <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="address_type" value="billing">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" id="checkoutBillingAddress" type="checkbox">
+                    <label class="custom-control-label font-size-sm" data-toggle="modal" data-target="#add__billing__address" for="checkoutBillingAddress">
+                    Add  address?
+                    </label>
+                </div>
             </div>
         </div>
-
     </div>
 
 </section>
