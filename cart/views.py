@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
-from cart.models import Cart, ProductQuantity, Order, Payment
+from cart.models import Cart, ProductQuantity, Order, Payment, CountryPayment
 from customer.models import User
 from customer.models import Profile
 from product.models import Product
@@ -182,7 +182,25 @@ class Checkout(View):
                 order.total = total
                 order.save()
 
-            context = {'order': order}
+            # Show payment method according to IP
+            ip_detail = get_ip_detail(request)
+            if ip_detail['message']!='fail':
+                country = ip_detail['country']
+            else:
+                country = settings.DEFAULT_COUNTRY
+            
+            countryPayment = CountryPayment.objects.filter(country=country).first()
+            if not countryPayment.razorpay and not countryPayment.cod:
+                all_payment_method_off = True
+            else:
+                all_payment_method_off = False
+            context = {
+                'order': order,
+                'razorpay': countryPayment.razorpay,
+                'paypal': countryPayment.paypal,
+                'cod': countryPayment.cod,
+                'all_payment_method_off': all_payment_method_off
+            }
             return render(request, self.continue_template_name, context)
         return redirect('checkout')
 

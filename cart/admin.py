@@ -51,8 +51,8 @@ class PaymentAdmin(admin.ModelAdmin):
         return format_html('<a href="{}">{} Order</a>', url, obj.order.id)
 
 class CountryPaymentAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'country', 'method',)
-    list_filter = ('method', 'country')
+    list_display = ('__str__', 'country', 'razorpay', 'paypal', 'cod')
+    list_filter = ( 'razorpay', 'paypal', 'cod', 'country')
 
 admin.site.register(Cart, CartAdmin)
 admin.site.register(ProductQuantity)

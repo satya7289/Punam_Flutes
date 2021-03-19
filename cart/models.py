@@ -53,8 +53,10 @@ class Payment(TimeStampedModel):
 
 class CountryPayment(TimeStampedModel):
     country = models.CharField(max_length=100, blank=True, choices=country, null=True, default='')
-    method = models.CharField(max_length=20, choices=paymentMethod, null=True, blank=True,verbose_name='Payment Method')
+    razorpay = models.BooleanField(default=True, blank=True, null=True)
+    paypal = models.BooleanField(default=True, blank=True, null=True)
+    cod = models.BooleanField(default=True, blank=True, null=True)
 
     def __str__(self):
-        return self.country + ' ' + self.method
+        return self.country
 
