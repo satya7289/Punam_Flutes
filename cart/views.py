@@ -202,6 +202,8 @@ class Checkout(View):
                 country = settings.DEFAULT_COUNTRY
             
             countryPayment = CountryPayment.objects.filter(country=country).first()
+            if not countryPayment:
+                countryPayment = CountryPayment.objects.filter(country=settings.DEFAULT_COUNTRY).first()
             if not countryPayment.razorpay and not countryPayment.cod:
                 all_payment_method_off = True
             else:
