@@ -103,92 +103,15 @@
                 <div class="form-group">
                   <ul class="list-styled mb-0" id="productsNav">
                     <li class="list-styled-item">
-                      <a class="list-styled-link" href="#">
-                        All Products
-                      </a>
-                    </li>
-                    <li class="list-styled-item">
-
-                      <!-- Toggle -->
-                      <a class="list-styled-link" data-toggle="collapse" href="#blousesCollapse">
-                        category
-                      </a>
-
-                      <!-- Collapse -->
-                      <div class="collapse" id="blousesCollapse" data-parent="#productsNav">
-                        <div class="py-4 pl-5">
-                          {% for cat in categories %}
-                          <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="blousesOne-{{ forloop.counter }}" type="checkbox" value="{{cat.id}}" name="sidebar-category-{{ forloop.counter }}">
-                            <label class="custom-control-label" for="blousesOne-{{ forloop.counter }}">
-                              {{cat.display_name}}
-                            </label>
-                          </div>
-                          {% endfor %}
-                        </div>
+                      {% for cat in categories %}
+                      <div class="custom-control custom-checkbox mb-3">
+                          <a href="{% url 'product:product_list' category_id=cat.id %}">{{cat.display_name}}</a>
                       </div>
-
+                      {% endfor %}
                     </li>
                   </ul>
                 </div>
               </div>
-
-            </li>
-            <li class="nav-item">
-
-              <!-- Toggle -->
-              <a class="nav-link dropdown-toggle font-size-lg text-reset border-bottom mb-6" data-toggle="collapse"
-                href="#priceCollapse">
-                Price
-              </a>
-
-              <!-- Collapse -->
-              <div class="collapse" id="priceCollapse" data-toggle="simplebar" data-target="#priceGroup">
-
-                <!-- Form group-->
-                <div class="form-group form-group-overflow mb-6" id="priceGroup">
-                  <div class="custom-control custom-checkbox mb-3">
-                    <input class="custom-control-input" id="priceOne" type="checkbox" checked>
-                    <label class="custom-control-label" for="priceOne">
-                      $10.00 - $49.00
-                    </label>
-                  </div>
-                  <div class="custom-control custom-checkbox mb-3">
-                    <input class="custom-control-input" id="priceTwo" type="checkbox" checked>
-                    <label class="custom-control-label" for="priceTwo">
-                      $50.00 - $99.00
-                    </label>
-                  </div>
-                  <div class="custom-control custom-checkbox mb-3">
-                    <input class="custom-control-input" id="priceThree" type="checkbox">
-                    <label class="custom-control-label" for="priceThree">
-                      $100.00 - $199.00
-                    </label>
-                  </div>
-                  <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" id="priceFour" type="checkbox">
-                    <label class="custom-control-label" for="priceFour">
-                      $200.00 and Up
-                    </label>
-                  </div>
-                </div>
-
-                <!-- Range -->
-                <div class="d-flex align-items-center">
-
-                  <!-- Input -->
-                  <input type="number" class="form-control form-control-xs" placeholder="$10.00" min="10">
-
-                  <!-- Divider -->
-                  <div class="text-gray-350 mx-2">â€’</div>
-
-                  <!-- Input -->
-                  <input type="number" class="form-control form-control-xs" placeholder="$350.00" max="350">
-
-                </div>
-
-              </div>
-
             </li>
           </ul>
         </form>
@@ -285,38 +208,48 @@
 
 
     <!-- Pagination -->
-    <!-- <nav class="d-flex justify-content-center justify-content-md-end">
-      <ul class="pagination pagination-sm text-gray-400">
-        <li class="page-item">
-          <a class="page-link page-link-arrow" href="#">
-            <i class="fa fa-caret-left"></i>
-          </a>
-        </li>
-        <li class="page-item active">
-          <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">4</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">5</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">6</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link page-link-arrow" href="#">
-            <i class="fa fa-caret-right"></i>
-          </a>
-        </li>
+    <nav class="d-flex justify-content-center justify-content-md-end">
+      {% if products.has_other_pages %}
+      <ul class="pagination justify-content-center">
+      
+          {% if products.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ products.previous_page_number }}">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+          {% else %}
+  `       <li class="page-item disabled">
+              <a class="page-link" href="#">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+          {% endif %}
+
+          {% for i in products.paginator.page_range %}
+              {% if products.number == i %}
+                  <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+              {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+          {% endfor %}
+
+          {% if products.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ products.next_page_number }}">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" href="#">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+          {% endif %}
+      {% endif %}
       </ul>
-    </nav> -->
+    </nav>
 
   </div>
   </div>

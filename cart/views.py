@@ -113,19 +113,31 @@ class Checkout(View):
         cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
         product_details = cart.product_detail.all()
-        currency = '$'
-
-        # Add the price and currency according to the user's location to the product
-        for product in product_details:
-            price_list = get_price_of_product(request,product.product)
-            product.price = price_list['price']
-            product.currency = price_list['currency']
-            currency = price_list['currency']
+        currency = settings.DEFAULT_CURRENCY
+        if request.GET.get('country'):
+            # Add the price and currency according to the given country to the product
+            country = request.GET.get('country')
+            for product in product_details:
+                price_list = get_price_of_product(request,product.product)  # TODO: for the country
+                product.price = price_list['price']
+                product.currency = price_list['currency']
+                currency = price_list['currency']
+                country = price_list['country']
+        else:
+            # Add the price and currency according to the user's location to the product
+            country = settings.DEFAULT_COUNTRY
+            for product in product_details:
+                price_list = get_price_of_product(request,product.product)
+                product.price = price_list['price']
+                product.currency = price_list['currency']
+                currency = price_list['currency']
+                country = price_list['country']
 
         context = {
             'cart': cart,
             'orders': product_details,
             'currency': currency,
+            'country': country,
             'profile': profile,
             'user_address': user_address,
             'shipping_address': shipping_address,
