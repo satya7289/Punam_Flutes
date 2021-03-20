@@ -28,6 +28,9 @@ class Product(TimeStampedModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ("title", "search_tags")
+
 
 class CountryCurrency(TimeStampedModel):
     country = models.CharField(

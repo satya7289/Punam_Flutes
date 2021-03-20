@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
-from cart.models import Cart, ProductQuantity, Order, Payment
+from cart.models import Cart, ProductQuantity, Order, Payment, CountryPayment
 from customer.models import User
 from customer.models import Profile
 from product.models import Product
@@ -109,25 +109,40 @@ class Checkout(View):
         user = request.user
         profile = Profile.objects.filter(user=user).first()
         user_address = Address.objects.filter(user=user)
+        shipping_address = Address.objects.filter(user=user, address_type='shipping')
         cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
         product_details = cart.product_detail.all()
-        currency = '$'
-
-        # Add the price and currency according to the user's location to the product
-        for product in product_details:
-            price_list = get_price_of_product(request,product.product)
-            product.price = price_list['price']
-            product.currency = price_list['currency']
-            currency = price_list['currency']
+        currency = settings.DEFAULT_CURRENCY
+        if request.GET.get('country'):
+            # Add the price and currency according to the given country to the product
+            country = request.GET.get('country')
+            for product in product_details:
+                price_list = get_price_of_product(request,product.product)  # TODO: for the country
+                product.price = price_list['price']
+                product.currency = price_list['currency']
+                currency = price_list['currency']
+                country = price_list['country']
+        else:
+            # Add the price and currency according to the user's location to the product
+            country = settings.DEFAULT_COUNTRY
+            for product in product_details:
+                price_list = get_price_of_product(request,product.product)
+                product.price = price_list['price']
+                product.currency = price_list['currency']
+                currency = price_list['currency']
+                country = price_list['country']
 
         context = {
             'cart': cart,
             'orders': product_details,
             'currency': currency,
+            'country': country,
             'profile': profile,
             'user_address': user_address,
-            'email': user.email
+            'shipping_address': shipping_address,
+            'email': user.email,
+            'phone': user.phone
         }
         return render(request, self.template_name, context)
 
@@ -179,7 +194,25 @@ class Checkout(View):
                 order.total = total
                 order.save()
 
-            context = {'order': order}
+            # Show payment method according to IP
+            ip_detail = get_ip_detail(request)
+            if ip_detail['message']!='fail':
+                country = ip_detail['country']
+            else:
+                country = settings.DEFAULT_COUNTRY
+            
+            countryPayment = CountryPayment.objects.filter(country=country).first()
+            if not countryPayment.razorpay and not countryPayment.cod:
+                all_payment_method_off = True
+            else:
+                all_payment_method_off = False
+            context = {
+                'order': order,
+                'razorpay': countryPayment.razorpay,
+                'paypal': countryPayment.paypal,
+                'cod': countryPayment.cod,
+                'all_payment_method_off': all_payment_method_off
+            }
             return render(request, self.continue_template_name, context)
         return redirect('checkout')
 
@@ -261,6 +294,28 @@ def process_payment(request):
 
             form = PayPalPaymentsForm(initial=paypal_dict)
             return render(request, 'process_payment.html', {'order': 'order', 'form': form})
+        
+        elif request.POST.get('COD'): # COD
+            payment = Payment.objects.filter(order=order.id).first()
+
+            if payment:
+                if payment.status:  # if payment is done
+                    return redirect('dashboard')
+                else:
+                    payment.method="COD"
+                    payment.save()
+            else:
+                payment = Payment.objects.create(
+                    order=order,
+                    method="COD"
+                )
+            # Checkout True
+            payment.order.cart.is_checkout = True
+            payment.order.cart.save()
+
+            # Send Invoice
+            invoice = sendInvoice(request, payment.order.id)
+            return redirect('orders')            
 
     messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
     return redirect('checkout')

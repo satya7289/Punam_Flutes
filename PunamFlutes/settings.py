@@ -37,6 +37,7 @@ THIRD_PARTY_APPS = [
     'django_countries',
     'storages',
     'paypal.standard.ipn',
+    'ckeditor',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -163,6 +164,10 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
+
+
+# ckeditor
+CKEDITOR_BASEPATH = 'https://' + AWS_S3_CUSTOM_DOMAIN + '/ckeditor/ckeditor/'
 
 # Email Setup
 SEND_EMAIL = False

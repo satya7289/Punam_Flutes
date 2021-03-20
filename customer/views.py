@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from category.models import Category
 from PunamFlutes.tokens import account_activation_token
+from commons.country_currency import country as COUNTRY
 
 from customer.models import Profile, normalize_phone
 from address.models import Address
@@ -252,18 +253,28 @@ class CustomerProfile(View):
         profile = Profile.objects.filter(user=user).first()
 
         # Get all the address of the user
-        address = Address.objects.filter(user=user)
+        billing_address = Address.objects.filter(user=user, address_type='billing')
+        shipping_address = Address.objects.filter(user=user, address_type='shipping')
+
+        # countries
+        country = COUNTRY
 
         if not profile:
             profile = None
         
-        if not address:
-            address = None
+        if not billing_address:
+            billing_address = None
+        
+        if not shipping_address:
+            shipping_address = None
 
         context ={
             'profile': profile,
             'email' : user.email,
-            'addresses' : address
+            'phone' : user.phone,
+            'billing_address' : billing_address,
+            'shipping_address': shipping_address,
+            'country': country
         }
         return render(request, self.template_name, context)
 
@@ -275,8 +286,10 @@ class CustomerProfile(View):
         profile = Profile.objects.filter(user=user).first()
         
         if profile:
-            profile.first_name = first_name
-            profile.last_name = last_name
+            if first_name:
+                profile.first_name = first_name
+            if last_name:
+                profile.last_name = last_name
             profile.save()
             return redirect('customer_profile')
 

@@ -14,6 +14,8 @@
                 <th scope="col">Product</th>
                 <th scope="col">Total</th>
                 <th scope="col">Address</th>
+                <th scope="col">Payment Method</th>
+                <th scope="col">Payment</th>
                 <th scope="col">Delivered</th>
               </tr>
             </thead>
@@ -66,6 +68,20 @@
                         <td><a href="" data-toggle="modal" data-target="#cartDetail-{{ forloop.counter }}">Products</a></td>
                         <td>{{ order.total }}</td>
                         <td>{{ order.address }}</td>
+                        <td>
+                            {% if order.payment and order.payment.method and order.payment.method == "COD" %}
+                                COD
+                            {% else %}
+                                Online Payment
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if order.payment and order.payment.status %}
+                                Done
+                            {% else %}
+                                Not Done
+                            {% endif %}
+                        </td>
                         <td>
                             {% if order.delivered %}
                                 Delivered
