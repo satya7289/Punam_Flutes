@@ -11,6 +11,8 @@ from .views import (
     termsCondition,
     returnPolicy,
     refundPolicy,
+    indianStore,
+    internationalStore,
 )
 
 urlpatterns = [
@@ -20,6 +22,8 @@ urlpatterns = [
     path('terms-and-conditions/', termsCondition, name='termsCondition'),
     path('return-policy/', returnPolicy, name='returnPolicy'),
     path('refund-policy/', refundPolicy, name='refundPolicy'),
+    path('indian-store', indianStore, name='indianStore'),
+    path('international-store', internationalStore, name='internationalStore'),
 
     path('flutes_admin/', admin.site.urls),
     path('customer/', include('customer.urls')),

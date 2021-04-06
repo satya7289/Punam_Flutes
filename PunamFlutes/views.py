@@ -72,6 +72,16 @@ def refundPolicy(request):
     template = 'store/refund_policy.html'
     return render(request, template, context)
 
+def indianStore(request):
+    context = {}
+    template = 'store/indian_store.html'
+    return render(request, template, context)
+
+def internationalStore(request):
+    context = {}
+    template = 'store/international_store.html'
+    return render(request, template, context)
+
 def wishlist(request):
     context = {}
     template = 'store/wishlist.html'
