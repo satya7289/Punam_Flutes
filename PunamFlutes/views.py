@@ -57,6 +57,20 @@ def contact(request):
     template = 'store/contact.html'
     return render(request, template, context)
 
+def termsCondition(request):
+    context = {}
+    template = 'store/terms_and_condition.html'
+    return render(request, template, context)
+
+def returnPolicy(request):
+    context = {}
+    template = 'store/return_policy.html'
+    return render(request, template, context)
+
+def refundPolicy(request):
+    context = {}
+    template = 'store/refund_policy.html'
+    return render(request, template, context)
 
 def wishlist(request):
     context = {}

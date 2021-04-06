@@ -3,12 +3,23 @@ from django.conf import settings
 from django.urls import path, include, re_path
 from django.conf.urls.static import static
 
-from .views import HomePageView, contact, wishlist
+from .views import HomePageView
+
+from .views import (
+    contact,
+    wishlist,
+    termsCondition,
+    returnPolicy,
+    refundPolicy,
+)
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='dashboard'),
     path('contact/', contact, name='contact'),
     path('wishlist/', wishlist, name='wishlist'),
+    path('terms-and-conditions/', termsCondition, name='termsCondition'),
+    path('return-policy/', returnPolicy, name='returnPolicy'),
+    path('refund-policy/', refundPolicy, name='refundPolicy'),
 
     path('flutes_admin/', admin.site.urls),
     path('customer/', include('customer.urls')),

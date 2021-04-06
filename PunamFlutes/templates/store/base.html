@@ -1194,7 +1194,7 @@
             <!-- Links -->
             <ul class="list-unstyled mb-7 mb-sm-0">
               <li>
-                <a class="text-gray-300" href="contact-us.html">Contact Us</a>
+                <a class="text-gray-300" href="{% url 'contact' %}">Contact Us</a>
               </li>
             </ul>
 
@@ -1228,10 +1228,13 @@
             <!-- Links -->
             <ul class="list-unstyled mb-0">
               <li>
-                <a class="text-gray-300" href="#!">Terms & Conditions</a>
+                <a class="text-gray-300" href="{% url 'termsCondition' %}">Terms & Condition</a>
               </li>
               <li>
-                <a class="text-gray-300" href="#!">Privacy & Cookie policy</a>
+                <a class="text-gray-300" href="{% url 'returnPolicy' %}">Return Policy</a>
+              </li>
+              <li>
+                <a class="text-gray-300" href="{% url 'refundPolicy' %}">Refund Policy</a>
               </li>
             </ul>
 
