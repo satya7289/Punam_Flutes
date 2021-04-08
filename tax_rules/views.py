@@ -37,7 +37,7 @@ class CalculateTax(View):
             if address and address.country == 'India':
                 taxRules = TaxRule.objects.filter(
                     country=address.country, 
-                    state__in=GSTState.objects.filter(name__contains=address.state),
+                    state__in=GSTState.objects.filter(name__icontains=address.state),
                     category__in=category_ids
                 ).distinct()
 
