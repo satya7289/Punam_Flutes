@@ -31,6 +31,7 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('address/', include('address.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
+    path('tax/', include('tax_rules.urls')),
 ]
 
 if settings.DEBUG:

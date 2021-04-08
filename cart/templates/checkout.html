@@ -11,10 +11,10 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb mb-0 font-size-xs text-gray-400">
           <li class="breadcrumb-item">
-            <a class="text-gray-400" href="index.html">Home</a>
+            <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
           </li>
           <li class="breadcrumb-item">
-            <a class="text-gray-400" href="shopping-cart.html">Shopping Cart</a>
+            <a class="text-gray-400" href="{% url 'cart' %}">Shopping Cart</a>
           </li>
           <li class="breadcrumb-item active">
             Checkout
@@ -164,6 +164,14 @@
           {% endfor %}
         </ul>
 
+        <form id="taxform" action="{% url 'calculateTax' %}" method="GET">
+          <input type="hidden" name="totalPrice" value="{{ total_price }}">
+          {% for cat_id in category_ids %}
+            <input type="hidden" name="category_ids[]" value="{{ cat_id }}">
+          {% endfor %}
+        </form>
+
+
         <!-- Card -->
         <div class="card mb-9 bg-light">
           <div class="card-body">
@@ -172,7 +180,7 @@
                 <span>Subtotal</span> <span class="ml-auto font-size-sm" id="subtotal">00.00</span>
               </li>
               <li class="list-group-item d-flex">
-                <span>Tax</span> <span class="ml-auto font-size-sm" id="tax">00.00</span>
+                <span>Tax</span> <span class="ml-auto font-size-sm" id="tax" data-tax="">00.00</span>
               </li>
               <li class="list-group-item d-flex">
                 <span>Shipping</span> <span class="ml-auto font-size-sm" id="shipping">00.00</span>
@@ -215,7 +223,10 @@
 {% block script %}
 <script>
 
+var currency = '{{ currency }}';
+
 $(document).ready(()=>{
+  updateTax();
   updateSubTotal();
 });
 
@@ -224,21 +235,23 @@ $('#process-btn').click(()=>{
 });
 
 function updateSubTotal(){
-  let currency = '{{ currency }}';
-
   let Subtotal = 0;
-  let tax = 0;
+  let total = 0;
+  let tax = $('#tax').data('tax');
+  if(tax!="") tax = parseFloat(tax);
+  else tax = 0;
   let Shipping = 0;
   $("[id*=order_price]").each(function(){
       Subtotal = Subtotal + parseFloat($(this).attr('data-price')*($(this).attr('data-quantity')));
       $(this).html(currency + Subtotal);
   });
   Subtotal = Subtotal.toFixed(2);
+  total = parseFloat(Subtotal) + parseFloat(tax);
   $('#subtotal').html(currency + Subtotal);
-  $('#total').html(currency + Subtotal);
+  $('#total').html(currency + total);
   $('#tax').html(currency + tax);
   $('#shipping').html(currency + Shipping);
-  $('[name=total]').val(Subtotal);
+  $('[name=total]').val(total);
 }
 
 $('#terms__condition').change(function(){
@@ -259,7 +272,30 @@ $('[name="address"]').change(function(){
   if(country!=undefined && country!=$("[name='country']").val())
     console.log(country);
     // window.location="http://localhost:8000/cart/checkout/";
+  
+  /* update the tax */
+  updateTax($(this).val());
 });
+
+
+function updateTax(address_id=''){
+  var totalPrice = "{{ total_price }}";
+  var category_ids = "{{ category_ids }}";
+  $.ajax({
+    url: "{% url 'calculateTax' %}",
+    data: {
+      "totalPrice": totalPrice,
+      "address_id": address_id,
+      "catgory_ids": category_ids
+    },
+    dataType: 'JSON',
+    success: function(data){
+      $('#tax').html(currency + data.totalTax);
+      $('#tax').data('tax', data.totalTax);
+      updateSubTotal();
+    }
+  });
+}
 
 </script>
 {% endblock %}

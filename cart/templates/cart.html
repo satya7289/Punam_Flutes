@@ -100,14 +100,14 @@
                 <li class="list-group-item d-flex">
                   <span>Subtotal</span> <span class="ml-auto font-size-sm" id="subtotal" data-subtotal="0">$0</span>
                 </li>
-                <li class="list-group-item d-flex">
+                <!-- <li class="list-group-item d-flex">
                   <span>Tax</span> <span class="ml-auto font-size-sm">$00.00</span>
-                </li>
+                </li> -->
                 <li class="list-group-item d-flex font-size-lg font-weight-bold">
-                  <span>Total</span> <span class="ml-auto font-size-sm" id="total" data-subtotal="0">$0</span>
+                  <span>Subtotal</span> <span class="ml-auto font-size-sm" id="total" data-subtotal="0">$0</span>
                 </li>
                 <li class="list-group-item font-size-sm text-center text-gray-500">
-                  Shipping cost calculated at Checkout *
+                  Tax and Shipping cost calculated at Checkout *
                 </li>
               </ul>
             </div>
@@ -117,7 +117,7 @@
           <a class="btn btn-block btn-dark mb-2" href="{% url 'checkout'%}">Proceed to Checkout</a>
 
           <!-- Link -->
-          <a class="btn btn-link btn-sm px-0 text-body" href="#">
+          <a class="btn btn-link btn-sm px-0 text-body" href="{% url 'dashboard' %}">
             <i class="fe fe-arrow-left mr-2"></i> Continue Shopping
           </a>
 

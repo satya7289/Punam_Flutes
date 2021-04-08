@@ -1,0 +1,342 @@
+[
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 1,
+        "fields": {
+            "name":"JAMMU AND KASHMIR",
+            "code":"1"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 2,
+        "fields": {
+            "name":"HIMACHAL PRADESH",
+            "code":"2"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 3,
+        "fields": {
+            "name":"PUNJAB",
+            "code":"3"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 4,
+        "fields": {
+            "name":"CHANDIGARH",
+            "code":"4"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 5,
+        "fields": {
+            "name":"UTTARAKHAND",
+            "code":"5"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 6,
+        "fields": {
+            "name":"HARYANA",
+            "code":"6"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 7,
+        "fields": {
+            "name":"DELHI",
+            "code":"7"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 8,
+        "fields": {
+            "name":"RAJASTHAN",
+            "code":"8"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 9,
+        "fields": {
+            "name":"UTTAR PRADESH",
+            "code":"9"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 10,
+        "fields": {
+            "name":"BIHAR",
+            "code":"10"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 11,
+        "fields": {
+            "name":"SIKKIM",
+            "code":"11"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 12,
+        "fields": {
+            "name":"ARUNACHAL PRADESH",
+            "code":"12"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 13,
+        "fields": {
+            "name":"NAGALAND",
+            "code":"13"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 14,
+        "fields": {
+            "name":"MANIPUR",
+            "code":"14"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 15,
+        "fields": {
+            "name":"MIZORAM",
+            "code":"15"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 16,
+        "fields": {
+            "name":"TRIPURA",
+            "code":"16"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 17,
+        "fields": {
+            "name":"MEGHLAYA",
+            "code":"17"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 18,
+        "fields": {
+            "name":"ASSAM",
+            "code":"18"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 19,
+        "fields": {
+            "name":"WEST BENGAL",
+            "code":"19"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 20,
+        "fields": {
+            "name":"JHARKHAND",
+            "code":"20"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 21,
+        "fields": {
+            "name":"ODISHA",
+            "code":"21"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 22,
+        "fields": {
+            "name":"CHATTISGARH",
+            "code":"22"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 23,
+        "fields": {
+            "name":"MADHYA PRADESH",
+            "code":"23"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 24,
+        "fields": {
+            "name":"GUJARAT",
+            "code":"24"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 25,
+        "fields": {
+            "name":"DADRA AND NAGAR HAVELI AND DAMAN AND DIU (NEWLY MERGED UT)",
+            "code":"26"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 26,
+        "fields": {
+            "name":"MAHARASHTRA",
+            "code":"27"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 27,
+        "fields": {
+            "name":"ANDHRA PRADESH(BEFORE DIVISION)",
+            "code":"28"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 28,
+        "fields": {
+            "name":"KARNATAKA",
+            "code":"29"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 29,
+        "fields": {
+            "name":"GOA",
+            "code":"30"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 30,
+        "fields": {
+            "name":"LAKSHWADEEP",
+            "code":"31"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 31,
+        "fields": {
+            "name":"KERALA",
+            "code":"32"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 32,
+        "fields": {
+            "name":"TAMIL NADU",
+            "code":"33"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 33,
+        "fields": {
+            "name":"PUDUCHERRY",
+            "code":"34"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 34,
+        "fields": {
+            "name":"ANDAMAN AND NICOBAR ISLANDS",
+            "code":"35"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 35,
+        "fields": {
+            "name":"TELANGANA",
+            "code":"36"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 36,
+        "fields": {
+            "name":"ANDHRA PRADESH (NEWLY ADDED)",
+            "code":"37"
+        }
+    },
+
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 37,
+        "fields": {
+            "name":"LADAKH (NEWLY ADDED)",
+            "code":"38"
+        }
+    },
+    {
+        "model": "tax_rules.GSTState",
+        "pk": 38,
+        "fields": {
+            "name":"Other",
+            "code":"0"
+        }
+    }
+]

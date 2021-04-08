@@ -114,6 +114,10 @@ class Checkout(View):
 
         product_details = cart.product_detail.all()
         currency = settings.DEFAULT_CURRENCY
+
+        totalPrice = 0
+        category_ids = set()
+
         if request.GET.get('country'):
             # Add the price and currency according to the given country to the product
             country = request.GET.get('country')
@@ -123,6 +127,10 @@ class Checkout(View):
                 product.currency = price_list['currency']
                 currency = price_list['currency']
                 country = price_list['country']
+                totalPrice += float(product.price)
+
+                for category in product.product.category.all():
+                    category_ids.add(category.id)
         else:
             # Add the price and currency according to the user's location to the product
             country = settings.DEFAULT_COUNTRY
@@ -132,6 +140,10 @@ class Checkout(View):
                 product.currency = price_list['currency']
                 currency = price_list['currency']
                 country = price_list['country']
+                totalPrice += float(product.price)
+
+                for category in product.product.category.all():
+                    category_ids.add(category.id)
 
         context = {
             'cart': cart,
@@ -142,7 +154,9 @@ class Checkout(View):
             'user_address': user_address,
             'shipping_address': shipping_address,
             'email': user.email,
-            'phone': user.phone
+            'phone': user.phone,
+            'category_ids': list(category_ids),
+            'total_price': totalPrice,
         }
         return render(request, self.template_name, context)
 

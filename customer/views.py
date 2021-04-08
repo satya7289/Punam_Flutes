@@ -16,6 +16,7 @@ from django.contrib import messages
 from category.models import Category
 from PunamFlutes.tokens import account_activation_token
 from commons.country_currency import country as COUNTRY
+from commons.state import IndianStates, IndianUnionTerritories
 
 from customer.models import Profile, normalize_phone
 from address.models import Address
@@ -257,7 +258,8 @@ class CustomerProfile(View):
         shipping_address = Address.objects.filter(user=user, address_type='shipping')
 
         # countries
-        country = COUNTRY
+        country = COUNTRY[1:]
+        state = (IndianStates + IndianUnionTerritories)
 
         if not profile:
             profile = None
@@ -274,7 +276,8 @@ class CustomerProfile(View):
             'phone' : user.phone,
             'billing_address' : billing_address,
             'shipping_address': shipping_address,
-            'country': country
+            'country': country,
+            'state': state,
         }
         return render(request, self.template_name, context)
 
