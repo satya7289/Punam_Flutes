@@ -12,10 +12,10 @@
         <!-- Breadcrumb -->
         <ol class="breadcrumb mb-0 font-size-xs text-gray-400">
           <li class="breadcrumb-item">
-            <a class="text-gray-400" href="index.html">Home</a>
+            <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
           </li>
           <li class="breadcrumb-item">
-            <a class="text-gray-400" href="shop.html">Categories</a>
+            <a class="text-gray-400" href="{% url 'product:product_list' category_id=category.id %}">{{ category.display_name }}</a>
           </li>
           <li class="breadcrumb-item active">
             {{product.title}}
@@ -85,7 +85,7 @@
               <div class="col">
 
                 <!-- Preheading -->
-                <a class="text-muted" href="shop.html">{{category}}</a>
+                <a class="text-muted" href="!#">{{category}}</a>
 
               </div>
             </div>

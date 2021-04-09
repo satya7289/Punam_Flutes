@@ -294,7 +294,7 @@ class CustomerProfile(View):
             if last_name:
                 profile.last_name = last_name
             profile.save()
-            return redirect('customer_profile')
+            return redirect('dashboard')
 
         profile = Profile.objects.create(user=user, first_name=first_name, last_name=last_name)
         return redirect('customer_profile')

@@ -19,10 +19,10 @@
           <div class="col-12 col-lg-6 col-xl-5 py-4 py-xl-0 px-xl-0">
 
             <!-- Image -->
-            <img class="img-fluid" src="{% static 'assets/img/products/product-7.jpg'%}" alt="...">
+            <img class="img-fluid" id="modalProduct-image" src="!#" alt="...">
 
             <!-- Button -->
-            <a class="btn btn-sm btn-block btn-primary" href="product.html">
+            <a class="btn btn-sm btn-block btn-primary" id="modalProduct-info" href="!#">
               More Product Info <i class="fe fe-info ml-2"></i>
             </a>
 
@@ -30,32 +30,32 @@
           <div class="col-12 col-lg-6 col-xl-7 py-9 px-md-9">
 
             <!-- Heading -->
-            <h4 class="mb-3" id=modalProduct-title>Leather Sneakers</h4>
+            <h4 class="mb-3" id="modalProduct-title"></h4>
 
             <!-- Price -->
             <div class="mb-7">
-              <span class="h5" id="modalProduct-price">$85.00</span>
+              <span class="h5" id="modalProduct-price"></span>
               <!-- <span class="font-size-sm">(In Stock)</span> -->
             </div>
 
             <!-- Form -->
-            <form>
+            <form action="{% url 'add_to_cart' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
               <div class="form-group mb-0">
                 <div class="form-row">
                   <div class="col-12 col-lg-auto">
 
                     <!-- Quantity -->
-                    <select class="custom-select mb-2">
-                      <option value="1" selected>1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
+                    <select class="custom-select mb-2" name="quantity">
+                      {% for i in range %}
+                        <option value="{{ i }}">{{ i }}</option>
+                      {% endfor %}
                     </select>
 
                   </div>
                   <div class="col-12 col-lg">
 
+                    <input type="hidden" name="product_id" id="modalProduct-id" value="">
                     <!-- Submit -->
                     <button type="submit" class="btn btn-block btn-dark mb-2">
                       Add to Cart <i class="fe fe-shopping-cart ml-2"></i>
@@ -65,9 +65,9 @@
                   <div class="col-12 col-lg-auto">
 
                     <!-- Wishlist -->
-                    <button class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
+                    <!-- <button class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
                       Wishlist <i class="fe fe-heart ml-2"></i>
-                    </button>
+                    </button> -->
 
                   </div>
                 </div>
@@ -127,10 +127,11 @@
             <!-- Breadcrumb -->
             <ol class="breadcrumb mb-md-0 font-size-xs text-gray-400">
               <li class="breadcrumb-item">
-                <a class="text-gray-400" href="index.html">Home</a>
+                <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
               </li>
               <li class="breadcrumb-item active">
-                category 
+                <a class="text-gray-400" href="{% url 'product:product_list' category_id=category.id %}">{{ category.display_name }} </a>
+                
               </li>
             </ol>
           </div>
@@ -155,24 +156,32 @@
                 </a>
 
                 <!-- Actions -->
-                <!-- <div class="card-actions">
+                <div class="card-actions">
                   <span class="card-action">
-                    <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="modal"
-                      data-target="#modalProduct">
+                    <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
+                      data-id="{{product.id}}"  
+                      data-title="{{product.title}}"
+                      data-currency="{{product.currency}}"
+                      data-price="{{product.price}}"
+                      data-image="{{product.images.all.0.image.url}}"
+                    >
                       <i class="fe fe-eye"></i>
                     </button>
                   </span>
                   <span class="card-action">
-                    <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                    <button class="btn btn-xs btn-circle btn-white-primary" onclick="AddToCart(this)"
+                      data-id="{{product.id}}"
+                      data-quantity="1"
+                    >
                       <i class="fe fe-shopping-cart"></i>
                     </button>
                   </span>
-                  <span class="card-action">
+                  <!-- <span class="card-action">
                     <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
                       <i class="fe fe-heart"></i>
                     </button>
-                  </span>
-                </div> -->
+                  </span> -->
+                </div>
 
               </div>
 
@@ -193,6 +202,26 @@
                 <div class="font-weight-bold text-muted">
                   {{ product.currency }} {{ product.price }}
                 </div>
+
+                <!-- Actions -->
+                <div>
+                  <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
+                    data-id="{{product.id}}"  
+                    data-title="{{product.title}}"
+                    data-currency="{{product.currency}}"
+                    data-price="{{product.price}}"
+                    data-image="{{product.images.all.0.image.url}}"
+                  >
+                    <i class="fe fe-eye"></i>
+                  </button>
+                  <button class="btn btn-xs btn-circle btn-white-primary" onclick="AddToCart(this)"
+                      data-id="{{product.id}}"
+                      data-quantity="1"
+                    >
+                    <i class="fe fe-shopping-cart"></i>
+                  </button>
+                </div>
+                
 
               </div>
 
@@ -266,5 +295,43 @@ $(document).ready(()=>{
     // alert("d");
   })
 });
+
+function viewProduct(e){
+  let productId = $(e).data('id');
+  let productTitle = $(e).data('title');
+  let productPrice = $(e).data('price');
+  let productCurrency = $(e).data('currency');
+  let productImage = $(e).data('image');
+
+  $('#modalProduct-image').prop('src',productImage);
+  $('#modalProduct-info').prop('href', "{% url 'product:product_detail' category_id=category.id product_id=0 %}".replace('0', productId));
+  $('#modalProduct-title').html(productTitle);
+  $('#modalProduct-price').html(productCurrency+productPrice)
+  $('#modalProduct-id').val(productId);
+
+
+  $('#modalProduct').modal("toggle");
+}
+
+function AddToCart(e){
+  let productId = $(e).data('id');
+  let productQuantity = $(e).data('quantity');
+
+  $.ajax({
+    url: "{% url 'add_to_cart' %}",
+    method: 'post',
+    data: {
+      "quantity": productQuantity,
+      "product_id": productId,
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+    },
+    dataType: 'JSON',
+    success: function(data){
+      // console.log('added to cart');
+    }
+  })
+  window.location.reload();
+}
+
 </script>
 {% endblock %}

@@ -44,7 +44,8 @@ class ProductListView(View):
         # Build the context that to be returned
         context = {
             'products': products,
-            'category': category
+            'category': category,
+            'range': [i+1 for i in range(10)],
         }
         return render(self.request, self.template_name, context)
         
