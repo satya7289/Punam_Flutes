@@ -200,7 +200,8 @@ class Checkout(View):
                     cart=cart, 
                     address=address, 
                     profile=profile, 
-                    total=total
+                    total=total,
+                    status='Pending',
                 )
             else:
                 order.address = address
@@ -218,15 +219,16 @@ class Checkout(View):
             countryPayment = CountryPayment.objects.filter(country=country).first()
             if not countryPayment:
                 countryPayment = CountryPayment.objects.filter(country=settings.DEFAULT_COUNTRY).first()
-            if not countryPayment.razorpay and not countryPayment.cod:
+            
+            if countryPayment and (not countryPayment.razorpay) and (not countryPayment.cod):
                 all_payment_method_off = True
             else:
                 all_payment_method_off = False
             context = {
                 'order': order,
-                'razorpay': countryPayment.razorpay,
-                'paypal': countryPayment.paypal,
-                'cod': countryPayment.cod,
+                'razorpay': countryPayment.razorpay if countryPayment else '',
+                'paypal': countryPayment.paypal if countryPayment else '',
+                'cod': countryPayment.cod if countryPayment else '',
                 'all_payment_method_off': all_payment_method_off
             }
             return render(request, self.continue_template_name, context)
@@ -243,6 +245,18 @@ class OrderList(View):
             )
         )
         return render(request, template_name, {'orders': orders})
+
+class CancelOrder(View):
+    '''
+    Cancel Order if order status is Pending/Confirmed/Paid.
+    '''
+    def get(self, request):
+        if request.GET.get('id'):
+            order = Order.objects.filter(id=request.GET.get('id')).first()
+            if order.status == 'Pending' or order.status == 'Confirmed' or order.status == 'Paid':
+                order.status = 'Canceled'
+                order.save()
+        return redirect('orders')
 
 @login_required
 def process_payment(request):
@@ -329,6 +343,10 @@ def process_payment(request):
             payment.order.cart.is_checkout = True
             payment.order.cart.save()
 
+            # Update the status of order to confirmed
+            order.status = 'Confirmed'
+            order.save()
+
             # Send Invoice
             invoice = sendInvoice(request, payment.order.id)
             return redirect('orders')            
@@ -388,7 +406,7 @@ def payment_canceled(request):
 def razorpay_done(request):
     client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
     razorpayOrderId = request.POST.get('razorpay_order_id')
-    print(request.POST)
+    # print(request.POST)
     if razorpayOrderId:
         razorpayOrder = client.order.fetch(razorpayOrderId)
         razorpayPayment = client.order.payments(razorpayOrderId)
@@ -404,6 +422,10 @@ def razorpay_done(request):
                 # Update the checkout status
                 payment.order.cart.is_checkout = True
                 payment.order.cart.save()
+
+                # Update the status of order to confirmed
+                order.status = 'Paid'
+                order.save()
 
                 # Send Invoice
                 invoice = sendInvoice(request, payment.order.id)

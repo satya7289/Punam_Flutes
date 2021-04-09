@@ -13,8 +13,8 @@ METHOD_CHOICES = (
 GST_TYPE = [['IGST', 'IGST'], ['CGST', 'CGST'], ['SGST','SGST']]
 
 class GSTState(models.Model):
-    name = models.CharField(max_length=100, blank=True, null=True)
-    code = models.PositiveIntegerField(blank=True, null=True)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    code = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -1,13 +1,23 @@
 from django.urls import path
 from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
+from .views import (
+    AddToCart,
+    RemoveFromCart,
+    CartView,
+    Checkout,
+    OrderList,
+    sendInvoice,
+    CancelOrder,
+)
 
-from .views import AddToCart
-from .views import RemoveFromCart
-from .views import CartView
-from .views import Checkout
-from .views import OrderList, sendInvoice
-from .views import payment_done, payment_canceled, process_payment, razorpay_done, razorpay_cancel
+from .views import (
+    payment_done, 
+    payment_canceled, 
+    process_payment, 
+    razorpay_done, 
+    razorpay_cancel,
+)
 
 urlpatterns = [
     path('', CartView.as_view(), name='cart'),
@@ -15,6 +25,7 @@ urlpatterns = [
     path('remove_from_cart/', login_required(RemoveFromCart.as_view()), name='remove_from_cart'),
     path('checkout/', login_required(Checkout.as_view()), name='checkout'),
     path('order/', login_required(OrderList.as_view()), name='orders'),
+    path('order-cencel', login_required(CancelOrder.as_view()), name='order_cancel'),
     
     # path('sendInvoice', sendInvoice, name='send-invoice'),
 

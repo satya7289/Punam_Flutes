@@ -23,8 +23,9 @@ class CartAdmin(admin.ModelAdmin):
     
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'id', 'cart', 'Profile', 'total', 'delivered', 'created_at', 'PaymentMethod', 'Payment')
-    list_filter = ('delivered', )
+    list_display = ('__str__', 'id', 'cart', 'Profile', 'total', 'notes', 'status', 'PaymentMethod', 'Payment', 'created_at')
+    list_filter = ('status', )
+    search_fields = ('notes', 'total',)
 
     def Cart(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.cart._meta.app_label,  obj.cart._meta.model_name),  args=[obj.cart.id] )

@@ -16,7 +16,8 @@
                 <th scope="col">Address</th>
                 <th scope="col">Payment Method</th>
                 <th scope="col">Payment</th>
-                <th scope="col">Delivered</th>
+                <th scope="col">Order Status</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -83,10 +84,11 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if order.delivered %}
-                                Delivered
-                            {% else %}
-                                Not Delivered
+                            {{ order.status }}
+                        </td>
+                        <td>
+                            {% if order.status == 'Pending' or order.status == 'Confirmed' or order.status == 'Paid' %}
+                                <a href="{% url 'order_cancel' %}?id={{ order.id }}"><button class="btn btn-primary">Cancel</button></a>
                             {% endif %}
                         </td>
                     </tr>

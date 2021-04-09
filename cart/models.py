@@ -7,6 +7,16 @@ from commons.models import TimeStampedModel
 from commons.country_currency import country
 
 paymentMethod = [['razorpay', 'razorpay'], ['paypal', 'paypal'], ['COD', 'COD']]
+OrderStatus = [
+    ['Pending', 'Pending'],
+    ['Confirmed', 'Confirmed'],
+    ['Paid', 'Paid'],
+    ['Dispatch', 'Dispatch'],
+    ['Shipped', 'Shipped'],
+    ['Delivered', 'Delivered'],
+    ['Canceled', 'Canceled'],
+    ['Refunded', 'Refunded']
+]
 
 class ProductQuantity(TimeStampedModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -29,13 +39,14 @@ class Order(TimeStampedModel):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     total = models.FloatField(blank=True, null=True)
-    delivered = models.BooleanField(default=False, null=True)
+    notes = models.CharField(max_length=200, blank=True, null=True)
+    status = models.CharField(max_length=50, choices=OrderStatus ,blank=True, null=True)
 
     def __str__(self):
         return self.profile.first_name +' '+ self.profile.last_name + ' order'
     
     class Meta:
-        ordering = ("delivered",)
+        ordering = ("created_at",)
 
 class Payment(TimeStampedModel):
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
