@@ -14,7 +14,7 @@ from commons.product_price import get_price_of_product
 
 class ProductListView(View):
     template_name = 'productList.html'
-    paginate_by = 2
+    paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         category_id = kwargs['category_id']

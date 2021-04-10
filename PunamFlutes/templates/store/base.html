@@ -422,8 +422,9 @@
   <div class="modal fixed-right fade" id="modalShoppingCart" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-vertical" role="document">
 
+      <input type="hidden" id="modal__cart" value="{{ is_cart_detail}}">
       <!-- Full cart (add `.d-none` to disable it) -->
-      <div class="modal-content">
+      <div class="modal-content" id="full__cart">
 
         <!-- Close -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -432,18 +433,21 @@
 
         <!-- Header-->
         <div class="modal-header line-height-fixed font-size-lg">
-          <strong class="mx-auto">Your Cart (2)</strong>
+          <strong class="mx-auto">Your Cart ({{ cart_length }})</strong>
         </div>
 
         <!-- List group -->
         <ul class="list-group list-group-lg list-group-flush">
+          
+          {% for product in cart_detail.products %}
+          
           <li class="list-group-item">
             <div class="row align-items-center">
               <div class="col-4">
 
                 <!-- Image -->
-                <a href="product.html">
-                  <img class="img-fluid" src="assets/img/products/product-6.jpg" alt="...">
+                <a href="!#">
+                  <img class="img-fluid" src="{{ product.product.images.all.0.image.url }}" alt="...">
                 </a>
 
               </div>
@@ -451,22 +455,26 @@
 
                 <!-- Title -->
                 <p class="font-size-sm font-weight-bold mb-6">
-                  <a class="text-body" href="product.html">Cotton floral print Dress</a> <br>
-                  <span class="text-muted">$40.00</span>
+                  <a class="text-body" href="!#">{{ product.product.title }}</a> <br>
+                  <span class="text-muted" id="modal__product__price__{{forloop.counter}}" data-total="{{ product.price }}">{{ product.currency }} {{ product.price }}</span>
                 </p>
 
                 <!--Footer -->
                 <div class="d-flex align-items-center">
 
                   <!-- Select -->
-                  <select class="custom-select custom-select-xxs w-auto">
-                    <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
+                  <select class="custom-select custom-select-xxs w-auto" name="quantity__modal" id="{{ forloop.counter }}" data-price="{{ product.price }}">
+                    {% for i in cart_detail.range %}
+                        {% if i is product.quantity %}
+                          <option value="{{ i }}" selected>{{ i }}</option>
+                        {% else %}
+                          <option value="{{ i }}">{{ i }}</option>
+                        {% endif %}
+                      {% endfor %}
                   </select>
 
                   <!-- Remove -->
-                  <a class="font-size-xs text-gray-400 ml-auto" href="#!">
+                  <a class="font-size-xs text-gray-400 ml-auto" href="#!" onclick="removeProductFromCartModal(this,'{{ product.product.id }}', '{{ cart_detail.cart.id }}')">
                     <i class="fe fe-x"></i> Remove
                   </a>
 
@@ -475,61 +483,25 @@
               </div>
             </div>
           </li>
-          <li class="list-group-item">
-            <div class="row align-items-center">
-              <div class="col-4">
 
-                <!-- Image -->
-                <a href="product.html">
-                  <img class="img-fluid" src="assets/img/products/product-10.jpg" alt="...">
-                </a>
-
-              </div>
-              <div class="col-8">
-
-                <!-- Title -->
-                <p class="font-size-sm font-weight-bold mb-6">
-                  <a class="text-body" href="product.html">Suede cross body Bag</a> <br>
-                  <span class="text-muted">$49.00</span>
-                </p>
-
-                <!--Footer -->
-                <div class="d-flex align-items-center">
-
-                  <!-- Select -->
-                  <select class="custom-select custom-select-xxs w-auto">
-                    <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
-                  </select>
-
-                  <!-- Remove -->
-                  <a class="font-size-xs text-gray-400 ml-auto" href="#!">
-                    <i class="fe fe-x"></i> Remove
-                  </a>
-
-                </div>
-
-              </div>
-            </div>
-          </li>
+          {% endfor %}
         </ul>
 
         <!-- Footer -->
         <div class="modal-footer line-height-fixed font-size-sm bg-light mt-auto">
-          <strong>Subtotal</strong> <strong class="ml-auto">$89.00</strong>
+          <strong>Subtotal</strong> <strong class="ml-auto" id="modal__subtotal" data-subtotal="0">$0</strong>
         </div>
 
         <!-- Buttons -->
         <div class="modal-body">
-          <a class="btn btn-block btn-dark" href="checkout.html">Continue to Checkout</a>
-          <a class="btn btn-block btn-outline-dark" href="shopping-cart.html">View Cart</a>
+          <a class="btn btn-block btn-dark" href="{% url 'checkout' %}">Continue to Checkout</a>
+          <a class="btn btn-block btn-outline-dark" href="{% url 'cart' %}">View Cart</a>
         </div>
 
       </div>
 
       <!-- Empty cart (remove `.d-none` to enable it) -->
-      <div class="modal-content d-none">
+      <div class="modal-content" id="empty__cart">
 
         <!-- Close -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1323,6 +1295,72 @@
 
   {% block script %}
   {% endblock %}
+
+  <script>
+
+    $(document).ready(()=>{
+
+      if($('#modal__cart').val()=="True"){
+        $('#full__cart').show();
+        $('#empty__cart').hide();
+      }else{
+        console.log("praka");
+        $('#full__cart').hide();
+        $('#empty__cart').show();
+      }
+      $("[name=quantity__modal]").each(function(){
+        updateProductPriceModal(this);
+      })
+    });
+
+    /* Javascript for cart modal. */
+    function removeProductFromCartModal(e,product_id, cart_id){
+      $.ajax({
+            url: "{% url 'remove_from_cart' %}",
+            type: 'GET',
+            dataType: 'json', 
+            data: {
+              'product_id': product_id,
+              'cart_id': cart_id
+            },
+            success: function(res) {
+                if(res.message=='success'){
+                  $(e).closest('.list-group-item').remove();
+                  updateSubTotalModal();
+                }
+            }
+      });
+    }
+
+    function updateSubTotalModal(){
+      let currency = '{{ cart_detail.currency }}';
+
+      let Subtotal = 0;
+      let tex = 0;
+      $("[id*=modal__product__price__]").each(function(){
+          Subtotal = Subtotal + parseFloat($(this).attr('data-total'));
+      });
+      Subtotal = Subtotal.toFixed(2);
+      $('#modal__subtotal').html(currency + Subtotal);
+      $('#modal__subtotal').attr('data-subtotal', Subtotal);
+    }
+
+    function updateProductPriceModal(e){
+      let currency = '{{ cart_detail.currency }}';
+      let price = $(e).attr("data-price")
+      let total_price = (price*e.value).toFixed(2);
+      let total = e.value + ' * ' + currency + price +' = ' + currency + total_price;
+      console.log(total, total_price, "ssss");
+      $('#modal__product__price__'+e.id).html(total);
+      $('#modal__product__price__'+e.id).attr("data-total",total_price);
+      updateSubTotalModal();
+    }
+
+    $("[name=quantity__modal]").on('change', function() {
+      console.log("clicked");
+      updateProductPriceModal(this);
+    });
+  </script>
 </body>
 
 </html>
