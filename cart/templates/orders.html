@@ -13,7 +13,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Product</th>
                 <th scope="col">Total</th>
-                <th scope="col">Address</th>
+                <th scope="col">Shipping Address</th>
                 <th scope="col">Payment Method</th>
                 <th scope="col">Payment</th>
                 <th scope="col">Order Status</th>
@@ -68,7 +68,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="" data-toggle="modal" data-target="#cartDetail-{{ forloop.counter }}">Products</a></td>
                         <td>{{ order.total }}</td>
-                        <td>{{ order.address }}</td>
+                        <td>{{ order.shipping_address }}</td>
                         <td>
                             {% if order.payment and order.payment.method and order.payment.method == "COD" %}
                                 COD
