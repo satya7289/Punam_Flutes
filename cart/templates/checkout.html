@@ -98,6 +98,19 @@
                 {% endif %}
 
               </div>
+              <div class="col-12">
+                <label for="checkoutBillingAddress">Billing Address *</label>
+                {% if user_address %}
+                  <select class="form-control" name="billing_address">
+                    <option value="" selected>Select Billing Address</option>
+                    {% for add in user_address %}
+                      <option value="{{ add.id }}" id="add__{{ add.id }}" data-country="{{ add.country }}"> {{ add }}</option>
+                    {% endfor %}
+                  </select>
+                {% else %}
+                  <a href="{% url 'customer_profile' %}">Add address</a>
+                {% endif %}
+              </div>
           </div>
 
           <!-- Heading -->
@@ -114,8 +127,8 @@
 
           <div class="col-12">
             {% if shipping_address %}
-              <select class="form-control" name="address">
-                <option value="" selected>Select Billing Address</option>
+              <select class="form-control" name="shipping_address">
+                <option value="" selected>Select Shipping Address</option>
                 {% for add in shipping_address %}
                   <option value="{{ add.id }}" id="add__{{ add.id }}" data-country="{{ add.country }}"> {{ add }}</option>
                 {% endfor %}
@@ -255,14 +268,14 @@ function updateSubTotal(){
 }
 
 $('#terms__condition').change(function(){
-  if($(this).is(':checked') && $('[name="address"]').val()!=""){
+  if($(this).is(':checked') && $('[name="shipping_address"]').val()!=""){
     $('#process-btn').prop('disabled', false);
   }else{
     $('#process-btn').prop('disabled', true);
   }
 })
 
-$('[name="address"]').change(function(){
+$('[name="shipping_address"]').change(function(){
   if($(this).val()!="" && $('#terms__condition').is(':checked')){
     $('#process-btn').prop('disabled', false);
   }else{
@@ -278,14 +291,14 @@ $('[name="address"]').change(function(){
 });
 
 
-function updateTax(address_id=''){
+function updateTax(shipping_address_id=''){
   var cart_id = "{{ cart.id }}";
-  if(address_id!=""){
+  if(shipping_address_id!=""){
     $.ajax({
       url: "{% url 'calculateTaxForCart' %}",
       data: {
         "cart_id": cart_id,
-        "shipping_address_id": address_id
+        "shipping_address_id": shipping_address_id
       },
       dataType: 'JSON',
       success: function(data){

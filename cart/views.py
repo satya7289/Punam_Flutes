@@ -168,7 +168,8 @@ class Checkout(View):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         contact_number = request.POST.get('contact_number')
-        address_id = request.POST.get('address')
+        shipping_address_id = request.POST.get('shipping_address')
+        billing_address_id = request.POST.get('billing_address')
         cart_id = request.POST.get('cart_id')
         total = request.POST.get('total')
 
@@ -190,23 +191,26 @@ class Checkout(View):
             profile.save()
 
         # get the address
-        address = get_object_or_404(Address, id=address_id)
-        cart = get_object_or_404(Cart, id=cart_id)
+        shipping_address = Address.objects.filter(id=shipping_address_id).first()
+        billing_address = Address.objects.filter(id=billing_address_id).first()
+        cart = Cart.objects.filter(id=cart_id).first()
 
-        if cart and address:
+        if cart and shipping_address and billing_address:
             # get the Order object if already created else create
             order = Order.objects.filter(cart=cart).first()
 
             if not order:
                 order = Order.objects.create(
                     cart=cart, 
-                    address=address, 
+                    billing_address=billing_address, 
+                    shipping_address=shipping_address,
                     profile=profile, 
                     total=total,
                     status='Pending',
                 )
             else:
-                order.address = address
+                order.billing_address = billing_address
+                order.shipping_address = shipping_address
                 order.profile = profile
                 order.total = total
                 order.save()
@@ -376,7 +380,7 @@ def sendInvoice(request, orderId):
         data = {
             'products': product_details,
             'total': order.total,
-            'address': order.address,
+            'shipping_address': order.shipping_address,
             'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.address.id).content)['totalTax'],
             'currency': currency
         }

@@ -36,7 +36,8 @@ class Cart(TimeStampedModel):
 
 class Order(TimeStampedModel):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    billing_address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="billing_address", blank=True, null=True)
+    shipping_address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="shipping_address", blank=True, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     total = models.FloatField(blank=True, null=True)
     notes = models.CharField(max_length=200, blank=True, null=True)

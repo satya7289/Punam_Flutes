@@ -23,17 +23,9 @@ class CartAdmin(admin.ModelAdmin):
     
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'id', 'cart', 'Profile', 'total', 'notes', 'status', 'PaymentMethod', 'Payment', 'created_at')
+    list_display = ('__str__', 'total', 'status', 'Payment', 'PaymentMethod', 'notes', 'shipping_address', 'billing_address', 'created_at')
     list_filter = ('status', )
     search_fields = ('notes', 'total',)
-
-    def Cart(self, obj):
-        url = reverse('admin:%s_%s_change' % (obj.cart._meta.app_label,  obj.cart._meta.model_name),  args=[obj.cart.id] )
-        return format_html('<a href="{}">Cart</a>', url)
-    
-    def Profile(self, obj):
-        url = reverse('admin:%s_%s_change' % (obj.profile._meta.app_label,  obj.profile._meta.model_name),  args=[obj.profile.id] )
-        return format_html('<a href="{}">{}</a>', url, obj.profile)
 
     def Payment(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.payment._meta.app_label,  obj.payment._meta.model_name),  args=[obj.payment.id] )
