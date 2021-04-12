@@ -214,6 +214,11 @@
                   >
                     <i class="fe fe-eye"></i>
                   </button>
+                  <select class="custom-select custom-select-xxs w-auto" id="quantity__product__list__{{product.id}}">
+                    {% for i in range %}
+                      <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                  </select>
                   <button class="btn btn-xs btn-circle btn-white-primary" onclick="AddToCart(this)"
                       data-id="{{product.id}}"
                       data-quantity="1"
@@ -294,7 +299,9 @@ $(document).ready(()=>{
   $('#modalProduct').on('shown.bs.modal', function (e) {
     // alert("d");
   })
-  $('#modalShoppingCart').modal('toggle');
+  if($('#modal__cart').val()=="True"){
+    $('#modalShoppingCart').modal("show");
+  }
 });
 
 function viewProduct(e){
@@ -316,7 +323,7 @@ function viewProduct(e){
 
 function AddToCart(e){
   let productId = $(e).data('id');
-  let productQuantity = $(e).data('quantity');
+  let productQuantity =$("#quantity__product__list__"+productId).val();
 
   $.ajax({
     url: "{% url 'add_to_cart' %}",

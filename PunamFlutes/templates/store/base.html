@@ -501,7 +501,7 @@
       </div>
 
       <!-- Empty cart (remove `.d-none` to enable it) -->
-      <div class="modal-content" id="empty__cart">
+      <div class="modal-content d-none" id="empty__cart">
 
         <!-- Close -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1299,15 +1299,6 @@
   <script>
 
     $(document).ready(()=>{
-
-      if($('#modal__cart').val()=="True"){
-        $('#full__cart').show();
-        $('#empty__cart').hide();
-      }else{
-        console.log("praka");
-        $('#full__cart').hide();
-        $('#empty__cart').show();
-      }
       $("[name=quantity__modal]").each(function(){
         updateProductPriceModal(this);
       })
@@ -1327,6 +1318,9 @@
                 if(res.message=='success'){
                   $(e).closest('.list-group-item').remove();
                   updateSubTotalModal();
+                }
+                if(res.cart_length==0){
+                  $('#modalShoppingCart').modal("hide");
                 }
             }
       });

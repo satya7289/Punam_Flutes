@@ -188,7 +188,9 @@
 <script>
 
 $(document).ready(()=>{
-  $('#modalShoppingCart').modal('toggle');
+  if($('#modal__cart').val()=="True"){
+    $('#modalShoppingCart').modal("show");
+  }
 });
 </script>
 

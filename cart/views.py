@@ -93,7 +93,7 @@ class RemoveFromCart(View):
         if cart:
             product_detail = ProductQuantity.objects.filter(product=product, cart=cart).first() 
             cart.product_detail.remove(product_detail)
-            data = {'message': 'success'}
+            data = {'message': 'success', 'cart_length': len(cart.product_detail.all())}
             return JsonResponse(data)
             
         data = {'message': 'fail'}
