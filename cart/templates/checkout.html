@@ -280,19 +280,21 @@ $('[name="address"]').change(function(){
 
 function updateTax(address_id=''){
   var cart_id = "{{ cart.id }}";
-  $.ajax({
-    url: "{% url 'calculateTaxForCart' %}",
-    data: {
-      "cart_id": cart_id,
-      "shipping_address_id": address_id
-    },
-    dataType: 'JSON',
-    success: function(data){
-      $('#tax').html(currency + data.totalTax);
-      $('#tax').data('tax', data.totalTax);
-      updateSubTotal();
-    }
-  });
+  if(address_id!=""){
+    $.ajax({
+      url: "{% url 'calculateTaxForCart' %}",
+      data: {
+        "cart_id": cart_id,
+        "shipping_address_id": address_id
+      },
+      dataType: 'JSON',
+      success: function(data){
+        $('#tax').html(currency + data.totalTax);
+        $('#tax').data('tax', data.totalTax);
+        updateSubTotal();
+      }
+    });
+  }
 }
 
 </script>
