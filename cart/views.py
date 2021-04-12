@@ -19,6 +19,8 @@ from commons.product_price import get_price_of_product, get_ip_detail
 from address.models import Address
 from commons.mail import SendEmail
 import razorpay
+from tax_rules.views import CalculateTaxForCart
+import json
 
 class CartView(View):
     template_name = 'cart.html'
@@ -375,7 +377,10 @@ def sendInvoice(request, orderId):
             'products': product_details,
             'total': order.total,
             'address': order.address,
+            'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.address.id).content)['totalTax'],
+            'currency': currency
         }
+        # return render(request, 'invoice.html', context=data)
         if user.email and user.email_verified:
             sendEmail = SendEmail('invoice.html', data, 'Your Invoice')
             sendEmail.send((user.email,))

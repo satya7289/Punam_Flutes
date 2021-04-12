@@ -39,20 +39,20 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>{{ product.product }}</td>
                         <td>{{ product.quantity }}</td>
-                        <td>{{ product.price }} </td>
+                        <td>{{currency}} {{ product.price }} </td>
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td>Tax</td>
+                    <td>Total Tax</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>0</td>
+                    <td>{{currency}} {{totalTax}}</td>
                 </tr>
                 <tr>
                     <td>Total</td>
                     <td>-</td>
                     <td>-</td>
-                    <td> {{total }} </td>
+                    <td>{{currency}} {{total }} </td>
                 </tr>
             </tbody>
         </table>
