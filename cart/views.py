@@ -381,7 +381,7 @@ def sendInvoice(request, orderId):
             'products': product_details,
             'total': order.total,
             'shipping_address': order.shipping_address,
-            'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.address.id).content)['totalTax'],
+            'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.shipping_address.id).content)['totalTax'],
             'currency': currency
         }
         # return render(request, 'invoice.html', context=data)
