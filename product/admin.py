@@ -40,7 +40,7 @@ class CountryCurrencyAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title', 'search_tags')
-    list_display = ('__str__', 'title', 'search_tags', 'Description', 'SellingPrice', 'publish', 'created_at')
+    list_display = ('__str__', 'title', 'search_tags', 'Description', 'SellingPrice', 'publish', 'Category', 'created_at')
     list_filter = ('publish', 'category', 'search_tags')
     form = ProductAdminForm
     exclude = ('images', 'category', )
@@ -49,6 +49,12 @@ class ProductAdmin(admin.ModelAdmin):
         ProductImageInLine,
         CountryCurrencyInLine,
     ]
+
+    def Category(self, obj):
+        toShow = ''
+        for cat in obj.category.all():
+            toShow += format_html("<p>{}</p>",cat)
+        return format_html(toShow)
 
     def Description(self, obj):
         return format_html(obj.description)
