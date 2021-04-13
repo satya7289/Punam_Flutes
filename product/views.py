@@ -21,7 +21,7 @@ class ProductListView(View):
 
         # Get the category and list of products according to the category
         category = Category.objects.get(id=category_id)
-        products = Product.objects.filter(category__id=category_id)
+        products = Product.objects.filter(category__id=category_id, publish=True)
 
         return self.pagination(products, category)
     
@@ -60,7 +60,7 @@ class ProductDetailView(View):
 
         # Get the category and product detail
         category = Category.objects.get(id=category_id)
-        product = Product.objects.get(id=product_id)
+        product = Product.objects.get(id=product_id, publish=True)
 
         # Get the price of the product according to the user's location
         get_price = get_price_of_product(request, product)

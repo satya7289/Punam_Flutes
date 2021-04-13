@@ -40,8 +40,8 @@ class CountryCurrencyAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title', 'search_tags')
-    list_display = ('__str__', 'title', 'search_tags', 'Description', 'SellingPrice', 'created_at')
-    list_filter = ('category', 'search_tags')
+    list_display = ('__str__', 'title', 'search_tags', 'Description', 'SellingPrice', 'publish', 'created_at')
+    list_filter = ('publish', 'category', 'search_tags')
     form = ProductAdminForm
     exclude = ('images', 'category', )
     inlines = [

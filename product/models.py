@@ -24,12 +24,13 @@ class Product(TimeStampedModel):
     description = models.TextField()
     category = models.ManyToManyField(Category, blank=True)
     images = models.ManyToManyField(ProductImage, blank=True)
+    publish = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ("title", "search_tags")
+        ordering = ("publish", "title", "search_tags")
 
 
 class CountryCurrency(TimeStampedModel):
