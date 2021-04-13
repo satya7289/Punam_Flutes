@@ -89,6 +89,101 @@
   </div>
 </section>
 
+    <!-- CATEGORIES -->
+    <section class="pt-6">
+      <div class="container-fluid px-3 px-md-6">
+        <div class="row mx-n3">
+          {% for cat in categories %}
+            {% if forloop.counter <= 3 %}
+            <div class="col-12 col-sm-4 d-flex flex-column px-3">
+
+              <!-- Card-->
+              <div class="card card-xl mb-3 mb-sm-0" style="min-height: 280px">
+  
+                <!-- Background -->
+                <div class="card-bg">
+                  <div class="card-bg-img bg-cover" style="background-image: url(../static/assets/img/products/product-22.jpg);"></div>
+                </div>
+  
+                <!-- Body -->
+                <div class="card-body my-auto">
+  
+                  <!-- Heading -->
+                  <h5 class="mb-0">{{ cat.display_name }}</h5>
+  
+                  <!-- Link -->
+                  <a class="btn btn-link stretched-link px-0 text-reset" href="{% url 'product:product_list' category_id=cat.id %}">
+                    Shop Now <i class="fe fe-arrow-right ml-2"></i>
+                  </a>
+  
+                </div>
+  
+              </div>
+  
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- ARRIVALS -->
+    <section class="py-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Heading -->
+            <h2 class="mb-10 text-center">New Arrivals</h2>
+
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="flickity-page-dots-progress" data-flickity='{"pageDots": true}'>
+
+        {% for product in new_arrival_products %}
+        <!-- Item -->
+        <div class="col" style="max-width: 300px;">
+          <div class="card">
+
+            <!-- Image -->
+            <div class="card-img">
+
+              <!-- Action -->
+              <!-- <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-right" data-toggle="button">
+                <i class="fe fe-heart"></i>
+              </button> -->
+
+              <!-- Button -->
+              <!-- <button class="btn btn-xs btn-block btn-dark card-btn" data-toggle="modal" data-target="#modalProduct">
+                <i class="fe fe-eye mr-2 mb-1"></i> Quick View
+              </button> -->
+
+              <!-- Image -->
+              {% for image in product.images.all%}
+                {% if forloop.counter <= 1 %}
+                  <img class="card-img-top" src="{{ image.image.url }}" alt="...">
+                {% endif%}
+              {% endfor %}
+
+            </div>
+
+            <!-- Body -->
+            <div class="card-body font-weight-bold text-center">
+              <a class="text-body" href="product.html">{{ product.title }}</a> <br>
+              <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ product.currency }} {{ product.mrp }}</span>
+              <span class="text-primary">{{ product.currency }} {{ product.price }}</span>
+            </div>
+
+          </div>
+        </div>
+        {%endfor %}
+
+
+      </div>
+    </section>
 
 {% endblock %}
 

@@ -12,6 +12,28 @@ def extras(request):
     # Get all the categories
     categories = Category.objects.all()
 
+    new_arrival_products = Product.objects.order_by('-id')[:11]
+    for product in new_arrival_products:
+        price_list = get_price_of_product(request,product)
+        product.price = price_list['price']
+        product.mrp = price_list['MRP']
+        product.currency = price_list['currency']
+    
+    # # Top 3 categories select 5 products
+    # categories_product = []
+    # for cat in categories[:3]:
+    #     cat_product = cat.product_set.all()[:5]
+    #     # for product in cat_product:
+    #     #     price_list = get_price_of_product(request,product)
+    #     #     product.price = price_list['price']
+    #     #     product.mrp = price_list['MRP']
+    #     #     product.currency = price_list['currency']
+    #     data = {
+    #         'category': cat,
+    #         'products': cat_product
+    #     }
+    #     categories_product.append(data)
+
     # Get the logged in user
     try:
         user = request.user    
@@ -24,7 +46,9 @@ def extras(request):
     context = {
         'categories': categories,
         'cart_length': cart_length,
-        'ip': get_ip_detail(request)
+        'ip': get_ip_detail(request),
+        'new_arrival_products': new_arrival_products,
+        # 'categories_product': categories_product,
     }
     return context
 

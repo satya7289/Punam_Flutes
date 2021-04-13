@@ -44,8 +44,10 @@ def get_price_of_product(request, product, country=None):
     if geoplugin:
         price = float(default.selling_price) * geoplugin['data']['geoplugin_currencyConverter']
         currency = geoplugin['data']['geoplugin_currencySymbol']
+        mrp_price = float(default.MRP) * geoplugin['data']['geoplugin_currencyConverter']
     else:
         price = float(default.selling_price) * 73.4442 # default set USD conversion rate
         currency = '$'
+        mrp_price = float(default.MRP) * 73.4442
     
-    return {'price': format(price,'.2f'), 'currency': currency, 'country': country}
+    return {'price': format(price,'.2f'), 'MRP':format(mrp_price,'.2f'), 'currency': currency, 'country': country}
