@@ -39,6 +39,7 @@ class ProductListView(View):
         for product in products:
             price_list = get_price_of_product(self.request,product)
             product.price = price_list['price']
+            product.mrp = price_list['MRP']
             product.currency = price_list['currency']
         
         # Build the context that to be returned
@@ -69,6 +70,7 @@ class ProductDetailView(View):
             'product': product,
             'category': category,
             'price': get_price['price'],
+            'mrp': get_price['MRP'],
             'currency': get_price['currency'],
             'range': [i+1 for i in range(10)]
         }
