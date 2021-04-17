@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('update_at', models.DateTimeField(auto_now=True, null=True)),
                 ('type', models.CharField(blank=True, choices=[['limited', 'limited'], ['unlimited', 'unlimited']], max_length=100, null=True)),
-                ('available', models.PositiveIntegerField(blank=True, null=True)),
+                ('available', models.PositiveIntegerField(blank=True, null=True, default=0)),
                 ('sold', models.PositiveIntegerField(blank=True, null=True, default=0)),
                 ('product', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='product.Product')),
             ],

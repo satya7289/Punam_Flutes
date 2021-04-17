@@ -56,7 +56,7 @@ class CountryCurrency(TimeStampedModel):
 class Inventory(TimeStampedModel):
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
     type = models.CharField(max_length=100, choices=InventoryType, blank=True, null=True)
-    available = models.PositiveIntegerField(blank=True, null=True)
+    available = models.PositiveIntegerField(blank=True, null=True, default=0)
     sold = models.PositiveIntegerField(blank=True, null=True, default=0)
 
     def __str__(self):

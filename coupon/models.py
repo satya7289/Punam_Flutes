@@ -2,6 +2,7 @@ from django.db import models
 
 from category.models import Category
 from commons.models import TimeStampedModel
+# from customer.models import User
 
 # Create your models here.
 METHOD_CHOICES = (
@@ -21,3 +22,11 @@ class Coupon(TimeStampedModel):
 
     def __str__(self):
         return self.coupon_name
+
+
+# class CouponUser(TimeStampedModel):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         return self.user.username
