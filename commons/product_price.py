@@ -1,6 +1,6 @@
 from product.models import Product
 from django.conf import settings
-from commons.ip_detect import request_to_geoplugin, get_ip_detail
+from commons.ip_detect import request_to_geoplugin, get_ip_detail, GetCurrencyRate
 
 def get_price_of_product(request, product, country=None):
 
@@ -35,19 +35,25 @@ def get_price_of_product(request, product, country=None):
 
     if country_currency:
         default = country_currency
-    
-    # Request geoplugin with user ip and base currency of the country.
-    geoplugin = request_to_geoplugin(ip_detail['user_ip'], default.currency)
 
-    # TODO: Request currency conversion rate based on the country.
-    
-    if geoplugin:
-        price = float(default.selling_price) * geoplugin['data']['geoplugin_currencyConverter']
-        currency = geoplugin['data']['geoplugin_currencySymbol']
-        mrp_price = float(default.MRP) * geoplugin['data']['geoplugin_currencyConverter']
+    if default:
+
+        # TODO: Build an API for getting country based currency rate;
+        getCurrencyRate = GetCurrencyRate(request, ip_detail['user_ip'], default.country)
+
+        if getCurrencyRate:
+            price = float(default.selling_price) * getCurrencyRate['currencyConvertRate']
+            mrp_price = float(default.MRP) * getCurrencyRate['currencyConvertRate']
+            currency = getCurrencyRate['currencySymbol']
+        else:
+            # Default Indian currency rate
+            price = float(default.selling_price)
+            mrp_price = float(default.MRP)
+            currency = '₹'
+
     else:
-        price = float(default.selling_price) * 73.4442 # default set USD conversion rate
-        currency = '$'
-        mrp_price = float(default.MRP) * 73.4442
+        price = 0
+        mrp_price = 0
+        currency = '₹'
     
     return {'price': format(price,'.2f'), 'MRP':format(mrp_price,'.2f'), 'currency': currency, 'country': country}
