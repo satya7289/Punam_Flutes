@@ -1,20 +1,20 @@
 import requests
 
 def request_to_geoplugin(client_ip, base_currency='USD'):
-    if client_ip!='0.0.0.0' and client_ip!='127.0.0.1':
-        '''
-            Get the Ip detail with country name by using `geoplugin`.
-        '''
-        geoplugin_url = 'http://www.geoplugin.net/json.gp?ip=' + str(client_ip) + '&base_currency=' + base_currency
-        geoplugin = requests.get(geoplugin_url)
+    # if client_ip!='0.0.0.0' and client_ip!='127.0.0.1':
+    #     '''
+    #         Get the Ip detail with country name by using `geoplugin`.
+    #     '''
+    #     geoplugin_url = 'http://www.geoplugin.net/json.gp?ip=' + str(client_ip) + '&base_currency=' + base_currency
+    #     geoplugin = requests.get(geoplugin_url)
 
-        if geoplugin.status_code == 200:
-            return {
-                'message': 'success',
-                'country':geoplugin.json()['geoplugin_countryName'],
-                'data':geoplugin.json(),
-                'user_ip': client_ip
-        }
+    #     if geoplugin.status_code == 200:
+    #         return {
+    #             'message': 'success',
+    #             'country':geoplugin.json()['geoplugin_countryName'],
+    #             'data':geoplugin.json(),
+    #             'user_ip': client_ip
+    #     }
     return None
 
 def get_client_ip(request):
@@ -56,3 +56,15 @@ def get_ip_location(request):
     #     print('Unable to find Ip', e)
     print("DFg")
     return country
+
+def GetCurrencyRate(request, client_ip="", base_currency=""):
+    geoPlugin = request_to_geoplugin(client_ip, base_currency)
+
+    # Using GeoPlugin
+    if geoPlugin:
+        data = {
+            'currencyConvertRate': geoPlugin['data']['geoplugin_currencyConverter'],
+            'currencySymbol': geoPlugin['data']['geoplugin_currencySymbol']
+        }
+        return data
+    return None
