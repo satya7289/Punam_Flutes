@@ -5,6 +5,7 @@ from address.models import Address
 from paypal.standard.ipn.models import PayPalIPN
 from commons.models import TimeStampedModel
 from commons.country_currency import country
+from coupon.models import Coupon
 
 paymentMethod = [['razorpay', 'razorpay'], ['paypal', 'paypal'], ['COD', 'COD']]
 OrderStatus = [
@@ -32,7 +33,7 @@ class Cart(TimeStampedModel):
     is_checkout = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username + " cart" 
+        return "cart#" + str(self.id) 
 
 class Order(TimeStampedModel):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
@@ -40,11 +41,12 @@ class Order(TimeStampedModel):
     shipping_address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="shipping_address", blank=True, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     total = models.FloatField(blank=True, null=True)
+    coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE, blank=True, null=True)
     notes = models.CharField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=50, choices=OrderStatus ,blank=True, null=True)
 
     def __str__(self):
-        return self.profile.first_name +' '+ self.profile.last_name + ' order'
+        return 'order#'+ str(self.id)
     
     class Meta:
         ordering = ("created_at",)
@@ -58,7 +60,7 @@ class Payment(TimeStampedModel):
     status = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.method + ' ' + self.order.profile.first_name
+        return self.method + ' ' + self.order.profile.user.username
     
     class Meta:
         ordering = ("status","method")

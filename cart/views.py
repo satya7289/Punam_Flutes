@@ -15,6 +15,7 @@ from cart.models import Cart, ProductQuantity, Order, Payment, CountryPayment
 from customer.models import User
 from customer.models import Profile
 from product.models import Product
+from coupon.models import Coupon
 from commons.product_price import get_price_of_product, get_ip_detail
 from address.models import Address
 from commons.mail import SendEmail
@@ -172,6 +173,9 @@ class Checkout(View):
         billing_address_id = request.POST.get('billing_address')
         cart_id = request.POST.get('cart_id')
         total = request.POST.get('total')
+        coupon_code = request.POST.get('coupon_code')
+        coupon_id = request.POST.get('coupon_id')
+        notes = request.POST.get('note')
 
         # get logged in user and update the profile
         user = request.user
@@ -195,6 +199,9 @@ class Checkout(View):
         billing_address = Address.objects.filter(id=billing_address_id).first()
         cart = Cart.objects.filter(id=cart_id).first()
 
+        # get the coupon
+        coupon = Coupon.objects.filter(id=coupon_id)
+
         if cart and shipping_address and billing_address:
             # get the Order object if already created else create
             order = Order.objects.filter(cart=cart).first()
@@ -207,12 +214,16 @@ class Checkout(View):
                     profile=profile, 
                     total=total,
                     status='Pending',
+                    notes = notes,
+                    coupon = coupon.first() if coupon and coupon.first() else None
                 )
             else:
                 order.billing_address = billing_address
                 order.shipping_address = shipping_address
                 order.profile = profile
                 order.total = total
+                order.notes = notes
+                order.coupon =  coupon.first() if coupon and coupon.first() else None
                 order.save()
 
             # Show payment method according to IP
@@ -353,8 +364,14 @@ def process_payment(request):
             order.status = 'Confirmed'
             order.save()
 
+            # Update for coupon if applied
+            if order.coupon:
+                order.coupon.coupon_used = order.coupon.coupon_used + 1
+                order.coupon.save()
+
             # Send Invoice
             invoice = sendInvoice(request, payment.order.id)
+
             return redirect('orders')            
 
     messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
@@ -435,6 +452,11 @@ def razorpay_done(request):
                 # Update the status of order to confirmed
                 order.status = 'Paid'
                 order.save()
+
+                # Update for coupon if applied
+                if order.coupon:
+                    order.coupon.coupon_used = order.coupon.coupon_used + 1
+                    order.coupon.save()
 
                 # Send Invoice
                 invoice = sendInvoice(request, payment.order.id)

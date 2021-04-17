@@ -10,7 +10,7 @@ from commons.ip_detect import request_to_geoplugin, get_ip_detail
 
 def extras(request):
     # Get all the categories
-    categories = Category.objects.all()
+    categories = Category.objects.filter(publish=True)
 
     new_arrival_products = Product.objects.order_by('-id')[:11]
     for product in new_arrival_products:

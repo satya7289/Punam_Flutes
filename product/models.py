@@ -7,6 +7,8 @@ from django.conf import settings
 from category.models import Category
 from commons.models import TimeStampedModel
 
+InventoryType = [['limited', 'limited'], ['unlimited', 'unlimited']]
+
 class ProductImage(TimeStampedModel):
     """
     Models to store all the uploaded product images to S3 bucket.
@@ -43,14 +45,22 @@ class CountryCurrency(TimeStampedModel):
     selling_price = models.DecimalField(
         decimal_places=2, max_digits=20, default=0.0)
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, default='1')
+        Product, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Country Currencies"
     
     def __str__(self):
         return self.currency + ' ' + self.country
-    
+
+class Inventory(TimeStampedModel):
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100, choices=InventoryType, blank=True, null=True)
+    available = models.PositiveIntegerField(blank=True, null=True, default=0)
+    sold = models.PositiveIntegerField(blank=True, null=True, default=0)
+
+    def __str__(self):
+        return self.product.title
 
 
 # class Product(models.Model):
