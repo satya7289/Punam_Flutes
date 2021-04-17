@@ -125,7 +125,7 @@
             {% endfor %}
           </div> -->
 
-          <div class="col-12">
+          <div class="col-12 mb-9">
             {% if shipping_address %}
               <select class="form-control" name="shipping_address">
                 <option value="" selected>Select Shipping Address</option>
@@ -137,9 +137,26 @@
               <a href="{% url 'customer_profile' %}">Add address</a>
             {% endif %}
           </div>
+
+          <div class="row mb-9">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="coupon">Coupon</label>
+                <input class="form-control form-control-sm" type="text" name="coupon_code" id="coupon" placeholder="Enter Coupon Code">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="note">Customization Request</label>
+                <textarea class="form-control form-control-sm" name="note" id="note" cols="50" rows="5" placeholder="Enter Customization Request"></textarea>
+              </div>
+            </div>
+          </div>
+
           <input type="hidden" name="total" value="0">
           <input type="hidden" name='cart_id' value="{{ cart.id }}">
           <input type="hidden" name='country' value="{{ country }}">
+          <input type="hidden" name="coupon_id" value="0">
         </form>
 
       </div>
@@ -155,24 +172,25 @@
         <ul class="list-group list-group-lg list-group-flush-y list-group-flush-x mb-7">
           {% for order in orders %}
           <li class="list-group-item">
-            <div class="row align-items-center">
-              <div class="col-4">
+            <a href="{% url 'product:product_detail' product_id=order.product.id category_id=order.product.category.all.0.id %}">
+              <div class="row align-items-center">
+                <div class="col-4">
 
-                <!-- Image -->
-                <a href="product.html">
+                  <!-- Image -->
                   <img src="{{ order.product.images.all.0.image.url }}" alt="..." class="img-fluid">
-                </a>
 
-              </div>
-              <div class="col">
+                </div>
+                <div class="col">
 
-                <!-- Title -->
-                <p class="mb-4 font-size-sm font-weight-bold">
-                  <a class="text-body" href="product.html">{{ order.product.title }}</a> <br>
-                  <span class="text-muted" id='order_price{{ forloop.counter }}' data-price="{{order.price}}" data-quantity="{{ order.quantity }}">{{ order.currency }} {{ order.price }}</span>
-                </p>  
+                  <!-- Title -->
+                  <p class="mb-4 font-size-sm font-weight-bold">
+                    {{ order.product.title }} <br>
+                    <span class="text-muted" id='order_price{{ forloop.counter }}' data-price="{{order.price}}" data-quantity="{{ order.quantity }}">{{ order.currency }} {{ order.price }}</span>
+                  </p>
+
+                </div>
               </div>
-            </div>
+            </a>
           </li>
           {% endfor %}
         </ul>
@@ -197,6 +215,9 @@
               </li>
               <li class="list-group-item d-flex">
                 <span>Shipping</span> <span class="ml-auto font-size-sm" id="shipping">00.00</span>
+              </li>
+              <li class="list-group-item d-flex">
+                <span>Coupon Discount</span> <span class="ml-auto font-size-sm" id="coupon__discount" data-discount="">00.00</span>
               </li>
               <li class="list-group-item d-flex font-size-lg font-weight-bold">
                 <span>Total</span> <span class="ml-auto" id="total">00.00</span>
@@ -247,6 +268,36 @@ $('#process-btn').click(()=>{
   $('#checkout-form').submit();
 });
 
+$('#coupon').keyup(function(){
+  let coupon = $(this).val();
+  if(coupon!=""){
+    $.ajax({
+      url: "{% url 'validateCoupon' %}",
+      data: {
+        "coupon_code": coupon,
+        "cart_id": "{{cart.id}}",
+      },
+      dataType: 'JSON',
+      success: function(data){
+        if(data.message == "success"){
+          $('#coupon').addClass('is-valid');
+          updateCouponDiscount(data.coupon_discount, data.coupon_id);
+        }else{
+          $('#coupon').removeClass('is-valid');
+          updateCouponDiscount();
+        }
+      }
+    });
+  }
+})
+
+function updateCouponDiscount(discount=0, coupon_id=0){
+  console.log(discount, coupon_id);
+  $('[name="coupon_id"]').val(coupon_id);
+  $('#coupon__discount').data('discount', discount);
+  updateSubTotal();
+}
+
 function updateSubTotal(){
   let Subtotal = 0;
   let total = 0;
@@ -254,16 +305,23 @@ function updateSubTotal(){
   if(tax!="") tax = parseFloat(tax);
   else tax = 0;
   let Shipping = 0;
+  let couponDiscount = $('#coupon__discount').data('discount');
+  if(couponDiscount!="") couponDiscount = parseFloat(couponDiscount);
+  else couponDiscount = 0;
+  
   $("[id*=order_price]").each(function(){
-      Subtotal = Subtotal + parseFloat($(this).attr('data-price')*($(this).attr('data-quantity')));
-      $(this).html(currency + Subtotal);
+      let order_price = $(this).attr('data-price')*($(this).attr('data-quantity'));
+      $(this).html(currency + order_price);
+      Subtotal = Subtotal + parseFloat(order_price);
   });
   Subtotal = Subtotal.toFixed(2);
-  total = parseFloat(Subtotal) + parseFloat(tax);
+  couponDiscount = couponDiscount.toFixed(2);
+  total = parseFloat(Subtotal) + parseFloat(tax) - parseFloat(couponDiscount);
   $('#subtotal').html(currency + Subtotal);
   $('#total').html(currency + total);
   $('#tax').html(currency + tax);
   $('#shipping').html(currency + Shipping);
+  $('#coupon__discount').html(currency + couponDiscount);
   $('[name=total]').val(total);
 }
 
