@@ -90,6 +90,9 @@
                             {% if order.status == 'Pending' or order.status == 'Confirmed' or order.status == 'Paid' %}
                                 <a href="{% url 'order_cancel' %}?id={{ order.id }}"><button class="btn btn-primary">Cancel</button></a>
                             {% endif %}
+                            {% if order.status == 'Delivered' %}
+                                <a href="{% url 'order_invoice' %}?order_id={{ order.id }}"><button class="btn btn-primary">Invoice</button></a>
+                            {% endif %}
                         </td>
                     </tr>
               {% endfor %}

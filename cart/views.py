@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.utils.html import format_html
 
 from cart.models import Cart, ProductQuantity, Order, Payment, CountryPayment
 from customer.models import User
@@ -19,6 +20,7 @@ from coupon.models import Coupon
 from commons.product_price import get_price_of_product, get_ip_detail
 from address.models import Address
 from commons.mail import SendEmail
+from tax_rules.models import TaxRule, GSTState
 import razorpay
 from tax_rules.views import CalculateTaxForCart
 import json
@@ -251,6 +253,118 @@ class Checkout(View):
             return render(request, self.continue_template_name, context)
         return redirect('checkout')
 
+
+class OrderInvoice(View):
+    template_name = 'order_invoice.html'
+    def get(self, request):
+        user = request.user
+        order_id = request.GET.get('order_id')
+        order = Order.objects.filter(id=order_id).first()
+
+        # if order status is dilivered then only invoice will generate
+        if (order and order.status == 'Delivered') or user.is_admin:
+
+            # Get the all products
+            products = order.cart.product_detail.all()
+
+            address = order.shipping_address
+
+            coupon_total_discount = 0
+            totalTax = 0
+            totalAmount = 0
+
+            for product in products:
+                # Get the price of product according to IP
+                price_list = get_price_of_product(request,product.product)
+                product_price = price_list['price']
+
+                # Get the first category of the product
+                first_category = product.product.category.first()
+
+
+                # TAX CALCULATION
+                product_tax = 0
+                tax_hsn = ""
+                tax_type = ""
+                tax_rate = ""
+
+                if address and address.country == 'India':
+                    # If category exits
+                    if first_category:
+
+                        # get all tax rule for given address(state, country) and category
+                        taxRules = TaxRule.objects.filter(
+                            country=address.country, 
+                            state__in=GSTState.objects.filter(name__icontains=address.state),
+                            category__in=[first_category.id]
+                        ).distinct()
+
+                        # loop through all tax rules
+                        for taxRule in taxRules:
+
+                            # if tax method is not fixed:
+                            # product tax = quantity * price * rate
+                            if taxRule.method == 'Percent' or taxRule.method == 'percent':
+                                product_tax += float(product.quantity)*float(product_price)*float(taxRule.value/100)
+                            else:
+                                product_tax += float(taxRule.value)
+
+                            # Update hsn, type, rate
+                            tax_hsn += str(taxRule.display_name) + '<br>'
+                            tax_type += str(taxRule.gst_type) + '<br>'
+                            tax_rate += str(taxRule.value) + '%<br>'
+
+                        # Update the total tax
+                        totalTax += product_tax
+                    
+                # CHECK COUPON APPLIED
+                product_discount = 0
+                coupon = order.coupon
+                if coupon:
+                    if {'id': coupon.coupon_category.id} in list(product.product.category.values('id')):
+                        
+                        # product discount = quantity * price * rate
+                        if coupon.coupon_method == 'Percent' or coupon.coupon_method == 'percent':
+                            product_discount = float(product.quantity)*float(product_price)*float(coupon.coupon_value/100)
+                        else:
+                            product_discount = float(coupon.coupon_value)
+                        
+                        # Update the total tax
+                        coupon_total_discount += product_discount
+                     
+
+                # Add additional details to products
+                product.title = product.product.title
+                product.unit_price = product_price
+                product.discount = product_discount
+                product.qty = product.quantity
+                product.net_ammount = float(product_price) * float(product.quantity)
+                product.hsn = tax_hsn
+                product.tax_rate = tax_rate
+                product.tax_type = tax_type
+                product.tax_amount = product_tax
+                product.total_amount = float(product.net_ammount) +  float(product_tax)  - float(product_discount)
+
+                totalAmount = product.total_amount
+
+            gst_state = GSTState.objects.filter(name__icontains=address.state).first()
+            print(gst_state)
+            state_code = ""
+            if gst_state:
+                state_code = gst_state.code
+            context = {
+                'order_id': order.id,
+                'products': products,
+                'total_amount': totalAmount,
+                'total_tax_amount': totalTax,
+                'total_discount': coupon_total_discount,
+                'shipping_address': order.shipping_address,
+                'billing_address': order.billing_address,
+                'state_code': state_code
+            }
+            return render(request, self.template_name, context=context)
+        return redirect('dashboard')
+            
 
 class OrderList(View):
     def get(self, request):

@@ -23,7 +23,7 @@ class CartAdmin(admin.ModelAdmin):
     
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'total', 'status', 'Payment', 'PaymentMethod', 'notes', 'coupon', 'shipping_address', 'billing_address', 'created_at')
+    list_display = ('__str__', 'total', 'status', 'Payment', 'PaymentMethod', 'notes', 'coupon', 'shipping_address', 'billing_address', 'created_at', 'Invoice')
     list_filter = ('status', )
     search_fields = ('notes', 'total',)
 
@@ -33,6 +33,9 @@ class OrderAdmin(admin.ModelAdmin):
     
     def PaymentMethod(self, obj):
         return obj.payment.method
+
+    def Invoice(self, obj):
+        return format_html('<a href="{}">Invoice</a>', reverse('order_invoice') + '?order_id=' + str(obj.id))
 
 
 class PaymentAdmin(admin.ModelAdmin):

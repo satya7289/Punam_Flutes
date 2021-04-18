@@ -9,6 +9,7 @@ from .views import (
     OrderList,
     sendInvoice,
     CancelOrder,
+    OrderInvoice,
 )
 
 from .views import (
@@ -26,6 +27,7 @@ urlpatterns = [
     path('checkout/', login_required(Checkout.as_view()), name='checkout'),
     path('order/', login_required(OrderList.as_view()), name='orders'),
     path('order-cencel', login_required(CancelOrder.as_view()), name='order_cancel'),
+    path('order-invoice', login_required(OrderInvoice.as_view()), name='order_invoice'),
     
     # path('sendInvoice', sendInvoice, name='send-invoice'),
 
