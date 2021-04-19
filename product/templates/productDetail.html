@@ -119,27 +119,68 @@
             <form action="{% url 'add_to_cart' %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-group">
-                <div class="form-row mb-7">
-                  <div class="col-12 col-lg-auto">
+                
 
-                    <!-- Submit -->
-                    <select class="custom-select custom-select-xl w-auto " name="quantity">
-                      {% for i in range %}
-                        <option value="{{ i }}">{{ i }}</option>
-                      {% endfor %}
-                    </select>
+                {% if product.inventory and product.inventory.type == "limited" %}
+                {% if product.inventory.available == 0 %}
+                  <div class="col-12 col-lg-auto font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
+                    <span> Out of stock</span>
+                  </div>
+                {% elif product.inventory.available < 5 %}
+                  <div class="col-12 col-lg-auto font-weight-bold text-danger" style="padding: 0.5rem; margin: .5rem;">
+                    <span> Only {{ product.inventory.available }} available</span>
+                  </div>
+
+                  <div class="form-row mb-7">
+                    <div class="col-12 col-lg-auto">
+
+                      <!-- Submit -->
+                      <select class="custom-select custom-select-xl w-auto " name="quantity">
+                        {% for  _ in ''|center:product.inventory.available %}
+                          <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                        {% endfor %}
+                      </select>
+  
+  
+                    </div>
+                    <div class="col-12 col-lg-auto">
+                    
+                      <input type="hidden" name="product_id" value="{{ product.id}}">
+                      <!-- Wishlist -->
+                      <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
+                        Add to cart <i class="fe fe-shopping-cart"></i>
+                      </button>
+  
+                    </div>
+                  </div>
+
+                {% endif %}
+
+                {% else %}
+                  <div class="form-row mb-7">
+                    <div class="col-12 col-lg-auto">
+
+                      <!-- Submit -->
+                      <select class="custom-select custom-select-xl w-auto " name="quantity">
+                        {% for  i in range %}
+                          <option value="{{ i}}">{{ i }}</option>
+                        {% endfor %}
+                      </select>
+
+
+                    </div>
+                    <div class="col-12 col-lg-auto">
+                    
+                      <input type="hidden" name="product_id" value="{{ product.id}}">
+                      <!-- Wishlist -->
+                      <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
+                        Add to cart <i class="fe fe-shopping-cart"></i>
+                      </button>
+
+                    </div>
 
                   </div>
-                  <div class="col-12 col-lg-auto">
-                  
-                    <input type="hidden" name="product_id" value="{{ product.id}}">
-                    <!-- Wishlist -->
-                    <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
-                      Add to cart <i class="fe fe-shopping-cart"></i>
-                    </button>
-
-                  </div>
-                </div>
+                {% endif %}
 
               </div>
             </form>

@@ -24,6 +24,7 @@ from tax_rules.models import TaxRule, GSTState
 import razorpay
 from tax_rules.views import CalculateTaxForCart
 import json
+from .utils import after_successful_placed_order
 
 class CartView(View):
     template_name = 'cart.html'
@@ -470,22 +471,8 @@ def process_payment(request):
                     order=order,
                     method="COD"
                 )
-            # Checkout True
-            payment.order.cart.is_checkout = True
-            payment.order.cart.save()
-
-            # Update the status of order to confirmed
-            order.status = 'Confirmed'
-            order.save()
-
-            # Update for coupon if applied
-            if order.coupon:
-                order.coupon.coupon_used = order.coupon.coupon_used + 1
-                order.coupon.save()
-
-            # Send Invoice
-            invoice = sendInvoice(request, payment.order.id)
-
+            
+            after_successful_placed_order(request, payment, "Confirmed")
             return redirect('orders')            
 
     messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
@@ -559,21 +546,7 @@ def razorpay_done(request):
                 payment.status = True
                 payment.save()
 
-                # Update the checkout status
-                payment.order.cart.is_checkout = True
-                payment.order.cart.save()
-
-                # Update the status of order to confirmed
-                order.status = 'Paid'
-                order.save()
-
-                # Update for coupon if applied
-                if order.coupon:
-                    order.coupon.coupon_used = order.coupon.coupon_used + 1
-                    order.coupon.save()
-
-                # Send Invoice
-                invoice = sendInvoice(request, payment.order.id)
+                after_successful_placed_order(request, payment)
                 return redirect('orders')
     return redirect('dashboard')
 

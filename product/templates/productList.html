@@ -204,6 +204,42 @@
                   <span class="text-primary">{{ product.currency }} {{ product.price }}</span>
                 </div>
 
+                {% if product.inventory and product.inventory.type == "limited" %}
+                  {% if product.inventory.available == 0 %}
+                    <div class="font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
+                      <span> Out of stock</span>
+                    </div>
+                  {% elif product.inventory.available < 5 %}
+                    <div class="col-12 col-lg-auto font-weight-bold text-danger" style="padding: 0.5rem; margin: .5rem;">
+                      <span> Only {{ product.inventory.available }} available</span>
+                    </div>
+                    <!-- Actions -->
+                    <div>
+                      <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
+                        data-id="{{product.id}}"  
+                        data-title="{{product.title}}"
+                        data-currency="{{product.currency}}"
+                        data-price="{{product.price}}"
+                        data-image="{{product.images.all.0.image.url}}"
+                      >
+                        <i class="fe fe-eye"></i>
+                      </button>
+                      <select class="custom-select custom-select-xxs w-auto" id="quantity__product__list__{{product.id}}">
+                        {% for  _ in ''|center:product.inventory.available %}
+                          <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                        {% endfor %}
+                      </select>
+                      <button class="btn btn-xs btn-circle btn-white-primary" onclick="AddToCart(this)"
+                          data-id="{{product.id}}"
+                          data-quantity="1"
+                        >
+                        <i class="fe fe-shopping-cart"></i>
+                      </button>
+                    </div>
+                  {% endif %}
+
+                {% else %}
+
                 <!-- Actions -->
                 <div>
                   <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
@@ -228,6 +264,7 @@
                   </button>
                 </div>
                 
+                {% endif %}
 
               </div>
 

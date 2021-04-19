@@ -464,13 +464,34 @@
 
                   <!-- Select -->
                   <select class="custom-select custom-select-xxs w-auto" name="quantity__modal" id="{{ forloop.counter }}" data-price="{{ product.price }}">
-                    {% for i in cart_detail.range %}
-                        {% if i is product.quantity %}
-                          <option value="{{ i }}" selected>{{ i }}</option>
-                        {% else %}
-                          <option value="{{ i }}">{{ i }}</option>
-                        {% endif %}
-                      {% endfor %}
+                    {% if product.product.inventory and product.product.inventory.type == "limited" %}
+                      {% if product.inventory.available == 0 %}
+                        <div class="font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
+                          <span> Out of stock</span>
+                        </div>
+                      {% elif product.product.inventory.available < 5 %}
+
+                        {% for _ in ''|center:product.product.inventory.available %}
+                          {% if forloop.counter is product.quantity %}
+                            <option value="{{ forloop.counter }}" selected>{{ forloop.counter }}</option>
+                          {% else %}
+                            <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                          {% endif %}
+                        {% endfor %}
+                      
+                      {% endif %}
+
+                      {% else %}
+                    
+                        {% for i in cart_detail.range %}
+                          {% if i is product.quantity %}
+                            <option value="{{ i }}" selected>{{ i }}</option>
+                          {% else %}
+                            <option value="{{ i }}">{{ i }}</option>
+                          {% endif %}
+                        {% endfor %}
+                      
+                      {% endif %}
                   </select>
 
                   <!-- Remove -->
