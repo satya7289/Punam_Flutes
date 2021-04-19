@@ -121,11 +121,12 @@
               <div class="form-group">
                 
 
-                {% if product.inventory and product.inventory.type == "limited" and product.inventory.available == 0%}
+                {% if product.inventory and product.inventory.type == "limited" and product.inventory.available == 0 %}
                   <div class="col-12 col-lg-auto font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
                     <span> Out of stock</span>
                   </div>
-                {% elif product.inventory and product.inventory.type == "limited" and elif product.inventory.available < 5 %}
+                  
+                {% elif product.inventory and product.inventory.type == "limited" and product.inventory.available < 5 %}
                   <div class="col-12 col-lg-auto font-weight-bold text-danger" style="padding: 0.5rem; margin: .5rem;">
                     <span> Only {{ product.inventory.available }} available</span>
                   </div>

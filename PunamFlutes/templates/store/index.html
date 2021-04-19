@@ -146,6 +146,7 @@
         {% for product in new_arrival_products %}
         <!-- Item -->
         <div class="col" style="max-width: 300px;">
+          <a href="{% url 'product:product_detail' product_id=product.id category_id=product.category.all.0.id %}">
           <div class="card">
 
             <!-- Image -->
@@ -172,12 +173,13 @@
 
             <!-- Body -->
             <div class="card-body font-weight-bold text-center">
-              <a class="text-body" href="product.html">{{ product.title }}</a> <br>
+              <a class="text-body" href="{% url 'product:product_detail' product_id=product.id category_id=product.category.all.0.id %}">{{ product.title }}</a> <br>
               <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ product.currency }} {{ product.mrp }}</span>
               <span class="text-primary">{{ product.currency }} {{ product.price }}</span>
             </div>
 
           </div>
+          </a>
         </div>
         {%endfor %}
 
