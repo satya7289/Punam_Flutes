@@ -464,12 +464,11 @@
 
                   <!-- Select -->
                   <select class="custom-select custom-select-xxs w-auto" name="quantity__modal" id="{{ forloop.counter }}" data-price="{{ product.price }}">
-                    {% if product.product.inventory and product.product.inventory.type == "limited" %}
-                      {% if product.inventory.available == 0 %}
+                    {% if product.product.inventory and product.product.inventory.type == "limited" and product.inventory.available == 0 %}
                         <div class="font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
                           <span> Out of stock</span>
                         </div>
-                      {% elif product.product.inventory.available < 5 %}
+                    {% elif product.product.inventory and product.product.inventory.type == "limited" and product.product.inventory.available < 5 %}
 
                         {% for _ in ''|center:product.product.inventory.available %}
                           {% if forloop.counter is product.quantity %}
@@ -489,8 +488,6 @@
                             <option value="{{ i }}">{{ i }}</option>
                           {% endif %}
                         {% endfor %}
-                      
-                      {% endif %}
                       
                       {% endif %}
                   </select>
