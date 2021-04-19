@@ -26,6 +26,9 @@ def get_price_of_product(request, product, country=None):
             country = ip_detail['country']
         else:
             country = settings.DEFAULT_COUNTRY
+
+    # TODO: Remove the below line after IP based pricing is fixed
+    country = settings.DEFAULT_COUNTRY
     
     # Get the default Any Country currency of the product.
     default = product.countrycurrency_set.filter(country='Any').first()
