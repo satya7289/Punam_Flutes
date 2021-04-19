@@ -40,7 +40,8 @@ def after_successful_placed_order(request, payment, order_status="Confirmed"):
     for productQ in cart.product_detail.all():
         product = productQ.product
         product.inventory.sold = product.inventory.sold + productQ.quantity
-        product.inventory.available = product.inventory.available - productQ.quantity
+        if product.inventory.type == "limited":
+            product.inventory.available = product.inventory.available - productQ.quantity
         product.inventory.save()
     
     # Set Cart checkout to True.
