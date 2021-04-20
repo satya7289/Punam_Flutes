@@ -9,12 +9,15 @@ User = get_user_model()
 AddressType = [['billing', 'billing'], ['shipping', 'shipping']]
 
 class Address(TimeStampedModel):
+    full_name = models.CharField(max_length=1024, blank=True, null=True)
+    mobile_number = models.CharField(max_length=1024, blank=True, null=True)
+    postal_code = models.CharField(max_length=64, null=True, blank=True)
     street_address = models.CharField(max_length=1024, null=False, blank=False)
-    city = models.CharField(max_length=16, null=False, blank=False)
-    state = models.CharField(max_length=16, null=True, blank=True)
-    postal_code = models.CharField(max_length=16, null=True, blank=True)
-    country = models.CharField(max_length=20, null=False, blank=False)
-    address_type = models.CharField(max_length=100, choices=AddressType, blank=True, null=True, default='')
+    landmark = models.CharField(max_length=1024, blank=True, null=True)
+    city = models.CharField(max_length=1024, null=False, blank=False)
+    state = models.CharField(max_length=1024, null=True, blank=True)
+    country = models.CharField(max_length=1024, null=False, blank=False)
+    address_type = models.CharField(max_length=1024, choices=AddressType, blank=True, null=True, default='')
     default = models.BooleanField(default=False,blank=True,null=True)
 
     def __str__(self):

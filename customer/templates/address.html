@@ -1,0 +1,109 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<style>
+    .cart__address {
+        width: 20rem; 
+        border: 1px solid black; 
+        border-radius: 0.5rem;  
+        height: 18rem;
+        overflow:auto; 
+        overflow-y: scroll;
+    }
+</style>
+
+
+<section class="pt-7 pb-12">
+    <div class="container">
+
+        <div class="row align-items-center mb-7">
+            <div class="col-12 col-md">
+              <!-- Heading -->
+              <h3 class="mb-1">Your {{ address_type }} Address </h3>
+  
+              <!-- Breadcrumb -->
+              <ol class="breadcrumb mb-md-0 font-size-xs text-gray-400">
+                <li class="breadcrumb-item">
+                  <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item active">
+                  <a class="text-gray-400" href="{% url 'customer_profile' %}">Your Account </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a class="text-gray-400" href="{% url 'customer_address' %}?address_type={{ address_type }} ">Your Address </a>
+                </li>
+              </ol>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-2">
+            <a href="{% url 'create_address' %}?address_type={{address_type}}">Add {{address_type}} Address</a>
+        </div>
+        
+        <div class="row">
+            {% for address in all_address %}
+                <div class="col-12 col-md-4 my-3">
+                    <div class="card cart__address">
+                        <div class="card-body">
+                            {% if address.address_type == "shipping" %}
+                                <a href="{% url 'update_address' id=address.id %}?address_type=shipping" class="card-link">
+                                    <span><i class="fe fe-edit"></i></span>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'update_address' id=address.id %}?address_type=billing" class="card-link">
+                                    <span><i class="fe fe-edit"></i></span>
+                                </a>
+                            {% endif %}
+                            {% if not address.default %}
+                                <a href="{% url 'set_default_address' id=address.id %}" class="card-link">Set as Default</a>
+                            {% else %}
+                                <a href="!#" class="card-link">Default</a>
+                            {% endif %}
+                            <hr>
+                                <div class="card-subtitle mb-1">{{ address.full_name }}</div>
+                                <div class="card-text mb-1">{{ address.street_address }} {{ address.landmark }}</div>
+                                <div class="card-text mb-1">{{ address.city }} {{ address.state }}, {{ shipping_address.country }}</div>
+                                {% if address.mobile_number %}
+                                    <div class="card-text mb-1"> <strong>P:</strong> {{address.mobile_number }}</div>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+
+<script>
+    $(document).ready(()=>{
+        $('#select__shipping__state').hide();
+        $('#select__billing__state').hide();
+    });
+
+    $('#shipping__country').change(function(){
+        if($(this).val()=="India"){
+            $('#shipping__state').hide();
+            $('#select__shipping__state').show();
+        }else{
+            $('#shipping__state').show();
+            $('#select__shipping__state').hide();
+        }
+    })
+
+    $('#billing__country').change(function(){
+        alert($(this).val());
+        if($(this).val()=="India"){
+            $('#billing__state').hide();
+            $('#select__billing__state').show();
+        }else{
+            $('#billing__state').show();
+            $('#select__billing__state').hide();
+        }
+    })
+</script>
+
+{% endblock %}

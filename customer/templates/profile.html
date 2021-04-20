@@ -2,418 +2,136 @@
 {% load staticfiles %}
 {% block content %}
 
+<style>
+    .cart__address {
+        width: 20rem; 
+        border: 1px solid black; 
+        border-radius: 0.5rem;  
+        height: 18rem;
+        overflow:auto; 
+        overflow-y: scroll;
+    }
+</style>
+
 <section class="pt-7 pb-12">
     <div class="container">
-        <div class="col-12 text-center">
-            {% for message in messages %}
-                <span class="text-sucess center" id="error_login">{{message}}!!!</span><br />
-            {% endfor %}
-            <h3 class="my-7">Profile</h3>
-        </div>
 
-        <div class="col-12">
-            <form action="{% url 'customer_profile' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="row mb-9">
-                    <div class="col-12 col-md-6">
-    
-                    <!-- First Name -->
-                    <div class="form-group">
-                        <label for="firstName">First Name *</label>
-                        {% if profile %}
-                            <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name" value="{{ profile.first_name}}">
-                        {% else %}
-                            <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name">
-                        {% endif %}
-                    </div>
-    
-                    </div>
-
-                    <div class="col-12 col-md-6">
-    
-                        <!-- Last Name -->
-                        <div class="form-group">
-                        <label for="lastName">Last Name *</label>
-                        {% if profile %}
-                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name" value="{{ profile.last_name}}">
-                        {% else %}
-                            <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" name="last_name">
-                        {% endif %}
-                        </div>
-    
-                    </div>
-                    {% if email %}
-                    <div class="col-6 col-md-6">
-                        <div class="form-group">
-                        <label for="checkoutBillingEmail">Email *</label>
-                        <p id="checkoutBillingEmail">{{ email }}</p>
-                        </div>
-    
-                    </div>
-                    {% endif %}
-                    {% if phone %}
-                    <div class="col-6 col-md-6">
-                        <div class="form-group">
-                        <label for="checkoutBillingPhone">Phone *</label>
-                        <p id="checkoutBillingPhone">{{ phone }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <div class="col-md-2 offset-md-5 text-center mt-5">
-                        <button class="btn btn-block btn-dark" type="submit">
-                            Update
-                          </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-    </div>
-
-
-    <div class="container mt-5">
-        <div class="col-12 text-center">
-            <h3 class="mb-4">Address</h3>
+        <div class="row align-items-center mb-7">
+            <div class="col-12 col-md">
+              <!-- Heading -->
+              <h3 class="mb-1">Your Account </h3>
+  
+              <!-- Breadcrumb -->
+              <ol class="breadcrumb mb-md-0 font-size-xs text-gray-400">
+                <li class="breadcrumb-item">
+                  <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item active">
+                  <a class="text-gray-400" href="{% url 'customer_profile' %}">Your Account </a>
+                  
+                </li>
+              </ol>
+            </div>
         </div>
         
         <div class="row">
-            <!-- Shipping Address -->
-            <div class="col-12 col-md-6">
-                <h6>Shipping Address</h6>
-                <ul>
-                    {% for address in shipping_address %}
-                        <div class="modal fade" id="shipping__address__{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Shipping Address</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
 
-                                    <form action="{% url 'update_address' %}" method="post" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <label for="street{{ forloop.counter }}">Street Address *</label>
-                                                        <input class="form-control form-control-sm" id="street{{ forloop.counter }}" type="text" placeholder="street address" required name="street_address" value="{{ address.street_address }}">
-                                                    </div>
-                                                </div>
-                                            
-                                                <div class="col-12 col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="city{{ forloop.counter }}">Town / City *</label>
-                                                        <input class="form-control form-control-sm" id="city{{ forloop.counter }}" type="text" placeholder="City" required name="city" value="{{ address.city }}">
-                                                    </div>
-                                                </div>
-                        
-                                                <div class="col-12 col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="state{{ forloop.counter }}">State *</label>
-                                                        <input class="form-control form-control-sm" id="state{{ forloop.counter }}" type="text" placeholder="State" required name="state" value="{{ address.state }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="postal_code{{ forloop.counter }}">ZIP / Postcode *</label>
-                                                        <input class="form-control form-control-sm" id="postal_code{{ forloop.counter }}" type="text" placeholder="ZIP / Postcode" required name="postal_code" value="{{ address.postal_code }}">
-                                                    </div>
-                                                </div>
-                                                <input type="hidden" name="address_id" value="{{ address.id }}">
-                                                <input type="hidden" name="address_type" value="shipping">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
+            <div class="col-12 col-md-4 my-3">
+                <div class="card" style="width: 19rem; border: 1px solid black; border-radius: 1rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile</h5>
+                        <form action="{% url 'customer_profile' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    {% if profile %}
+                                        <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name" value="{{ profile.first_name}}">
+                                    {% else %}
+                                        <input class="form-control form-control-sm" id="firstName" type="text" placeholder="First Name" required name="first_name">
+                                    {% endif %}
                                 </div>
-                            </div>
-                        </div>
-                        <li>
-                            <a href="" data-toggle="modal" data-target="#shipping__address__{{ forloop.counter }}">{{address}}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-
-                <div class="modal fade" id="add__shipping__address" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Shipping Address</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <form action="{% url 'create_address' %}" method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="state">Country *</label>
-                                                <select class="form-control form-control-sm" id="shipping__country" name="country"
-                                                    required>
-                                                    <option value=""></option>
-                                                    {% for c in country %}
-                                                        <option value="{{ c.0 }}">{{ c.0 }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>                        
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="street">Street Address *</label>
-                                                <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address">
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="col-12 col-md-4">
-                                            <div class="form-group">
-                                                <label for="city">Town / City</label>
-                                                <input class="form-control form-control-sm" id="city" type="text" placeholder="City" name="city">
-                                            </div>
-                                        </div>
-                    
-                                        <div class="col-12 col-md-4" id="shipping__state">
-                                            <div class="form-group">
-                                                <label for="state">State</label>
-                                                <input class="form-control form-control-sm" type="text" placeholder="State" name="state">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4" id="select__shipping__state">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="state">State *</label>
-                                                    <select class="form-control form-control-sm" name="state"
-                                                        required>
-                                                        <option value=""></option>
-                                                        {% for s in state %}
-                                                            <option value="{{ s.0 }}">{{ s.0 }}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>                        
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <div class="form-group">
-                                                <label for="postal_code">ZIP / Postcode *</label>
-                                                <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code">
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="address_type" value="shipping">
+                
+                                </div>
+            
+                                <div class="col-12 ">
+                                    <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    {% if profile %}
+                                        <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" required name="last_name" value="{{ profile.last_name}}">
+                                    {% else %}
+                                        <input class="form-control form-control-sm" id="lastName" type="text" placeholder="Last Name" name="last_name">
+                                    {% endif %}
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                {% if email %}
+                                <div class="col-12">
+                                    <div class="form-group">
+                                    <label for="checkoutBillingEmail">Email *</label>
+                                    <p id="checkoutBillingEmail">{{ email }}</p>
+                                    </div>
+                
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" id="checkoutShippingAddress" type="checkbox">
-                    <label class="custom-control-label font-size-sm" data-toggle="modal" data-target="#add__shipping__address" for="checkoutShippingAddress">
-                    Add  address?
-                    </label>
-                </div>
-            </div>
-
-            <!-- Billing Address -->
-            <div class="col-12 col-md-6">
-                <h6>Billing Address</h6>
-                <ul>
-                    {% for address in billing_address %}
-                    <div class="modal fade" id="billing__address__{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Billing Address</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                {% endif %}
+                                {% if phone %}
+                                <div class="col-12">
+                                    <div class="form-group">
+                                    <label for="checkoutBillingPhone">Phone *</label>
+                                    <p id="checkoutBillingPhone">{{ phone }}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-block btn-dark" type="submit">
+                                        Update
                                     </button>
                                 </div>
 
-                                <form action="{% url 'update_address' %}" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="country{{ forloop.counter }}">Country *</label>
-                                                    <input class="form-control form-control-sm" id="country{{ forloop.counter }}" type="text" placeholder="Country" required name="country" value="{{ address.country }}">
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="street{{ forloop.counter }}">Street Address *</label>
-                                                    <input class="form-control form-control-sm" id="street{{ forloop.counter }}" type="text" placeholder="street address" required name="street_address" value="{{ address.street_address }}">
-                                                </div>
-                                            </div>
-                                        
-                                            <div class="col-12 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="city{{ forloop.counter }}">Town / City *</label>
-                                                    <input class="form-control form-control-sm" id="city{{ forloop.counter }}" type="text" placeholder="City" required name="city" value="{{ address.city }}">
-                                                </div>
-                                            </div>
-                    
-                                            <div class="col-12 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="state{{ forloop.counter }}">State *</label>
-                                                    <input class="form-control form-control-sm" id="state{{ forloop.counter }}" type="text" placeholder="State" required name="state" value="{{ address.state }}">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="postal_code{{ forloop.counter }}">ZIP / Postcode *</label>
-                                                    <input class="form-control form-control-sm" id="postal_code{{ forloop.counter }}" type="text" placeholder="ZIP / Postcode" required name="postal_code" value="{{ address.postal_code }}">
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="address_id" value="{{ address.id }}">
-                                            <input type="hidden" name="address_type" value="billing">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <li>
-                        <a href="" data-toggle="modal" data-target="#billing__address__{{ forloop.counter }}">{{address}}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-
-                <div class="modal fade" id="add__billing__address" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Billing Address</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <form action="{% url 'create_address' %}" method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="state">Country *</label>
-                                                <select class="form-control form-control-sm" id="billing__country" name="country"
-                                                    required>
-                                                    <option value=""></option>
-                                                    {% for c in country %}
-                                                        <option value="{{ c.0 }}">{{ c.0 }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>                        
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="street">Street Address *</label>
-                                                <input class="form-control form-control-sm" id="street" type="text" placeholder="street address" required name="street_address">
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="col-12 col-md-4">
-                                            <div class="form-group">
-                                                <label for="city">Town / City *</label>
-                                                <input class="form-control form-control-sm" id="city" type="text" placeholder="City" required name="city">
-                                            </div>
-                                        </div>
-                    
-                                        <div class="col-12 col-md-4" id="billing__state">
-                                            <div class="form-group">
-                                                <label for="state">State</label>
-                                                <input class="form-control form-control-sm" type="text" placeholder="State" name="state">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4" id="select__billing__state">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="state">State *</label>
-                                                    <select class="form-control form-control-sm" name="state"
-                                                        required>
-                                                        <option value=""></option>
-                                                        {% for s in state %}
-                                                            <option value="{{ s.0 }}">{{ s.0 }}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>                        
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <div class="form-group">
-                                                <label for="postal_code">ZIP / Postcode *</label>
-                                                <input class="form-control form-control-sm" id="postal_code" type="text" placeholder="ZIP / Postcode" required name="postal_code">
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="address_type" value="billing">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" id="checkoutBillingAddress" type="checkbox">
-                    <label class="custom-control-label font-size-sm" data-toggle="modal" data-target="#add__billing__address" for="checkoutBillingAddress">
-                    Add  address?
-                    </label>
                 </div>
             </div>
-        </div>
+            <div class="col-12 col-md-4 my-3">
+                <div class="card cart__address">
+                    <div class="card-body">
+                        {% if shipping_address %}
+                        <h5 class="card-title">Your Shipping Address</h5>
+                        <a href="{% url 'update_address' id=shipping_address.id %}?address_type=shipping" class="card-link mt-1"><span><i class="fe fe-edit"></i></span></a>
+                        <a href="{% url 'customer_address' %}?address_type=shipping" class="card-link mt-1">View All</a>
+                        <a href="{% url 'create_address' %}?address_type=shipping" class="card-link mt-1">Add Another</a>
+                        <hr>
+                            <h6 class="card-subtitle mb-1">{{ shipping_address.full_name }}</h6>
+                            <div class="card-text mb-1">{{ shipping_address.street_address }} {{ shipping_address.landmark }}</div>
+                            <div class="card-text mb-1">{{ shipping_address.city }} {{ shipping_address.state }}, {{ shipping_address.country }}</div>
+                            {% if shipping_address.mobile_number %}
+                                <div class="card-text mb-1"> <strong>P:</strong> {{shipping_address.mobile_number }}</div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 my-3">
+                <div class="card cart__address">
+                    <div class="card-body">
+                        {% if billing_address %}
+                        <h5 class="card-title">Your Billing Address</h5>
+                        <a href="{% url 'update_address' id=billing_address.id %}?address_type=shipping" class="card-link mt-1"><span><i class="fe fe-edit"></i></span></a>
+                        <a href="{% url 'customer_address' %}?address_type=billing" class="card-link mt-1">View All</a>
+                        <a href="{% url 'create_address' %}?address_type=billing" class="card-link mt-1">Add Another</a>
+                        <hr>
+                            <h6 class="card-subtitle mb-1">{{ billing_address.full_name }}</h6>
+                            <div class="card-text mb-1">{{ billing_address.street_address }} {{ billing_address.landmark }}</div>
+                            <div class="card-text mb-1">{{ billing_address.city }} {{ billing_address.state }}, {{ billing_address.country }}</div>
+                            {% if billing_address.mobile_number %}
+                                <div class="card-text mb-1"> <strong>P:</strong> {{billing_address.mobile_number }}</div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>   
     </div>
-
 </section>
-{% endblock %}
-
-{% block script %}
-
-<script>
-    $(document).ready(()=>{
-        $('#select__shipping__state').hide();
-        $('#select__billing__state').hide();
-    });
-
-    $('#shipping__country').change(function(){
-        if($(this).val()=="India"){
-            $('#shipping__state').hide();
-            $('#select__shipping__state').show();
-        }else{
-            $('#shipping__state').show();
-            $('#select__shipping__state').hide();
-        }
-    })
-
-    $('#billing__country').change(function(){
-        alert($(this).val());
-        if($(this).val()=="India"){
-            $('#billing__state').hide();
-            $('#select__billing__state').show();
-        }else{
-            $('#billing__state').show();
-            $('#select__billing__state').hide();
-        }
-    })
-</script>
-
 {% endblock %}

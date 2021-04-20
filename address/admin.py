@@ -6,7 +6,7 @@ from .models import Address
 # Register your models here.
 
 class AddressAdmin(admin.ModelAdmin):
-    list_display = ('__str__','User', 'address_type', 'street_address', 'city', 'state', 'postal_code', 'country')
+    list_display = ('__str__','User', 'address_type', 'street_address', 'default', 'city', 'state', 'postal_code', 'country')
     list_filter = ('address_type','country','state','city',)
     search_fields = ('address_type', 'street_address', 'city', 'state', 'postal_code', 'country')
 

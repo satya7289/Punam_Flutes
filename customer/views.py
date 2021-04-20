@@ -254,8 +254,8 @@ class CustomerProfile(View):
         profile = Profile.objects.filter(user=user).first()
 
         # Get all the address of the user
-        billing_address = Address.objects.filter(user=user, address_type='billing')
-        shipping_address = Address.objects.filter(user=user, address_type='shipping')
+        billing_address = Address.objects.filter(user=user, address_type='billing', default=True).first()
+        shipping_address = Address.objects.filter(user=user, address_type='shipping', default=True).first()
 
         # countries
         country = COUNTRY[1:]
@@ -298,6 +298,49 @@ class CustomerProfile(View):
 
         profile = Profile.objects.create(user=user, first_name=first_name, last_name=last_name)
         return redirect('customer_profile')
+
+
+class CustomerAddress(View):
+    template_name = 'address.html'
+
+    def get(self, request):
+
+        # Get the logged in user
+        user = request.user
+
+        # Get the profile of the user
+        profile = Profile.objects.filter(user=user).first()
+
+        address_type = request.GET.get('address_type')
+
+
+        # Get all the address of the user
+        if address_type=="Billing" or address_type=="billing":
+            all_address = Address.objects.filter(user=user, address_type='billing').order_by('-default','-id')
+        elif address_type=="Shipping" or address_type=="shipping":
+            all_address = Address.objects.filter(user=user, address_type='shipping').order_by('-default','-id')
+        
+
+        # countries
+        country = COUNTRY[1:]
+        state = (IndianStates + IndianUnionTerritories)
+
+        if not profile:
+            profile = None
+        
+        if not all_address:
+            all_address = None
+
+        context ={
+            'profile': profile,
+            'email' : user.email,
+            'phone' : user.phone,
+            'all_address' : all_address,
+            'country': country,
+            'state': state,
+            'address_type': address_type,
+        }
+        return render(request, self.template_name, context)
 
 class CheckUsername(View):
     def get(self, request):

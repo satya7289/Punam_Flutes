@@ -116,6 +116,9 @@ class Checkout(View):
         profile = Profile.objects.filter(user=user).first()
         user_address = Address.objects.filter(user=user)
         shipping_address = Address.objects.filter(user=user, address_type='shipping')
+
+        # Get the default billing address
+        billing_address = Address.objects.filter(user=user, address_type='billing', default=True).first()
         cart = Cart.objects.filter(user=user,is_checkout=False).first()
 
         product_details = cart.product_detail.all()
@@ -158,6 +161,7 @@ class Checkout(View):
             'country': country,
             'profile': profile,
             'user_address': user_address,
+            'billing_address': billing_address,
             'shipping_address': shipping_address,
             'email': user.email,
             'phone': user.phone,

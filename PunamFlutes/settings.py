@@ -38,6 +38,7 @@ THIRD_PARTY_APPS = [
     'storages',
     'paypal.standard.ipn',
     'ckeditor',
+    'crispy_forms',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -193,3 +194,5 @@ RAZORPAY_SECRET=config('RAZORPAY_SECRET')
 
 DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='Any')
 DEFAULT_CURRENCY = config('DEFAULT_CURRENCY', default='USD')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

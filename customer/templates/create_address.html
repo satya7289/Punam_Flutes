@@ -1,0 +1,121 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<section class="pt-7 pb-12">
+    <div class="container">
+
+        <div class="row align-items-center mb-7">
+            <div class="col-12 col-md">
+              <!-- Heading -->
+              <h3 class="mb-1">{{action}} {{ address_type }} Address </h3>
+  
+              <!-- Breadcrumb -->
+              <ol class="breadcrumb mb-md-0 font-size-xs text-gray-400">
+                <li class="breadcrumb-item">
+                  <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item active">
+                  <a class="text-gray-400" href="{% url 'customer_profile' %}">Your Account </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a class="text-gray-400" href="{% url 'customer_address' %}?address_type={{ address_type }} ">Your Address </a>
+                </li>
+              </ol>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-12 my-3">
+            <div class="card" style="width: auto; border: 1px solid black; border-radius: 0.5rem;">
+                <div class="card-body">
+                    {% if form.errors %}
+                      {% for field in form %}
+                          {% for error in field.errors %}
+                              <div class="alert alert-danger">
+                                  <strong>{{ error|escape }}</strong>
+                              </div>
+                          {% endfor %}
+                      {% endfor %}
+                      {% for error in form.non_field_errors %}
+                          <div class="alert alert-danger">
+                              <strong>{{ error|escape }}</strong>
+                          </div>
+                      {% endfor %}
+                    {% endif %}
+                   
+                   <form action="" method="post">
+                     {% csrf_token %}
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          {{ form.full_name|as_crispy_field }} 
+                        </div>
+                        <div class="form-group col-md-6">
+                          {{ form.mobile_number|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6">
+                          {{ form.country|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6" id="state">
+                          {{ form.state|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6" id="select__state">
+                          <div class="form-group">
+                            <label for="state">State *</label>
+                            <select class="form-control form-control-sm" name="state">
+                                <option value=""></option>
+                                {% for s in state %}
+                                    <option value="{{ s.0 }}">{{ s.0 }}</option>
+                                {% endfor %}
+                            </select>
+                          </div>    
+                        </div>
+                        <div class="form-group col-md-12">
+                          {{ form.street_address|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-12">
+                          {{ form.landmark|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6">
+                          {{ form.postal_code|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6">
+                          {{ form.city|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6">
+                          {{ form.default|as_crispy_field }}
+                        </div>
+                        <input type="hidden" name="address_type" value="{{ address_type }}">
+                        <div class="form-group col-md-6">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                      </div>
+                     
+                   </form>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+  $(document).ready(()=>{
+      $('#select__state').hide();
+  });
+
+  $('[name="country"]').change(function(){
+    if($(this).val()=="India"){
+        $('#state').hide();
+        $('#select__state').show();
+    }else{
+        $('#state').show();
+        $('#select__state').hide();
+    }
+  })
+
+</script>
+
+{% endblock %}
