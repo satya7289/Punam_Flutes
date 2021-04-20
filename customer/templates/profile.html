@@ -102,7 +102,9 @@
                         <a href="{% url 'customer_address' %}?address_type=shipping" class="card-link mt-1">View All</a>
                         <a href="{% url 'create_address' %}?address_type=shipping" class="card-link mt-1">Add Another</a>
                         <hr>
+                            {% if shipping_address.full_name %}
                             <h6 class="card-subtitle mb-1">{{ shipping_address.full_name }}</h6>
+                            {% endif %}
                             <div class="card-text mb-1">{{ shipping_address.street_address }} {{ shipping_address.landmark }}</div>
                             <div class="card-text mb-1">{{ shipping_address.city }} {{ shipping_address.state }}, {{ shipping_address.country }}</div>
                             {% if shipping_address.mobile_number %}
@@ -120,8 +122,10 @@
                         <a href="{% url 'update_address' id=billing_address.id %}?address_type=shipping" class="card-link mt-1"><span><i class="fe fe-edit"></i></span></a>
                         <a href="{% url 'customer_address' %}?address_type=billing" class="card-link mt-1">View All</a>
                         <a href="{% url 'create_address' %}?address_type=billing" class="card-link mt-1">Add Another</a>
-                        <hr>
-                            <h6 class="card-subtitle mb-1">{{ billing_address.full_name }}</h6>
+                        <hr>                            
+                            {% if billing_address.full_name %}
+                                <h6 class="card-subtitle mb-1">{{ billing_address.full_name }}</h6>
+                            {% endif %}
                             <div class="card-text mb-1">{{ billing_address.street_address }} {{ billing_address.landmark }}</div>
                             <div class="card-text mb-1">{{ billing_address.city }} {{ billing_address.state }}, {{ billing_address.country }}</div>
                             {% if billing_address.mobile_number %}
