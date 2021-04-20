@@ -93,10 +93,10 @@
                     </div>
                 </div>
             </div>
+            {% if shipping_address %}
             <div class="col-12 col-md-4 my-3">
                 <div class="card cart__address">
                     <div class="card-body">
-                        {% if shipping_address %}
                         <h5 class="card-title">Your Shipping Address</h5>
                         <a href="{% url 'update_address' id=shipping_address.id %}?address_type=shipping" class="card-link mt-1"><span><i class="fe fe-edit"></i></span></a>
                         <a href="{% url 'customer_address' %}?address_type=shipping" class="card-link mt-1">View All</a>
@@ -108,14 +108,14 @@
                             {% if shipping_address.mobile_number %}
                                 <div class="card-text mb-1"> <strong>P:</strong> {{shipping_address.mobile_number }}</div>
                             {% endif %}
-                        {% endif %}
                     </div>
                 </div>
             </div>
+            {% endif %}
+            {% if billing_address %}
             <div class="col-12 col-md-4 my-3">
                 <div class="card cart__address">
                     <div class="card-body">
-                        {% if billing_address %}
                         <h5 class="card-title">Your Billing Address</h5>
                         <a href="{% url 'update_address' id=billing_address.id %}?address_type=shipping" class="card-link mt-1"><span><i class="fe fe-edit"></i></span></a>
                         <a href="{% url 'customer_address' %}?address_type=billing" class="card-link mt-1">View All</a>
@@ -127,10 +127,11 @@
                             {% if billing_address.mobile_number %}
                                 <div class="card-text mb-1"> <strong>P:</strong> {{billing_address.mobile_number }}</div>
                             {% endif %}
-                        {% endif %}
+                        
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>   
     </div>
 </section>
