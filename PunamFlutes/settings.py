@@ -31,6 +31,7 @@ LOCAL_APPS = [
     'blog',
     'tax_rules',
     'cart',
+    'StaticData',
 ]
 
 THIRD_PARTY_APPS = [
@@ -84,19 +85,19 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'commons/GeoLite2-Country.mmdb')
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.'+config('DB_CONNECTION'),
-        'NAME': config('DB_DATABASE'),
-        'USER': config('DB_USERNAME'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-        'default-character-set': 'utf8'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.'+config('DB_CONNECTION'),
+    #     'NAME': config('DB_DATABASE'),
+    #     'USER': config('DB_USERNAME'),
+    #     'PASSWORD': config('DB_PASSWORD'),
+    #     'HOST': config('DB_HOST'),
+    #     'PORT': config('DB_PORT'),
+    #     'default-character-set': 'utf8'
+    # }
 }
 
 # Password validation

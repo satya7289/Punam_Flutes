@@ -3,6 +3,41 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
+<style>
+  .choose_billing_address {
+    padding: 3px;
+    border: 1px solid rgba(112, 61, 61, 0.158);
+    border-radius: 2px;
+    background-color: rgba(255, 196, 0, 0.918);
+  }
+  
+  .card-body a {
+    color: black;
+  }
+
+  .edit{
+    margin: 1px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    padding: 1px;
+    border: 1px solid rgba(112, 61, 61, 0.158);
+    border-radius: 2px;
+    background-color: rgba(192, 184, 184, 0.87);
+    font-size: 0.7rem;
+  }
+
+  .delete{
+    margin: 1px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    padding: 1px;
+    border: 1px solid rgba(112, 61, 61, 0.158);
+    border-radius: 2px;
+    background-color: rgba(192, 184, 184, 0.87);
+    font-size: 0.7rem;
+  }
+</style>
+
 <!-- BREADCRUMB -->
 <nav class="py-5">
   <div class="container">
@@ -54,21 +89,40 @@
                 <div class="col-12 col-md-4">
                     <div class="card cart__address">
                         <div class="card-body">
-                            <a href="{% url 'checkout' %}?billing_address_id={{address.id}}" class="card-link">Choose billing address</a>
+                          
+                            <div class="row text-center">
+                              <div class="col-12 col-md-12 choose_billing_address">
+                                <a href="{% url 'choose_billing_address' %}?shipping_address_id={{address.id}}" >Choose billing address</a>
+                              </div>
+                            </div>
+                          
                             {% if address.address_type == "shipping" %}
-                                <a href="{% url 'update_address' id=address.id %}?address_type=shipping&redirect_to=choose_shipping_address" class="card-link">
-                                    <span><i class="fe fe-edit"></i></span>
+                            <div class="row text-center justify-content-between">
+                              <div class="col-12 col-md-4 mt-1 edit">
+                                <a href="{% url 'update_address' id=address.id %}?address_type=shipping&redirect_to=choose_shipping_address" >
+                                  Edit
                                 </a>
-                                <a href="{% url 'delete_address' id=address.id %}?redirect_to=choose_shipping_address" class="card-link">
-                                  <span><i class="fe fe-delete"></i></span>
+                              </div>
+                              <div class="col-12 col-md-4 mt-1 delete">
+                                <a href="{% url 'delete_address' id=address.id %}?redirect_to=choose_shipping_address">
+                                  Delete
                                 </a>
+                              </div>
+                            </div>
+
                             {% else %}
-                                <a href="{% url 'update_address' id=address.id %}?address_type=billing&redirect_to=choose_billing_address" class="card-link">
-                                    <span><i class="fe fe-edit"></i></span>
+                            <div class="row text-center justify-content-between">
+                              <div class="col-12 col-md-4 mt-1 edit">
+                                <a href="{% url 'update_address' id=address.id %}?address_type=billing&redirect_to=choose_billing_address" >
+                                  Edit
                                 </a>
-                                <a href="{% url 'delete_address' id=address.id %}?redirect_to=choose_billing_address" class="card-link">
-                                  <span><i class="fe fe-delete"></i></span>
+                              </div>
+                              <div class="col-12 col-md-4 mt-1 delete">
+                                <a href="{% url 'delete_address' id=address.id %}?redirect_to=choose_billing_address">
+                                  Delete
                                 </a>
+                              </div>
+                            </div>
                             {% endif %}
                             <hr>
                                 {% if address.full_name %}
@@ -162,5 +216,21 @@
 {% endblock %}
 
 {% block script %}
+<script>
+  $(document).ready(()=>{
+      $('#select__state').hide();
+  });
+
+  $('[name="country"]').change(function(){
+    if($(this).val()=="India"){
+        $('#state').hide();
+        $('#select__state').show();
+    }else{
+        $('#state').show();
+        $('#select__state').hide();
+    }
+  })
+
+</script>
 
 {% endblock %}

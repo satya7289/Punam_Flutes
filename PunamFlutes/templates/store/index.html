@@ -5,113 +5,53 @@
 {% block categories_name %}
 {% endblock%}
 
+<style>
+  .CAT__IMAGES img{
+    height: 25rem;
+  }
+</style>
+
+{% if slideshows %}
 <!-- SLIDER -->
 <section>
   <div data-flickity='{"prevNextButtons": true, "fade": true}'>
-
+    
+    {% for slideshow in slideshows %}
     <!-- Item -->
-    <div class="w-100 bg-cover" style="background-image: url(../static/assets/img/covers/cover-5.jpg);">
-      <div class="container d-flex flex-column">
-        <div class="row align-items-center py-12" style="min-height: 550px;">
-          <div class="col-12 col-md-6 col-lg-5 col-xl-4 offset-md-1">
-
-            <!-- Heading -->
-            <h1>Summer Sale</h1>
-
-            <!-- Heading -->
-            <h2 class="display-1 text-primary">-70%</h2>
-
-            <!-- Heading -->
-            <h5 class="mt-n4 mb-8">with promo code CN67EW*</h5>
-
-            <!-- Button -->
-            <a class="btn btn-dark" href="shop.html">
-              Shop Now <i class="fe fe-arrow-right ml-2"></i>
-            </a>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Item -->
-    <div class="w-100 bg-cover" style="background-image: url('../static/assets/img/covers/cover-23.jpg');">
-      <div class="container d-flex flex-column">
-        <div class="row align-items-center justify-content-end py-12" style="min-height: 550px;">
-          <div class="col-12 col-md-6 col-lg-5 col-xl-4 offset-md-n1">
-
-            <!-- Heading -->
-            <h1 class="mb-5">Summer Collection</h1>
-
-            <!-- Text -->
-            <p class="mb-8 font-size-lg text-gray-500">
-              So called give, one whales tree seas dry place own
-              day, winged tree created spirit.
-            </p>
-
-            <!-- Button -->
-            <a class="btn btn-dark" href="shop.html">
-              Shop Now <i class="fe fe-arrow-right ml-2"></i>
-            </a>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Item -->
-    <div class="w-100 bg-cover" style="background-image: url(../static/assets/img/covers/cover-16.jpg);">
-      <div class="bg-dark-20">
+    <div class="w-100 bg-cover" style="background-image: url('{{ slideshow.image.url }}');">
+      <a href="{{ slideshow.redirect_link }}">
         <div class="container d-flex flex-column">
-          <div class="row align-items-center justify-content-end" style="min-height: 550px;">
-            <div class="col-12 text-center text-white">
-
-              <!-- Preheading -->
-              <h4 class="mb-0">Summer Styles</h4>
-
-              <!-- Heading -->
-              <h1 class="display-1">
-                50% OFF
-              </h1>
-
-              <!-- Links -->
-              <p class="mb-0">
-                <a href="shop.html" class="link-underline text-reset mx-4 my-4">Shop Women</a>
-                <a href="shop.html" class="link-underline text-reset mx-4 my-4">Shop Men</a>
-              </p>
-
-            </div>
+          <div class="row align-items-center py-12" style="min-height: 550px;">
+            
           </div>
         </div>
-      </div>
+      </a>
+      
     </div>
-
+    {% endfor %}
   </div>
 </section>
+{% endif %}
 
     <!-- CATEGORIES -->
-    <section class="pt-6">
+    
+    <!-- <section class="pt-6">
       <div class="container-fluid px-3 px-md-6">
         <div class="row mx-n3">
           {% for cat in categories %}
             {% if forloop.counter <= 3 %}
             <div class="col-12 col-sm-4 d-flex flex-column px-3">
 
-              <!-- Card-->
               <div class="card card-xl mb-3 mb-sm-0" style="min-height: 280px">
   
-                <!-- Background -->
                 <div class="card-bg">
                   <div class="card-bg-img bg-cover" style="background-image: url(../static/assets/img/products/product-22.jpg);"></div>
                 </div>
   
-                <!-- Body -->
                 <div class="card-body my-auto">
   
-                  <!-- Heading -->
                   <h5 class="mb-0">{{ cat.display_name }}</h5>
   
-                  <!-- Link -->
                   <a class="btn btn-link stretched-link px-0 text-reset" href="{% url 'product:product_list' category_id=cat.id %}">
                     Shop Now <i class="fe fe-arrow-right ml-2"></i>
                   </a>
@@ -125,17 +65,51 @@
           {% endfor %}
         </div>
       </div>
+    </section> -->
+
+    <!-- Category Images -->
+    {% if category_images %}
+    <section>
+      <div class="container my-10">
+        <div class="row CAT__IMAGES">
+          {% for cat_image in category_images %}
+
+              <div class="col-12 col-md-4">
+
+                <!-- Card -->
+                <div class="card card-lg">
+                  
+                  <!-- Image -->
+                  <img class="card-img-top" src="{{ cat_image.image.url }}" alt="{{ cat_image.alt }}">
+
+                  <!-- Body -->
+                  <div class="card-body position-relative mx-6 mx-lg-11 mt-n11 bg-white text-center">
+
+                    <!-- Heading -->
+                    <h4 class="mb-0">{{ cat_image.display_name }}</h4>
+
+                    <!-- Link -->
+                    <a class="btn btn-link stretched-link px-0 text-reset" href="{% url 'product:product_list' category_id=cat_image.id %}">
+                      Shop Now <i class="fe fe-arrow-right ml-2"></i>
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </div>
+          {% endfor %}
+        </div>
+      </div>
     </section>
+    {% endif %}
 
     <!-- ARRIVALS -->
     <section class="py-12">
       <div class="container">
         <div class="row">
           <div class="col-12">
-
-            <!-- Heading -->
             <h2 class="mb-10 text-center">New Arrivals</h2>
-
           </div>
         </div>
       </div>

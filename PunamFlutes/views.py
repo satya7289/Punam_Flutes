@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import os
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, get_user_model, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -10,34 +10,49 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib import messages
+
 from category.models import Category
+from cart.models import Cart
+from product.models import Product
+from StaticData.models import SlideShow
+
+from commons.product_price import get_price_of_product, get_ip_detail
+from commons.ip_detect import request_to_geoplugin, get_ip_detail
+
 User = get_user_model()
 
 
-class HomePageView(TemplateView):
+class HomePageView(View):
     """
     Home page view for Customer
     """
     template_name = 'store/index.html'
 
-    def __init__(self, **kwargs):
-        self.context = super(HomePageView, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):     
+        # Get the slide shows
+        slideshows = SlideShow.objects.filter(
+            publish=True,
+        )
 
-    def get(self, request, *args, **kwargs):
+        # Get the new arrival products
+        new_arrival_products = Product.objects.order_by('-id')[:11]
+        for product in new_arrival_products:
+            price_list = get_price_of_product(request,product)
+            product.price = price_list['price']
+            product.mrp = price_list['MRP']
+            product.currency = price_list['currency']
 
-        template = ''
-        context = self.get_context_data()
+        # Get the category images
+        category_images = Category.objects.filter(
+            image__isnull=False, publish=True
+        )
 
-        template = "store/index.html"
-
-        return render(request, template_name=template, context=context)
-
-    def get_context_data(self, **kwargs):
-
-        self.context.update({
-
-        })
-        return self.context
+        context = {
+            'new_arrival_products': new_arrival_products,
+            'slideshows': slideshows,
+            'category_images': category_images,
+        }
+        return render(request, self.template_name, context)
 
 
 def cart(request):
