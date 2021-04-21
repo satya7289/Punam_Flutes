@@ -192,11 +192,11 @@ class ChooseBillingAddress(View):
         if shipping_address_id and shipping_address_id!="":
             shipping_address = Address.objects.filter(id=shipping_address_id).first()
         
-        # If shipping address not choosed 
-        if shipping_address:
-            # Update the shipping address
-            order.shipping_address = shipping_address
-            order.save()
+            # If shipping address not choosed 
+            if shipping_address:
+                # Update the shipping address
+                order.shipping_address = shipping_address
+                order.save()
 
         # address creation form
         form = AddressCreateForm

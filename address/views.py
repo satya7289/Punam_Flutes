@@ -77,6 +77,8 @@ class UpdateAddress(View):
             
             if address.default:
                 update_for_default_address(address)
+            if request.GET.get('redirect_to') and request.GET.get('redirect_to')!='':
+                return redirect(request.GET.get('redirect_to'))
             return redirect('customer_profile')
         state = (IndianStates + IndianUnionTerritories)
         context = {

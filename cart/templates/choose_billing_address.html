@@ -56,16 +56,16 @@
                         <div class="card-body">
                             <a href="{% url 'checkout' %}?billing_address_id={{address.id}}" class="card-link">Choose billing address</a>
                             {% if address.address_type == "shipping" %}
-                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=shipping" class="card-link">
+                                <a href="{% url 'update_address' id=address.id %}?address_type=shipping&redirect_to=choose_shipping_address" class="card-link">
                                     <span><i class="fe fe-edit"></i></span>
-                                </a> -->
+                                </a>
                                 <!-- <a href="{% url 'update_address' id=address.id %}?address_type=shipping" class="card-link">
                                     <span><i class="fe fe-delete"></i></span>
                                 </a> -->
                             {% else %}
-                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=billing" class="card-link">
+                                <a href="{% url 'update_address' id=address.id %}?address_type=billing&redirect_to=choose_billing_address" class="card-link">
                                     <span><i class="fe fe-edit"></i></span>
-                                </a> -->
+                                </a>
                                 <!-- <a href="{% url 'update_address' id=address.id %}?address_type=billing" class="card-link">
                                     <span><i class="fe fe-delete"></i></span>
                                 </a> -->
