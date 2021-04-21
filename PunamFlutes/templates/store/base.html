@@ -1044,7 +1044,7 @@
           <li class="nav-item dropdown {% block categories_name %} {% endblock %} ">
 
             <!-- Toggle -->
-             <a class="nav-link" data-toggle="dropdown" href="#">Categories</a>
+             <a class="nav-link" data-toggle="dropdown" href="#">Products</a>
 
             <!-- Menu -->
             <div class="dropdown-menu " style="min-width: 250px;">
@@ -1061,29 +1061,55 @@
               </div>
             </div>
           </li>
-          {% if not request.user.is_authenticated %}
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'customer_login' %}">Login</a>
-          </li>
-          <li class="nav-item ">
+
+          <li class="nav-item dropdown">
 
             <!-- Toggle -->
-            <a class="nav-link" href="{% url 'customer_register' %}">Register</a>
-          </li>
-          {% else %}
+             <a class="nav-link" data-toggle="dropdown" href="#">Stores</a>
 
-          <li class="nav-item ">
+            <!-- Menu -->
+            <div class="dropdown-menu " style="min-width: 250px;">
+              <div class="card card-lg">
+                <div class="card-body">
+                  <ul class="list-styled font-size-sm">
+                 
+                    <li class="list-styled-item">
+                      <a class="list-styled-link" href="{% url 'indianStore' %}">Indian Stores</a>
+                    </li>
+                    <li class="list-styled-item">
+                      <a class="list-styled-link" href="{% url 'internationalStore' %}">International Stores</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
 
             <!-- Toggle -->
-            <a class="nav-link" href="{% url 'orders' %}">Order</a>
+             <a class="nav-link" data-toggle="dropdown" href="#">Support</a>
+
+            <!-- Menu -->
+            <div class="dropdown-menu " style="min-width: 250px;">
+              <div class="card card-lg">
+                <div class="card-body">
+                  <ul class="list-styled font-size-sm">
+                 
+                    <li class="list-styled-item">
+                      <a class="list-styled-link" href="{% url 'termsCondition' %}">Terms & Condition</a>
+                    </li>
+                    <li class="list-styled-item">
+                      <a class="list-styled-link"  href="{% url 'returnPolicy' %}">Return Policy</a>
+                    </li>
+                    <li class="list-styled-item">
+                      <a class="list-styled-link"  href="{% url 'refundPolicy' %}">Refund Policy</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </li>
-
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-          </li>
-
-          {% endif %}
 
           <li class="nav-item ">
 
@@ -1095,16 +1121,12 @@
 
         <!-- Nav -->
         <ul class="navbar-nav flex-row">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="modal" href="#modalSearch">
               <i class="fe fe-search"></i>
             </a>
-          </li>
-          <li class="nav-item ml-lg-n4">
-            <a class="nav-link" href="{% url 'customer_profile' %}">
-              <i class="fe fe-user"></i>
-            </a>
-          </li>
+          </li> -->
+          
           <!-- <li class="nav-item ml-lg-n4">
             <a class="nav-link" href="{% url 'wishlist'%}">
               <i class="fe fe-heart"></i>
@@ -1125,6 +1147,37 @@
             </a>
           </li>
           
+          {% if not request.user.is_authenticated %}
+          <li class="nav-item ml-lg-n4">
+            <a class="nav-link" href="{% url 'customer_register' %}">
+              <span>Register</span>
+            </a>
+          </li>
+          <li class="nav-item ml-lg-n4">
+            <a class="nav-link" href="{% url 'customer_login' %}">
+              <span>Login</span>
+            </a>
+          </li>
+          
+          {% else %}
+          <li class="nav-item ml-lg-n4">
+            <a class="nav-link" href="{% url 'customer_profile' %}">
+              <i class="fe fe-user"></i>
+            </a>
+          </li>
+          
+          <li class="nav-item ml-lg-n4">
+            <a class="nav-link" href="{% url 'orders' %}">
+              <span>Order</span>
+            </a>
+          </li>
+
+          <li class="nav-item ml-lg-n4">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <span>Logout</span>
+            </a>
+          </li>
+          {% endif %}
         </ul>
 
       </div>
@@ -1183,7 +1236,7 @@
 
             <!-- Heading -->
             <h6 class="heading-xxs mb-4 text-white">
-              Support
+              Stores
             </h6>
 
             <!-- Links -->
@@ -1220,7 +1273,7 @@
 
             <!-- Heading -->
             <h6 class="heading-xxs mb-4 text-white">
-              Company
+              Support
             </h6>
 
             <!-- Links -->
