@@ -25,6 +25,29 @@ import razorpay
 from tax_rules.views import CalculateTaxForCart
 import json
 
+
+def is_cart_availabe(user):
+    cart = Cart.objects.filter(user=user, is_checkout=False).first()
+    
+    # If cart exits
+    if cart:
+        return True
+    return False
+
+def get_cart(user):
+    return Cart.objects.filter(user=user, is_checkout=False).first()
+
+def get_order(user):
+    cart = Cart.objects.filter(user=user, is_checkout=False).first()
+        
+    # If cart exits
+    if cart:
+        order = Order.objects.filter(cart=cart).first()
+        # If order exits
+        if order:
+            return order
+    return None
+
 def after_successful_placed_order(request, payment, order_status="Confirmed"):
     '''
     @param: request
@@ -67,7 +90,7 @@ def placed_order_notification(request, orderId):
     order = Order.objects.filter(id=orderId).first()
     message = "order is not created"
     if order:
-        user = order.profile.user
+        user = order.user
 
         product_details = order.cart.product_detail.all()
         currency = settings.DEFAULT_CURRENCY

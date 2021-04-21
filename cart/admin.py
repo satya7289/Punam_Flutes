@@ -23,7 +23,7 @@ class CartAdmin(admin.ModelAdmin):
     
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'total', 'status', 'Payment', 'PaymentMethod', 'notes', 'coupon', 'shipping_address', 'billing_address', 'created_at', 'Invoice')
+    list_display = ('__str__', 'total', 'status', 'Payment', 'PaymentMethod', 'customization_request', 'coupon', 'shipping_address', 'billing_address', 'created_at', 'Invoice')
     list_filter = ('status', )
     search_fields = ('notes', 'total',)
 

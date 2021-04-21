@@ -10,6 +10,9 @@ from .views import (
     sendInvoice,
     CancelOrder,
     OrderInvoice,
+    ChooseShippingAddress,
+    ChooseBillingAddress,
+    ProcessToCheckout,
 )
 
 from .views import (
@@ -24,6 +27,9 @@ urlpatterns = [
     path('', CartView.as_view(), name='cart'),
     path('add_to_cart/', login_required(AddToCart.as_view()), name='add_to_cart'),
     path('remove_from_cart/', login_required(RemoveFromCart.as_view()), name='remove_from_cart'),
+    path('process-to-checkout', login_required(ProcessToCheckout.as_view()), name='process_to_checkout'),
+    path('choose-shipping-address',login_required(ChooseShippingAddress.as_view()), name='choose_shipping_address'),
+    path('choose-billing-address',login_required(ChooseBillingAddress.as_view()), name='choose_billing_address'),
     path('checkout/', login_required(Checkout.as_view()), name='checkout'),
     path('order/', login_required(OrderList.as_view()), name='orders'),
     path('order-cencel', login_required(CancelOrder.as_view()), name='order_cancel'),

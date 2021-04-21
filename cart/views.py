@@ -24,7 +24,10 @@ from tax_rules.models import TaxRule, GSTState
 import razorpay
 from tax_rules.views import CalculateTaxForCart
 import json
-from .utils import after_successful_placed_order
+from .utils import after_successful_placed_order, get_order, is_cart_availabe, get_cart
+from address.forms import AddressCreateForm
+from commons.state import IndianStates, IndianUnionTerritories
+from address.views import update_for_default_address
 
 class CartView(View):
     template_name = 'cart.html'
@@ -105,27 +108,204 @@ class RemoveFromCart(View):
         data = {'message': 'fail'}
         return JsonResponse(data)
         
+class ProcessToCheckout(View):
+    def get(self, request):
+        # get the logged in user
+        user = request.user
+        if is_cart_availabe(user):
+            order = get_order(user)
+            if not order:
+                order = Order.objects.create(
+                    cart=get_cart(user),
+                    status='Pending',
+                )
+            return redirect('choose_shipping_address')
+        return redirect('dashboard')
+
+
+class ChooseShippingAddress(View):
+    template_name = 'choose_shipping_address.html'
+    address_type = 'shipping'
+    def get(self, request):
+
+        # address creation form
+        form = AddressCreateForm
+        state = (IndianStates + IndianUnionTerritories)
+        all_shipping_address = Address.objects.filter(
+            user=request.user,
+            address_type=self.address_type
+        ).order_by('-default', '-id')
+        context = {
+            'form': form, 
+            'state': state, 
+            'address_type': self.address_type,
+            'all_shipping_address': all_shipping_address
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = AddressCreateForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.address_type = self.address_type
+            address.save()
+
+            if address.default:
+                update_for_default_address(address)
+
+            # checks for cart and order
+            if not is_cart_availabe(user):
+                return redirect('dashboard')
+            order = get_order(user)
+            if not order:
+                return redirect('dashboard')
+            # update the shipping address
+            order.shipping_address = address
+            order.save()
+
+            return redirect('choose_billing_address')
+        state = (IndianStates + IndianUnionTerritories)
+        context = {
+            'form': form, 
+            'state': state, 
+            'address_type': self.address_type,
+        }
+        return render(request, self.template_name, context)
+
+class ChooseBillingAddress(View):
+    template_name = 'choose_billing_address.html'
+    address_type = 'billing'
+    def get(self, request):
+        # get the shipping_address_id if pass
+        shipping_address_id = request.GET.get('shipping_address_id')
+
+        # get the logged in user
+        user = request.user
+        if not is_cart_availabe(user):
+            return redirect('dashboard')
+        
+        order = get_order(user)
+        if not order:
+            return redirect('dashboard')
+        
+        if shipping_address_id and shipping_address_id!="":
+            shipping_address = Address.objects.filter(id=shipping_address_id).first()
+        
+        # If shipping address not choosed 
+        if shipping_address:
+            # Update the shipping address
+            order.shipping_address = shipping_address
+            order.save()
+
+        # address creation form
+        form = AddressCreateForm
+        state = (IndianStates + IndianUnionTerritories)
+        all_billing_address = Address.objects.filter(
+            user=request.user,
+            address_type=self.address_type
+        ).order_by('-default', '-id')
+        context = {
+            'form': form, 
+            'state': state, 
+            'address_type': self.address_type,
+            'all_billing_address': all_billing_address
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = AddressCreateForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.address_type = self.address_type
+            address.save()
+
+            if address.default:
+                update_for_default_address(address)
+            
+            # checks for cart and order
+            if not is_cart_availabe(user):
+                return redirect('dashboard')
+            order = get_order(user)
+            if not order:
+                return redirect('dashboard')
+            # update the shipping address
+            order.billing_address = address
+            order.save()
+
+            return redirect('checkout')
+        state = (IndianStates + IndianUnionTerritories)
+        context = {
+            'form': form, 
+            'state': state, 
+            'address_type': self.address_type,
+        }
+        return render(request, self.template_name, context)
+
 
 class Checkout(View):
     template_name = 'checkout.html'
     continue_template_name = 'continue_checkout.html'
 
     def get(self, request, *args, **kwargs):
-
+        # get the logged in user
         user = request.user
-        profile = Profile.objects.filter(user=user).first()
-        user_address = Address.objects.filter(user=user)
-        shipping_address = Address.objects.filter(user=user, address_type='shipping')
 
-        # Get the default billing address
-        billing_address = Address.objects.filter(user=user, address_type='billing', default=True).first()
-        cart = Cart.objects.filter(user=user,is_checkout=False).first()
+        # checks for cart and order
+        if not is_cart_availabe(user):
+            return redirect('dashboard')
+        order = get_order(user)
+        if not order:
+            return redirect('dashboard')
+       
+        # get the shipping_abilling_address_id if pass
+        billing_address_id = request.GET.get('billing_address_id')
+        if billing_address_id and billing_address_id!="":
+            billing_address = Address.objects.filter(id=billing_address_id).first()
+        
+            # If billing address not choosed 
+            if billing_address:
+                # Update the billing address
+                order.billing_address = billing_address
+                order.save()
+
+        # if order has not shipping addres; get the default one
+        if not order.shipping_address:
+            shipping_address = Address.objects.filter(
+                user=user, 
+                address_type='shipping', 
+                default=True
+            ).first()
+
+            # if default shipping address exits
+            if shipping_address:
+                order.shipping_address = shipping_address
+                order.save()
+            else:
+                return redirect('choose_shipping_address')
+
+        # if order has not billing address; get the default one
+        if not order.billing_address:
+            billing_address = Address.objects.filter(
+                user=user, 
+                address_type='billing', 
+                default=True
+            ).first()
+
+            # if billing address exits
+            if billing_address:
+                order.billing_address = billing_address
+                order.save()
+            else:
+                return redirect('choose_billing_address')
+
+        cart = order.cart
 
         product_details = cart.product_detail.all()
         currency = settings.DEFAULT_CURRENCY
 
         totalPrice = 0
-        category_ids = set()
 
         if request.GET.get('country'):
             # Add the price and currency according to the given country to the product
@@ -137,9 +317,6 @@ class Checkout(View):
                 currency = price_list['currency']
                 country = price_list['country']
                 totalPrice += float(product.price)
-
-                for category in product.product.category.all():
-                    category_ids.add(category.id)
         else:
             # Add the price and currency according to the user's location to the product
             country = settings.DEFAULT_COUNTRY
@@ -151,112 +328,67 @@ class Checkout(View):
                 country = price_list['country']
                 totalPrice += float(product.price)
 
-                for category in product.product.category.all():
-                    category_ids.add(category.id)
-
         context = {
             'cart': cart,
             'orders': product_details,
             'currency': currency,
             'country': country,
-            'profile': profile,
-            'user_address': user_address,
-            'billing_address': billing_address,
-            'shipping_address': shipping_address,
-            'email': user.email,
-            'phone': user.phone,
-            'category_ids': list(category_ids),
+            'order': order,
             'total_price': totalPrice,
+            'billing_address': order.billing_address,
+            'shipping_address': order.shipping_address,
         }
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-
-        # Get all the form data
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        contact_number = request.POST.get('contact_number')
-        shipping_address_id = request.POST.get('shipping_address')
-        billing_address_id = request.POST.get('billing_address')
-        cart_id = request.POST.get('cart_id')
+        order_id = request.POST.get('order_id')
         total = request.POST.get('total')
         coupon_code = request.POST.get('coupon_code')
         coupon_id = request.POST.get('coupon_id')
-        notes = request.POST.get('note')
+        customization_request = request.POST.get('customization_request')
 
-        # get logged in user and update the profile
+        # Get the logged in user 
         user = request.user
-        profile = Profile.objects.get(user=user.id)
-        
-        if not profile:
-            profile = Profile.objects.create(
-                user=user,
-                first_name=first_name, 
-                last_name=last_name, 
-                contact_number=contact_number
-            )
-        else:
-            profile.first_name = first_name
-            profile.last_name = last_name
-            profile.contact_number = contact_number
-            profile.save()
 
-        # get the address
-        shipping_address = Address.objects.filter(id=shipping_address_id).first()
-        billing_address = Address.objects.filter(id=billing_address_id).first()
-        cart = Cart.objects.filter(id=cart_id).first()
+        # checks for cart and order
+        if not is_cart_availabe(user):
+            return redirect('dashboard')
+        order = get_order(user)
+        if not order or (order.id != int(order_id)):
+            return redirect('checkout')
 
         # get the coupon
         coupon = Coupon.objects.filter(id=coupon_id)
+        
+        # update the order's data
+        order.total = total
+        order.customization_request = customization_request
+        order.coupon =  coupon.first() if coupon and coupon.first() else None
+        order.save()
 
-        if cart and shipping_address and billing_address:
-            # get the Order object if already created else create
-            order = Order.objects.filter(cart=cart).first()
-
-            if not order:
-                order = Order.objects.create(
-                    cart=cart, 
-                    billing_address=billing_address, 
-                    shipping_address=shipping_address,
-                    profile=profile, 
-                    total=total,
-                    status='Pending',
-                    notes = notes,
-                    coupon = coupon.first() if coupon and coupon.first() else None
-                )
-            else:
-                order.billing_address = billing_address
-                order.shipping_address = shipping_address
-                order.profile = profile
-                order.total = total
-                order.notes = notes
-                order.coupon =  coupon.first() if coupon and coupon.first() else None
-                order.save()
-
-            # Show payment method according to IP
-            ip_detail = get_ip_detail(request)
-            if ip_detail['message']!='fail':
-                country = ip_detail['country']
-            else:
-                country = settings.DEFAULT_COUNTRY
-            
-            countryPayment = CountryPayment.objects.filter(country=country).first()
-            if not countryPayment:
-                countryPayment = CountryPayment.objects.filter(country=settings.DEFAULT_COUNTRY).first()
-            
-            if countryPayment and (not countryPayment.razorpay) and (not countryPayment.cod):
-                all_payment_method_off = True
-            else:
-                all_payment_method_off = False
-            context = {
-                'order': order,
-                'razorpay': countryPayment.razorpay if countryPayment else '',
-                'paypal': countryPayment.paypal if countryPayment else '',
-                'cod': countryPayment.cod if countryPayment else '',
-                'all_payment_method_off': all_payment_method_off
-            }
-            return render(request, self.continue_template_name, context)
-        return redirect('checkout')
+        # Show payment method according to IP
+        ip_detail = get_ip_detail(request)
+        if ip_detail['message']!='fail':
+            country = ip_detail['country']
+        else:
+            country = settings.DEFAULT_COUNTRY
+        
+        countryPayment = CountryPayment.objects.filter(country=country).first()
+        if not countryPayment:
+            countryPayment = CountryPayment.objects.filter(country=settings.DEFAULT_COUNTRY).first()
+        
+        if countryPayment and (not countryPayment.razorpay) and (not countryPayment.cod):
+            all_payment_method_off = True
+        else:
+            all_payment_method_off = False
+        context = {
+            'order': order,
+            'razorpay': countryPayment.razorpay if countryPayment else '',
+            'paypal': countryPayment.paypal if countryPayment else '',
+            'cod': countryPayment.cod if countryPayment else '',
+            'all_payment_method_off': all_payment_method_off
+        }
+        return render(request, self.continue_template_name, context)
 
 
 class OrderInvoice(View):
@@ -487,7 +619,7 @@ def sendInvoice(request, orderId):
     order = Order.objects.filter(id=orderId).first()
     message = "order is not created"
     if order:
-        user = order.profile.user
+        user = order.user
 
         product_details = order.cart.product_detail.all()
         currency = settings.DEFAULT_CURRENCY

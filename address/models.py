@@ -21,10 +21,13 @@ class Address(TimeStampedModel):
     default = models.BooleanField(default=False,blank=True,null=True)
 
     def __str__(self):
+        full_name = self.full_name if self.full_name else ''
+        mobile_number = self.mobile_number if self.mobile_number else ''
         postal_state = (
             '%s %s' % (self.city, self.postal_code)
             if (self.city and self.postal_code) else self.postal_code)
         address_fields = [
+            full_name, mobile_number,
             self.street_address.replace('\r\n', ', '), self.state,
             postal_state, str(self.country)]
         populated_address_fields = [

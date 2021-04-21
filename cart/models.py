@@ -1,5 +1,5 @@
 from django.db import models
-from customer.models import User, Profile
+from customer.models import User
 from product.models import Product
 from address.models import Address
 from paypal.standard.ipn.models import PayPalIPN
@@ -39,10 +39,10 @@ class Order(TimeStampedModel):
     cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     billing_address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="billing_address", blank=True, null=True)
     shipping_address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="shipping_address", blank=True, null=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     total = models.FloatField(blank=True, null=True)
     coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE, blank=True, null=True)
-    notes = models.CharField(max_length=200, blank=True, null=True)
+    customization_request = models.CharField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=50, choices=OrderStatus ,blank=True, null=True)
 
     def __str__(self):
@@ -60,7 +60,7 @@ class Payment(TimeStampedModel):
     status = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.method + ' ' + self.order.profile.user.username
+        return self.method + ' ' + self.order.user.user.username
     
     class Meta:
         ordering = ("status","method")

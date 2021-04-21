@@ -1,0 +1,166 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<!-- BREADCRUMB -->
+<nav class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb mb-0 font-size-xs text-gray-400">
+          <li class="breadcrumb-item">
+            <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="text-gray-400" href="{% url 'cart' %}">Shopping Cart</a>
+          </li>
+          <li class="breadcrumb-item active">
+            <a class="text-gray-400" href="{% url 'choose_shipping_address' %}">Choose shipping Address</a>
+          </li>
+          <li class="breadcrumb-item active">
+            Choose billing Address
+          </li>
+        </ol>
+
+      </div>
+    </div>
+  </div>
+</nav>
+  
+<!-- CONTENT -->
+<section class="pt-7 pb-12">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+
+        <!-- Heading -->
+        <h3 class="mb-4">Choose billing Address</h3>
+        {% if not request.user.is_authenticated %}
+          <!-- Subheading -->
+          <p class="mb-10">
+            Already have an account? <a class="font-weight-bold text-reset" href="{% url 'customer_login' %}">Click here to login</a>
+          </p>
+        {% endif %}
+
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-8 my-3">
+            <div class="row">
+                {% for address in all_billing_address %}
+                <div class="col-12 col-md-4">
+                    <div class="card cart__address">
+                        <div class="card-body">
+                            <a href="{% url 'checkout' %}?billing_address_id={{address.id}}" class="card-link">Choose billing address</a>
+                            {% if address.address_type == "shipping" %}
+                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=shipping" class="card-link">
+                                    <span><i class="fe fe-edit"></i></span>
+                                </a> -->
+                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=shipping" class="card-link">
+                                    <span><i class="fe fe-delete"></i></span>
+                                </a> -->
+                            {% else %}
+                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=billing" class="card-link">
+                                    <span><i class="fe fe-edit"></i></span>
+                                </a> -->
+                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=billing" class="card-link">
+                                    <span><i class="fe fe-delete"></i></span>
+                                </a> -->
+                            {% endif %}
+                            <hr>
+                                {% if address.full_name %}
+                                    <div class="card-subtitle mb-1">{{ address.full_name }}</div>
+                                {% endif %}
+                                <div class="card-text mb-1">{{ address.street_address }} {{ address.landmark }}</div>
+                                <div class="card-text mb-1">{{ address.city }} {{ address.state }}, {{ shipping_address.country }}</div>
+                                {% if address.mobile_number %}
+                                    <div class="card-text mb-1"> <strong>P:</strong> {{address.mobile_number }}</div>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+            
+        </div>
+        <div class="col-12 col-md-4 my-3">
+            <div class="card" style="width: auto; border: 1px solid black; border-radius: 0.5rem;">
+                <div class="card-body">
+                    {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                    <h5>Add {{ address_type }} Address</h5>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-12 mb-0">
+                            {{ form.full_name|as_crispy_field }} 
+                            </div>
+                            <div class="form-group col-md-12 mb-0">
+                            {{ form.mobile_number|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-12 mb-0">
+                            {{ form.country|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-12 mb-0" id="state">
+                            {{ form.state|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-12 mb-0" id="select__state">
+                            <div class="form-group">
+                                <label for="state">State *</label>
+                                <select class="form-control form-control-sm" name="state">
+                                    <option value=""></option>
+                                    {% for s in state %}
+                                        <option value="{{ s.0 }}">{{ s.0 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>    
+                            </div>
+                            <div class="form-group col-md-12">
+                            {{ form.street_address|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-12">
+                            {{ form.landmark|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-12 mb-0">
+                            {{ form.postal_code|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-12 mb-0">
+                            {{ form.city|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-12 mb-0">
+                            {{ form.default|as_crispy_field }}
+                            </div>
+                            <input type="hidden" name="address_type" value="{{ address_type }}">
+                            <div class="form-group col-md-12 mb-0">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+  
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

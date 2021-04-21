@@ -10,7 +10,7 @@ from .models import Address
 
 class AddressCreateForm(forms.ModelForm):
     country = forms.ChoiceField(choices=COUNTRY[1:], required=True)
-    default = forms.BooleanField(required=False)
+    default = forms.BooleanField(required=False, initial=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
