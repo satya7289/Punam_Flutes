@@ -113,6 +113,14 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+            <div class="col-12 col-md-4 my-3">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{% url 'create_address' %}?address_type=shipping" class="card-link mt-1">Add Shipping Address</a>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             {% if billing_address %}
             <div class="col-12 col-md-4 my-3">
@@ -132,6 +140,14 @@
                                 <div class="card-text mb-1"> <strong>P:</strong> {{billing_address.mobile_number }}</div>
                             {% endif %}
                         
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12 col-md-4 my-3">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{% url 'create_address' %}?address_type=billing" class="card-link mt-1">Add Billing Address</a>
                     </div>
                 </div>
             </div>

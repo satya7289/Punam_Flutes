@@ -89,6 +89,16 @@ class UpdateAddress(View):
         }
         return render(request, self.template_name, context)
 
+class DeleteAddress(View):
+    def get(self, request, *args, **kwargs):
+        address_id = kwargs['id']
+        address = Address.objects.filter(id=address_id).first()
+        if address:
+            address.delete()
+        if request.GET.get('redirect_to') and request.GET.get('redirect_to')!='':
+            return redirect(request.GET.get('redirect_to'))
+        return redirect('customer_profile')
+
 class SetDefaultAddress(View):
     def get(self, request, *args, **kwargs):
         address_id = kwargs['id']

@@ -50,15 +50,26 @@
                                 <a href="{% url 'update_address' id=address.id %}?address_type=shipping" class="card-link">
                                     <span><i class="fe fe-edit"></i></span>
                                 </a>
+                                {% if not address.default %}
+                                    <a href="{% url 'set_default_address' id=address.id %}" class="card-link">Set as Default</a>
+                                {% else %}
+                                    <a href="!#" class="card-link">Default</a>
+                                {% endif %}
+                                <a href="{% url 'delete_address' id=address.id %}" class="card-link">
+                                    <span><i class="fe fe-delete"></i></span>
+                                </a>
                             {% else %}
                                 <a href="{% url 'update_address' id=address.id %}?address_type=billing" class="card-link">
                                     <span><i class="fe fe-edit"></i></span>
                                 </a>
-                            {% endif %}
-                            {% if not address.default %}
-                                <a href="{% url 'set_default_address' id=address.id %}" class="card-link">Set as Default</a>
-                            {% else %}
-                                <a href="!#" class="card-link">Default</a>
+                                {% if not address.default %}
+                                    <a href="{% url 'set_default_address' id=address.id %}" class="card-link">Set as Default</a>
+                                {% else %}
+                                    <a href="!#" class="card-link">Default</a>
+                                {% endif %}
+                                <a href="{% url 'delete_address' id=address.id %}" class="card-link">
+                                    <span><i class="fe fe-delete"></i></span>
+                                </a>
                             {% endif %}
                             <hr>
                                 {% if address.full_name %}

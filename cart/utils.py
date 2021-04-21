@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.utils.html import format_html
+from django.core.exceptions import ObjectDoesNotExist
 
 from cart.models import Cart, ProductQuantity, Order, Payment, CountryPayment
 from customer.models import User
@@ -62,10 +63,14 @@ def after_successful_placed_order(request, payment, order_status="Confirmed"):
     # Update the Ordered product inventory
     for productQ in cart.product_detail.all():
         product = productQ.product
-        product.inventory.sold = product.inventory.sold + productQ.quantity
-        if product.inventory.type == "limited":
-            product.inventory.available = product.inventory.available - productQ.quantity
-        product.inventory.save()
+        try:
+            if product.inventory:
+                product.inventory.sold = product.inventory.sold + productQ.quantity
+                if product.inventory.type == "limited":
+                    product.inventory.available = product.inventory.available - productQ.quantity
+                product.inventory.save()
+        except ObjectDoesNotExist:
+            pass
     
     # Set Cart checkout to True.
     cart.is_checkout = True

@@ -36,12 +36,12 @@ class Cart(TimeStampedModel):
         return "cart#" + str(self.id) 
 
 class Order(TimeStampedModel):
-    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
-    billing_address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="billing_address", blank=True, null=True)
-    shipping_address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="shipping_address", blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    cart = models.OneToOneField(Cart, on_delete=models.SET_NULL, blank=True, null=True)
+    billing_address = models.ForeignKey(Address, on_delete=models.SET_NULL, related_name="billing_address", blank=True, null=True)
+    shipping_address = models.ForeignKey(Address, on_delete=models.SET_NULL, related_name="shipping_address", blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     total = models.FloatField(blank=True, null=True)
-    coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE, blank=True, null=True)
+    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, blank=True, null=True)
     customization_request = models.CharField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=50, choices=OrderStatus ,blank=True, null=True)
 
@@ -52,15 +52,15 @@ class Order(TimeStampedModel):
         ordering = ("created_at",)
 
 class Payment(TimeStampedModel):
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    order = models.OneToOneField(Order, on_delete=models.SET_NULL, blank=True, null=True)
     method = models.CharField(max_length=20, choices=paymentMethod, null=True, blank=True)
-    paypal = models.OneToOneField(PayPalIPN, on_delete=models.CASCADE, null=True, blank=True)
+    paypal = models.OneToOneField(PayPalIPN, on_delete=models.SET_NULL, null=True, blank=True)
     razorpay = models.CharField(max_length=25, null=True, blank=True)
     cod = models.CharField(max_length=25, null=True, blank=True)
     status = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.method + ' ' + self.order.user.user.username
+        return self.method + ' '
     
     class Meta:
         ordering = ("status","method")

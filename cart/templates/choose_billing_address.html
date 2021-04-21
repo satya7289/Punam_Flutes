@@ -59,16 +59,16 @@
                                 <a href="{% url 'update_address' id=address.id %}?address_type=shipping&redirect_to=choose_shipping_address" class="card-link">
                                     <span><i class="fe fe-edit"></i></span>
                                 </a>
-                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=shipping" class="card-link">
-                                    <span><i class="fe fe-delete"></i></span>
-                                </a> -->
+                                <a href="{% url 'delete_address' id=address.id %}?redirect_to=choose_shipping_address" class="card-link">
+                                  <span><i class="fe fe-delete"></i></span>
+                                </a>
                             {% else %}
                                 <a href="{% url 'update_address' id=address.id %}?address_type=billing&redirect_to=choose_billing_address" class="card-link">
                                     <span><i class="fe fe-edit"></i></span>
                                 </a>
-                                <!-- <a href="{% url 'update_address' id=address.id %}?address_type=billing" class="card-link">
-                                    <span><i class="fe fe-delete"></i></span>
-                                </a> -->
+                                <a href="{% url 'delete_address' id=address.id %}?redirect_to=choose_billing_address" class="card-link">
+                                  <span><i class="fe fe-delete"></i></span>
+                                </a>
                             {% endif %}
                             <hr>
                                 {% if address.full_name %}

@@ -60,7 +60,7 @@ class Inventory(TimeStampedModel):
     sold = models.PositiveIntegerField(blank=True, null=True, default=0)
 
     def __str__(self):
-        return self.product.title
+        return self.product.title if self.product else None
 
 
 # class Product(models.Model):
