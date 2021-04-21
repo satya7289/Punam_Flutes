@@ -118,6 +118,7 @@ class ProcessToCheckout(View):
                 order = Order.objects.create(
                     cart=get_cart(user),
                     status='Pending',
+                    user=user,
                 )
             return redirect('choose_shipping_address')
         return redirect('dashboard')
