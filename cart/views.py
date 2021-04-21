@@ -155,9 +155,9 @@ class ChooseShippingAddress(View):
                 update_for_default_address(address)
 
             # checks for cart and order
-            if not is_cart_availabe(user):
+            if not is_cart_availabe(request.user):
                 return redirect('dashboard')
-            order = get_order(user)
+            order = get_order(request.user)
             if not order:
                 return redirect('dashboard')
             # update the shipping address
@@ -225,9 +225,9 @@ class ChooseBillingAddress(View):
                 update_for_default_address(address)
             
             # checks for cart and order
-            if not is_cart_availabe(user):
+            if not is_cart_availabe(request.user):
                 return redirect('dashboard')
-            order = get_order(user)
+            order = get_order(request.user)
             if not order:
                 return redirect('dashboard')
             # update the shipping address
