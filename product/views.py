@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.views.generic import TemplateView
+from django.conf import settings
 
 from product.models import Product, CountryCurrency
 from category.models import Category
@@ -40,7 +41,6 @@ class ProductListView(View):
             price_list = get_price_of_product(self.request,product)
             product.price = price_list['price']
             product.mrp = price_list['MRP']
-            product.currency = price_list['currency']
         
         # Build the context that to be returned
         context = {
@@ -71,7 +71,7 @@ class ProductDetailView(View):
             'category': category,
             'price': get_price['price'],
             'mrp': get_price['MRP'],
-            'currency': get_price['currency'],
+            'currency': settings.CURRENCY_SYMBOL,
             'range': [i+1 for i in range(5)]
         }
         return render(request, self.template_name, context)

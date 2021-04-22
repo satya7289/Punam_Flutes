@@ -1,0 +1,3194 @@
+[
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 2,
+      "fields": {
+         "country": "Afghanistan",
+         "alpha_2_code": "AF",
+         "alpha_3_code": "AFG",
+         "numeric_code": "4",
+         "currency_code": "AFN",
+         "currency_symbol": "؋",
+         "currency_rate": 93.28914,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 50,
+      "fields": {
+         "country": "Akrotiri and Dhekelia",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 3,
+      "fields": {
+         "country": "Albania",
+         "alpha_2_code": "AL",
+         "alpha_3_code": "ALB",
+         "numeric_code": "8",
+         "currency_code": "ALL",
+         "currency_symbol": "L",
+         "currency_rate": 123.12151,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 45,
+      "fields": {
+         "country": "Algeria",
+         "alpha_2_code": "DZ",
+         "alpha_3_code": "DZA",
+         "numeric_code": "12",
+         "currency_code": "DZD",
+         "currency_symbol": "د.ج",
+         "currency_rate": 159.61908,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 51,
+      "fields": {
+         "country": "Andorra",
+         "alpha_2_code": "AD",
+         "alpha_3_code": "AND",
+         "numeric_code": "20",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 7,
+      "fields": {
+         "country": "Angola",
+         "alpha_2_code": "AO",
+         "alpha_3_code": "AGO",
+         "numeric_code": "24",
+         "currency_code": "AOA",
+         "currency_symbol": "Kz",
+         "currency_rate": 792.27875,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 206,
+      "fields": {
+         "country": "Anguilla",
+         "alpha_2_code": "AI",
+         "alpha_3_code": "AIA",
+         "numeric_code": "660",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 207,
+      "fields": {
+         "country": "Antigua and Barbuda",
+         "alpha_2_code": "AG",
+         "alpha_3_code": "ATG",
+         "numeric_code": "28",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 8,
+      "fields": {
+         "country": "Argentina",
+         "alpha_2_code": "AR",
+         "alpha_3_code": "ARG",
+         "numeric_code": "32",
+         "currency_code": "ARS",
+         "currency_symbol": "$",
+         "currency_rate": 111.90734,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 4,
+      "fields": {
+         "country": "Armenia",
+         "alpha_2_code": "AM",
+         "alpha_3_code": "ARM",
+         "numeric_code": "51",
+         "currency_code": "AMD",
+         "currency_symbol": "֏",
+         "currency_rate": 628.2167,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 11,
+      "fields": {
+         "country": "Aruba",
+         "alpha_2_code": "AW",
+         "alpha_3_code": "ABW",
+         "numeric_code": "533",
+         "currency_code": "AWG",
+         "currency_symbol": "ƒ",
+         "currency_rate": 2.165611,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 163,
+      "fields": {
+         "country": "Ascension Island",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "SHP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 9,
+      "fields": {
+         "country": "Australia",
+         "alpha_2_code": "AU",
+         "alpha_3_code": "AUS",
+         "numeric_code": "36",
+         "currency_code": "AUD",
+         "currency_symbol": "$",
+         "currency_rate": 1.551193,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 52,
+      "fields": {
+         "country": "Austria",
+         "alpha_2_code": "AT",
+         "alpha_3_code": "AUT",
+         "numeric_code": "40",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 12,
+      "fields": {
+         "country": "Azerbaijan",
+         "alpha_2_code": "AZ",
+         "alpha_3_code": "AZE",
+         "numeric_code": "31",
+         "currency_code": "AZN",
+         "currency_symbol": "₼",
+         "currency_rate": 2.041954,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 23,
+      "fields": {
+         "country": "Bahamas, The",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "BSD",
+         "currency_symbol": "$",
+         "currency_rate": 1.202975,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 17,
+      "fields": {
+         "country": "Bahrain",
+         "alpha_2_code": "BH",
+         "alpha_3_code": "BHR",
+         "numeric_code": "48",
+         "currency_code": "BHD",
+         "currency_symbol": ".د.ب",
+         "currency_rate": 0.453487,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 15,
+      "fields": {
+         "country": "Bangladesh",
+         "alpha_2_code": "BD",
+         "alpha_3_code": "BGD",
+         "numeric_code": "50",
+         "currency_code": "BDT",
+         "currency_symbol": "৳",
+         "currency_rate": 102.00672,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 14,
+      "fields": {
+         "country": "Barbados",
+         "alpha_2_code": "BB",
+         "alpha_3_code": "BRB",
+         "numeric_code": "52",
+         "currency_code": "BBD",
+         "currency_symbol": "$",
+         "currency_rate": 2.428888,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 26,
+      "fields": {
+         "country": "Belarus",
+         "alpha_2_code": "BY",
+         "alpha_3_code": "BLR",
+         "numeric_code": "112",
+         "currency_code": "BYN",
+         "currency_symbol": "Br",
+         "currency_rate": 3.124321,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 53,
+      "fields": {
+         "country": "Belgium",
+         "alpha_2_code": "BE",
+         "alpha_3_code": "BEL",
+         "numeric_code": "56",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 27,
+      "fields": {
+         "country": "Belize",
+         "alpha_2_code": "BZ",
+         "alpha_3_code": "BLZ",
+         "numeric_code": "84",
+         "currency_code": "BZD",
+         "currency_symbol": "$",
+         "currency_rate": 2.424782,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 214,
+      "fields": {
+         "country": "Benin",
+         "alpha_2_code": "BJ",
+         "alpha_3_code": "BEN",
+         "numeric_code": "204",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 19,
+      "fields": {
+         "country": "Bermuda",
+         "alpha_2_code": "BM",
+         "alpha_3_code": "BMU",
+         "numeric_code": "60",
+         "currency_code": "BMD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 24,
+      "fields": {
+         "country": "Bhutan",
+         "alpha_2_code": "BT",
+         "alpha_3_code": "BTN",
+         "numeric_code": "64",
+         "currency_code": "BTN",
+         "currency_symbol": "Nu.",
+         "currency_rate": 90.73659,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 21,
+      "fields": {
+         "country": "Bolivia",
+         "alpha_2_code": "BO",
+         "alpha_3_code": "BOL",
+         "numeric_code": "68",
+         "currency_code": "BOB",
+         "currency_symbol": "Bs.",
+         "currency_rate": 8.306682,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 182,
+      "fields": {
+         "country": "Bonaire",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 13,
+      "fields": {
+         "country": "Bosnia and Herzegovina",
+         "alpha_2_code": "BA",
+         "alpha_3_code": "BIH",
+         "numeric_code": "70",
+         "currency_code": "BAM",
+         "currency_symbol": "KM or КМ[I]",
+         "currency_rate": 1.959071,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 25,
+      "fields": {
+         "country": "Botswana",
+         "alpha_2_code": "BW",
+         "alpha_3_code": "BWA",
+         "numeric_code": "72",
+         "currency_code": "BWP",
+         "currency_symbol": "P",
+         "currency_rate": 13.011967,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 22,
+      "fields": {
+         "country": "Brazil",
+         "alpha_2_code": "BR",
+         "alpha_3_code": "BRA",
+         "numeric_code": "76",
+         "currency_code": "BRL",
+         "currency_symbol": "R$",
+         "currency_rate": 6.699715,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 183,
+      "fields": {
+         "country": "British Indian Ocean Territory",
+         "alpha_2_code": "IO",
+         "alpha_3_code": "IOT",
+         "numeric_code": "86",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 184,
+      "fields": {
+         "country": "British Virgin Islands",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 20,
+      "fields": {
+         "country": "Brunei",
+         "alpha_2_code": "BN",
+         "alpha_3_code": "BRN",
+         "numeric_code": "96",
+         "currency_code": "BND",
+         "currency_symbol": "$",
+         "currency_rate": 1.599894,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 16,
+      "fields": {
+         "country": "Bulgaria",
+         "alpha_2_code": "BG",
+         "alpha_3_code": "BGR",
+         "numeric_code": "100",
+         "currency_code": "BGN",
+         "currency_symbol": "лв.",
+         "currency_rate": 1.955294,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 215,
+      "fields": {
+         "country": "Burkina Faso",
+         "alpha_2_code": "BF",
+         "alpha_3_code": "BFA",
+         "numeric_code": "854",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 18,
+      "fields": {
+         "country": "Burundi",
+         "alpha_2_code": "BI",
+         "alpha_3_code": "BDI",
+         "numeric_code": "108",
+         "currency_code": "BIF",
+         "currency_symbol": "Fr",
+         "currency_rate": 2367.4062,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 108,
+      "fields": {
+         "country": "Cambodia",
+         "alpha_2_code": "KH",
+         "alpha_3_code": "KHM",
+         "numeric_code": "116",
+         "currency_code": "KHR",
+         "currency_symbol": "៛",
+         "currency_rate": 4875.5576,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 200,
+      "fields": {
+         "country": "Cameroon",
+         "alpha_2_code": "CM",
+         "alpha_3_code": "CMR",
+         "numeric_code": "120",
+         "currency_code": "XAF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.9402,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 28,
+      "fields": {
+         "country": "Canada",
+         "alpha_2_code": "CA",
+         "alpha_3_code": "CAN",
+         "numeric_code": "124",
+         "currency_code": "CAD",
+         "currency_symbol": "$",
+         "currency_rate": 1.502461,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 38,
+      "fields": {
+         "country": "Cape Verde",
+         "alpha_2_code": "CV",
+         "alpha_3_code": "CPV",
+         "numeric_code": "132",
+         "currency_code": "CVE",
+         "currency_symbol": "Esc or $",
+         "currency_rate": 110.913,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 113,
+      "fields": {
+         "country": "Cayman Islands",
+         "alpha_2_code": "KY",
+         "alpha_3_code": "CYM",
+         "numeric_code": "136",
+         "currency_code": "KYD",
+         "currency_symbol": "$",
+         "currency_rate": 1.002446,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 201,
+      "fields": {
+         "country": "Central African Republic",
+         "alpha_2_code": "CF",
+         "alpha_3_code": "CAF",
+         "numeric_code": "140",
+         "currency_code": "XAF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.9402,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 202,
+      "fields": {
+         "country": "Chad",
+         "alpha_2_code": "TD",
+         "alpha_3_code": "TCD",
+         "numeric_code": "148",
+         "currency_code": "XAF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.9402,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 32,
+      "fields": {
+         "country": "Chile",
+         "alpha_2_code": "CL",
+         "alpha_3_code": "CHL",
+         "numeric_code": "152",
+         "currency_code": "CLP",
+         "currency_symbol": "$",
+         "currency_rate": 838.3385,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 34,
+      "fields": {
+         "country": "China",
+         "alpha_2_code": "CN",
+         "alpha_3_code": "CHN",
+         "numeric_code": "156",
+         "currency_code": "CNY",
+         "currency_symbol": "¥",
+         "currency_rate": 7.808233,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 33,
+      "fields": {
+         "country": "China",
+         "alpha_2_code": "CN",
+         "alpha_3_code": "CHN",
+         "numeric_code": "156",
+         "currency_code": "CNY",
+         "currency_symbol": "元",
+         "currency_rate": 7.808233,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 35,
+      "fields": {
+         "country": "Colombia",
+         "alpha_2_code": "CO",
+         "alpha_3_code": "COL",
+         "numeric_code": "170",
+         "currency_code": "COP",
+         "currency_symbol": "$",
+         "currency_rate": 4354.7646,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 109,
+      "fields": {
+         "country": "Comoros",
+         "alpha_2_code": "KM",
+         "alpha_3_code": "COM",
+         "numeric_code": "174",
+         "currency_code": "KMF",
+         "currency_symbol": "Fr",
+         "currency_rate": 492.96518,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 29,
+      "fields": {
+         "country": "Congo, Democratic Republic of the",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "CDF",
+         "currency_symbol": "Fr",
+         "currency_rate": 2402.292,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 203,
+      "fields": {
+         "country": "Congo, Republic of the",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "XAF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.9402,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 36,
+      "fields": {
+         "country": "Costa Rica",
+         "alpha_2_code": "CR",
+         "alpha_3_code": "CRI",
+         "numeric_code": "188",
+         "currency_code": "CRC",
+         "currency_symbol": "₡",
+         "currency_rate": 738.8833,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 91,
+      "fields": {
+         "country": "Croatia",
+         "alpha_2_code": "HR",
+         "alpha_3_code": "HRV",
+         "numeric_code": "191",
+         "currency_code": "HRK",
+         "currency_symbol": "kn",
+         "currency_rate": 7.57462,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 37,
+      "fields": {
+         "country": "Cuba",
+         "alpha_2_code": "CU",
+         "alpha_3_code": "CUB",
+         "numeric_code": "192",
+         "currency_code": "CUP",
+         "currency_symbol": "$",
+         "currency_rate": 31.878183,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 5,
+      "fields": {
+         "country": "Curaçao",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "ANG",
+         "currency_symbol": "ƒ",
+         "currency_rate": 2.159346,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 54,
+      "fields": {
+         "country": "Cyprus",
+         "alpha_2_code": "CY",
+         "alpha_3_code": "CYP",
+         "numeric_code": "196",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 39,
+      "fields": {
+         "country": "Czech Republic",
+         "alpha_2_code": "CZ",
+         "alpha_3_code": "CZE",
+         "numeric_code": "203",
+         "currency_code": "CZK",
+         "currency_symbol": "Kč",
+         "currency_rate": 25.858255,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 216,
+      "fields": {
+         "country": "Côte d'Ivoire",
+         "alpha_2_code": "CI",
+         "alpha_3_code": "CIV",
+         "numeric_code": "384",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 41,
+      "fields": {
+         "country": "Denmark",
+         "alpha_2_code": "DK",
+         "alpha_3_code": "DNK",
+         "numeric_code": "208",
+         "currency_code": "DKK",
+         "currency_symbol": "kr",
+         "currency_rate": 7.43556,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 40,
+      "fields": {
+         "country": "Djibouti",
+         "alpha_2_code": "DJ",
+         "alpha_3_code": "DJI",
+         "numeric_code": "262",
+         "currency_code": "DJF",
+         "currency_symbol": "Fr",
+         "currency_rate": 213.78795,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 208,
+      "fields": {
+         "country": "Dominica",
+         "alpha_2_code": "DM",
+         "alpha_3_code": "DMA",
+         "numeric_code": "212",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 44,
+      "fields": {
+         "country": "Dominican Republic",
+         "alpha_2_code": "DO",
+         "alpha_3_code": "DOM",
+         "numeric_code": "214",
+         "currency_code": "DOP",
+         "currency_symbol": "RD$",
+         "currency_rate": 68.44749,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 185,
+      "fields": {
+         "country": "East Timor",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 186,
+      "fields": {
+         "country": "Ecuador",
+         "alpha_2_code": "EC",
+         "alpha_3_code": "ECU",
+         "numeric_code": "218",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 47,
+      "fields": {
+         "country": "Egypt",
+         "alpha_2_code": "EG",
+         "alpha_3_code": "EGY",
+         "numeric_code": "818",
+         "currency_code": "EGP",
+         "currency_symbol": "£ or ج.م",
+         "currency_rate": 18.862865,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 187,
+      "fields": {
+         "country": "El Salvador",
+         "alpha_2_code": "SV",
+         "alpha_3_code": "SLV",
+         "numeric_code": "222",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 204,
+      "fields": {
+         "country": "Equatorial Guinea",
+         "alpha_2_code": "GQ",
+         "alpha_3_code": "GNQ",
+         "numeric_code": "226",
+         "currency_code": "XAF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.9402,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 48,
+      "fields": {
+         "country": "Eritrea",
+         "alpha_2_code": "ER",
+         "alpha_3_code": "ERI",
+         "numeric_code": "232",
+         "currency_code": "ERN",
+         "currency_symbol": "Nfk",
+         "currency_rate": 18.046555,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 55,
+      "fields": {
+         "country": "Estonia",
+         "alpha_2_code": "EE",
+         "alpha_3_code": "EST",
+         "numeric_code": "233",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 169,
+      "fields": {
+         "country": "Eswatini",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "SZL",
+         "currency_symbol": "L",
+         "currency_rate": 17.129757,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 49,
+      "fields": {
+         "country": "Ethiopia",
+         "alpha_2_code": "ET",
+         "alpha_3_code": "ETH",
+         "numeric_code": "231",
+         "currency_code": "ETB",
+         "currency_symbol": "Br",
+         "currency_rate": 49.766254,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 78,
+      "fields": {
+         "country": "Falkland Islands",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "GBP",
+         "currency_symbol": "£",
+         "currency_rate": 0.863472,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 77,
+      "fields": {
+         "country": "Falkland Islands",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "FKP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 42,
+      "fields": {
+         "country": "Faroe Islands",
+         "alpha_2_code": "FO",
+         "alpha_3_code": "FRO",
+         "numeric_code": "234",
+         "currency_code": "DKK",
+         "currency_symbol": "kr",
+         "currency_rate": 7.43556,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 76,
+      "fields": {
+         "country": "Fiji",
+         "alpha_2_code": "FJ",
+         "alpha_3_code": "FJI",
+         "numeric_code": "242",
+         "currency_code": "FJD",
+         "currency_symbol": "$",
+         "currency_rate": 2.466281,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 56,
+      "fields": {
+         "country": "Finland",
+         "alpha_2_code": "FI",
+         "alpha_3_code": "FIN",
+         "numeric_code": "246",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 57,
+      "fields": {
+         "country": "France",
+         "alpha_2_code": "FR",
+         "alpha_3_code": "FRA",
+         "numeric_code": "250",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 222,
+      "fields": {
+         "country": "French Polynesia",
+         "alpha_2_code": "PF",
+         "alpha_3_code": "PYF",
+         "numeric_code": "258",
+         "currency_code": "XPF",
+         "currency_symbol": "₣",
+         "currency_rate": 119.75404,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 205,
+      "fields": {
+         "country": "Gabon",
+         "alpha_2_code": "GA",
+         "alpha_3_code": "GAB",
+         "numeric_code": "266",
+         "currency_code": "XAF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.9402,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 85,
+      "fields": {
+         "country": "Gambia, The",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "GMD",
+         "currency_symbol": "D",
+         "currency_rate": 61.41058,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 80,
+      "fields": {
+         "country": "Georgia",
+         "alpha_2_code": "GE",
+         "alpha_3_code": "GEO",
+         "numeric_code": "268",
+         "currency_code": "GEL",
+         "currency_symbol": "₾",
+         "currency_rate": 4.156156,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 81,
+      "fields": {
+         "country": "Georgia",
+         "alpha_2_code": "GE",
+         "alpha_3_code": "GEO",
+         "numeric_code": "268",
+         "currency_code": "GGP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 58,
+      "fields": {
+         "country": "Germany",
+         "alpha_2_code": "DE",
+         "alpha_3_code": "DEU",
+         "numeric_code": "276",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 83,
+      "fields": {
+         "country": "Ghana",
+         "alpha_2_code": "GH",
+         "alpha_3_code": "GHA",
+         "numeric_code": "288",
+         "currency_code": "GHS",
+         "currency_symbol": "₵",
+         "currency_rate": 6.953046,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 84,
+      "fields": {
+         "country": "Gibraltar",
+         "alpha_2_code": "GI",
+         "alpha_3_code": "GIB",
+         "numeric_code": "292",
+         "currency_code": "GIP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 59,
+      "fields": {
+         "country": "Greece",
+         "alpha_2_code": "GR",
+         "alpha_3_code": "GRC",
+         "numeric_code": "300",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 43,
+      "fields": {
+         "country": "Greenland",
+         "alpha_2_code": "GL",
+         "alpha_3_code": "GRL",
+         "numeric_code": "304",
+         "currency_code": "DKK",
+         "currency_symbol": "kr",
+         "currency_rate": 7.43556,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 209,
+      "fields": {
+         "country": "Grenada",
+         "alpha_2_code": "GD",
+         "alpha_3_code": "GRD",
+         "numeric_code": "308",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 87,
+      "fields": {
+         "country": "Guatemala",
+         "alpha_2_code": "GT",
+         "alpha_3_code": "GTM",
+         "numeric_code": "320",
+         "currency_code": "GTQ",
+         "currency_symbol": "Q",
+         "currency_rate": 9.282759,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 82,
+      "fields": {
+         "country": "Guernsey",
+         "alpha_2_code": "GG",
+         "alpha_3_code": "GGY",
+         "numeric_code": "831",
+         "currency_code": "GGP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 86,
+      "fields": {
+         "country": "Guinea",
+         "alpha_2_code": "GN",
+         "alpha_3_code": "GIN",
+         "numeric_code": "324",
+         "currency_code": "GNF",
+         "currency_symbol": "Fr",
+         "currency_rate": 11951.312,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 217,
+      "fields": {
+         "country": "Guinea-Bissau",
+         "alpha_2_code": "GW",
+         "alpha_3_code": "GNB",
+         "numeric_code": "624",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 88,
+      "fields": {
+         "country": "Guyana",
+         "alpha_2_code": "GY",
+         "alpha_3_code": "GUY",
+         "numeric_code": "328",
+         "currency_code": "GYD",
+         "currency_symbol": "$",
+         "currency_rate": 251.67326,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 92,
+      "fields": {
+         "country": "Haiti",
+         "alpha_2_code": "HT",
+         "alpha_3_code": "HTI",
+         "numeric_code": "332",
+         "currency_code": "HTG",
+         "currency_symbol": "G",
+         "currency_rate": 100.14645,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 90,
+      "fields": {
+         "country": "Honduras",
+         "alpha_2_code": "HN",
+         "alpha_3_code": "HND",
+         "numeric_code": "340",
+         "currency_code": "HNL",
+         "currency_symbol": "L",
+         "currency_rate": 28.988062,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 89,
+      "fields": {
+         "country": "Hong Kong",
+         "alpha_2_code": "HK",
+         "alpha_3_code": "HKG",
+         "numeric_code": "344",
+         "currency_code": "HKD",
+         "currency_symbol": "$",
+         "currency_rate": 9.339526,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 93,
+      "fields": {
+         "country": "Hungary",
+         "alpha_2_code": "HU",
+         "alpha_3_code": "HUN",
+         "numeric_code": "348",
+         "currency_code": "HUF",
+         "currency_symbol": "Ft",
+         "currency_rate": 362.12054,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 101,
+      "fields": {
+         "country": "Iceland",
+         "alpha_2_code": "IS",
+         "alpha_3_code": "ISL",
+         "numeric_code": "352",
+         "currency_code": "ISK",
+         "currency_symbol": "kr",
+         "currency_rate": 150.99438,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 98,
+      "fields": {
+         "country": "India",
+         "alpha_2_code": "IN",
+         "alpha_3_code": "IND",
+         "numeric_code": "356",
+         "currency_code": "INR",
+         "currency_symbol": "₹",
+         "currency_rate": 90.682724,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 94,
+      "fields": {
+         "country": "Indonesia",
+         "alpha_2_code": "ID",
+         "alpha_3_code": "IDN",
+         "numeric_code": "360",
+         "currency_code": "IDR",
+         "currency_symbol": "Rp",
+         "currency_rate": 17471.951,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 100,
+      "fields": {
+         "country": "Iran",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "IRR",
+         "currency_symbol": "﷼",
+         "currency_rate": 50650.227,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 99,
+      "fields": {
+         "country": "Iraq",
+         "alpha_2_code": "IQ",
+         "alpha_3_code": "IRQ",
+         "numeric_code": "368",
+         "currency_code": "IQD",
+         "currency_symbol": "ع.د",
+         "currency_rate": 1758.1119,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 60,
+      "fields": {
+         "country": "Ireland",
+         "alpha_2_code": "IE",
+         "alpha_3_code": "IRL",
+         "numeric_code": "372",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 97,
+      "fields": {
+         "country": "Isle of Man",
+         "alpha_2_code": "IM",
+         "alpha_3_code": "IMN",
+         "numeric_code": "833",
+         "currency_code": "IMP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 95,
+      "fields": {
+         "country": "Israel",
+         "alpha_2_code": "IL",
+         "alpha_3_code": "ISR",
+         "numeric_code": "376",
+         "currency_code": "ILS",
+         "currency_symbol": "₪",
+         "currency_rate": 3.930418,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 61,
+      "fields": {
+         "country": "Italy",
+         "alpha_2_code": "IT",
+         "alpha_3_code": "ITA",
+         "numeric_code": "380",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 103,
+      "fields": {
+         "country": "Jamaica",
+         "alpha_2_code": "JM",
+         "alpha_3_code": "JAM",
+         "numeric_code": "388",
+         "currency_code": "JMD",
+         "currency_symbol": "$",
+         "currency_rate": 181.65158,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 105,
+      "fields": {
+         "country": "Japan",
+         "alpha_2_code": "JP",
+         "alpha_3_code": "JPN",
+         "numeric_code": "392",
+         "currency_code": "JPY",
+         "currency_symbol": "¥ or 円",
+         "currency_rate": 130.04492,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 102,
+      "fields": {
+         "country": "Jersey",
+         "alpha_2_code": "JE",
+         "alpha_3_code": "JEY",
+         "numeric_code": "832",
+         "currency_code": "JEP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 104,
+      "fields": {
+         "country": "Jordan",
+         "alpha_2_code": "JO",
+         "alpha_3_code": "JOR",
+         "numeric_code": "400",
+         "currency_code": "JOD",
+         "currency_symbol": "د.ا",
+         "currency_rate": 0.852855,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 114,
+      "fields": {
+         "country": "Kazakhstan",
+         "alpha_2_code": "KZ",
+         "alpha_3_code": "KAZ",
+         "numeric_code": "398",
+         "currency_code": "KZT",
+         "currency_symbol": "₸",
+         "currency_rate": 519.7543,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 106,
+      "fields": {
+         "country": "Kenya",
+         "alpha_2_code": "KE",
+         "alpha_3_code": "KEN",
+         "numeric_code": "404",
+         "currency_code": "KES",
+         "currency_symbol": "Sh",
+         "currency_rate": 130.46008,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 110,
+      "fields": {
+         "country": "Korea, North",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "KPW",
+         "currency_symbol": "₩",
+         "currency_rate": 1082.6555,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 111,
+      "fields": {
+         "country": "Korea, South",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "KRW",
+         "currency_symbol": "₩",
+         "currency_rate": 1344.4291,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 62,
+      "fields": {
+         "country": "Kosovo",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 112,
+      "fields": {
+         "country": "Kuwait",
+         "alpha_2_code": "KW",
+         "alpha_3_code": "KWT",
+         "numeric_code": "414",
+         "currency_code": "KWD",
+         "currency_symbol": "د.ك",
+         "currency_rate": 0.362317,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 107,
+      "fields": {
+         "country": "Kyrgyzstan",
+         "alpha_2_code": "KG",
+         "alpha_3_code": "KGZ",
+         "numeric_code": "417",
+         "currency_code": "KGS",
+         "currency_symbol": "с",
+         "currency_rate": 101.99996,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 115,
+      "fields": {
+         "country": "Laos",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "LAK",
+         "currency_symbol": "₭",
+         "currency_rate": 11334.198,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 63,
+      "fields": {
+         "country": "Latvia",
+         "alpha_2_code": "LV",
+         "alpha_3_code": "LVA",
+         "numeric_code": "428",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 116,
+      "fields": {
+         "country": "Lebanon",
+         "alpha_2_code": "LB",
+         "alpha_3_code": "LBN",
+         "numeric_code": "422",
+         "currency_code": "LBP",
+         "currency_symbol": "ل.ل",
+         "currency_rate": 1838.1082,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 119,
+      "fields": {
+         "country": "Lesotho",
+         "alpha_2_code": "LS",
+         "alpha_3_code": "LSO",
+         "numeric_code": "426",
+         "currency_code": "LSL",
+         "currency_symbol": "L",
+         "currency_rate": 17.12966,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 118,
+      "fields": {
+         "country": "Liberia",
+         "alpha_2_code": "LR",
+         "alpha_3_code": "LBR",
+         "numeric_code": "430",
+         "currency_code": "LRD",
+         "currency_symbol": "$",
+         "currency_rate": 207.54555,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 120,
+      "fields": {
+         "country": "Libya",
+         "alpha_2_code": "LY",
+         "alpha_3_code": "LBY",
+         "numeric_code": "434",
+         "currency_code": "LYD",
+         "currency_symbol": "ل.د",
+         "currency_rate": 5.395241,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 30,
+      "fields": {
+         "country": "Liechtenstein",
+         "alpha_2_code": "LI",
+         "alpha_3_code": "LIE",
+         "numeric_code": "438",
+         "currency_code": "CHF",
+         "currency_symbol": "Fr.",
+         "currency_rate": 1.103165,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 64,
+      "fields": {
+         "country": "Lithuania",
+         "alpha_2_code": "LT",
+         "alpha_3_code": "LTU",
+         "numeric_code": "440",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 65,
+      "fields": {
+         "country": "Luxembourg",
+         "alpha_2_code": "LU",
+         "alpha_3_code": "LUX",
+         "numeric_code": "442",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 127,
+      "fields": {
+         "country": "Macau",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "MOP",
+         "currency_symbol": "MOP$",
+         "currency_rate": 9.619797,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 123,
+      "fields": {
+         "country": "Madagascar",
+         "alpha_2_code": "MG",
+         "alpha_3_code": "MDG",
+         "numeric_code": "450",
+         "currency_code": "MGA",
+         "currency_symbol": "Ar",
+         "currency_rate": 4559.181,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 130,
+      "fields": {
+         "country": "Malawi",
+         "alpha_2_code": "MW",
+         "alpha_3_code": "MWI",
+         "numeric_code": "454",
+         "currency_code": "MWK",
+         "currency_symbol": "MK",
+         "currency_rate": 950.33044,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 132,
+      "fields": {
+         "country": "Malaysia",
+         "alpha_2_code": "MY",
+         "alpha_3_code": "MYS",
+         "numeric_code": "458",
+         "currency_code": "MYR",
+         "currency_symbol": "RM",
+         "currency_rate": 4.957326,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 129,
+      "fields": {
+         "country": "Maldives",
+         "alpha_2_code": "MV",
+         "alpha_3_code": "MDV",
+         "numeric_code": "462",
+         "currency_code": "MVR",
+         "currency_symbol": ".ރ",
+         "currency_rate": 18.615677,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 218,
+      "fields": {
+         "country": "Mali",
+         "alpha_2_code": "ML",
+         "alpha_3_code": "MLI",
+         "numeric_code": "466",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 66,
+      "fields": {
+         "country": "Malta",
+         "alpha_2_code": "MT",
+         "alpha_3_code": "MLT",
+         "numeric_code": "470",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 188,
+      "fields": {
+         "country": "Marshall Islands",
+         "alpha_2_code": "MH",
+         "alpha_3_code": "MHL",
+         "numeric_code": "584",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 128,
+      "fields": {
+         "country": "Mauritius",
+         "alpha_2_code": "MU",
+         "alpha_3_code": "MUS",
+         "numeric_code": "480",
+         "currency_code": "MUR",
+         "currency_symbol": "₨",
+         "currency_rate": 48.60436,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 131,
+      "fields": {
+         "country": "Mexico",
+         "alpha_2_code": "MX",
+         "alpha_3_code": "MEX",
+         "numeric_code": "484",
+         "currency_code": "MXN",
+         "currency_symbol": "$",
+         "currency_rate": 23.915567,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 189,
+      "fields": {
+         "country": "Micronesia",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 122,
+      "fields": {
+         "country": "Moldova",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "MDL",
+         "currency_symbol": "L",
+         "currency_rate": 21.647778,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 67,
+      "fields": {
+         "country": "Monaco",
+         "alpha_2_code": "MC",
+         "alpha_3_code": "MCO",
+         "numeric_code": "492",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 126,
+      "fields": {
+         "country": "Mongolia",
+         "alpha_2_code": "MN",
+         "alpha_3_code": "MNG",
+         "numeric_code": "496",
+         "currency_code": "MNT",
+         "currency_symbol": "₮",
+         "currency_rate": 3429.1934,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 68,
+      "fields": {
+         "country": "Montenegro",
+         "alpha_2_code": "ME",
+         "alpha_3_code": "MNE",
+         "numeric_code": "499",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 210,
+      "fields": {
+         "country": "Montserrat",
+         "alpha_2_code": "MS",
+         "alpha_3_code": "MSR",
+         "numeric_code": "500",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 121,
+      "fields": {
+         "country": "Morocco",
+         "alpha_2_code": "MA",
+         "alpha_3_code": "MAR",
+         "numeric_code": "504",
+         "currency_code": "MAD",
+         "currency_symbol": "د.م.",
+         "currency_rate": 10.73633,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 133,
+      "fields": {
+         "country": "Mozambique",
+         "alpha_2_code": "MZ",
+         "alpha_3_code": "MOZ",
+         "numeric_code": "508",
+         "currency_code": "MZN",
+         "currency_symbol": "MT",
+         "currency_rate": 66.836044,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 125,
+      "fields": {
+         "country": "Myanmar",
+         "alpha_2_code": "MM",
+         "alpha_3_code": "MMR",
+         "numeric_code": "104",
+         "currency_code": "MMK",
+         "currency_symbol": "Ks",
+         "currency_rate": 1696.2025,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 134,
+      "fields": {
+         "country": "Namibia",
+         "alpha_2_code": "NA",
+         "alpha_3_code": "NAM",
+         "numeric_code": "516",
+         "currency_code": "NAD",
+         "currency_symbol": "$",
+         "currency_rate": 17.129953,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 10,
+      "fields": {
+         "country": "Nauru",
+         "alpha_2_code": "NR",
+         "alpha_3_code": "NRU",
+         "numeric_code": "520",
+         "currency_code": "AUD",
+         "currency_symbol": "$",
+         "currency_rate": 1.551193,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 138,
+      "fields": {
+         "country": "Nepal",
+         "alpha_2_code": "NP",
+         "alpha_3_code": "NPL",
+         "numeric_code": "524",
+         "currency_code": "NPR",
+         "currency_symbol": "रू",
+         "currency_rate": 145.17842,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 69,
+      "fields": {
+         "country": "Netherlands[H]",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 223,
+      "fields": {
+         "country": "New Caledonia",
+         "alpha_2_code": "NC",
+         "alpha_3_code": "NCL",
+         "numeric_code": "540",
+         "currency_code": "XPF",
+         "currency_symbol": "₣",
+         "currency_rate": 119.75404,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 139,
+      "fields": {
+         "country": "New Zealand",
+         "alpha_2_code": "NZ",
+         "alpha_3_code": "NZL",
+         "numeric_code": "554",
+         "currency_code": "NZD",
+         "currency_symbol": "$",
+         "currency_rate": 1.668606,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 136,
+      "fields": {
+         "country": "Nicaragua",
+         "alpha_2_code": "NI",
+         "alpha_3_code": "NIC",
+         "numeric_code": "558",
+         "currency_code": "NIO",
+         "currency_symbol": "C$",
+         "currency_rate": 42.28401,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 219,
+      "fields": {
+         "country": "Niger",
+         "alpha_2_code": "NE",
+         "alpha_3_code": "NER",
+         "numeric_code": "562",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 135,
+      "fields": {
+         "country": "Nigeria",
+         "alpha_2_code": "NG",
+         "alpha_3_code": "NGA",
+         "numeric_code": "566",
+         "currency_code": "NGN",
+         "currency_symbol": "₦",
+         "currency_rate": 457.70593,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 140,
+      "fields": {
+         "country": "Niue",
+         "alpha_2_code": "NU",
+         "alpha_3_code": "NIU",
+         "numeric_code": "570",
+         "currency_code": "NZD",
+         "currency_symbol": "$",
+         "currency_rate": 1.668606,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 124,
+      "fields": {
+         "country": "North Macedonia",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "MKD",
+         "currency_symbol": "ден",
+         "currency_rate": 61.723797,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 175,
+      "fields": {
+         "country": "Northern Cyprus",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "TRY",
+         "currency_symbol": "₺",
+         "currency_rate": 9.854929,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 137,
+      "fields": {
+         "country": "Norway",
+         "alpha_2_code": "NO",
+         "alpha_3_code": "NOR",
+         "numeric_code": "578",
+         "currency_code": "NOK",
+         "currency_symbol": "kr",
+         "currency_rate": 10.037971,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 142,
+      "fields": {
+         "country": "Oman",
+         "alpha_2_code": "OM",
+         "alpha_3_code": "OMN",
+         "numeric_code": "512",
+         "currency_code": "OMR",
+         "currency_symbol": "ر.ع.",
+         "currency_rate": 0.463095,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 147,
+      "fields": {
+         "country": "Pakistan",
+         "alpha_2_code": "PK",
+         "alpha_3_code": "PAK",
+         "numeric_code": "586",
+         "currency_code": "PKR",
+         "currency_symbol": "₨",
+         "currency_rate": 184.28918,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 190,
+      "fields": {
+         "country": "Palau",
+         "alpha_2_code": "PW",
+         "alpha_3_code": "PLW",
+         "numeric_code": "585",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 96,
+      "fields": {
+         "country": "Palestine",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "ILS",
+         "currency_symbol": "₪",
+         "currency_rate": 3.930418,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 143,
+      "fields": {
+         "country": "Panama",
+         "alpha_2_code": "PA",
+         "alpha_3_code": "PAN",
+         "numeric_code": "591",
+         "currency_code": "PAB",
+         "currency_symbol": "B/.",
+         "currency_rate": 1.202975,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 145,
+      "fields": {
+         "country": "Papua New Guinea",
+         "alpha_2_code": "PG",
+         "alpha_3_code": "PNG",
+         "numeric_code": "598",
+         "currency_code": "PGK",
+         "currency_symbol": "K",
+         "currency_rate": 4.252397,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 149,
+      "fields": {
+         "country": "Paraguay",
+         "alpha_2_code": "PY",
+         "alpha_3_code": "PRY",
+         "numeric_code": "600",
+         "currency_code": "PYG",
+         "currency_symbol": "₲",
+         "currency_rate": 7757.739,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 144,
+      "fields": {
+         "country": "Peru",
+         "alpha_2_code": "PE",
+         "alpha_3_code": "PER",
+         "numeric_code": "604",
+         "currency_code": "PEN",
+         "currency_symbol": "S/.",
+         "currency_rate": 4.455703,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 146,
+      "fields": {
+         "country": "Philippines",
+         "alpha_2_code": "PH",
+         "alpha_3_code": "PHL",
+         "numeric_code": "608",
+         "currency_code": "PHP",
+         "currency_symbol": "₱",
+         "currency_rate": 58.219788,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 141,
+      "fields": {
+         "country": "Pitcairn Islands",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "NZD",
+         "currency_symbol": "$",
+         "currency_rate": 1.668606,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 148,
+      "fields": {
+         "country": "Poland",
+         "alpha_2_code": "PL",
+         "alpha_3_code": "POL",
+         "numeric_code": "616",
+         "currency_code": "PLN",
+         "currency_symbol": "zł",
+         "currency_rate": 4.552842,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 70,
+      "fields": {
+         "country": "Portugal",
+         "alpha_2_code": "PT",
+         "alpha_3_code": "PRT",
+         "numeric_code": "620",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 150,
+      "fields": {
+         "country": "Qatar",
+         "alpha_2_code": "QA",
+         "alpha_3_code": "QAT",
+         "numeric_code": "634",
+         "currency_code": "QAR",
+         "currency_symbol": "ر.ق",
+         "currency_rate": 4.379898,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 151,
+      "fields": {
+         "country": "Romania",
+         "alpha_2_code": "RO",
+         "alpha_3_code": "ROU",
+         "numeric_code": "642",
+         "currency_code": "RON",
+         "currency_symbol": "lei",
+         "currency_rate": 4.924759,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 153,
+      "fields": {
+         "country": "Russia",
+         "alpha_2_code": "RU",
+         "alpha_3_code": "RUS",
+         "numeric_code": "643",
+         "currency_code": "RUB",
+         "currency_symbol": "₽",
+         "currency_rate": 92.17547,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 155,
+      "fields": {
+         "country": "Rwanda",
+         "alpha_2_code": "RW",
+         "alpha_3_code": "RWA",
+         "numeric_code": "646",
+         "currency_code": "RWF",
+         "currency_symbol": "Fr",
+         "currency_rate": 1184.3046,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 191,
+      "fields": {
+         "country": "Saba",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 46,
+      "fields": {
+         "country": "Sahrawi Republic[N]",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "DZD",
+         "currency_symbol": "د.ج",
+         "currency_rate": 159.61908,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 164,
+      "fields": {
+         "country": "Saint Helena",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "SHP",
+         "currency_symbol": "£",
+         "currency_rate": 0.873793,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 211,
+      "fields": {
+         "country": "Saint Kitts and Nevis",
+         "alpha_2_code": "KN",
+         "alpha_3_code": "KNA",
+         "numeric_code": "659",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 212,
+      "fields": {
+         "country": "Saint Lucia",
+         "alpha_2_code": "LC",
+         "alpha_3_code": "LCA",
+         "numeric_code": "662",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 213,
+      "fields": {
+         "country": "Saint Vincent and the Grenadines",
+         "alpha_2_code": "VC",
+         "alpha_3_code": "VCT",
+         "numeric_code": "670",
+         "currency_code": "XCD",
+         "currency_symbol": "$",
+         "currency_rate": 3.251034,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 199,
+      "fields": {
+         "country": "Samoa",
+         "alpha_2_code": "WS",
+         "alpha_3_code": "WSM",
+         "numeric_code": "882",
+         "currency_code": "WST",
+         "currency_symbol": "T",
+         "currency_rate": 3.045542,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 71,
+      "fields": {
+         "country": "San Marino",
+         "alpha_2_code": "SM",
+         "alpha_3_code": "SMR",
+         "numeric_code": "674",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 156,
+      "fields": {
+         "country": "Saudi Arabia",
+         "alpha_2_code": "SA",
+         "alpha_3_code": "SAU",
+         "numeric_code": "682",
+         "currency_code": "SAR",
+         "currency_symbol": "﷼",
+         "currency_rate": 4.511531,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 220,
+      "fields": {
+         "country": "Senegal",
+         "alpha_2_code": "SN",
+         "alpha_3_code": "SEN",
+         "numeric_code": "686",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 152,
+      "fields": {
+         "country": "Serbia",
+         "alpha_2_code": "RS",
+         "alpha_3_code": "SRB",
+         "numeric_code": "688",
+         "currency_code": "RSD",
+         "currency_symbol": "дин. or din.",
+         "currency_rate": 117.74482,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 158,
+      "fields": {
+         "country": "Seychelles",
+         "alpha_2_code": "SC",
+         "alpha_3_code": "SYC",
+         "numeric_code": "690",
+         "currency_code": "SCR",
+         "currency_symbol": "₨",
+         "currency_rate": 16.805908,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 165,
+      "fields": {
+         "country": "Sierra Leone",
+         "alpha_2_code": "SL",
+         "alpha_3_code": "SLE",
+         "numeric_code": "694",
+         "currency_code": "SLL",
+         "currency_symbol": "Le",
+         "currency_rate": 12276.108,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 162,
+      "fields": {
+         "country": "Singapore",
+         "alpha_2_code": "SG",
+         "alpha_3_code": "SGP",
+         "numeric_code": "702",
+         "currency_code": "SGD",
+         "currency_symbol": "$",
+         "currency_rate": 1.598096,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 192,
+      "fields": {
+         "country": "Sint Eustatius",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 6,
+      "fields": {
+         "country": "Sint Maarten",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "ANG",
+         "currency_symbol": "ƒ",
+         "currency_rate": 2.159346,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 72,
+      "fields": {
+         "country": "Slovakia",
+         "alpha_2_code": "SK",
+         "alpha_3_code": "SVK",
+         "numeric_code": "703",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 73,
+      "fields": {
+         "country": "Slovenia",
+         "alpha_2_code": "SI",
+         "alpha_3_code": "SVN",
+         "numeric_code": "705",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 157,
+      "fields": {
+         "country": "Solomon Islands",
+         "alpha_2_code": "SB",
+         "alpha_3_code": "SLB",
+         "numeric_code": "90",
+         "currency_code": "SBD",
+         "currency_symbol": "$",
+         "currency_rate": 9.623757,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 166,
+      "fields": {
+         "country": "Somalia",
+         "alpha_2_code": "SO",
+         "alpha_3_code": "SOM",
+         "numeric_code": "706",
+         "currency_code": "SOS",
+         "currency_symbol": "Sh",
+         "currency_rate": 704.9288,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 227,
+      "fields": {
+         "country": "South Africa",
+         "alpha_2_code": "ZA",
+         "alpha_3_code": "ZAF",
+         "numeric_code": "710",
+         "currency_code": "ZAR",
+         "currency_symbol": "R",
+         "currency_rate": 17.13266,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 154,
+      "fields": {
+         "country": "South Ossetia",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "RUB",
+         "currency_symbol": "₽",
+         "currency_rate": 92.17547,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 74,
+      "fields": {
+         "country": "Spain",
+         "alpha_2_code": "ES",
+         "alpha_3_code": "ESP",
+         "numeric_code": "724",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 117,
+      "fields": {
+         "country": "Sri Lanka",
+         "alpha_2_code": "LK",
+         "alpha_3_code": "LKA",
+         "numeric_code": "144",
+         "currency_code": "LKR",
+         "currency_symbol": "Rs, රු or ரூ",
+         "currency_rate": 230.97227,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 159,
+      "fields": {
+         "country": "Sudan",
+         "alpha_2_code": "SD",
+         "alpha_3_code": "SDN",
+         "numeric_code": "736",
+         "currency_code": "SDG",
+         "currency_symbol": "ج.س.",
+         "currency_rate": 458.92465,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 167,
+      "fields": {
+         "country": "Suriname",
+         "alpha_2_code": "SR",
+         "alpha_3_code": "SUR",
+         "numeric_code": "740",
+         "currency_code": "SRD",
+         "currency_symbol": "$",
+         "currency_rate": 17.02659,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 161,
+      "fields": {
+         "country": "Sweden",
+         "alpha_2_code": "SE",
+         "alpha_3_code": "SWE",
+         "numeric_code": "752",
+         "currency_code": "SGD",
+         "currency_symbol": "$",
+         "currency_rate": 1.598096,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 160,
+      "fields": {
+         "country": "Sweden",
+         "alpha_2_code": "SE",
+         "alpha_3_code": "SWE",
+         "numeric_code": "752",
+         "currency_code": "SEK",
+         "currency_symbol": "kr",
+         "currency_rate": 10.12468,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 31,
+      "fields": {
+         "country": "Switzerland",
+         "alpha_2_code": "CH",
+         "alpha_3_code": "CHE",
+         "numeric_code": "756",
+         "currency_code": "CHF",
+         "currency_symbol": "Fr.",
+         "currency_rate": 1.103165,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 168,
+      "fields": {
+         "country": "Syria",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "SYP",
+         "currency_symbol": "£ or ل.س",
+         "currency_rate": 1512.7911,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 178,
+      "fields": {
+         "country": "Taiwan",
+         "alpha_2_code": "TW",
+         "alpha_3_code": "TWN",
+         "numeric_code": "158",
+         "currency_code": "TWD",
+         "currency_symbol": "$",
+         "currency_rate": 33.77464,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 171,
+      "fields": {
+         "country": "Tajikistan",
+         "alpha_2_code": "TJ",
+         "alpha_3_code": "TJK",
+         "numeric_code": "762",
+         "currency_code": "TJS",
+         "currency_symbol": "ЅМ",
+         "currency_rate": 13.716409,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 179,
+      "fields": {
+         "country": "Tanzania",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "TZS",
+         "currency_symbol": "Sh",
+         "currency_rate": 2789.6504,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 170,
+      "fields": {
+         "country": "Thailand",
+         "alpha_2_code": "TH",
+         "alpha_3_code": "THA",
+         "numeric_code": "764",
+         "currency_code": "THB",
+         "currency_symbol": "฿",
+         "currency_rate": 37.664383,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 221,
+      "fields": {
+         "country": "Togo",
+         "alpha_2_code": "TG",
+         "alpha_3_code": "TGO",
+         "numeric_code": "768",
+         "currency_code": "XOF",
+         "currency_symbol": "Fr",
+         "currency_rate": 656.20435,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 174,
+      "fields": {
+         "country": "Tonga",
+         "alpha_2_code": "TO",
+         "alpha_3_code": "TON",
+         "numeric_code": "776",
+         "currency_code": "TOP",
+         "currency_symbol": "T$",
+         "currency_rate": 2.728172,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 177,
+      "fields": {
+         "country": "Trinidad and Tobago",
+         "alpha_2_code": "TT",
+         "alpha_3_code": "TTO",
+         "numeric_code": "780",
+         "currency_code": "TTD",
+         "currency_symbol": "$",
+         "currency_rate": 8.163605,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 173,
+      "fields": {
+         "country": "Tunisia",
+         "alpha_2_code": "TN",
+         "alpha_3_code": "TUN",
+         "numeric_code": "788",
+         "currency_code": "TND",
+         "currency_symbol": "د.ت",
+         "currency_rate": 3.303906,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 176,
+      "fields": {
+         "country": "Turkey",
+         "alpha_2_code": "TR",
+         "alpha_3_code": "TUR",
+         "numeric_code": "792",
+         "currency_code": "TRY",
+         "currency_symbol": "₺",
+         "currency_rate": 9.854929,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 172,
+      "fields": {
+         "country": "Turkmenistan",
+         "alpha_2_code": "TM",
+         "alpha_3_code": "TKM",
+         "numeric_code": "795",
+         "currency_code": "TMT",
+         "currency_symbol": "m",
+         "currency_rate": 4.222356,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 193,
+      "fields": {
+         "country": "Turks and Caicos Islands",
+         "alpha_2_code": "TC",
+         "alpha_3_code": "TCA",
+         "numeric_code": "796",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 181,
+      "fields": {
+         "country": "Uganda",
+         "alpha_2_code": "UG",
+         "alpha_3_code": "UGA",
+         "numeric_code": "800",
+         "currency_code": "UGX",
+         "currency_symbol": "Sh",
+         "currency_rate": 4345.0894,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 180,
+      "fields": {
+         "country": "Ukraine",
+         "alpha_2_code": "UA",
+         "alpha_3_code": "UKR",
+         "numeric_code": "804",
+         "currency_code": "UAH",
+         "currency_symbol": "₴",
+         "currency_rate": 33.86149,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 1,
+      "fields": {
+         "country": "United Arab Emirates",
+         "alpha_2_code": "AE",
+         "alpha_3_code": "ARE",
+         "numeric_code": "784",
+         "currency_code": "AED",
+         "currency_symbol": "د.إ",
+         "currency_rate": 4.418486,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 79,
+      "fields": {
+         "country": "United Kingdom",
+         "alpha_2_code": "GB",
+         "alpha_3_code": "GBR",
+         "numeric_code": "826",
+         "currency_code": "GBP",
+         "currency_symbol": "£",
+         "currency_rate": 0.863472,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 194,
+      "fields": {
+         "country": "United States",
+         "alpha_2_code": "US",
+         "alpha_3_code": "USA",
+         "numeric_code": "840",
+         "currency_code": "USD",
+         "currency_symbol": "$",
+         "currency_rate": 1.20295,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 195,
+      "fields": {
+         "country": "Uruguay",
+         "alpha_2_code": "UY",
+         "alpha_3_code": "URY",
+         "numeric_code": "858",
+         "currency_code": "UYU",
+         "currency_symbol": "$",
+         "currency_rate": 53.272476,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 196,
+      "fields": {
+         "country": "Uzbekistan",
+         "alpha_2_code": "UZ",
+         "alpha_3_code": "UZB",
+         "numeric_code": "860",
+         "currency_code": "UZS",
+         "currency_symbol": "so'm or сўм",
+         "currency_rate": 12657.443,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 198,
+      "fields": {
+         "country": "Vanuatu",
+         "alpha_2_code": "VU",
+         "alpha_3_code": "VUT",
+         "numeric_code": "548",
+         "currency_code": "VUV",
+         "currency_symbol": "Vt",
+         "currency_rate": 131.76982,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 75,
+      "fields": {
+         "country": "Vatican City",
+         "alpha_2_code": "",
+         "alpha_3_code": "",
+         "numeric_code": "",
+         "currency_code": "EUR",
+         "currency_symbol": "€",
+         "currency_rate": 1,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 197,
+      "fields": {
+         "country": "Vietnam",
+         "alpha_2_code": "VN",
+         "alpha_3_code": "VNM",
+         "numeric_code": "704",
+         "currency_code": "VND",
+         "currency_symbol": "₫",
+         "currency_rate": 27758.08,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 224,
+      "fields": {
+         "country": "Wallis and Futuna",
+         "alpha_2_code": "WF",
+         "alpha_3_code": "WLF",
+         "numeric_code": "876",
+         "currency_code": "XPF",
+         "currency_symbol": "₣",
+         "currency_rate": 119.75404,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 225,
+      "fields": {
+         "country": "Yemen",
+         "alpha_2_code": "YE",
+         "alpha_3_code": "YEM",
+         "numeric_code": "887",
+         "currency_code": "YER",
+         "currency_symbol": "﷼",
+         "currency_rate": 301.2791,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 226,
+      "fields": {
+         "country": "Yemen",
+         "alpha_2_code": "YE",
+         "alpha_3_code": "YEM",
+         "numeric_code": "887",
+         "currency_code": "ZAR",
+         "currency_symbol": "R",
+         "currency_rate": 17.13266,
+         "base": "EUR"
+      }
+   },
+   {
+      "model": "StaticData.CountryCurrencyRate",
+      "pk": 228,
+      "fields": {
+         "country": "Zambia",
+         "alpha_2_code": "ZM",
+         "alpha_3_code": "ZMB",
+         "numeric_code": "894",
+         "currency_code": "ZMW",
+         "currency_symbol": "ZK",
+         "currency_rate": 26.753733,
+         "base": "EUR"
+      }
+   }
+]

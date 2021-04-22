@@ -42,14 +42,12 @@ class CartView(View):
             return render(request, self.template_name, {'cart': None})
 
         product_details = cart.product_detail.all()
-        currency = settings.DEFAULT_CURRENCY
+        currency = settings.CURRENCY_SYMBOL
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
             price_list = get_price_of_product(request,product.product)
             product.price = price_list['price']
-            product.currency = price_list['currency']
-            currency = price_list['currency']
 
         context = {
             'cart': cart,
@@ -304,7 +302,7 @@ class Checkout(View):
         cart = order.cart
 
         product_details = cart.product_detail.all()
-        currency = settings.DEFAULT_CURRENCY
+        currency = settings.CURRENCY_SYMBOL
 
         totalPrice = 0
 
@@ -314,19 +312,13 @@ class Checkout(View):
             for product in product_details:
                 price_list = get_price_of_product(request,product.product)  # TODO: for the country
                 product.price = price_list['price']
-                product.currency = price_list['currency']
-                currency = price_list['currency']
-                country = price_list['country']
                 totalPrice += float(product.price)
         else:
             # Add the price and currency according to the user's location to the product
-            country = settings.DEFAULT_COUNTRY
+            country = settings.COUNTRY
             for product in product_details:
                 price_list = get_price_of_product(request,product.product)
                 product.price = price_list['price']
-                product.currency = price_list['currency']
-                currency = price_list['currency']
-                country = price_list['country']
                 totalPrice += float(product.price)
 
         context = {
@@ -372,11 +364,11 @@ class Checkout(View):
         if ip_detail['message']!='fail':
             country = ip_detail['country']
         else:
-            country = settings.DEFAULT_COUNTRY
+            country = settings.COUNTRY
         
         countryPayment = CountryPayment.objects.filter(country=country).first()
         if not countryPayment:
-            countryPayment = CountryPayment.objects.filter(country=settings.DEFAULT_COUNTRY).first()
+            countryPayment = CountryPayment.objects.filter(country=settings.COUNTRY).first()
         
         if countryPayment and (not countryPayment.razorpay) and (not countryPayment.cod):
             all_payment_method_off = True
@@ -539,7 +531,7 @@ def process_payment(request):
         if g['message']=='success':
             currency = g['data']['geoplugin_currencyCode']
         else:
-            currency = settings.DEFAULT_CURRENCY
+            currency = settings.CURRENCY_SYMBOL
         
         if request.POST.get('razorpay'): # Razorpay
             client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
@@ -623,14 +615,12 @@ def sendInvoice(request, orderId):
         user = order.user
 
         product_details = order.cart.product_detail.all()
-        currency = settings.DEFAULT_CURRENCY
+        currency = settings.CURRENCY_SYMBOL
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
             price_list = get_price_of_product(request,product.product)
             product.price = price_list['price']
-            product.currency = price_list['currency']
-            currency = price_list['currency']
         
         data = {
             'products': product_details,

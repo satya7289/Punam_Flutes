@@ -33,6 +33,7 @@ urlpatterns = [
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('tax/', include('tax_rules.urls')),
     path('coupon/', include('coupon.urls')),
+    path('static-data/', include('StaticData.urls')),
 ]
 
 if settings.DEBUG:

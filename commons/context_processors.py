@@ -6,9 +6,12 @@ from cart.models import Cart
 from product.models import Product
 
 from commons.product_price import get_price_of_product, get_ip_detail
-from commons.ip_detect import request_to_geoplugin, get_ip_detail
+from commons.ip_detect import request_to_geoplugin, get_ip_detail, set_country_data
 
 def extras(request):
+    # set the country to setting based on IP
+    set_country_data(request)
+
     # Get all the categories
     categories = Category.objects.filter(publish=True)
     
@@ -41,6 +44,7 @@ def extras(request):
         'cart_length': cart_length,
         'ip': get_ip_detail(request),
         # 'categories_product': categories_product,
+        'currency_symbol': settings.CURRENCY_SYMBOL
     }
     return context
 
@@ -72,14 +76,12 @@ def cartDetail(request):
         return context
 
     product_details = cart.product_detail.all()
-    currency = settings.DEFAULT_CURRENCY
+    currency = settings.CURRENCY_SYMBOL
 
     # Add the price and currency according to the user's location to the product
     for product in product_details:
         price_list = get_price_of_product(request,product.product)
         product.price = price_list['price']
-        product.currency = price_list['currency']
-        currency = price_list['currency']
 
     context = {
         'cart_detail':{

@@ -1,4 +1,37 @@
 import requests
+from django.conf import settings
+from StaticData.models import CountryCurrencyRate
+
+def request_to_ip2c(client_ip):
+    country = 'India'
+    country_code_2 = 'IN'
+    country_code_3 = 'IND'
+    return country_code_2, country_code_3, country
+
+def set_country_data(request):
+    client_ip = get_client_ip(request)
+    country_code_2, country_code_3, country =  request_to_ip2c(client_ip)
+
+    countryCurrencyRate = CountryCurrencyRate.objects.filter(
+        alpha_2_code=country_code_2,
+        alpha_3_code=country_code_3,
+        country__icontains=country
+    ).first()
+
+    if countryCurrencyRate:
+        settings.COUNTRY = countryCurrencyRate.country
+        settings.CURRENCY_CODE = countryCurrencyRate.currency_code
+        settings.CURRENCY_SYMBOL = countryCurrencyRate.currency_symbol
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 
 def request_to_geoplugin(client_ip, base_currency='USD'):
     # if client_ip!='0.0.0.0' and client_ip!='127.0.0.1':
@@ -17,17 +50,8 @@ def request_to_geoplugin(client_ip, base_currency='USD'):
     #     }
     return None
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
 def get_ip_detail(request):
     # Get the IP of the logged in user
-
     client_ip = get_client_ip(request)
 
     ip_detail = request_to_geoplugin(client_ip)
@@ -38,33 +62,3 @@ def get_ip_detail(request):
         'message':'fail',
         'user_ip':client_ip
     }
-
-
-def get_ip_location(request):
-    country = "india"
-    # try:
-    #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    #     if x_forwarded_for:
-    #         ip = x_forwarded_for.split(',')[0]
-    #     else:
-    #         ip = request.META.get('REMOTE_ADDR')
-    #     print(ip)
-    #     g = GeoIP2()
-    #     loc = g.country('ip')
-    #     country = loc['country_name']
-    # except Exception as e:
-    #     print('Unable to find Ip', e)
-    print("DFg")
-    return country
-
-def GetCurrencyRate(request, client_ip="", base_currency=""):
-    geoPlugin = request_to_geoplugin(client_ip, base_currency)
-
-    # Using GeoPlugin
-    if geoPlugin:
-        data = {
-            'currencyConvertRate': geoPlugin['data']['geoplugin_currencyConverter'],
-            'currencySymbol': geoPlugin['data']['geoplugin_currencySymbol']
-        }
-        return data
-    return None

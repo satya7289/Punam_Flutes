@@ -1,0 +1,11 @@
+{% extends "admin/change_list.html" %}
+{% block object-tools-items %}
+
+
+    <li>
+        <a href="{% url 'SyncCurrencyRate' %}" class="grp-state-focus">Sync Currency Rate</a>
+    </li>
+
+    {{ block.super }}
+
+{% endblock %}

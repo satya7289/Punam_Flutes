@@ -98,14 +98,12 @@ def placed_order_notification(request, orderId):
         user = order.user
 
         product_details = order.cart.product_detail.all()
-        currency = settings.DEFAULT_CURRENCY
+        currency = settings.CURRENCY_SYMBOL
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
             price_list = get_price_of_product(request,product.product)
             product.price = price_list['price']
-            product.currency = price_list['currency']
-            currency = price_list['currency']
         
         data = {
             'products': product_details,

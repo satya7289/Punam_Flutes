@@ -54,7 +54,7 @@
 
                   <!-- Title -->
                   <div class="d-flex mb-2 font-weight-bold">
-                    <a class="text-body" href="product.html">{{ product.product.title }}</a> <span class="ml-auto" id="product_price{{forloop.counter}}" data-total="{{ product.price }}">{{ product.currency }} {{ product.price }}</span>
+                    <a class="text-body" href="product.html">{{ product.product.title }}</a> <span class="ml-auto" id="product_price{{forloop.counter}}" data-total="{{ product.price }}">{{ currency_symbol }} {{ product.price }}</span>
                   </div>
 
                   <!-- Text -->
@@ -305,7 +305,7 @@ function removeProductFromCart(e,product_id, cart_id){
 }
 
 function updateSubTotal(){
-  let currency = '{{ currency }}';
+  let currency = '{{ currency_symbol }}';
 
   let Subtotal = 0;
   let tex = 0;
@@ -320,7 +320,7 @@ function updateSubTotal(){
 }
 
 function updateProductPrice(e){
-  let currency = '{{ currency }}';
+  let currency = '{{ currency_symbol }}';
   let price = $(e).attr("data-price")
   let total_price = (price*e.value).toFixed(2);
   let total = e.value + ' * ' + currency + price +' = ' + currency + total_price;

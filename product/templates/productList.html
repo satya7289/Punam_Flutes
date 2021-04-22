@@ -161,7 +161,7 @@
                     <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
                       data-id="{{product.id}}"  
                       data-title="{{product.title}}"
-                      data-currency="{{product.currency}}"
+                      data-currency="{{currency_symbol}}"
                       data-price="{{product.price}}"
                       data-image="{{product.images.all.0.image.url}}"
                     >
@@ -200,8 +200,8 @@
 
                 <!-- Price -->
                 <div class="font-weight-bold text-muted">
-                  <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ product.currency }} {{ product.mrp }}</span>
-                  <span class="text-primary">{{ product.currency }} {{ product.price }}</span>
+                  <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ currency_symbol }} {{ product.mrp }}</span>
+                  <span class="text-primary">{{ currency_symbol }} {{ product.price }}</span>
                 </div>
 
                 {% if product.inventory and product.inventory.type == "limited" and product.inventory.available == 0 %}
@@ -217,7 +217,7 @@
                       <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
                         data-id="{{product.id}}"  
                         data-title="{{product.title}}"
-                        data-currency="{{product.currency}}"
+                        data-currency="{{currency_symbol}}"
                         data-price="{{product.price}}"
                         data-image="{{product.images.all.0.image.url}}"
                       >
@@ -243,7 +243,7 @@
                   <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
                     data-id="{{product.id}}"  
                     data-title="{{product.title}}"
-                    data-currency="{{product.currency}}"
+                    data-currency="{{currency_symbol}}"
                     data-price="{{product.price}}"
                     data-image="{{product.images.all.0.image.url}}"
                   >

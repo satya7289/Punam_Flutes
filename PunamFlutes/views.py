@@ -10,6 +10,7 @@ from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib import messages
+from django.conf import settings
 
 from category.models import Category
 from cart.models import Cart
@@ -40,7 +41,6 @@ class HomePageView(View):
             price_list = get_price_of_product(request,product)
             product.price = price_list['price']
             product.mrp = price_list['MRP']
-            product.currency = price_list['currency']
 
         # Get the category images
         category_images = Category.objects.filter(
