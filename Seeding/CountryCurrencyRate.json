@@ -1,6 +1,6 @@
 [
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 2,
       "fields": {
          "country": "Afghanistan",
@@ -14,7 +14,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 50,
       "fields": {
          "country": "Akrotiri and Dhekelia",
@@ -28,7 +28,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 3,
       "fields": {
          "country": "Albania",
@@ -42,7 +42,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 45,
       "fields": {
          "country": "Algeria",
@@ -56,7 +56,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 51,
       "fields": {
          "country": "Andorra",
@@ -70,7 +70,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 7,
       "fields": {
          "country": "Angola",
@@ -84,7 +84,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 206,
       "fields": {
          "country": "Anguilla",
@@ -98,7 +98,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 207,
       "fields": {
          "country": "Antigua and Barbuda",
@@ -112,7 +112,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 8,
       "fields": {
          "country": "Argentina",
@@ -126,7 +126,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 4,
       "fields": {
          "country": "Armenia",
@@ -140,7 +140,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 11,
       "fields": {
          "country": "Aruba",
@@ -154,7 +154,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 163,
       "fields": {
          "country": "Ascension Island",
@@ -168,7 +168,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 9,
       "fields": {
          "country": "Australia",
@@ -182,7 +182,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 52,
       "fields": {
          "country": "Austria",
@@ -196,7 +196,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 12,
       "fields": {
          "country": "Azerbaijan",
@@ -210,7 +210,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 23,
       "fields": {
          "country": "Bahamas, The",
@@ -224,7 +224,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 17,
       "fields": {
          "country": "Bahrain",
@@ -238,7 +238,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 15,
       "fields": {
          "country": "Bangladesh",
@@ -252,7 +252,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 14,
       "fields": {
          "country": "Barbados",
@@ -266,7 +266,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 26,
       "fields": {
          "country": "Belarus",
@@ -280,7 +280,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 53,
       "fields": {
          "country": "Belgium",
@@ -294,7 +294,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 27,
       "fields": {
          "country": "Belize",
@@ -308,7 +308,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 214,
       "fields": {
          "country": "Benin",
@@ -322,7 +322,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 19,
       "fields": {
          "country": "Bermuda",
@@ -336,7 +336,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 24,
       "fields": {
          "country": "Bhutan",
@@ -350,7 +350,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 21,
       "fields": {
          "country": "Bolivia",
@@ -364,7 +364,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 182,
       "fields": {
          "country": "Bonaire",
@@ -378,7 +378,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 13,
       "fields": {
          "country": "Bosnia and Herzegovina",
@@ -392,7 +392,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 25,
       "fields": {
          "country": "Botswana",
@@ -406,7 +406,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 22,
       "fields": {
          "country": "Brazil",
@@ -420,7 +420,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 183,
       "fields": {
          "country": "British Indian Ocean Territory",
@@ -434,7 +434,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 184,
       "fields": {
          "country": "British Virgin Islands",
@@ -448,7 +448,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 20,
       "fields": {
          "country": "Brunei",
@@ -462,7 +462,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 16,
       "fields": {
          "country": "Bulgaria",
@@ -476,7 +476,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 215,
       "fields": {
          "country": "Burkina Faso",
@@ -490,7 +490,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 18,
       "fields": {
          "country": "Burundi",
@@ -504,7 +504,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 108,
       "fields": {
          "country": "Cambodia",
@@ -518,7 +518,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 200,
       "fields": {
          "country": "Cameroon",
@@ -532,7 +532,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 28,
       "fields": {
          "country": "Canada",
@@ -546,7 +546,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 38,
       "fields": {
          "country": "Cape Verde",
@@ -560,7 +560,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 113,
       "fields": {
          "country": "Cayman Islands",
@@ -574,7 +574,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 201,
       "fields": {
          "country": "Central African Republic",
@@ -588,7 +588,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 202,
       "fields": {
          "country": "Chad",
@@ -602,7 +602,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 32,
       "fields": {
          "country": "Chile",
@@ -616,7 +616,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 34,
       "fields": {
          "country": "China",
@@ -630,7 +630,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 33,
       "fields": {
          "country": "China",
@@ -644,7 +644,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 35,
       "fields": {
          "country": "Colombia",
@@ -658,7 +658,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 109,
       "fields": {
          "country": "Comoros",
@@ -672,7 +672,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 29,
       "fields": {
          "country": "Congo, Democratic Republic of the",
@@ -686,7 +686,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 203,
       "fields": {
          "country": "Congo, Republic of the",
@@ -700,7 +700,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 36,
       "fields": {
          "country": "Costa Rica",
@@ -714,7 +714,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 91,
       "fields": {
          "country": "Croatia",
@@ -728,7 +728,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 37,
       "fields": {
          "country": "Cuba",
@@ -742,7 +742,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 5,
       "fields": {
          "country": "Curaçao",
@@ -756,7 +756,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 54,
       "fields": {
          "country": "Cyprus",
@@ -770,7 +770,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 39,
       "fields": {
          "country": "Czech Republic",
@@ -784,7 +784,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 216,
       "fields": {
          "country": "Côte d'Ivoire",
@@ -798,7 +798,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 41,
       "fields": {
          "country": "Denmark",
@@ -812,7 +812,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 40,
       "fields": {
          "country": "Djibouti",
@@ -826,7 +826,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 208,
       "fields": {
          "country": "Dominica",
@@ -840,7 +840,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 44,
       "fields": {
          "country": "Dominican Republic",
@@ -854,7 +854,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 185,
       "fields": {
          "country": "East Timor",
@@ -868,7 +868,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 186,
       "fields": {
          "country": "Ecuador",
@@ -882,7 +882,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 47,
       "fields": {
          "country": "Egypt",
@@ -896,7 +896,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 187,
       "fields": {
          "country": "El Salvador",
@@ -910,7 +910,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 204,
       "fields": {
          "country": "Equatorial Guinea",
@@ -924,7 +924,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 48,
       "fields": {
          "country": "Eritrea",
@@ -938,7 +938,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 55,
       "fields": {
          "country": "Estonia",
@@ -952,7 +952,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 169,
       "fields": {
          "country": "Eswatini",
@@ -966,7 +966,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 49,
       "fields": {
          "country": "Ethiopia",
@@ -980,7 +980,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 78,
       "fields": {
          "country": "Falkland Islands",
@@ -994,7 +994,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 77,
       "fields": {
          "country": "Falkland Islands",
@@ -1008,7 +1008,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 42,
       "fields": {
          "country": "Faroe Islands",
@@ -1022,7 +1022,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 76,
       "fields": {
          "country": "Fiji",
@@ -1036,7 +1036,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 56,
       "fields": {
          "country": "Finland",
@@ -1050,7 +1050,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 57,
       "fields": {
          "country": "France",
@@ -1064,7 +1064,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 222,
       "fields": {
          "country": "French Polynesia",
@@ -1078,7 +1078,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 205,
       "fields": {
          "country": "Gabon",
@@ -1092,7 +1092,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 85,
       "fields": {
          "country": "Gambia, The",
@@ -1106,7 +1106,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 80,
       "fields": {
          "country": "Georgia",
@@ -1120,7 +1120,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 81,
       "fields": {
          "country": "Georgia",
@@ -1134,7 +1134,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 58,
       "fields": {
          "country": "Germany",
@@ -1148,7 +1148,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 83,
       "fields": {
          "country": "Ghana",
@@ -1162,7 +1162,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 84,
       "fields": {
          "country": "Gibraltar",
@@ -1176,7 +1176,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 59,
       "fields": {
          "country": "Greece",
@@ -1190,7 +1190,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 43,
       "fields": {
          "country": "Greenland",
@@ -1204,7 +1204,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 209,
       "fields": {
          "country": "Grenada",
@@ -1218,7 +1218,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 87,
       "fields": {
          "country": "Guatemala",
@@ -1232,7 +1232,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 82,
       "fields": {
          "country": "Guernsey",
@@ -1246,7 +1246,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 86,
       "fields": {
          "country": "Guinea",
@@ -1260,7 +1260,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 217,
       "fields": {
          "country": "Guinea-Bissau",
@@ -1274,7 +1274,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 88,
       "fields": {
          "country": "Guyana",
@@ -1288,7 +1288,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 92,
       "fields": {
          "country": "Haiti",
@@ -1302,7 +1302,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 90,
       "fields": {
          "country": "Honduras",
@@ -1316,7 +1316,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 89,
       "fields": {
          "country": "Hong Kong",
@@ -1330,7 +1330,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 93,
       "fields": {
          "country": "Hungary",
@@ -1344,7 +1344,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 101,
       "fields": {
          "country": "Iceland",
@@ -1358,7 +1358,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 98,
       "fields": {
          "country": "India",
@@ -1372,7 +1372,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 94,
       "fields": {
          "country": "Indonesia",
@@ -1386,7 +1386,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 100,
       "fields": {
          "country": "Iran",
@@ -1400,7 +1400,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 99,
       "fields": {
          "country": "Iraq",
@@ -1414,7 +1414,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 60,
       "fields": {
          "country": "Ireland",
@@ -1428,7 +1428,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 97,
       "fields": {
          "country": "Isle of Man",
@@ -1442,7 +1442,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 95,
       "fields": {
          "country": "Israel",
@@ -1456,7 +1456,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 61,
       "fields": {
          "country": "Italy",
@@ -1470,7 +1470,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 103,
       "fields": {
          "country": "Jamaica",
@@ -1484,7 +1484,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 105,
       "fields": {
          "country": "Japan",
@@ -1498,7 +1498,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 102,
       "fields": {
          "country": "Jersey",
@@ -1512,7 +1512,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 104,
       "fields": {
          "country": "Jordan",
@@ -1526,7 +1526,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 114,
       "fields": {
          "country": "Kazakhstan",
@@ -1540,7 +1540,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 106,
       "fields": {
          "country": "Kenya",
@@ -1554,7 +1554,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 110,
       "fields": {
          "country": "Korea, North",
@@ -1568,7 +1568,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 111,
       "fields": {
          "country": "Korea, South",
@@ -1582,7 +1582,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 62,
       "fields": {
          "country": "Kosovo",
@@ -1596,7 +1596,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 112,
       "fields": {
          "country": "Kuwait",
@@ -1610,7 +1610,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 107,
       "fields": {
          "country": "Kyrgyzstan",
@@ -1624,7 +1624,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 115,
       "fields": {
          "country": "Laos",
@@ -1638,7 +1638,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 63,
       "fields": {
          "country": "Latvia",
@@ -1652,7 +1652,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 116,
       "fields": {
          "country": "Lebanon",
@@ -1666,7 +1666,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 119,
       "fields": {
          "country": "Lesotho",
@@ -1680,7 +1680,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 118,
       "fields": {
          "country": "Liberia",
@@ -1694,7 +1694,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 120,
       "fields": {
          "country": "Libya",
@@ -1708,7 +1708,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 30,
       "fields": {
          "country": "Liechtenstein",
@@ -1722,7 +1722,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 64,
       "fields": {
          "country": "Lithuania",
@@ -1736,7 +1736,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 65,
       "fields": {
          "country": "Luxembourg",
@@ -1750,7 +1750,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 127,
       "fields": {
          "country": "Macau",
@@ -1764,7 +1764,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 123,
       "fields": {
          "country": "Madagascar",
@@ -1778,7 +1778,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 130,
       "fields": {
          "country": "Malawi",
@@ -1792,7 +1792,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 132,
       "fields": {
          "country": "Malaysia",
@@ -1806,7 +1806,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 129,
       "fields": {
          "country": "Maldives",
@@ -1820,7 +1820,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 218,
       "fields": {
          "country": "Mali",
@@ -1834,7 +1834,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 66,
       "fields": {
          "country": "Malta",
@@ -1848,7 +1848,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 188,
       "fields": {
          "country": "Marshall Islands",
@@ -1862,7 +1862,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 128,
       "fields": {
          "country": "Mauritius",
@@ -1876,7 +1876,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 131,
       "fields": {
          "country": "Mexico",
@@ -1890,7 +1890,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 189,
       "fields": {
          "country": "Micronesia",
@@ -1904,7 +1904,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 122,
       "fields": {
          "country": "Moldova",
@@ -1918,7 +1918,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 67,
       "fields": {
          "country": "Monaco",
@@ -1932,7 +1932,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 126,
       "fields": {
          "country": "Mongolia",
@@ -1946,7 +1946,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 68,
       "fields": {
          "country": "Montenegro",
@@ -1960,7 +1960,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 210,
       "fields": {
          "country": "Montserrat",
@@ -1974,7 +1974,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 121,
       "fields": {
          "country": "Morocco",
@@ -1988,7 +1988,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 133,
       "fields": {
          "country": "Mozambique",
@@ -2002,7 +2002,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 125,
       "fields": {
          "country": "Myanmar",
@@ -2016,7 +2016,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 134,
       "fields": {
          "country": "Namibia",
@@ -2030,7 +2030,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 10,
       "fields": {
          "country": "Nauru",
@@ -2044,7 +2044,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 138,
       "fields": {
          "country": "Nepal",
@@ -2058,7 +2058,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 69,
       "fields": {
          "country": "Netherlands[H]",
@@ -2072,7 +2072,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 223,
       "fields": {
          "country": "New Caledonia",
@@ -2086,7 +2086,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 139,
       "fields": {
          "country": "New Zealand",
@@ -2100,7 +2100,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 136,
       "fields": {
          "country": "Nicaragua",
@@ -2114,7 +2114,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 219,
       "fields": {
          "country": "Niger",
@@ -2128,7 +2128,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 135,
       "fields": {
          "country": "Nigeria",
@@ -2142,7 +2142,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 140,
       "fields": {
          "country": "Niue",
@@ -2156,7 +2156,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 124,
       "fields": {
          "country": "North Macedonia",
@@ -2170,7 +2170,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 175,
       "fields": {
          "country": "Northern Cyprus",
@@ -2184,7 +2184,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 137,
       "fields": {
          "country": "Norway",
@@ -2198,7 +2198,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 142,
       "fields": {
          "country": "Oman",
@@ -2212,7 +2212,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 147,
       "fields": {
          "country": "Pakistan",
@@ -2226,7 +2226,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 190,
       "fields": {
          "country": "Palau",
@@ -2240,7 +2240,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 96,
       "fields": {
          "country": "Palestine",
@@ -2254,7 +2254,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 143,
       "fields": {
          "country": "Panama",
@@ -2268,7 +2268,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 145,
       "fields": {
          "country": "Papua New Guinea",
@@ -2282,7 +2282,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 149,
       "fields": {
          "country": "Paraguay",
@@ -2296,7 +2296,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 144,
       "fields": {
          "country": "Peru",
@@ -2310,7 +2310,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 146,
       "fields": {
          "country": "Philippines",
@@ -2324,7 +2324,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 141,
       "fields": {
          "country": "Pitcairn Islands",
@@ -2338,7 +2338,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 148,
       "fields": {
          "country": "Poland",
@@ -2352,7 +2352,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 70,
       "fields": {
          "country": "Portugal",
@@ -2366,7 +2366,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 150,
       "fields": {
          "country": "Qatar",
@@ -2380,7 +2380,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 151,
       "fields": {
          "country": "Romania",
@@ -2394,7 +2394,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 153,
       "fields": {
          "country": "Russia",
@@ -2408,7 +2408,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 155,
       "fields": {
          "country": "Rwanda",
@@ -2422,7 +2422,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 191,
       "fields": {
          "country": "Saba",
@@ -2436,7 +2436,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 46,
       "fields": {
          "country": "Sahrawi Republic[N]",
@@ -2450,7 +2450,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 164,
       "fields": {
          "country": "Saint Helena",
@@ -2464,7 +2464,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 211,
       "fields": {
          "country": "Saint Kitts and Nevis",
@@ -2478,7 +2478,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 212,
       "fields": {
          "country": "Saint Lucia",
@@ -2492,7 +2492,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 213,
       "fields": {
          "country": "Saint Vincent and the Grenadines",
@@ -2506,7 +2506,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 199,
       "fields": {
          "country": "Samoa",
@@ -2520,7 +2520,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 71,
       "fields": {
          "country": "San Marino",
@@ -2534,7 +2534,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 156,
       "fields": {
          "country": "Saudi Arabia",
@@ -2548,7 +2548,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 220,
       "fields": {
          "country": "Senegal",
@@ -2562,7 +2562,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 152,
       "fields": {
          "country": "Serbia",
@@ -2576,7 +2576,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 158,
       "fields": {
          "country": "Seychelles",
@@ -2590,7 +2590,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 165,
       "fields": {
          "country": "Sierra Leone",
@@ -2604,7 +2604,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 162,
       "fields": {
          "country": "Singapore",
@@ -2618,7 +2618,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 192,
       "fields": {
          "country": "Sint Eustatius",
@@ -2632,7 +2632,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 6,
       "fields": {
          "country": "Sint Maarten",
@@ -2646,7 +2646,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 72,
       "fields": {
          "country": "Slovakia",
@@ -2660,7 +2660,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 73,
       "fields": {
          "country": "Slovenia",
@@ -2674,7 +2674,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 157,
       "fields": {
          "country": "Solomon Islands",
@@ -2688,7 +2688,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 166,
       "fields": {
          "country": "Somalia",
@@ -2702,7 +2702,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 227,
       "fields": {
          "country": "South Africa",
@@ -2716,7 +2716,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 154,
       "fields": {
          "country": "South Ossetia",
@@ -2730,7 +2730,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 74,
       "fields": {
          "country": "Spain",
@@ -2744,7 +2744,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 117,
       "fields": {
          "country": "Sri Lanka",
@@ -2758,7 +2758,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 159,
       "fields": {
          "country": "Sudan",
@@ -2772,7 +2772,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 167,
       "fields": {
          "country": "Suriname",
@@ -2786,7 +2786,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 161,
       "fields": {
          "country": "Sweden",
@@ -2800,7 +2800,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 160,
       "fields": {
          "country": "Sweden",
@@ -2814,7 +2814,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 31,
       "fields": {
          "country": "Switzerland",
@@ -2828,7 +2828,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 168,
       "fields": {
          "country": "Syria",
@@ -2842,7 +2842,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 178,
       "fields": {
          "country": "Taiwan",
@@ -2856,7 +2856,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 171,
       "fields": {
          "country": "Tajikistan",
@@ -2870,7 +2870,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 179,
       "fields": {
          "country": "Tanzania",
@@ -2884,7 +2884,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 170,
       "fields": {
          "country": "Thailand",
@@ -2898,7 +2898,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 221,
       "fields": {
          "country": "Togo",
@@ -2912,7 +2912,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 174,
       "fields": {
          "country": "Tonga",
@@ -2926,7 +2926,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 177,
       "fields": {
          "country": "Trinidad and Tobago",
@@ -2940,7 +2940,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 173,
       "fields": {
          "country": "Tunisia",
@@ -2954,7 +2954,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 176,
       "fields": {
          "country": "Turkey",
@@ -2968,7 +2968,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 172,
       "fields": {
          "country": "Turkmenistan",
@@ -2982,7 +2982,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 193,
       "fields": {
          "country": "Turks and Caicos Islands",
@@ -2996,7 +2996,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 181,
       "fields": {
          "country": "Uganda",
@@ -3010,7 +3010,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 180,
       "fields": {
          "country": "Ukraine",
@@ -3024,7 +3024,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 1,
       "fields": {
          "country": "United Arab Emirates",
@@ -3038,7 +3038,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 79,
       "fields": {
          "country": "United Kingdom",
@@ -3052,7 +3052,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 194,
       "fields": {
          "country": "United States",
@@ -3066,7 +3066,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 195,
       "fields": {
          "country": "Uruguay",
@@ -3080,7 +3080,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 196,
       "fields": {
          "country": "Uzbekistan",
@@ -3094,7 +3094,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 198,
       "fields": {
          "country": "Vanuatu",
@@ -3108,7 +3108,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 75,
       "fields": {
          "country": "Vatican City",
@@ -3122,7 +3122,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 197,
       "fields": {
          "country": "Vietnam",
@@ -3136,7 +3136,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 224,
       "fields": {
          "country": "Wallis and Futuna",
@@ -3150,7 +3150,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 225,
       "fields": {
          "country": "Yemen",
@@ -3164,7 +3164,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 226,
       "fields": {
          "country": "Yemen",
@@ -3178,7 +3178,7 @@
       }
    },
    {
-      "model": "StaticData.CountryCurrencyRate",
+      "model": "product.CountryCurrencyRate",
       "pk": 228,
       "fields": {
          "country": "Zambia",

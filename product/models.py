@@ -63,6 +63,23 @@ class Inventory(TimeStampedModel):
         return self.product.title if self.product else None
 
 
+class CountryCurrencyRate(TimeStampedModel):
+    country = models.CharField(max_length=1024, blank=True, null=True)
+    alpha_2_code = models.CharField(max_length=20, blank=True, null=True)
+    alpha_3_code = models.CharField(max_length=20, blank=True, null=True)
+    numeric_code = models.CharField(max_length=20, blank=True, null=True)
+    currency = models.CharField(max_length=1024, blank=True, null=True)
+    currency_code = models.CharField(max_length=20, blank=True, null=True)
+    currency_symbol = models.CharField(max_length=100, blank=True, null=True)
+    currency_rate = models.FloatField(blank=True, null=True)
+    base = models.CharField(max_length=20, blank=True, null=True)
+
+    def __str__(self):
+        return self.country
+    
+    class Meta:
+        ordering = ("country",)
+
 # class Product(models.Model):
 #     title = models.CharField(max_length=200, default='Flute')
 #     search_tags = models.CharField(max_length=200)

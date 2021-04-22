@@ -1,6 +1,6 @@
 import requests
 from django.conf import settings
-from StaticData.models import CountryCurrencyRate
+from product.models import CountryCurrencyRate
 
 def request_to_ip2c(client_ip):
     country = 'India'

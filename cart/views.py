@@ -52,7 +52,6 @@ class CartView(View):
         context = {
             'cart': cart,
             'products': product_details,
-            'currency': currency,
             'range': [i+1 for i in range(10)]
         }
         return render(request, self.template_name, context)
@@ -324,7 +323,6 @@ class Checkout(View):
         context = {
             'cart': cart,
             'orders': product_details,
-            'currency': currency,
             'country': country,
             'order': order,
             'total_price': totalPrice,
@@ -627,7 +625,6 @@ def sendInvoice(request, orderId):
             'total': order.total,
             'shipping_address': order.shipping_address,
             'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.shipping_address.id).content)['totalTax'],
-            'currency': currency
         }
         # return render(request, 'invoice.html', context=data)
         if user.email and user.email_verified:

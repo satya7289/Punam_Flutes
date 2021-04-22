@@ -7,7 +7,8 @@ from .models import (
     Product, 
     CountryCurrency, 
     ProductImage, 
-    Inventory
+    Inventory,
+    CountryCurrencyRate
 )
 from category.models import Category
 
@@ -110,7 +111,15 @@ class InventoryAdmin(admin.ModelAdmin):
         url = reverse('admin:%s_%s_change' % (obj.product._meta.app_label,  obj.product._meta.model_name),  args=[obj.product.id] )
         return format_html('<a href="{}">{} </a>', url, obj.product)
 
+
+class CountryCurrencyRateAdmin(admin.ModelAdmin):
+    change_list_template = 'CountryCurrencyRate/change_list.html'
+    search_fields = ('country', 'currency', 'currency_symbol', 'currency_code', 'alpha_2_code', 'alpha_3_code')
+    list_display = ('__str__', 'country', 'alpha_2_code', 'alpha_3_code', 'numeric_code', 'currency', 'currency_code', 'currency_symbol', 'currency_rate', 'base', 'update_at')
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CountryCurrency, CountryCurrencyAdmin)
 admin.site.register(ProductImage)
 admin.site.register(Inventory, InventoryAdmin)
+admin.site.register(CountryCurrencyRate, CountryCurrencyRateAdmin)

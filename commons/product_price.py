@@ -1,7 +1,7 @@
 from product.models import Product
 from django.conf import settings
 from commons.ip_detect import request_to_geoplugin, get_ip_detail
-from StaticData.models import CountryCurrencyRate
+from product.models import CountryCurrencyRate
 
 def get_price_of_product(request, product, country=None):
     ###############

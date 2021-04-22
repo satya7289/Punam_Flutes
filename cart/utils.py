@@ -110,7 +110,6 @@ def placed_order_notification(request, orderId):
             'total': order.total,
             'shipping_address': order.shipping_address,
             'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.shipping_address.id).content)['totalTax'],
-            'currency': currency
         }
         # return render(request, 'invoice.html', context=data)
         if user.email and user.email_verified:
