@@ -3,9 +3,17 @@ from django.conf import settings
 from product.models import CountryCurrencyRate
 
 def request_to_ip2c(client_ip):
-    country = 'India'
-    country_code_2 = 'IN'
-    country_code_3 = 'IND'
+    if client_ip!='0.0.0.0' and client_ip!='127.0.0.1':
+        url = 'https://ip2c.org/106.67.4.166'
+        req = requests(url)
+        req = req.text.split(";")
+        country_code_2 = req[1]
+        country_code_3 = req[2]
+        country = req[3]
+    else:
+        country = 'India'
+        country_code_2 = 'IN'
+        country_code_3 = 'IND'
     return country_code_2, country_code_3, country
 
 def set_country_data(request):
