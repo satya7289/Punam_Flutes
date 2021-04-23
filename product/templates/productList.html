@@ -105,7 +105,7 @@
                     <li class="list-styled-item">
                       {% for cat in categories %}
                       <div class="custom-control custom-checkbox mb-3">
-                          <a href="{% url 'product:product_list' category_id=cat.id %}">{{cat.display_name}}</a>
+                          <a href="{% url 'product_list' category_id=cat.id %}">{{cat.display_name}}</a>
                       </div>
                       {% endfor %}
                     </li>
@@ -130,7 +130,7 @@
                 <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
               </li>
               <li class="breadcrumb-item active">
-                <a class="text-gray-400" href="{% url 'product:product_list' category_id=category.id %}">{{ category.display_name }} </a>
+                <a class="text-gray-400" href="{% url 'product_list' category_id=category.id %}">{{ category.display_name }} </a>
                 
               </li>
             </ol>
@@ -150,7 +150,7 @@
               <div class="card-img">
 
                 <!-- Image -->
-                <a class="card-img-hover" href="{% url 'product:product_detail' product_id=product.id category_id=category.id %}">
+                <a class="card-img-hover" href="{% url 'product_detail' product_id=product.id category_id=category.id %}">
                   <img class="card-img-top card-img-back" src="{{ product.images.all.0.image.url }}" alt="...">
                   <img class="card-img-top card-img-front" src="{{ product.images.all.1.image.url }}" alt="...">
                 </a>
@@ -348,7 +348,7 @@ function viewProduct(e){
   let productImage = $(e).data('image');
 
   $('#modalProduct-image').prop('src',productImage);
-  $('#modalProduct-info').prop('href', "{% url 'product:product_detail' category_id=category.id product_id=0 %}".replace('0', productId));
+  $('#modalProduct-info').prop('href', "{% url 'product_detail' category_id=category.id product_id=0 %}".replace('0', productId));
   $('#modalProduct-title').html(productTitle);
   $('#modalProduct-price').html(productCurrency+productPrice)
   $('#modalProduct-id').val(productId);

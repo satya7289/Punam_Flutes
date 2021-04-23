@@ -194,6 +194,9 @@ PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
 RAZORPAY_KEY=config('RAZORPAY_KEY')
 RAZORPAY_SECRET=config('RAZORPAY_SECRET')
 
+# Fixer API
+FIXER_API_KEY=config('FIXER_API_KEY', default='')
+
 DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='India')
 DEFAULT_CURRENCY = config('DEFAULT_CURRENCY', default='INR')
 DEFAULT_SYMBOL = config('DEFAULT_SYMBOL', default='₹')

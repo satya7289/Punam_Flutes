@@ -16,7 +16,7 @@ def extras(request):
     # categories_product = []
     # for cat in categories[:3]:
     #     cat_product = cat.product_set.all()[:5]
-    #     # for product in cat_product:
+    #     # for product in cat_
     #     #     price_list = get_price_of_product(request,product)
     #     #     product.price = price_list['price']
     #     #     product.mrp = price_list['MRP']

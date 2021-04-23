@@ -133,7 +133,7 @@
         <ul class="list-group list-group-lg list-group-flush-y list-group-flush-x mb-7">
           {% for order in orders %}
           <li class="list-group-item">
-            <a href="{% url 'product:product_detail' product_id=order.product.id category_id=order.product.category.all.0.id %}">
+            <a href="{% url 'product_detail' product_id=order.product.id category_id=order.product.category.all.0.id %}">
               <div class="row align-items-center">
                 <div class="col-4">
 

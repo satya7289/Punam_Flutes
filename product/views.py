@@ -1,12 +1,17 @@
+import requests, json
 from django.shortcuts import render
 from django.views.generic import View
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
+from django.contrib.admin.views.decorators import staff_member_required
+
 from django.conf import settings
 
-from product.models import Product, CountryCurrency
+from product.models import Product, CountryCurrency, CountryCurrencyRate
 from category.models import Category
 
 from commons.ip_detect import get_ip_detail, request_to_geoplugin
@@ -75,3 +80,19 @@ class ProductDetailView(View):
             'range': [i+1 for i in range(5)]
         }
         return render(request, self.template_name, context)
+
+
+@staff_member_required
+def SyncCurrencyRate(request):
+    # Update currency rate using fixer API
+    if settings.FIXER_API_KEY and settings.FIXER_API_KEY !='':
+        url = 'http://data.fixer.io/api/latest?access_key='+settings.FIXER_API_KEY
+        req = requests.get(url)
+        if req.status_code == 200 and req.json().get('rates'):
+            for currency_code in req.json().get('rates'):
+                currency_rate = req.json().get('rates')[currency_code]
+                countryCurrencyRate = CountryCurrencyRate.objects.filter(
+                    currency_code=currency_code
+                ).update(currency_rate=currency_rate)
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+

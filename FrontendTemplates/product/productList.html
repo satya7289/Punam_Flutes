@@ -833,7 +833,7 @@
               <div class="card-img">
 
                 <!-- Image -->
-                <a class="card-img-hover" href="{% url 'product:product_detail' product_id=product.id category_id=category.id %}">
+                <a class="card-img-hover" href="{% url 'product_detail' product_id=product.id category_id=category.id %}">
                   <img class="card-img-top card-img-back" src="{{ product.images.all.0.image.url }}" alt="...">
                   <img class="card-img-top card-img-front" src="{{ product.images.all.1.image.url }}" alt="...">
                 </a>

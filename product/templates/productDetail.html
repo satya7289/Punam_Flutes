@@ -15,7 +15,7 @@
             <a class="text-gray-400" href="{% url 'dashboard' %}">Home</a>
           </li>
           <li class="breadcrumb-item">
-            <a class="text-gray-400" href="{% url 'product:product_list' category_id=category.id %}">{{ category.display_name }}</a>
+            <a class="text-gray-400" href="{% url 'product_list' category_id=category.id %}">{{ category.display_name }}</a>
           </li>
           <li class="breadcrumb-item active">
             {{product.title}}
