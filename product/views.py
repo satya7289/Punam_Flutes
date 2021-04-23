@@ -8,6 +8,7 @@ from django.core.paginator import PageNotAnInteger
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.contrib.admin.views.decorators import staff_member_required
+from django.utils import timezone
 
 from django.conf import settings
 
@@ -93,6 +94,6 @@ def SyncCurrencyRate(request):
                 currency_rate = req.json().get('rates')[currency_code]
                 countryCurrencyRate = CountryCurrencyRate.objects.filter(
                     currency_code=currency_code
-                ).update(currency_rate=currency_rate)
+                ).update(currency_rate=currency_rate, update_at=timezone.now())
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
