@@ -26,7 +26,16 @@ class ProductAdminForm(forms.ModelForm):
         model = Product
         fields = '__all__'
 
+class CountryCurrencyForm(forms.ModelForm):
+    currency_code = CountryCurrencyRate.objects.all().values('currency_code').distinct()
+    currency_code_choice = tuple(map(lambda x: (x['currency_code'], x['currency_code']), currency_code))
+    currency = forms.ChoiceField(choices=currency_code_choice, required=True)
+    class Meta:
+        model = CountryCurrency
+        fields = '__all__'
+
 class CountryCurrencyInLine(admin.TabularInline):
+    form = CountryCurrencyForm
     model = CountryCurrency
     extra = 1
     min_num = 1
