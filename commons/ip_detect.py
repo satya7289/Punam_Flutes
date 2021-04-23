@@ -5,7 +5,7 @@ from product.models import CountryCurrencyRate
 def request_to_ip2c(client_ip):
     if client_ip!='0.0.0.0' and client_ip!='127.0.0.1':
         url = 'https://ip2c.org/106.67.4.166'
-        req = requests(url)
+        req = requests.get(url)
         req = req.text.split(";")
         country_code_2 = req[1]
         country_code_3 = req[2]
