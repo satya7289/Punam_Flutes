@@ -70,30 +70,39 @@
     <!-- Category Images -->
     {% if category_images %}
     <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="mt-7 text-center">Top Category</h2>
+          </div>
+        </div>
+      </div>
       <div class="container my-10">
         <div class="row CAT__IMAGES">
           {% for cat_image in category_images %}
 
               <div class="col-12 col-md-4">
 
+                <a href="{% url 'product_list' category_id=cat_image.id %}" style="color: black;">
                 <!-- Card -->
-                <div class="card card-lg">
-                  
-                  <!-- Image -->
-                  <img class="card-img-top" src="{{ cat_image.image.url }}" alt="{{ cat_image.alt }}">
+                  <div class="card card-lg">
+                    
+                    <!-- Image -->
+                    <img class="card-img-top" src="{{ cat_image.image.url }}" alt="{{ cat_image.alt }}">
 
-                  <!-- Body -->
-                  <div class="card-body position-relative mx-6 mx-lg-11 mt-n11 bg-white text-center">
+                    <!-- Body -->
+                    <div class="card-body position-relative mx-6 mx-lg-11 mt-n11 bg-white text-center">
 
-                    <!-- Heading -->
-                    <h4 class="mb-0">{{ cat_image.display_name }}</h4>
+                      <!-- Heading -->
+                      <h4 class="mb-0">{{ cat_image.display_name }}</h4>
 
-                    <!-- Link -->
-                    <a class="btn btn-link stretched-link px-0 text-reset" href="{% url 'product_list' category_id=cat_image.id %}">
-                      Shop Now <i class="fe fe-arrow-right ml-2"></i>
-                    </a>
+                      <!-- Link -->
+                      <div class="btn btn-link stretched-link px-0 text-reset" href="!#">
+                        Shop Now <i class="fe fe-arrow-right ml-2"></i>
+                      </div>
 
-                  </div>
+                    </div>
+                  </a>
 
                 </div>
 
