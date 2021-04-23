@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'product.middleware.ProductPricingMiddleware',
 ]
 
 ROOT_URLCONF = 'PunamFlutes.urls'
@@ -196,9 +197,12 @@ RAZORPAY_SECRET=config('RAZORPAY_SECRET')
 DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='India')
 DEFAULT_CURRENCY = config('DEFAULT_CURRENCY', default='INR')
 DEFAULT_SYMBOL = config('DEFAULT_SYMBOL', default='₹')
+DEFAULT_CUNTRY_ALPHA_2 = config('DEFAULT_CUNTRY_ALPHA_2', default='IN')
+DEFAULT_CUNTRY_ALPHA_3 = config('DEFAULT_CUNTRY_ALPHA_3', default='IND')
 
 COUNTRY = DEFAULT_COUNTRY
 CURRENCY_CODE = DEFAULT_CURRENCY
 CURRENCY_SYMBOL = DEFAULT_SYMBOL
+IP_BASED_PRICING = config('IP_BASED_PRICING', default=False, cast=bool)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

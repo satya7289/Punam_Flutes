@@ -9,9 +9,6 @@ from commons.product_price import get_price_of_product, get_ip_detail
 from commons.ip_detect import request_to_geoplugin, get_ip_detail, set_country_data
 
 def extras(request):
-    # set the country to setting based on IP
-    set_country_data(request)
-
     # Get all the categories
     categories = Category.objects.filter(publish=True)
     
