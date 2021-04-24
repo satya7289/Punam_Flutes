@@ -44,6 +44,7 @@ class Order(TimeStampedModel):
     coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, blank=True, null=True)
     customization_request = models.CharField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=50, choices=OrderStatus ,blank=True, null=True)
+    courier_tracker = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return 'order#'+ str(self.id)

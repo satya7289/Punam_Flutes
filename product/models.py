@@ -39,7 +39,7 @@ class CountryCurrency(TimeStampedModel):
     country = models.CharField(
         max_length=100, blank=True, choices=country, null=True, default='')
     currency = models.CharField(
-        max_length=30, blank=True, choices=currency, null=True, default='')
+        max_length=30, blank=True, null=True)
     MRP = models.DecimalField(
         decimal_places=2, max_digits=20, default=0.0)
     selling_price = models.DecimalField(
@@ -51,7 +51,7 @@ class CountryCurrency(TimeStampedModel):
         verbose_name_plural = "Country Currencies"
     
     def __str__(self):
-        return self.currency + ' ' + self.country
+        return self.country
 
 class Inventory(TimeStampedModel):
     product = models.OneToOneField(Product, on_delete=models.CASCADE)

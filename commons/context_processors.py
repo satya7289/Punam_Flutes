@@ -4,6 +4,7 @@ from django.conf import settings
 from category.models import Category
 from cart.models import Cart
 from product.models import Product
+from StaticData.models import Support, Store
 
 from commons.product_price import get_price_of_product, get_ip_detail
 from commons.ip_detect import request_to_geoplugin, get_ip_detail, set_country_data
@@ -11,23 +12,8 @@ from commons.ip_detect import request_to_geoplugin, get_ip_detail, set_country_d
 def extras(request):
     # Get all the categories
     categories = Category.objects.filter(publish=True)
-    
-    # # Top 3 categories select 5 products
-    # categories_product = []
-    # for cat in categories[:3]:
-    #     cat_product = cat.product_set.all()[:5]
-    #     # for product in cat_
-    #     #     price_list = get_price_of_product(request,product)
-    #     #     product.price = price_list['price']
-    #     #     product.mrp = price_list['MRP']
-    #     #     product.currency = price_list['currency']
-    #     data = {
-    #         'category': cat,
-    #         'products': cat_product
-    #     }
-    #     categories_product.append(data)
+    support = Support.objects.filter(publish=True)
 
-    # Get the logged in user
     try:
         user = request.user    
 
@@ -38,6 +24,7 @@ def extras(request):
 
     context = {
         'categories': categories,
+        'all_support': support,
         'cart_length': cart_length,
         'ip': get_ip_detail(request),
         # 'categories_product': categories_product,

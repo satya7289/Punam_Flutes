@@ -7,24 +7,13 @@ from .views import HomePageView
 
 from .views import (
     contact,
-    wishlist,
     termsCondition,
-    returnPolicy,
-    refundPolicy,
-    indianStore,
-    internationalStore,
 )
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='dashboard'),
     path('contact/', contact, name='contact'),
-    path('wishlist/', wishlist, name='wishlist'),
-    path('terms-and-conditions/', termsCondition, name='termsCondition'),
-    path('return-policy/', returnPolicy, name='returnPolicy'),
-    path('refund-policy/', refundPolicy, name='refundPolicy'),
-    path('indian-store', indianStore, name='indianStore'),
-    path('international-store', internationalStore, name='internationalStore'),
-
+    
     path('flutes_admin/', admin.site.urls),
     path('customer/', include('customer.urls')),
     path('product/', include('product.urls')),
@@ -33,7 +22,7 @@ urlpatterns = [
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('tax/', include('tax_rules.urls')),
     path('coupon/', include('coupon.urls')),
-    path('static-data/', include('StaticData.urls')),
+    path('', include('StaticData.urls')),
 ]
 
 if settings.DEBUG:

@@ -31,128 +31,14 @@
         <p class="text-center text-muted" style="font-size: 1rem;">  If you belong or are located at any other part of India other than Delhi, you can place your order over phone or on our online shop <a href="www.punamflutes.com">www.punamflutes.com</a> , and your order shall be delivered with in 3 to 5 working days. Local courier rates apply.
         </p>
         <div class="list-group">
-            <div id="" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">New Delhi Workshop</h5>
-              </div>
-              
-                <div>
-                    <div> 
-                        <b>Address</b> 
-                            A 58, Jawahar Park 
-                            Deoli road, Khanpur 
-                            New Delhi 110080 
-                            INDIA
-                        
-                        (3.5 KM from Saket Metro Station (yellow line)
-                    </div>
-
-                    <div><b>Mob</b>  +91 8588870611</div>
-                    <div><b>Email</b> 
-                        info@flute.in 
-                        shop@flute.in 
-                    </div>
-               
-                </div>
-            </div>
-    
-            <a id="" href="www.bansuriaustralia.com.au" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Bansuri Shop in Mumbai</h5>
-                </div>
-                <p>Punam Flutes are now available directly in Mumbai where you can play & check it personally with full satisfaction.</p>
-                <div>
-                    <div> 
-                        <div><b>Bhargava's Musik Pvt ltd</b></div>
-                        <div>
-                            <b>Address</b>
-                            4-5, Imperial Plaza, 30th Road,,Bandra west, Mumbai 400050
-                        </div>
-                        <div><b>Tel no</b>  + 91 22 26411842</div>      
-                    </div>
-                    <div>
-                        We accept payments via Cash on Delivery, bank transfer, Credit/Debit card, Net banking and paypal 
-                    </div>
-         
-                </div>
-            </a>
-    
-            <a id="" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Store in Chennai</h5>
-                </div>
-                <p>Punam Flutes are now available directly in Chennai where you can play & check it personally with full satisfaction.</p>
-                <div>
-                    <div> 
-                        <div><b>Saptaswara Musicals </b></div>
-                        <div>
-                            <b>Address</b>
-                            Sri Complex, Opp. Anjaneyar Temple, Near Sanskrit College, <br>
-                            290(Old 165), Royapettah High Road, Mylapore, Chennai 600004
-                        </div>
-                        <div><b>Phone </b>  044 24996498/42146498/24993294</div>      
-                    </div>
-                   <div>
-                        We accept payments via Cash on Delivery, bank transfer, Credit/Debit card, Net banking and paypal 
-                    </div>
-         
-                </div>
-            </a>
-
-            <a id="" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Shop in Rishikesh</h5>
-                </div>
-                <p>
-                    Punam Flutes are now available directly in Rishikesh where you can play & check it personaly with full satisfaction. PANKAJ SUHASH is a fine teacher & professional artist as well.</p>
-                <div>
-                    <div> 
-                        <div><b>
-                            Bansuri shop in Rishikesh </b></div>
-                        <div>
-                            <b>Address</b>
-                                Pankaj Suhash
-
-                                Shivanand Ramesh music school
-
-                                Munni ki reti ,Khara shrot , Rishikesh
-                        </div>
-                        <div><b>Mobile </b> 09897108154  07895424164</div>      
-                    </div>
-                    <div>
-                        We accept payments via Cash on Delivery, bank transfer, Credit/Debit card, Net banking and paypal 
-                    </div>
-         
-                </div>
-            </a>
-
-            <a id="" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Store in Banglore</h5>
-                </div>
-                <p>
-                    We are very happy to announce and inform you all about our endeavor to start an extended store of ours as an "Exclusive Punam Flute Store" at BANGALORE(Karnataka - South India).</p>
-                <div>
-                    <div> 
-                        <div>There has been a growing demand for Hindustani Flutes / Bansuris from South India for a long time and most customers are presently pressing for a store based in Bangalore so that they can check them personally and buy them by physically examining and satisfying themselves with the tuning according to their own BLOWING Styles.</div>
-                        <div>
-                            <b>Address</b>
-                                Mr. Sanjay Kumar R
-
-                                #21/1, 3rd cross, Pillappa layout,
-
-                                Chelikere, Kalyan nagar post, Bangalore 560043
-                        </div>
-                        <div><b>Mobile </b>09341942109  09019404051 </div>      
-                    </div>
-                    <div>
-                        We accept payments via Cash on Delivery, bank transfer, Credit/Debit card, Net banking and paypal 
-                    </div>
-         
-                </div>
-            </a>
-            
-          </div>
+            {% for store in stores %}
+              {% if store.display_name %}
+              <a href="{% url 'indianStore_detail' slug=store.slug %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                {{ store.display_name }}
+              </a>
+              {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </section>
 

@@ -15,7 +15,7 @@ from django.conf import settings
 from category.models import Category
 from cart.models import Cart
 from product.models import Product
-from StaticData.models import SlideShow
+from StaticData.models import SlideShow, Store, Support
 
 from commons.product_price import get_price_of_product, get_ip_detail
 from commons.ip_detect import request_to_geoplugin, get_ip_detail
@@ -73,27 +73,42 @@ def contact(request):
     return render(request, template, context)
 
 def termsCondition(request):
-    context = {}
+    termsCondition = Support.objects.filter(support_type='Terms&Condition').first()
+    context = {
+        'termsCondition': termsCondition
+    }
     template = 'store/terms_and_condition.html'
     return render(request, template, context)
 
 def returnPolicy(request):
-    context = {}
+    returnPolicy = Support.objects.filter(support_type='ReturnPolicy').first()
+    context = {
+        'returnPolicy': returnPolicy
+    }
     template = 'store/return_policy.html'
     return render(request, template, context)
 
 def refundPolicy(request):
-    context = {}
+    refundPolicy = Support.objects.filter(support_type='RefundPolicy').first()
+    context = {
+        'refundPolicy': refundPolicy
+    }
     template = 'store/refund_policy.html'
     return render(request, template, context)
 
 def indianStore(request):
-    context = {}
+    stores = Store.objects.filter(store_type='Indian Stores')
+    context = {
+        'stores': stores
+    }
     template = 'store/indian_store.html'
     return render(request, template, context)
 
 def internationalStore(request):
-    context = {}
+    stores = Store.objects.filter(store_type='International Stores')
+    context = {
+        'stores': stores
+    }
     template = 'store/international_store.html'
     return render(request, template, context)
 

@@ -1,0 +1,52 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<!-- BREADCRUMB -->
+<nav class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb mb-0 font-size-xs text-gray-400">
+          <li class="breadcrumb-item">
+            <a class="text-gray-400" href="index.html">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            {% if store_detail.store_type == 'Indian Stores' %}
+                <a class="text-gray-400" href="{% url 'indianStore' %}"> {{store_detail.store_type}}</a>
+            {% else %}
+                <a class="text-gray-400" href="{% url 'internationalStore' %}"> {{store_detail.store_type}}</a>
+            {% endif %}
+          </li>
+          <li class="breadcrumb-item active">
+            {{store_detail.display_name}}
+          </li>
+        </ol>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<section class="pt-7 pb-12">
+    <div class="container">
+        <h3 class="text-center b"><u>{{store_detail.display_name}}</u></h3>
+        <div class="text-center">
+            {% if store_detail.first_description %}
+                {{store_detail.first_description | safe }}
+            {% endif %}
+        </div>
+        <div class="list-group">
+            {% if store_detail.main_description %}
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                {{store_detail.main_description | safe }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
