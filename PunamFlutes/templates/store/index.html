@@ -5,27 +5,34 @@
 {% block categories_name %}
 {% endblock%}
 
-{% if slideshows %}
 <!-- SLIDER -->
 <section>
-  <div data-flickity='{"prevNextButtons": true, "fade": true}'>
+  <div class="container">
+    <div class="row">
+      {% if slideshows %}
+      <div class="col-12 col-md-12 col-xl-12">
+        <div data-flickity='{"prevNextButtons": true, "fade": true}'>
     
-    {% for slideshow in slideshows %}
-    <!-- Item -->
-    <div class="w-100 bg-cover" style="background-image: url('{{ slideshow.image.url }}');">
-      <a href="{{ slideshow.redirect_link }}">
-        <div class="container d-flex flex-column">
-          <div class="row align-items-center py-12" style="min-height: 550px;">
+          {% for slideshow in slideshows %}
+          <!-- Item -->
+          <div class="w-100 bg-cover" style="background-image: url('{{ slideshow.image.url }}');">
+            <a href="{{ slideshow.redirect_link }}">
+              <div class="container d-flex flex-column">
+                <div class="row align-items-center py-12" style="min-height: 550px;">
+                  
+                </div>
+              </div>
+            </a>
             
           </div>
+          {% endfor %}
         </div>
-      </a>
-      
+      </div>
+      {% endif %}
     </div>
-    {% endfor %}
   </div>
+
 </section>
-{% endif %}
 
     <!-- CATEGORIES -->
     
@@ -117,52 +124,165 @@
         </div>
       </div>
 
-      
-      <div class="flickity-page-dots-progress" data-flickity='{"pageDots": true}'>
+      <div class="container">
+        <div class="flickity-page-dots-progress" data-flickity='{"pageDots": true}'>
 
-        {% for product in new_arrival_products %}
-        <!-- Item -->
-        <div class="col" style="max-width: 300px;">
-          <a href="{% url 'product_detail' product_id=product.id category_id=product.category.all.0.id %}">
-          <div class="card">
-
-            <!-- Image -->
-            <div class="card-img">
-
-              <!-- Action -->
-              <!-- <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-right" data-toggle="button">
-                <i class="fe fe-heart"></i>
-              </button> -->
-
-              <!-- Button -->
-              <!-- <button class="btn btn-xs btn-block btn-dark card-btn" data-toggle="modal" data-target="#modalProduct">
-                <i class="fe fe-eye mr-2 mb-1"></i> Quick View
-              </button> -->
+          {% for product in new_arrival_products %}
+          <!-- Item -->
+          <div class="col" style="max-width: 300px;">
+            <a href="{% url 'product_detail' product_id=product.id category_id=product.category.all.0.id %}">
+            <div class="card">
 
               <!-- Image -->
-              {% for image in product.images.all%}
-                {% if forloop.counter <= 1 %}
-                  <img class="card-img-top" src="{{ image.image.url }}" alt="...">
-                {% endif%}
-              {% endfor %}
+              <div class="card-img">
+
+                <!-- Action -->
+                <!-- <button class="btn btn-xs btn-circle btn-white-primary card-action card-action-right" data-toggle="button">
+                  <i class="fe fe-heart"></i>
+                </button> -->
+
+                <!-- Button -->
+                <!-- <button class="btn btn-xs btn-block btn-dark card-btn" data-toggle="modal" data-target="#modalProduct">
+                  <i class="fe fe-eye mr-2 mb-1"></i> Quick View
+                </button> -->
+
+                <!-- Image -->
+                {% for image in product.images.all%}
+                  {% if forloop.counter <= 1 %}
+                    <img class="card-img-top" src="{{ image.image.url }}" alt="...">
+                  {% endif%}
+                {% endfor %}
+
+              </div>
+
+              <!-- Body -->
+              <div class="card-body font-weight-bold text-center">
+                <a class="text-body" href="{% url 'product_detail' product_id=product.id category_id=product.category.all.0.id %}">{{ product.title }}</a> <br>
+                <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ currency_symbol }} {{ product.mrp }}</span>
+                <span class="text-primary">{{ currency_symbol }} {{ product.price }}</span>
+              </div>
 
             </div>
+            </a>
+          </div>
+          {%endfor %}
+
+
+        </div>
+      </div>
+    </section>
+
+      <!-- FEATURES -->
+  <section class="py-9">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-3">
+
+          <!-- Item -->
+          <div class="d-flex mb-6 mb-lg-0">
+
+            <!-- Icon -->
+            <i class="fe fe-truck font-size-lg text-primary"></i>
 
             <!-- Body -->
-            <div class="card-body font-weight-bold text-center">
-              <a class="text-body" href="{% url 'product_detail' product_id=product.id category_id=product.category.all.0.id %}">{{ product.title }}</a> <br>
-              <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ currency_symbol }} {{ product.mrp }}</span>
-              <span class="text-primary">{{ currency_symbol }} {{ product.price }}</span>
+            <div class="ml-6">
+
+              <!-- Heading -->
+              <h6 class="heading-xxs mb-1">
+                Free shipping
+              </h6>
+
+              <!-- Text -->
+              <p class="mb-0 font-size-sm text-muted">
+                From all orders over $100
+              </p>
+
             </div>
 
           </div>
-          </a>
+
         </div>
-        {%endfor %}
+        <div class="col-12 col-md-6 col-lg-3">
 
+          <!-- Item -->
+          <div class="d-flex mb-6 mb-lg-0">
 
+            <!-- Icon -->
+            <i class="fe fe-repeat font-size-lg text-primary"></i>
+
+            <!-- Body -->
+            <div class="ml-6">
+
+              <!-- Heading -->
+              <h6 class="mb-1 heading-xxs">
+                Free returns
+              </h6>
+
+              <!-- Text -->
+              <p class="mb-0 font-size-sm text-muted">
+                Return money within 30 days
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+
+          <!-- Item -->
+          <div class="d-flex mb-6 mb-md-0">
+
+            <!-- Icon -->
+            <i class="fe fe-lock font-size-lg text-primary"></i>
+
+            <!-- Body -->
+            <div class="ml-6">
+
+              <!-- Heading -->
+              <h6 class="mb-1 heading-xxs">
+                Secure shopping
+              </h6>
+
+              <!-- Text -->
+              <p class="mb-0 font-size-sm text-muted">
+                You're in safe hands
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+
+          <!-- Item -->
+          <div class="d-flex">
+
+            <!-- Icon -->
+            <i class="fe fe-tag font-size-lg text-primary"></i>
+
+            <!-- Body -->
+            <div class="ml-6">
+
+              <!-- Heading -->
+              <h6 class="mb-1 heading-xxs">
+                Over 5000 products
+              </h6>
+
+              <!-- Text -->
+              <p class="mb-0 font-size-sm text-muted">
+                We have everything you need
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
 {% endblock %}
 
