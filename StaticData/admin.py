@@ -18,10 +18,8 @@ class StoreAdminForm(forms.ModelForm):
 
 
 class SupportAdminForm(forms.ModelForm):
-    support_type = forms.ChoiceField(choices=SUPPORT_TYPE)
     first_description = forms.CharField(widget=CKEditorWidget(), required=False)
     main_description = forms.CharField(widget=CKEditorWidget())
-    last_description = forms.CharField(widget=CKEditorWidget(), required=False)
     class Meta:
         model = Support
         fields = '__all__'
