@@ -151,6 +151,7 @@
                                             <td class="text-left"><strong>Tax Rate</strong></td>
                                             <td class="text-left"><strong>Tax Type</strong></td>
                                             <td class="text-left"><strong>Tax Ammount</strong></td>
+                                            <td class="text-left"><strong>Net Tax Ammount</strong></td>
                                             <td class="text-left"><strong>Total Ammount</strong></td>
 
                                         </tr>
@@ -171,7 +172,8 @@
                                             <td class="text-center">{{ product.hsn|safe }}</td>
                                             <td class="text-center">{{ product.tax_rate|safe }}</td>
                                             <td class="text-center">{{ product.tax_type|safe }}</td>
-                                            <td class="text-center">{{ product.tax_amount }}</td>
+                                            <td class="text-center">{{ product.tax_amount|safe }}</td>
+                                            <td class="text-center">{{ product.net_tax_amount }}</td>
                                             <td class="text-center">{{ product.total_amount }}</td>
                                         </tr>
                                         {% endfor %}

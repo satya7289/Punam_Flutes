@@ -415,6 +415,7 @@ class OrderInvoice(View):
                 tax_hsn = ""
                 tax_type = ""
                 tax_rate = ""
+                tax_amount = ""
 
                 if address and address.country == 'India':
                     # If category exits
@@ -441,6 +442,7 @@ class OrderInvoice(View):
                             tax_hsn += str(taxRule.display_name) + '<br>'
                             tax_type += str(taxRule.gst_type) + '<br>'
                             tax_rate += str(taxRule.value) + '%<br>'
+                            tax_amount += str(product_tax) + '<br>'
 
                         # Update the total tax
                         totalTax += product_tax
@@ -469,8 +471,9 @@ class OrderInvoice(View):
                 product.net_ammount = float(product_price) * float(product.quantity)
                 product.hsn = tax_hsn
                 product.tax_rate = tax_rate
+                product.tax_amount = tax_amount
                 product.tax_type = tax_type
-                product.tax_amount = product_tax
+                product.net_tax_amount = product_tax
                 product.total_amount = float(product.net_ammount) +  float(product_tax)  - float(product_discount)
 
                 totalAmount = product.total_amount

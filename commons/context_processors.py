@@ -14,6 +14,7 @@ def extras(request):
     categories = Category.objects.filter(publish=True)
     support = Support.objects.filter(publish=True)
     contactUsMap = StaticData.objects.filter(display_name='map', publish=True).first()
+    contactUsContact = StaticData.objects.filter(display_name='contactUs', publish=True).first()
 
     try:
         user = request.user    
@@ -30,7 +31,8 @@ def extras(request):
         'ip': get_ip_detail(request),
         # 'categories_product': categories_product,
         'currency_symbol': settings.CURRENCY_SYMBOL,
-        'contactUsMap': contactUsMap
+        'contactUsMap': contactUsMap,
+        'contactUsContact': contactUsContact
     }
     return context
 

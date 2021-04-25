@@ -440,29 +440,16 @@
           {% endif %}
           <div class="col-6 col-sm">
 
+            {% if contactUsContact %}
             <!-- Heading -->
             <h6 class="heading-xxs mb-4 text-white">
               Contact
             </h6>
 
-            <!-- Links -->
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a class="text-gray-300" href="#!">+91 850-592-2922</a>
-              </li>
-              <li>
-                <a class="text-gray-300" href="#!"> +91 892-003-8458</a>
-              </li>
-              <li>
-                <a class="text-gray-300" href="#!">info@flute.in</a>
-              </li>
-              <li>
-                <a href="#!" class="text-gray-300">A 58, Jawahar Park, Deoli road, Khanpur
-                  New Delhi 110080
-                  INDIA</a>
-              </li>
-            </ul>
-
+            <div class="contact">
+              {{ contactUsContact.description | safe }}
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -575,6 +562,12 @@
       updateProductPriceModal(this);
     });
   </script>
+
+  <script>
+    $('.contact > ul').addClass('list-unstyled')
+    $('.contact > ul > li').addClass('text-gray-300')
+  </script>
+
 </body>
 
 </html>
