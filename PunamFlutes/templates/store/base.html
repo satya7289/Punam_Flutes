@@ -534,7 +534,7 @@
     }
 
     function updateSubTotalModal(){
-      let currency = '{{ cart_detail.currency }}';
+      let currency = '{{ currency_symbol }}';
 
       let Subtotal = 0;
       let tex = 0;
@@ -547,7 +547,7 @@
     }
 
     function updateProductPriceModal(e){
-      let currency = '{{ cart_detail.currency }}';
+      let currency = '{{ currency_symbol }}';
       let price = $(e).attr("data-price")
       let total_price = (price*e.value).toFixed(2);
       let total = e.value + ' * ' + currency + price +' = ' + currency + total_price;
