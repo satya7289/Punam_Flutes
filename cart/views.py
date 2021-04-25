@@ -434,9 +434,9 @@ class OrderInvoice(View):
                             # if tax method is not fixed:
                             # product tax = quantity * price * rate
                             if taxRule.method == 'Percent' or taxRule.method == 'percent':
-                                category_tax += float(product.quantity)*float(product_price)*float(taxRule.value/100)
+                                category_tax = float(product.quantity)*float(product_price)*float(taxRule.value/100)
                             else:
-                                category_tax += float(taxRule.value)
+                                category_tax = float(taxRule.value)
 
                             # Update hsn, type, rate
                             tax_hsn += str(taxRule.display_name) + '<br>'
