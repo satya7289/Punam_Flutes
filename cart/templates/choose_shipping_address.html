@@ -23,7 +23,7 @@
     border: 1px solid rgba(112, 61, 61, 0.158);
     border-radius: 2px;
     background-color: rgba(192, 184, 184, 0.87);
-    font-size: 0.7rem;
+    font-size: 1rem;
   }
 
   .delete{
@@ -34,7 +34,7 @@
     border: 1px solid rgba(112, 61, 61, 0.158);
     border-radius: 2px;
     background-color: rgba(192, 184, 184, 0.87);
-    font-size: 0.7rem;
+    font-size: 1rem;
   }
 </style>
 
@@ -81,13 +81,21 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-12 col-md-8 my-3">
+        <div class="col-12 col-md-12 my-3">
             <div class="row">
                 {% for address in all_shipping_address %}
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3 shadow shadow-hover lift">
                     <div class="card cart__address">
                         <div class="card-body">
-                          
+                            {% if address.full_name %}
+                                <div class="card-subtitle mb-1">{{ address.full_name }}</div>
+                            {% endif %}
+                            <div class="card-text mb-1">{{ address.street_address }} {{ address.landmark }}</div>
+                            <div class="card-text mb-1">{{ address.city }} {{ address.state }}, {{ shipping_address.country }}</div>
+                            {% if address.mobile_number %}
+                                <div class="card-text mb-1"> <strong>P:</strong> {{address.mobile_number }}</div>
+                            {% endif %}
+                            <hr>
                             <div class="row text-center">
                               <div class="col-12 col-md-12 choose_shipping_address">
                                 <a href="{% url 'choose_billing_address' %}?shipping_address_id={{address.id}}" >Deliver to this Address</a>
@@ -122,15 +130,6 @@
                               </div>
                             </div>
                             {% endif %}
-                            <hr>
-                                {% if address.full_name %}
-                                    <div class="card-subtitle mb-1">{{ address.full_name }}</div>
-                                {% endif %}
-                                <div class="card-text mb-1">{{ address.street_address }} {{ address.landmark }}</div>
-                                <div class="card-text mb-1">{{ address.city }} {{ address.state }}, {{ shipping_address.country }}</div>
-                                {% if address.mobile_number %}
-                                    <div class="card-text mb-1"> <strong>P:</strong> {{address.mobile_number }}</div>
-                                {% endif %}
                         </div>
                     </div>
                 </div>
@@ -138,7 +137,7 @@
             </div>
             
         </div>
-        <div class="col-12 col-md-4 my-3">
+        <div class="col-12 col-md-12 my-3">
             <div class="card" style="width: auto; border: 1px solid black; border-radius: 0.5rem;">
                 <div class="card-body">
                     {% if form.errors %}
@@ -155,23 +154,23 @@
                         </div>
                     {% endfor %}
                     {% endif %}
-                    <h5>Add {{ address_type }} Address</h5>
+                    <h5 class="text-center">Add {{ address_type }} Address</h5>
                     <form action="" method="post">
                         {% csrf_token %}
                         <div class="form-row">
-                            <div class="form-group col-md-12 mb-0">
+                            <div class="form-group col-md-6 mb-0">
                             {{ form.full_name|as_crispy_field }} 
                             </div>
-                            <div class="form-group col-md-12 mb-0">
+                            <div class="form-group col-md-6 mb-0">
                             {{ form.mobile_number|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-12 mb-0">
+                            <div class="form-group col-md-6 mb-0">
                             {{ form.country|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-12 mb-0" id="state">
+                            <div class="form-group col-md-6 mb-0" id="state">
                             {{ form.state|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-12 mb-0" id="select__state">
+                            <div class="form-group col-md-6 mb-0" id="select__state">
                             <div class="form-group">
                                 <label for="state">State *</label>
                                 <select class="form-control form-control-sm" name="state">
@@ -188,10 +187,10 @@
                             <div class="form-group col-md-12">
                             {{ form.landmark|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-12 mb-0">
+                            <div class="form-group col-md-6 mb-0">
                             {{ form.postal_code|as_crispy_field }}
                             </div>
-                            <div class="form-group col-md-12 mb-0">
+                            <div class="form-group col-md-6 mb-0">
                             {{ form.city|as_crispy_field }}
                             </div>
                             <div class="form-group col-md-12 mb-0">
