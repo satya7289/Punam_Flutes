@@ -128,3 +128,16 @@ class Profile(TimeStampedModel):
     def get_short_name(self):
         # The user is identified by their email address
         return self.first_name
+
+
+class UserQuery(TimeStampedModel):
+    full_name = models.CharField(max_length=512, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    contact_number = models.CharField(max_length=512, null=True, blank=True)
+    country = models.CharField(max_length=512, null=True, blank=True)
+    subject = models.CharField(max_length=512, null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.full_name
+

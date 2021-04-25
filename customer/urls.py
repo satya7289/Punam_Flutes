@@ -11,6 +11,7 @@ from customer.views import (
     Registration,
     CheckUsername,
     Login,
+    UserQueryView,
 )
 
 urlpatterns = [
@@ -21,4 +22,5 @@ urlpatterns = [
     path('profile/', login_required(CustomerProfile.as_view()), name='customer_profile'),
     path('address', login_required(CustomerAddress.as_view()), name='customer_address'),
     path('check-username', CheckUsername.as_view(), name='check_username'),
+    path('query', UserQueryView.as_view(), name='customer_query'),
 ]

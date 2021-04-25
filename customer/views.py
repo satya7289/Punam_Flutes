@@ -9,6 +9,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import JsonResponse
 from django.urls import reverse
+from django.contrib import messages
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -21,6 +22,7 @@ from commons.state import IndianStates, IndianUnionTerritories
 from customer.models import Profile, normalize_phone
 from address.models import Address
 from commons.mail import SendEmail
+from .forms import UserQueryForm
 
 import phonenumbers
 
@@ -386,3 +388,18 @@ class SendPhoneOTP(View):
             'message': 'OTP send'
         }
         return JsonResponse(data)
+
+class UserQueryView(View):
+    template_name = 'contact.html'
+    def get(self, request):
+        form = UserQueryForm
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = UserQueryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form.cleaned_data
+            messages.success(request, "We recieved your message." )
+            return redirect('customer_query')
+        return render(request, self.template_name, {'form':form})   

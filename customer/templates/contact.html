@@ -1,0 +1,103 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<!-- BREADCRUMB -->
+<nav class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb mb-0 font-size-xs text-gray-400">
+          <li class="breadcrumb-item">
+            <a class="text-gray-400" href="index.html">Home</a>
+          </li>
+          <li class="breadcrumb-item active">
+            Contact Us
+          </li>
+        </ol>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<section class="pt-7 pb-12">
+  <div class="container">
+    {% for message in messages %}
+    <div class="container-fluid p-0" id="messageID">
+      <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+    <div class="row justify-content-between">
+      <div class="col-12 col-md-12 my-1">
+        <div class="card" style="width: auto;  border-radius: 0.5rem;">
+          <h5 class="my-1 text-center"><u>Contact Us</u></h5>
+            <div class="card-body">
+                {% if form.errors %}
+                  {% for field in form %}
+                      {% for error in field.errors %}
+                          <div class="alert alert-danger">
+                              <strong>{{ error|escape }}</strong>
+                          </div>
+                      {% endfor %}
+                  {% endfor %}
+                  {% for error in form.non_field_errors %}
+                      <div class="alert alert-danger">
+                          <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+                {% endif %}
+               
+               <form action="" method="post">
+                 {% csrf_token %}
+                  <div class="form-row">
+                    <div class="form-group col-md-6 mb-0">
+                      {{ form.full_name|as_crispy_field }} 
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                      {{ form.email|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                      {{ form.country|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                      {{ form.contact_number|as_crispy_field }}
+                    </div>
+                    
+                    <div class="form-group col-md-12 mb-0">
+                      {{ form.subject|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-12 mb-0">
+                      {{ form.message|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                      {{ form.captcha|as_crispy_field }}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                 
+               </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+
+
+{% endblock %}
