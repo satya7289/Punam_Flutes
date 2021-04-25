@@ -20,9 +20,6 @@
             <a class="text-gray-400" href="{% url 'choose_shipping_address' %}">Choose shipping address</a>
           </li>
           <li class="breadcrumb-item active">
-            <a class="text-gray-400" href="{% url 'choose_billing_address' %}">Choose billing address</a>
-          </li>
-          <li class="breadcrumb-item active">
             Checkout
           </li>
         </ol>
@@ -80,7 +77,7 @@
                   <div class="card cart__address">
                       <div class="card-body">
                           <h5 class="card-title">Your Billing Address</h5>
-                          <a href="{% url 'choose_billing_address' %}" class="card-link mt-1">Change</a>
+                          <a href="{% url 'update_address' id=billing_address.id %}?address_type=billing&redirect_to=checkout"" class="card-link mt-1">Edit</a>
                           <hr>                           
                               {% if billing_address.full_name %}
                                   <h6 class="card-subtitle mb-1">{{ billing_address.full_name }}</h6>

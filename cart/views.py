@@ -256,16 +256,16 @@ class Checkout(View):
         order = get_order(user)
         if not order:
             return redirect('dashboard')
-       
-        # get the shipping_abilling_address_id if pass
-        billing_address_id = request.GET.get('billing_address_id')
-        if billing_address_id and billing_address_id!="":
-            billing_address = Address.objects.filter(id=billing_address_id).first()
         
-            # If billing address not choosed 
-            if billing_address:
-                # Update the billing address
-                order.billing_address = billing_address
+        # get the shipping_address if pass
+        shipping_address_id = request.GET.get('shipping_address_id')
+        if shipping_address_id and shipping_address_id!="":
+            shipping_address = Address.objects.filter(id=shipping_address_id).first()
+        
+            # If shipping address not choosed 
+            if shipping_address:
+                # Update the shipping address
+                order.shipping_address = shipping_address
                 order.save()
 
         # if order has not shipping addres; get the default one
@@ -296,7 +296,22 @@ class Checkout(View):
                 order.billing_address = billing_address
                 order.save()
             else:
-                return redirect('choose_billing_address')
+                # create a billing address for that user
+                billing_address = Address.objects.create(
+                    user=user,
+                    address_type='billing',
+                    full_name=order.shipping_address.full_name,
+                    mobile_number=order.shipping_address.mobile_number,
+                    postal_code=order.shipping_address.postal_code,
+                    street_address=order.shipping_address.street_address,
+                    landmark=order.shipping_address.landmark,
+                    city=order.shipping_address.city,
+                    state=order.shipping_address.state,
+                    country=order.shipping_address.country,
+                    default=True,
+                )
+                order.billing_address = billing_address
+                order.save()
 
         cart = order.cart
 
