@@ -4,7 +4,7 @@ from django.conf import settings
 from category.models import Category
 from cart.models import Cart
 from product.models import Product
-from StaticData.models import Support, Store
+from StaticData.models import Support, Store, StaticData
 
 from commons.product_price import get_price_of_product, get_ip_detail
 from commons.ip_detect import request_to_geoplugin, get_ip_detail, set_country_data
@@ -13,6 +13,7 @@ def extras(request):
     # Get all the categories
     categories = Category.objects.filter(publish=True)
     support = Support.objects.filter(publish=True)
+    contactUsMap = StaticData.objects.filter(display_name='map', publish=True).first()
 
     try:
         user = request.user    
@@ -28,7 +29,8 @@ def extras(request):
         'cart_length': cart_length,
         'ip': get_ip_detail(request),
         # 'categories_product': categories_product,
-        'currency_symbol': settings.CURRENCY_SYMBOL
+        'currency_symbol': settings.CURRENCY_SYMBOL,
+        'contactUsMap': contactUsMap
     }
     return context
 

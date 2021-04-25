@@ -8,6 +8,8 @@ SLIDESHOW_DIR = 'slideShow'
 
 STORE_TYPE = [['Indian Stores', 'Indian Stores'], ['International Stores', 'International Stores']]
 SUPPORT_TYPE =[['TermsCondition', 'TermsCondition'], ['ReturnPolicy', 'ReturnPolicy'], ['RefundPolicy', 'RefundPolicy']]
+STATIC_DATA_CHOICES = [['-----', ''], ['contactUs', 'contactUs'], ['map', 'map']]
+
 
 # Create your models here.
 class SlideShow(TimeStampedModel):
@@ -57,10 +59,12 @@ class Support(TimeStampedModel):
     class Meta:
         ordering = ('display_name', 'order')
     
-class ContactUs(TimeStampedModel):
-    display_name = models.CharField(max_length=1024, blank=True, null=True)
+class StaticData(TimeStampedModel):
+    display_name = models.CharField(max_length=1024)
     slug = models.SlugField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    description_2 = models.TextField(blank=True, null=True)
+    description_3 = models.TextField(blank=True, null=True)
     publish = models.BooleanField(default=True)
 
     def __str__(self):

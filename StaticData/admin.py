@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from ckeditor.widgets import CKEditorWidget
 from django.urls import reverse
 
-from .models import SlideShow, Store, Support, ContactUs, SUPPORT_TYPE
+from .models import SlideShow, Store, Support, StaticData, SUPPORT_TYPE, STATIC_DATA_CHOICES
 
 # Register your models here.
 
@@ -25,10 +25,12 @@ class SupportAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
-class ContactUsAdminForm(forms.ModelForm):
-    description = forms.CharField(widget=CKEditorWidget())
+class StaticDataAdminForm(forms.ModelForm):
+    display_name = forms.ChoiceField(choices=STATIC_DATA_CHOICES)
+    description = forms.CharField(widget=CKEditorWidget(), required=False)
+    description_2 = forms.CharField(widget=CKEditorWidget(), required=False)
     class Meta:
-        model = ContactUs
+        model = StaticData
         fields = '__all__'
 
 class SlideShowAdmin(admin.ModelAdmin):
@@ -60,12 +62,12 @@ class SupportAdmin(admin.ModelAdmin):
         return format_html("<a href={}>{}</a>", url, 'Preview')
     
 
-class ContactUsAdmin(admin.ModelAdmin):
-    form = ContactUsAdminForm
-    list_display = ('__str__', 'display_name', 'description', 'publish')
+class StaticDataAdmin(admin.ModelAdmin):
+    form = StaticDataAdminForm
+    list_display = ('__str__', 'display_name', 'publish', 'update_at')
     list_filter = ('publish', )
 
 admin.site.register(SlideShow, SlideShowAdmin)
 admin.site.register(Store, StoreAdmin)
 admin.site.register(Support, SupportAdmin)
-# admin.site.register(ContactUs, ContactUsAdmin)
+admin.site.register(StaticData, StaticDataAdmin)

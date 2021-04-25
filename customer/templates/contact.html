@@ -38,6 +38,11 @@
     </div>
     {% endfor %}
     <div class="row justify-content-between">
+      <div class="col-12 col-md-12 my-1 text-center">
+        {% if contactUsMap %}
+          {{ contactUsMap.description_3 | safe }}
+        {% endif %}
+      </div>
       <div class="col-12 col-md-12 my-1">
         <div class="card" style="width: auto;  border-radius: 0.5rem;">
           <h5 class="my-1 text-center"><u>Contact Us</u></h5>
