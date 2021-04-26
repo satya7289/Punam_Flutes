@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 from cart.models import Cart
 from order.models import Order, Payment
-from commons.product_price import get_price_of_product, get_ip_detail
+from commons.product_price import get_price_of_product
+from commons.ip_detect import get_ip_detail
 from commons.mail import SendEmail
 from tax_rules.models import TaxRule, GSTState
 from tax_rules.views import CalculateTaxForCart
