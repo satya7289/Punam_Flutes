@@ -13,7 +13,9 @@ from django.core.mail import send_mail
 from django.utils.html import format_html
 from django.core.exceptions import ObjectDoesNotExist
 
-from cart.models import Cart, ProductQuantity, Order, Payment, CountryPayment
+from cart.models import Cart, ProductQuantity
+from StaticData.models import CountryPayment
+from order.models import Order, Payment
 from customer.models import User
 from customer.models import Profile
 from product.models import Product

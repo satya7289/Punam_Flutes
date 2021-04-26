@@ -18,6 +18,7 @@ urlpatterns = [
     path('customer/', include('customer.urls')),
     path('product/', include('product.urls')),
     path('cart/', include('cart.urls')),
+    path('order/', include('order.urls')),
     path('address/', include('address.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('tax/', include('tax_rules.urls')),

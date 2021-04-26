@@ -2,6 +2,7 @@ from django.db import models
 from storages.backends.s3boto3 import S3Boto3Storage
 from django.conf import settings
 
+from commons.country_currency import country
 from commons.models import TimeStampedModel
 
 SLIDESHOW_DIR = 'slideShow'
@@ -69,3 +70,12 @@ class StaticData(TimeStampedModel):
 
     def __str__(self):
         return self.display_name
+
+class CountryPayment(TimeStampedModel):
+    country = models.CharField(max_length=100, blank=True, choices=country, null=True, default='')
+    razorpay = models.BooleanField(default=True, blank=True, null=True)
+    paypal = models.BooleanField(default=True, blank=True, null=True)
+    cod = models.BooleanField(default=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.country

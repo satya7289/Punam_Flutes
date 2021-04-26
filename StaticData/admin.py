@@ -5,7 +5,15 @@ from django.utils.html import format_html
 from ckeditor.widgets import CKEditorWidget
 from django.urls import reverse
 
-from .models import SlideShow, Store, Support, StaticData, SUPPORT_TYPE, STATIC_DATA_CHOICES
+from .models import (
+    SlideShow, 
+    Store, 
+    Support, 
+    StaticData, 
+    CountryPayment,
+    SUPPORT_TYPE, 
+    STATIC_DATA_CHOICES
+)
 
 # Register your models here.
 
@@ -67,7 +75,12 @@ class StaticDataAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'display_name', 'publish', 'update_at')
     list_filter = ('publish', )
 
+class CountryPaymentAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'country', 'razorpay', 'paypal', 'cod')
+    list_filter = ( 'razorpay', 'paypal', 'cod', 'country')
+
 admin.site.register(SlideShow, SlideShowAdmin)
 admin.site.register(Store, StoreAdmin)
 admin.site.register(Support, SupportAdmin)
 admin.site.register(StaticData, StaticDataAdmin)
+admin.site.register(CountryPayment, CountryPaymentAdmin)

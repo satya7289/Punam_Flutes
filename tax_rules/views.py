@@ -7,7 +7,8 @@ from .models import TaxRule, GSTState
 from address.models import Address
 from category.models import Category
 from product.models import Product
-from cart.models import Order, Cart
+from cart.models import Cart
+from order.models import Order
 
 from commons.product_price import get_price_of_product, get_ip_detail
 
