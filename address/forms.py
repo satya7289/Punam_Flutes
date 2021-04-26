@@ -1,11 +1,8 @@
 from django import forms
-from django.forms import TextInput, ChoiceField
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, Button
+from django.forms import TextInput
 
 from commons.country_currency import country as COUNTRY
-from commons.state import IndianStates, IndianUnionTerritories
-from .models import Address
+from address.models import Address
 
 
 class AddressCreateForm(forms.ModelForm):
@@ -20,13 +17,12 @@ class AddressCreateForm(forms.ModelForm):
         for field in self.Meta.not_required:
             self.fields[field].required = False
 
-
     class Meta:
         model = Address
         fields = [
-            'full_name', 
+            'full_name',
             'mobile_number',
-            'country', 
+            'country',
             'state',
             'street_address',
             'landmark',
@@ -44,10 +40,8 @@ class AddressCreateForm(forms.ModelForm):
             'city': TextInput(attrs={'placeholder': 'Enter city'}),
         }
         required = (
-            'country', 'street_address','postal_code',
+            'country', 'street_address', 'postal_code',
         )
         not_required = (
-            'city','state',
+            'city', 'state',
         )
-    
-

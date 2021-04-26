@@ -2,8 +2,6 @@ from django.urls import path, re_path
 from django.contrib.auth.decorators import login_required
 
 from customer.views import (
-    customer_login,
-    customer_register,
     customer_logout,
     CustomerAddress,
     CustomerProfile,

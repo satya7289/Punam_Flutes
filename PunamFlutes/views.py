@@ -1,24 +1,12 @@
-from datetime import datetime, timedelta
-import os
-from django.views.generic import TemplateView, View
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, get_user_model, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .tokens import account_activation_token
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.contrib import messages
-from django.conf import settings
+from django.views.generic import View
+from django.shortcuts import render
+from django.contrib.auth import get_user_model
 
 from category.models import Category
-from cart.models import Cart
 from product.models import Product
 from StaticData.models import SlideShow, Store, Support
 
-from commons.product_price import get_price_of_product, get_ip_detail
-from commons.ip_detect import request_to_geoplugin, get_ip_detail
+from commons.product_price import get_price_of_product
 
 User = get_user_model()
 
@@ -29,7 +17,7 @@ class HomePageView(View):
     """
     template_name = 'store/index.html'
 
-    def get(self, request, *args, **kwargs):     
+    def get(self, request, *args, **kwargs):
         # Get the slide shows
         slideshows = SlideShow.objects.filter(
             publish=True,
@@ -38,7 +26,7 @@ class HomePageView(View):
         # Get the new arrival products
         new_arrival_products = Product.objects.order_by('-id')[:11]
         for product in new_arrival_products:
-            price_list = get_price_of_product(request,product)
+            price_list = get_price_of_product(request, product)
             product.price = price_list['price']
             product.mrp = price_list['MRP']
 
@@ -72,6 +60,7 @@ def contact(request):
     template = 'store/contact.html'
     return render(request, template, context)
 
+
 def termsCondition(request):
     termsCondition = Support.objects.filter(support_type='Terms&Condition').first()
     context = {
@@ -79,6 +68,7 @@ def termsCondition(request):
     }
     template = 'store/terms_and_condition.html'
     return render(request, template, context)
+
 
 def returnPolicy(request):
     returnPolicy = Support.objects.filter(support_type='ReturnPolicy').first()
@@ -88,6 +78,7 @@ def returnPolicy(request):
     template = 'store/return_policy.html'
     return render(request, template, context)
 
+
 def refundPolicy(request):
     refundPolicy = Support.objects.filter(support_type='RefundPolicy').first()
     context = {
@@ -95,6 +86,7 @@ def refundPolicy(request):
     }
     template = 'store/refund_policy.html'
     return render(request, template, context)
+
 
 def indianStore(request):
     stores = Store.objects.filter(store_type='Indian Stores')
@@ -104,6 +96,7 @@ def indianStore(request):
     template = 'store/indian_store.html'
     return render(request, template, context)
 
+
 def internationalStore(request):
     stores = Store.objects.filter(store_type='International Stores')
     context = {
@@ -112,8 +105,8 @@ def internationalStore(request):
     template = 'store/international_store.html'
     return render(request, template, context)
 
+
 def wishlist(request):
     context = {}
     template = 'store/wishlist.html'
     return render(request, template, context)
-

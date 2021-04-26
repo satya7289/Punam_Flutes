@@ -1,22 +1,22 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View, CreateView, UpdateView, ListView
-from django.http import JsonResponse
-from django.contrib import messages
+from django.views.generic import View
 
 from .models import Address
 from .forms import AddressCreateForm
 from commons.state import IndianStates, IndianUnionTerritories
 
+
 class CreateAddress(View):
     template_name = 'create_address.html'
+
     def get(self, request):
         form = AddressCreateForm
         state = (IndianStates + IndianUnionTerritories)
         address_type = request.GET.get('address_type')
-        if address_type=="shipping" or address_type=="billing":
+        if address_type == "shipping" or address_type == "billing":
             context = {
-                'form': form, 
-                'state': state, 
+                'form': form,
+                'state': state,
                 'address_type': address_type,
                 'action': 'Add',
             }
@@ -37,8 +37,8 @@ class CreateAddress(View):
             return redirect('customer_profile')
         state = (IndianStates + IndianUnionTerritories)
         context = {
-            'form': form, 
-            'state': state, 
+            'form': form,
+            'state': state,
             'address_type': address_type,
             'action': 'Add',
         }
@@ -47,17 +47,18 @@ class CreateAddress(View):
 
 class UpdateAddress(View):
     template_name = 'create_address.html'
-    def get(self, request,  *args, **kwargs):
+
+    def get(self, request, *args, **kwargs):
         address_id = kwargs['id']
         address = Address.objects.filter(id=address_id).first()
         if address:
             form = AddressCreateForm(instance=address)
             state = (IndianStates + IndianUnionTerritories)
             address_type = request.GET.get('address_type')
-            if address_type=="shipping" or address_type=="billing":
+            if address_type == "shipping" or address_type == "billing":
                 context = {
-                    'form': form, 
-                    'state': state, 
+                    'form': form,
+                    'state': state,
                     'address_type': address_type,
                     'action': 'Update',
                 }
@@ -74,20 +75,20 @@ class UpdateAddress(View):
             address.user = request.user
             address.address_type = address_type
             address.save()
-            
             if address.default:
                 update_for_default_address(address)
-            if request.GET.get('redirect_to') and request.GET.get('redirect_to')!='':
+            if request.GET.get('redirect_to') and request.GET.get('redirect_to') != '':
                 return redirect(request.GET.get('redirect_to'))
             return redirect('customer_profile')
         state = (IndianStates + IndianUnionTerritories)
         context = {
-            'form': form, 
-            'state': state, 
+            'form': form,
+            'state': state,
             'address_type': address_type,
             'action': 'Update',
         }
         return render(request, self.template_name, context)
+
 
 class DeleteAddress(View):
     def get(self, request, *args, **kwargs):
@@ -95,17 +96,19 @@ class DeleteAddress(View):
         address = Address.objects.filter(id=address_id).first()
         if address:
             address.delete()
-        if request.GET.get('redirect_to') and request.GET.get('redirect_to')!='':
+        if request.GET.get('redirect_to') and request.GET.get('redirect_to') != '':
             return redirect(request.GET.get('redirect_to'))
         return redirect('customer_profile')
+
 
 class SetDefaultAddress(View):
     def get(self, request, *args, **kwargs):
         address_id = kwargs['id']
         address = Address.objects.filter(id=address_id).first()
         if address:
-           update_for_default_address(address)
+            update_for_default_address(address)
         return redirect('customer_profile')
+
 
 def update_for_default_address(address):
     '''
@@ -124,5 +127,3 @@ def update_for_default_address(address):
     # make current address as default
     address.default = True
     address.save()
-
-

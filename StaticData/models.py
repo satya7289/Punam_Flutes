@@ -8,13 +8,13 @@ from commons.models import TimeStampedModel
 SLIDESHOW_DIR = 'slideShow'
 
 STORE_TYPE = [['Indian Stores', 'Indian Stores'], ['International Stores', 'International Stores']]
-SUPPORT_TYPE =[['TermsCondition', 'TermsCondition'], ['ReturnPolicy', 'ReturnPolicy'], ['RefundPolicy', 'RefundPolicy']]
+SUPPORT_TYPE = [['TermsCondition', 'TermsCondition'], ['ReturnPolicy', 'ReturnPolicy'], ['RefundPolicy', 'RefundPolicy']]
 STATIC_DATA_CHOICES = [['-----', ''], ['contactUs', 'contactUs'], ['map', 'map']]
 
 
 # Create your models here.
 class SlideShow(TimeStampedModel):
-    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False,upload_to=SLIDESHOW_DIR +'/%Y%m%d%M%S')
+    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False, upload_to=SLIDESHOW_DIR + '/%Y%m%d%M%S')
     alt = models.CharField(max_length=1024, blank=True, null=True)
     heading = models.CharField(max_length=1024, blank=True, null=True)
     description = models.CharField(max_length=2048, blank=True, null=True)
@@ -27,8 +27,9 @@ class SlideShow(TimeStampedModel):
         return self.heading
 
     class Meta:
-        ordering = ("order","-created_at")
-    
+        ordering = ("order", "-created_at")
+
+
 class Store(TimeStampedModel):
     display_name = models.CharField(max_length=1024, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
@@ -40,7 +41,7 @@ class Store(TimeStampedModel):
 
     def __str__(self):
         return self.display_name
-    
+
     class Meta:
         ordering = ('store_type', 'order')
 
@@ -55,11 +56,12 @@ class Support(TimeStampedModel):
     order = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.display_name    
+        return self.display_name
 
     class Meta:
         ordering = ('display_name', 'order')
-    
+
+
 class StaticData(TimeStampedModel):
     display_name = models.CharField(max_length=1024)
     slug = models.SlugField(blank=True, null=True)
@@ -70,6 +72,7 @@ class StaticData(TimeStampedModel):
 
     def __str__(self):
         return self.display_name
+
 
 class CountryPayment(TimeStampedModel):
     country = models.CharField(max_length=100, blank=True, choices=country, null=True, default='')

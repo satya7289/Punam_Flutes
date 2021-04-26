@@ -1,12 +1,12 @@
 from django.db import models
-from django.utils import timezone
 from django.core import validators
 from commons.models import TimeStampedModel
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin)
+    AbstractBaseUser, BaseUserManager)
 from django.utils.translation import ugettext_lazy as _
 
 import phonenumbers
+
 
 def normalize_phone(phone, country_code=None):
     phone = phone.strip().lower()
@@ -15,7 +15,9 @@ def normalize_phone(phone, country_code=None):
         phone_number, phonenumbers.PhoneNumberFormat.E164)
     return phone
 
+
 class UserManager(BaseUserManager):
+
     def _create_user(self, email_or_phone, password, **extra_fields):
         if not email_or_phone:
             raise ValueError('The given email_or_phone must be set')
@@ -36,12 +38,12 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
-    
+
     def create_user(self, username, password=None, **extra_fields):
         user = self._create_user(username, password, **extra_fields)
         print(user)
         return user
-    
+
     def create_staffuser(self, username, password=None, **extra_fields):
         user = self._create_user(username, password, **extra_fields)
         user.staff = True
@@ -54,6 +56,7 @@ class UserManager(BaseUserManager):
         user.admin = True
         user.save(using=self._db)
         return user
+
 
 class User(AbstractBaseUser):
     username = models.CharField(
@@ -73,13 +76,13 @@ class User(AbstractBaseUser):
     email = models.EmailField(_('email'), max_length=254, blank=True)
     phone = models.CharField(_('phone'), max_length=255, blank=True)
     active = models.BooleanField(default=True)
-    staff = models.BooleanField(default=False)  
-    admin = models.BooleanField(default=False) 
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
     email_verified = models.BooleanField(default=False, null=False)
     phone_verified = models.BooleanField(default=False, null=False)
-    
+
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = []  
+    REQUIRED_FIELDS = []
 
     objects = UserManager()
 
@@ -140,4 +143,3 @@ class UserQuery(TimeStampedModel):
 
     def __str__(self):
         return self.full_name
-

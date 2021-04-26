@@ -1,35 +1,23 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.conf import settings
-from decimal import Decimal
-from paypal.standard.forms import PayPalPaymentsForm
-from django.views.decorators.csrf import csrf_exempt
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.utils.html import format_html
 
-from cart.models import Cart, ProductQuantity
-from StaticData.models import CountryPayment
-from order.models import Order, Payment
-from customer.models import User
-from customer.models import Profile
-from product.models import Product
+
+from order.models import Order
 from coupon.models import Coupon
-from commons.product_price import get_price_of_product, get_ip_detail
+from product.models import Product
 from address.models import Address
-from commons.mail import SendEmail
-from tax_rules.models import TaxRule, GSTState
-import razorpay
-from tax_rules.views import CalculateTaxForCart
-import json
-from cart.utils import after_successful_placed_order, get_order, is_cart_availabe, get_cart
+from StaticData.models import CountryPayment
+from cart.models import Cart, ProductQuantity
+
+
+from address.views import update_for_default_address
+from commons.product_price import get_price_of_product, get_ip_detail
+from cart.utils import get_order, is_cart_availabe, get_cart
 from address.forms import AddressCreateForm
 from commons.state import IndianStates, IndianUnionTerritories
-from address.views import update_for_default_address
+
 
 class CartView(View):
     template_name = 'cart.html'
@@ -38,23 +26,22 @@ class CartView(View):
         user = request.user
         if not user.is_authenticated:
             return render(request, self.template_name, {'cart': None})
-        cart = Cart.objects.filter(user=user,is_checkout=False).first()
+        cart = Cart.objects.filter(user=user, is_checkout=False).first()
 
         if not cart:
             return render(request, self.template_name, {'cart': None})
 
         product_details = cart.product_detail.all()
-        currency = settings.CURRENCY_SYMBOL
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
-            price_list = get_price_of_product(request,product.product)
+            price_list = get_price_of_product(request, product.product)
             product.price = price_list['price']
 
         context = {
             'cart': cart,
             'products': product_details,
-            'range': [i+1 for i in range(10)]
+            'range': [i + 1 for i in range(10)]
         }
         return render(request, self.template_name, context)
 
@@ -64,12 +51,12 @@ class AddToCart(View):
         '''
         Add products to the user's cart.
         '''
-        user = request.user                                                 
+        user = request.user
         product_id = request.POST.get('product_id')
         quantity = request.POST.get('quantity')
 
         product = Product.objects.get(id=product_id)
-        cart = Cart.objects.filter(user=user,is_checkout=False).first() 
+        cart = Cart.objects.filter(user=user, is_checkout=False).first()
 
         if cart:
             product_quantity = ProductQuantity.objects.filter(product=product, cart=cart).first()
@@ -77,11 +64,11 @@ class AddToCart(View):
                 product_quantity.quantity = quantity
                 product_quantity.save()
             else:
-                product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity) 
+                product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity)
                 cart.product_detail.add(product_quantity)
         else:
             cart = Cart.objects.create(user=user)
-            product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity) 
+            product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity)
             cart.product_detail.add(product_quantity)
 
         return redirect('cart')
@@ -94,20 +81,21 @@ class RemoveFromCart(View):
         '''
         product_id = request.GET.get('product_id')
         cart_id = request.GET.get('cart_id')
-        user = request.user                         
-        cart = Cart.objects.get(id=cart_id)          
-        product = Product.objects.get(id=product_id)                   
+        cart = Cart.objects.get(id=cart_id)
+        product = Product.objects.get(id=product_id)
 
         if cart:
-            product_detail = ProductQuantity.objects.filter(product=product, cart=cart).first() 
+            product_detail = ProductQuantity.objects.filter(product=product, cart=cart).first()
             cart.product_detail.remove(product_detail)
             data = {'message': 'success', 'cart_length': len(cart.product_detail.all())}
             return JsonResponse(data)
-            
+
         data = {'message': 'fail'}
         return JsonResponse(data)
-        
+
+
 class ProcessToCheckout(View):
+
     def get(self, request):
         # get the logged in user
         user = request.user
@@ -126,6 +114,7 @@ class ProcessToCheckout(View):
 class ChooseShippingAddress(View):
     template_name = 'choose_shipping_address.html'
     address_type = 'shipping'
+
     def get(self, request):
 
         # address creation form
@@ -136,8 +125,8 @@ class ChooseShippingAddress(View):
             address_type=self.address_type
         ).order_by('-default', '-id')
         context = {
-            'form': form, 
-            'state': state, 
+            'form': form,
+            'state': state,
             'address_type': self.address_type,
             'all_shipping_address': all_shipping_address
         }
@@ -167,15 +156,17 @@ class ChooseShippingAddress(View):
             return redirect('choose_billing_address')
         state = (IndianStates + IndianUnionTerritories)
         context = {
-            'form': form, 
-            'state': state, 
+            'form': form,
+            'state': state,
             'address_type': self.address_type,
         }
         return render(request, self.template_name, context)
 
+
 class ChooseBillingAddress(View):
     template_name = 'choose_billing_address.html'
     address_type = 'billing'
+
     def get(self, request):
         # get the shipping_address_id if pass
         shipping_address_id = request.GET.get('shipping_address_id')
@@ -184,15 +175,15 @@ class ChooseBillingAddress(View):
         user = request.user
         if not is_cart_availabe(user):
             return redirect('dashboard')
-        
+
         order = get_order(user)
         if not order:
             return redirect('dashboard')
-        
-        if shipping_address_id and shipping_address_id!="":
+
+        if shipping_address_id and shipping_address_id != "":
             shipping_address = Address.objects.filter(id=shipping_address_id).first()
-        
-            # If shipping address not choosed 
+
+            # If shipping address not choosed
             if shipping_address:
                 # Update the shipping address
                 order.shipping_address = shipping_address
@@ -206,8 +197,8 @@ class ChooseBillingAddress(View):
             address_type=self.address_type
         ).order_by('-default', '-id')
         context = {
-            'form': form, 
-            'state': state, 
+            'form': form,
+            'state': state,
             'address_type': self.address_type,
             'all_billing_address': all_billing_address
         }
@@ -223,7 +214,7 @@ class ChooseBillingAddress(View):
 
             if address.default:
                 update_for_default_address(address)
-            
+
             # checks for cart and order
             if not is_cart_availabe(request.user):
                 return redirect('dashboard')
@@ -237,8 +228,8 @@ class ChooseBillingAddress(View):
             return redirect('checkout')
         state = (IndianStates + IndianUnionTerritories)
         context = {
-            'form': form, 
-            'state': state, 
+            'form': form,
+            'state': state,
             'address_type': self.address_type,
         }
         return render(request, self.template_name, context)
@@ -258,13 +249,13 @@ class Checkout(View):
         order = get_order(user)
         if not order:
             return redirect('dashboard')
-        
+
         # get the shipping_address if pass
         shipping_address_id = request.GET.get('shipping_address_id')
-        if shipping_address_id and shipping_address_id!="":
+        if shipping_address_id and shipping_address_id != "":
             shipping_address = Address.objects.filter(id=shipping_address_id).first()
-        
-            # If shipping address not choosed 
+
+            # If shipping address not choosed
             if shipping_address:
                 # Update the shipping address
                 order.shipping_address = shipping_address
@@ -273,8 +264,8 @@ class Checkout(View):
         # if order has not shipping addres; get the default one
         if not order.shipping_address:
             shipping_address = Address.objects.filter(
-                user=user, 
-                address_type='shipping', 
+                user=user,
+                address_type='shipping',
                 default=True
             ).first()
 
@@ -288,8 +279,8 @@ class Checkout(View):
         # if order has not billing address; get the default one
         if not order.billing_address:
             billing_address = Address.objects.filter(
-                user=user, 
-                address_type='billing', 
+                user=user,
+                address_type='billing',
                 default=True
             ).first()
 
@@ -318,7 +309,6 @@ class Checkout(View):
         cart = order.cart
 
         product_details = cart.product_detail.all()
-        currency = settings.CURRENCY_SYMBOL
 
         totalPrice = 0
 
@@ -326,14 +316,14 @@ class Checkout(View):
             # Add the price and currency according to the given country to the product
             country = request.GET.get('country')
             for product in product_details:
-                price_list = get_price_of_product(request,product.product)  # TODO: for the country
+                price_list = get_price_of_product(request, product.product)  # TODO: for the country
                 product.price = price_list['price']
                 totalPrice += float(product.price)
         else:
             # Add the price and currency according to the user's location to the product
             country = settings.COUNTRY
             for product in product_details:
-                price_list = get_price_of_product(request,product.product)
+                price_list = get_price_of_product(request, product.product)
                 product.price = price_list['price']
                 totalPrice += float(product.price)
 
@@ -351,11 +341,10 @@ class Checkout(View):
     def post(self, request, *args, **kwargs):
         order_id = request.POST.get('order_id')
         total = request.POST.get('total')
-        coupon_code = request.POST.get('coupon_code')
         coupon_id = request.POST.get('coupon_id')
         customization_request = request.POST.get('customization_request')
 
-        # Get the logged in user 
+        # Get the logged in user
         user = request.user
 
         # checks for cart and order
@@ -367,24 +356,24 @@ class Checkout(View):
 
         # get the coupon
         coupon = Coupon.objects.filter(id=coupon_id)
-        
+
         # update the order's data
         order.total = total
         order.customization_request = customization_request
-        order.coupon =  coupon.first() if coupon and coupon.first() else None
+        order.coupon = coupon.first() if coupon and coupon.first() else None
         order.save()
 
         # Show payment method according to IP
         ip_detail = get_ip_detail(request)
-        if ip_detail['message']!='fail':
+        if ip_detail['message'] != 'fail':
             country = ip_detail['country']
         else:
             country = settings.COUNTRY
-        
+
         countryPayment = CountryPayment.objects.filter(country=country).first()
         if not countryPayment:
             countryPayment = CountryPayment.objects.filter(country=settings.COUNTRY).first()
-        
+
         if countryPayment and (not countryPayment.razorpay) and (not countryPayment.cod):
             all_payment_method_off = True
         else:

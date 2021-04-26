@@ -1,15 +1,11 @@
-from django.shortcuts import render
 from django.views.generic import View
 from django.http import JsonResponse
-from django.core import serializers
-from django.forms.models import model_to_dict
 
 # Create your views here.
 from .models import Coupon
-from product.models import Product
 from cart.models import Cart
-from commons.product_price import get_price_of_product, get_ip_detail
-import json
+from commons.product_price import get_price_of_product
+
 
 class ValidateCoupon(View):
     def get(self, request, *args, **kwargs):
@@ -21,22 +17,22 @@ class ValidateCoupon(View):
         coupon_id = 0
         if coupon:
             remaining = coupon.coupon_usage_limit - coupon.coupon_used
-            if remaining>0 and coupon.coupon_valid:
+            if remaining > 0 and coupon.coupon_valid:
                 if cart:
                     # Loop over all products in the cart
                     for product in cart.product_detail.all():
                         if {'id': coupon.coupon_category.id} in list(product.product.category.values('id')):
-                            
+
                             # Get the price of product according to IP
-                            price_list = get_price_of_product(request,product.product)
+                            price_list = get_price_of_product(request, product.product)
                             product_price = price_list['price']
 
                             # product discount = quantity * price * rate
                             if coupon.coupon_method == 'Percent' or coupon.coupon_method == 'percent':
-                                product_discount = float(product.quantity)*float(product_price)*float(coupon.coupon_value/100)
+                                product_discount = float(product.quantity) * float(product_price) * float(coupon.coupon_value / 100)
                             else:
                                 product_discount = float(coupon.coupon_value)
-                            
+
                             # Update the total tax
                             coupon_total_discount += product_discount
                     message = 'success'
@@ -47,6 +43,3 @@ class ValidateCoupon(View):
             'coupon_id': coupon_id,
         }
         return JsonResponse(data)
-
-
-        

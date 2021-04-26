@@ -6,14 +6,15 @@ from commons.models import TimeStampedModel
 
 # Create your models here.
 METHOD_CHOICES = (
-        ('percent', 'percent'),
-        ('fixed_amount', 'Fixed Amout'),
-    )
+    ('percent', 'percent'),
+    ('fixed_amount', 'Fixed Amout'),
+)
+
 
 class Coupon(TimeStampedModel):
     coupon_name = models.CharField(max_length=100)
     coupon_code = models.CharField(max_length=20)
-    coupon_method= models.CharField(choices=METHOD_CHOICES, default='percent', max_length=20)
+    coupon_method = models.CharField(choices=METHOD_CHOICES, default='percent', max_length=20)
     coupon_value = models.PositiveIntegerField(default=0)
     coupon_usage_limit = models.PositiveIntegerField(default=0)
     coupon_used = models.PositiveIntegerField(default=0)

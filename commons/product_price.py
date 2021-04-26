@@ -1,7 +1,6 @@
-from product.models import Product
 from django.conf import settings
-from commons.ip_detect import request_to_geoplugin, get_ip_detail
 from product.models import CountryCurrencyRate
+
 
 def get_price_of_product(request, product, country=None):
     ###############
@@ -11,15 +10,14 @@ def get_price_of_product(request, product, country=None):
     #  4. calculate price with the given rate
     #############
 
-    
     if not country:
-        # TODO: 
+        # TODO:
         country = settings.COUNTRY
         currency_code = settings.CURRENCY_CODE
     else:
         country = settings.COUNTRY
         currency_code = settings.CURRENCY_CODE
-    
+
     # Get the default Any Country currency of the product.
     default = product.countrycurrency_set.filter(country='Any').first()
 
@@ -43,16 +41,16 @@ def get_price_of_product(request, product, country=None):
             rate = given_countryCurrencyRate.currency_rate / product_countryCurrencyRate.currency_rate
         else:
             rate = 1
-        
+
         price = float(default.selling_price) * rate
         mrp_price = float(default.MRP) * rate
 
     else:
         price = 0
         mrp_price = 0
-    
+
     to_return = {
-        'price': format(price,'.2f'), 
-        'MRP':format(mrp_price,'.2f')
+        'price': format(price, '.2f'),
+        'MRP': format(mrp_price, '.2f')
     }
     return to_return

@@ -88,19 +88,19 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'commons/GeoLite2-Country.mmdb')
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.'+config('DB_CONNECTION'),
-        'NAME': config('DB_DATABASE'),
-        'USER': config('DB_USERNAME'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-        'default-character-set': 'utf8'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.' + config('DB_CONNECTION'),
+    #     'NAME': config('DB_DATABASE'),
+    #     'USER': config('DB_USERNAME'),
+    #     'PASSWORD': config('DB_PASSWORD'),
+    #     'HOST': config('DB_HOST'),
+    #     'PORT': config('DB_PORT'),
+    #     'default-character-set': 'utf8'
+    # }
 }
 
 # Password validation
@@ -135,8 +135,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL='/customer/login/'
-LOGIN_URL='/customer/login/'
+LOGIN_REDIRECT_URL = '/customer/login/'
+LOGIN_URL = '/customer/login/'
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
@@ -144,12 +144,12 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
- }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-## static url
+# static url
 # STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATICFILES_DIRS = (
@@ -229,7 +229,8 @@ CKEDITOR_CONFIGS = {
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
+            'uploadimage',
+            # the upload image feature
             # your extra plugins here
             'div',
             'autolink',
@@ -265,11 +266,11 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
 
-RAZORPAY_KEY=config('RAZORPAY_KEY')
-RAZORPAY_SECRET=config('RAZORPAY_SECRET')
+RAZORPAY_KEY = config('RAZORPAY_KEY')
+RAZORPAY_SECRET = config('RAZORPAY_SECRET')
 
 # Fixer API
-FIXER_API_KEY=config('FIXER_API_KEY', default='')
+FIXER_API_KEY = config('FIXER_API_KEY', default='')
 
 DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='India')
 DEFAULT_CURRENCY = config('DEFAULT_CURRENCY', default='INR')

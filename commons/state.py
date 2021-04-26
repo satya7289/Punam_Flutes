@@ -1,6 +1,6 @@
-IndianStates =[
+IndianStates = [
     ['Andhra Pradesh', 'Andhra Pradesh'],
-    ['Arunachal Pradesh','Arunachal Pradesh'],
+    ['Arunachal Pradesh', 'Arunachal Pradesh'],
     ['Assam', 'Assam'],
     ['Bihar', 'Bihar'],
     ['Chhattisgarh', 'Chhattisgarh'],
@@ -28,11 +28,11 @@ IndianStates =[
     ['Uttarakhand', 'Uttarakhand'],
     ['West Bengal', 'West Bengal']
 ]
-IndianUnionTerritories=[
+IndianUnionTerritories = [
     ['Andaman and Nicobar Islands', 'Andaman and Nicobar Islands'],
     ['Chandigarh', 'Chandigarh'],
     ['Dadra & Nagar Haveli and Daman & Diu', 'Dadra & Nagar Haveli and Daman & Diu'],
-    ['Delhi','Delhi'],
+    ['Delhi', 'Delhi'],
     ['Jammu and Kashmir', 'Jammu and Kashmir'],
     ['Lakshadweep', 'Lakshadweep'],
     ['Puducherry', 'Puducherry'],
