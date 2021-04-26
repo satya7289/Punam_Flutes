@@ -1,48 +1,30 @@
-from django.shortcuts import render, redirect
-from django.views.generic import View
+import json
 from django.conf import settings
-from decimal import Decimal
-from paypal.standard.forms import PayPalPaymentsForm
-from django.views.decorators.csrf import csrf_exempt
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.utils.html import format_html
 from django.core.exceptions import ObjectDoesNotExist
 
-from cart.models import Cart, ProductQuantity
-from StaticData.models import CountryPayment
-from order.models import Order, Payment
-from customer.models import User
-from customer.models import Profile
-from product.models import Product
-from coupon.models import Coupon
-from commons.product_price import get_price_of_product, get_ip_detail
-from address.models import Address
+from cart.models import Cart
+from order.models import Order
 from commons.mail import SendEmail
-from tax_rules.models import TaxRule, GSTState
-import razorpay
 from tax_rules.views import CalculateTaxForCart
-import json
+from commons.product_price import get_price_of_product
 
 
 def is_cart_availabe(user):
     cart = Cart.objects.filter(user=user, is_checkout=False).first()
-    
+
     # If cart exits
     if cart:
         return True
     return False
 
+
 def get_cart(user):
     return Cart.objects.filter(user=user, is_checkout=False).first()
 
+
 def get_order(user):
     cart = Cart.objects.filter(user=user, is_checkout=False).first()
-        
+
     # If cart exits
     if cart:
         order = Order.objects.filter(cart=cart).first()
@@ -50,6 +32,7 @@ def get_order(user):
         if order:
             return order
     return None
+
 
 def after_successful_placed_order(request, payment, order_status="Confirmed"):
     '''
@@ -73,7 +56,7 @@ def after_successful_placed_order(request, payment, order_status="Confirmed"):
                 product.inventory.save()
         except ObjectDoesNotExist:
             pass
-    
+
     # Set Cart checkout to True.
     cart.is_checkout = True
     cart.save()
@@ -104,13 +87,14 @@ def placed_order_notification(request, orderId):
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
-            price_list = get_price_of_product(request,product.product)
+            price_list = get_price_of_product(request, product.product)
             product.price = price_list['price']
-        
+
         data = {
             'products': product_details,
             'total': order.total,
             'shipping_address': order.shipping_address,
+            'currency': currency,
             'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.shipping_address.id).content)['totalTax'],
         }
         # return render(request, 'invoice.html', context=data)
@@ -120,7 +104,7 @@ def placed_order_notification(request, orderId):
             message = "Invoice sent"
         else:
             message = "either email is not there or email not verified."
-        
+
         if user.phone and user.phone_verified:
             # TODO send Mobile sms
             message = "inbox sent"

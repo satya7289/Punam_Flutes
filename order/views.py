@@ -1,38 +1,28 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.conf import settings
-from decimal import Decimal
 from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.utils.html import format_html
 
-from cart.models import Cart, ProductQuantity
-from StaticData.models import CountryPayment
+from cart.models import Cart
 from order.models import Order, Payment
-from customer.models import User
-from customer.models import Profile
-from product.models import Product
-from coupon.models import Coupon
 from commons.product_price import get_price_of_product, get_ip_detail
-from address.models import Address
 from commons.mail import SendEmail
 from tax_rules.models import TaxRule, GSTState
-import razorpay
 from tax_rules.views import CalculateTaxForCart
+
+from cart.utils import after_successful_placed_order
+
 import json
-from cart.utils import after_successful_placed_order, get_order, is_cart_availabe, get_cart
-from address.forms import AddressCreateForm
-from commons.state import IndianStates, IndianUnionTerritories
-from address.views import update_for_default_address
+import razorpay
+
 
 class OrderInvoice(View):
     template_name = 'order_invoice.html'
+
     def get(self, request):
         user = request.user
         order_id = request.GET.get('order_id')
@@ -52,12 +42,11 @@ class OrderInvoice(View):
 
             for product in products:
                 # Get the price of product according to IP
-                price_list = get_price_of_product(request,product.product)
+                price_list = get_price_of_product(request, product.product)
                 product_price = price_list['price']
 
                 # Get the first category of the product
                 first_category = product.product.category.first()
-
 
                 # TAX CALCULATION
                 product_tax = 0
@@ -72,7 +61,7 @@ class OrderInvoice(View):
 
                         # get all tax rule for given address(state, country) and category
                         taxRules = TaxRule.objects.filter(
-                            country=address.country, 
+                            country=address.country,
                             state__in=GSTState.objects.filter(name__icontains=address.state),
                             category__in=[first_category.id]
                         ).distinct()
@@ -83,7 +72,7 @@ class OrderInvoice(View):
                             # if tax method is not fixed:
                             # product tax = quantity * price * rate
                             if taxRule.method == 'Percent' or taxRule.method == 'percent':
-                                category_tax = float(product.quantity)*float(product_price)*float(taxRule.value/100)
+                                category_tax = float(product.quantity) * float(product_price) * float(taxRule.value / 100)
                             else:
                                 category_tax = float(taxRule.value)
 
@@ -97,22 +86,21 @@ class OrderInvoice(View):
 
                         # Update the total tax
                         totalTax += product_tax
-                    
+
                 # CHECK COUPON APPLIED
                 product_discount = 0
                 coupon = order.coupon
                 if coupon:
                     if {'id': coupon.coupon_category.id} in list(product.product.category.values('id')):
-                        
+
                         # product discount = quantity * price * rate
                         if coupon.coupon_method == 'Percent' or coupon.coupon_method == 'percent':
-                            product_discount = float(product.quantity)*float(product_price)*float(coupon.coupon_value/100)
+                            product_discount = float(product.quantity) * float(product_price) * float(coupon.coupon_value / 100)
                         else:
                             product_discount = float(coupon.coupon_value)
-                        
+
                         # Update the total tax
                         coupon_total_discount += product_discount
-                     
 
                 # Add additional details to products
                 product.title = product.product.title
@@ -125,7 +113,7 @@ class OrderInvoice(View):
                 product.tax_amount = tax_amount
                 product.tax_type = tax_type
                 product.net_tax_amount = product_tax
-                product.total_amount = float(product.net_ammount) +  float(product_tax)  - float(product_discount)
+                product.total_amount = float(product.net_ammount) + float(product_tax) - float(product_discount)
 
                 totalAmount = product.total_amount
 
@@ -146,7 +134,7 @@ class OrderInvoice(View):
             }
             return render(request, self.template_name, context=context)
         return redirect('dashboard')
-            
+
 
 class OrderList(View):
     def get(self, request):
@@ -158,6 +146,7 @@ class OrderList(View):
             )
         )
         return render(request, template_name, {'orders': orders})
+
 
 class CancelOrder(View):
     '''
@@ -171,6 +160,7 @@ class CancelOrder(View):
                 order.save()
         return redirect('orders')
 
+
 @login_required
 def process_payment(request):
     host = request.get_host()
@@ -180,15 +170,16 @@ def process_payment(request):
 
     if order:
         g = get_ip_detail(request)
-        if g['message']=='success':
+        if g['message'] == 'success':
             currency = g['data']['geoplugin_currencyCode']
         else:
             currency = settings.CURRENCY_SYMBOL
-        
-        if request.POST.get('razorpay'): # Razorpay
+
+        if request.POST.get('razorpay'):
+            # Razorpay
             client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
             amount = float('%.2f' % order.total)
-            if currency=="INR":
+            if currency == "INR":
                 amount *= 100
             resp = client.order.create(dict(
                 amount=amount,
@@ -196,15 +187,15 @@ def process_payment(request):
                 receipt=str(order.id)
             ))
             # print(resp)
-            if resp['status']=="created":
+            if resp['status'] == "created":
                 payment = Payment.objects.filter(order=order.id).first()
 
                 if payment:
                     if payment.status:  # if payment is done
                         return redirect('dashboard')
                     else:
-                        payment.method="razorpay"
-                        payment.razorpay=resp['id']
+                        payment.method = "razorpay"
+                        payment.razorpay = resp['id']
                         payment.save()
                 else:
                     payment = Payment.objects.create(
@@ -212,18 +203,19 @@ def process_payment(request):
                         method="razorpay",
                         razorpay=resp['id']
                     )
-                
+
                 context = {
                     'order': resp['id'],
                     'key': settings.RAZORPAY_KEY,
-                    'callbackurl': scheme  + "://" + host +  reverse('razorpay_done'),
-                    'cancelurl': scheme  + "://" + host +  reverse('razorpay_cancel'),
+                    'callbackurl': scheme + "://" + host + reverse('razorpay_done'),
+                    'cancelurl': scheme + "://" + host + reverse('razorpay_cancel'),
                 }
-                
+
                 return render(request, 'razorpayRequest.html', context)
             return redirect('checkout')
 
-        elif request.POST.get('paypal'): # Paypal
+        elif request.POST.get('paypal'):
+            # Paypal
             paypal_dict = {
                 'business': settings.PAYPAL_RECEIVER_EMAIL,
                 'amount': '%.2f' % order.total,
@@ -237,24 +229,25 @@ def process_payment(request):
 
             form = PayPalPaymentsForm(initial=paypal_dict)
             return render(request, 'process_payment.html', {'order': 'order', 'form': form})
-        
-        elif request.POST.get('COD'): # COD
+
+        elif request.POST.get('COD'):
+            # COD
             payment = Payment.objects.filter(order=order.id).first()
 
             if payment:
                 if payment.status:  # if payment is done
                     return redirect('dashboard')
                 else:
-                    payment.method="COD"
+                    payment.method = "COD"
                     payment.save()
             else:
                 payment = Payment.objects.create(
                     order=order,
                     method="COD"
                 )
-            
+
             after_successful_placed_order(request, payment, "Confirmed")
-            return redirect('orders')            
+            return redirect('orders')
 
     messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
     return redirect('checkout')
@@ -267,13 +260,12 @@ def sendInvoice(request, orderId):
         user = order.user
 
         product_details = order.cart.product_detail.all()
-        currency = settings.CURRENCY_SYMBOL
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
-            price_list = get_price_of_product(request,product.product)
+            price_list = get_price_of_product(request, product.product)
             product.price = price_list['price']
-        
+
         data = {
             'products': product_details,
             'total': order.total,
@@ -287,7 +279,7 @@ def sendInvoice(request, orderId):
             message = "Invoice sent"
         else:
             message = "either email is not there or email not verified."
-        
+
         if user.phone and user.phone_verified:
             # TODO send Mobile sms
             message = "inbox sent"
@@ -296,6 +288,7 @@ def sendInvoice(request, orderId):
             message = "either phone is not there or phone not verified."
         return message
     return message
+
 
 @csrf_exempt
 def payment_done(request):
@@ -307,13 +300,13 @@ def payment_done(request):
 def payment_canceled(request):
     return render(request, 'payment_cancelled.html')
 
+
 @csrf_exempt
 def razorpay_done(request):
     client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
     razorpayOrderId = request.POST.get('razorpay_order_id')
     # print(request.POST)
     if razorpayOrderId:
-        razorpayOrder = client.order.fetch(razorpayOrderId)
         razorpayPayment = client.order.payments(razorpayOrderId)
 
         if razorpayPayment['items'][0]['status'] == 'captured':
@@ -327,6 +320,7 @@ def razorpay_done(request):
                 after_successful_placed_order(request, payment)
                 return redirect('orders')
     return redirect('dashboard')
+
 
 @csrf_exempt
 def razorpay_cancel(request):

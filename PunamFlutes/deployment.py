@@ -129,7 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-## static url
+# static url
 # STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATICFILES_DIRS = (
@@ -177,8 +177,8 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
 
-RAZORPAY_KEY=config('RAZORPAY_KEY')
-RAZORPAY_SECRET=config('RAZORPAY_SECRET')
+RAZORPAY_KEY = config('RAZORPAY_KEY')
+RAZORPAY_SECRET = config('RAZORPAY_SECRET')
 
 DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='Any')
 DEFAULT_CURRENCY = config('DEFAULT_CURRENCY', default='USD')

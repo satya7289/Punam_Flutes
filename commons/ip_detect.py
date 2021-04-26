@@ -2,9 +2,10 @@ import requests
 from django.conf import settings
 from product.models import CountryCurrencyRate
 
+
 def request_to_ip2c(client_ip):
-    if client_ip!='0.0.0.0' and client_ip!='127.0.0.1' and settings.IP_BASED_PRICING:
-        url = 'https://ip2c.org/'+client_ip
+    if client_ip != '0.0.0.0' and client_ip != '127.0.0.1' and settings.IP_BASED_PRICING:
+        url = 'https://ip2c.org/' + client_ip
         req = requests.get(url)
         req = req.text.split(";")
         country_code_2 = req[1]
@@ -16,9 +17,10 @@ def request_to_ip2c(client_ip):
         country_code_3 = settings.DEFAULT_CUNTRY_ALPHA_3
     return country_code_2, country_code_3, country
 
+
 def set_country_data(request):
     client_ip = get_client_ip(request)
-    country_code_2, country_code_3, country =  request_to_ip2c(client_ip)
+    country_code_2, country_code_3, country = request_to_ip2c(client_ip)
 
     countryCurrencyRate = CountryCurrencyRate.objects.filter(
         alpha_2_code=country_code_2,
@@ -58,6 +60,7 @@ def request_to_geoplugin(client_ip, base_currency='USD'):
     #     }
     return None
 
+
 def get_ip_detail(request):
     # Get the IP of the logged in user
     client_ip = get_client_ip(request)
@@ -67,6 +70,6 @@ def get_ip_detail(request):
         return ip_detail
 
     return {
-        'message':'fail',
-        'user_ip':client_ip
+        'message': 'fail',
+        'user_ip': client_ip
     }

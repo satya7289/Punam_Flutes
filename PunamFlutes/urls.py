@@ -1,19 +1,18 @@
 from django.contrib import admin
 from django.conf import settings
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.conf.urls.static import static
 
 from .views import HomePageView
 
 from .views import (
     contact,
-    termsCondition,
 )
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='dashboard'),
     path('contact/', contact, name='contact'),
-    
+
     path('flutes_admin/', admin.site.urls),
     path('customer/', include('customer.urls')),
     path('product/', include('product.urls')),

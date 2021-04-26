@@ -1,16 +1,16 @@
 from django.db import models
 from category.models import Category
 
-import json
 # Create your models here.
 
 country = [['India', 'India'], ['Other', 'Other']]
 METHOD_CHOICES = (
-        ('percent', 'Percent'),
-        ('fixed_amount', 'Fixed Amout'),
-    )
+    ('percent', 'Percent'),
+    ('fixed_amount', 'Fixed Amout'),
+)
 
-GST_TYPE = [['IGST', 'IGST'], ['CGST', 'CGST'], ['SGST','SGST']]
+GST_TYPE = [['IGST', 'IGST'], ['CGST', 'CGST'], ['SGST', 'SGST']]
+
 
 class GSTState(models.Model):
     name = models.CharField(max_length=200, blank=True, null=True)
@@ -18,7 +18,7 @@ class GSTState(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class TaxRule(models.Model):
     display_name = models.CharField(max_length=200)

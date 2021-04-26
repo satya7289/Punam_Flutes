@@ -1,10 +1,7 @@
 import os
 from django.views.generic import View
-from datetime import datetime, timedelta
-from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, get_user_model, logout
-from django.contrib.auth.forms import UserCreationForm
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import JsonResponse
@@ -13,8 +10,6 @@ from django.contrib import messages
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from django.contrib import messages
-from category.models import Category
 from PunamFlutes.tokens import account_activation_token
 from commons.country_currency import country as COUNTRY
 from commons.state import IndianStates, IndianUnionTerritories
@@ -48,12 +43,11 @@ def send_html_email(to_list, subject, template_name, context, sender, attachment
                 os.remove(attachment)
         return delivered
     except Exception as e:
-        print("error in email method")
+        print("error in email method", e)
         return 0
 
 
 def customer_register(request):
-    
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -76,7 +70,7 @@ def customer_register(request):
                     'from': 'punamflutes@gmail.com'
                 }
                 try:
-                    delivered = send_html_email(
+                    send_html_email(
                         to_list=[user.email],
                         subject='Email account verfication',
                         template_name='acc_active_email.html',
@@ -84,7 +78,7 @@ def customer_register(request):
                         sender='punamflutes@gmail.com'
                     )
                 except Exception as e:
-                    print('error while sending email')
+                    print('error while sending email', e)
                 messages.add_message(
                     request, messages.SUCCESS, 'User created successfully. We have sent an email for email verification.')
         else:
@@ -93,19 +87,21 @@ def customer_register(request):
 
     return render(request, 'store/register.html', {})
 
+
 class Registration(View):
     template_name = "store/register.html"
     message = ""
     countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
+
     def get(self, request):
-        return render(request, self.template_name, {'countryCodes':self.countryCodes})
+        return render(request, self.template_name, {'countryCodes': self.countryCodes})
 
     def post(self, request):
         registrationType = request.POST['type']
         password = request.POST['password']
         cnf_password = request.POST['cnf_password']
         if password == cnf_password:
-            if registrationType=="email":
+            if registrationType == "email":
                 email = request.POST['email']
                 user = User.objects.filter(email=email)
                 if user.exists():
@@ -114,19 +110,15 @@ class Registration(View):
                 else:
                     email_opt = request.POST.get('email_opt')
                     if email_opt:
-                        email_opt=True
+                        email_opt = True
                     else:
-                        email_opt=False
+                        email_opt = False
                     user = User.objects.create_user(email, password)
-                    profile = Profile.objects.create(
-                        user=user,
-                        email_opt_in=email_opt
-                    )
 
                     # send account activation code
                     uid = urlsafe_base64_encode(force_bytes(user.pk))
                     token = account_activation_token.make_token(user)
-                    url = request.scheme  + "://" + request.get_host() + reverse('activate', kwargs={'uidb64': uid, 'token':token})
+                    url = request.scheme + "://" + request.get_host() + reverse('activate', kwargs={'uidb64': uid, 'token': token})
                     data = {
                         "link": url
                     }
@@ -135,8 +127,8 @@ class Registration(View):
                     sendEmail.send((user.email,))
 
                     self.message = "User created successfully. We have sent an email for email verification."
-                    messages.add_message( request, messages.SUCCESS, self.message)
-            elif registrationType=="phone":
+                    messages.add_message(request, messages.SUCCESS, self.message)
+            elif registrationType == "phone":
                 country_code = request.POST['country_code']
                 phone = request.POST['phone']
                 user = User.objects.filter(phone=phone)
@@ -145,39 +137,40 @@ class Registration(View):
                     messages.add_message(request, messages.WARNING, self.message)
                 else:
                     user = User.objects.create_user(
-                        phone, 
-                        password, 
+                        phone,
+                        password,
                         country_code=country_code
                     )
                     print(user)
                     # TODO send account activation code
 
                     self.message = "User created successfully."
-                    messages.add_message( request, messages.SUCCESS, self.message)
-        else:  
+                    messages.add_message(request, messages.SUCCESS, self.message)
+        else:
             self.message = "Password and Confirm Password are not same."
             messages.add_message(request, messages.WARNING, self.message)
-        return render(request, self.template_name, {'countryCodes':self.countryCodes})
+        return render(request, self.template_name, {'countryCodes': self.countryCodes})
 
 
 class Login(View):
     template_name = "store/login.html"
-    template_name2= 'store/index.html'
+    template_name2 = 'store/index.html'
     message = ""
     countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
+
     def get(self, request):
-        return render(request, self.template_name, {'countryCodes':self.countryCodes})
+        return render(request, self.template_name, {'countryCodes': self.countryCodes})
 
     def post(self, request):
         loginType = request.POST['type']
-        if loginType=="email":
+        if loginType == "email":
             email = request.POST['email']
             password = request.POST['password']
             user = authenticate(request, username=email, password=password)
             if user:
                 login(request, user)
                 return render(request, self.template_name2)
-        elif loginType=="phone":
+        elif loginType == "phone":
             country_code = request.POST['country_code']
             phone = request.POST['phone']
             phone = normalize_phone(phone, country_code)
@@ -186,7 +179,7 @@ class Login(View):
             if user:
                 login(request, user)
                 return render(request, self.template_name2)
-        
+
         self.message = "Invalid login credentials."
         messages.add_message(request, messages.WARNING, self.message)
         return render(request, self.template_name)
@@ -239,11 +232,13 @@ def customer_login(request):
     else:
         return render(request, template, context)
 
+
 def customer_logout(request):
     if request.user.is_authenticated:
         logout(request)
 
     return redirect('/')
+
 
 class CustomerProfile(View):
     template_name = 'profile.html'
@@ -265,14 +260,14 @@ class CustomerProfile(View):
 
         if not profile:
             profile = None
-        
+
         if not billing_address:
             billing_address = None
-        
+
         if not shipping_address:
             shipping_address = None
 
-        context ={
+        context = {
             'profile': profile,
             'email' : user.email,
             'phone' : user.phone,
@@ -289,7 +284,7 @@ class CustomerProfile(View):
 
         user = request.user
         profile = Profile.objects.filter(user=user).first()
-        
+
         if profile:
             if first_name:
                 profile.first_name = first_name
@@ -315,13 +310,11 @@ class CustomerAddress(View):
 
         address_type = request.GET.get('address_type')
 
-
         # Get all the address of the user
-        if address_type=="Billing" or address_type=="billing":
-            all_address = Address.objects.filter(user=user, address_type='billing').order_by('-default','-id')
-        elif address_type=="Shipping" or address_type=="shipping":
-            all_address = Address.objects.filter(user=user, address_type='shipping').order_by('-default','-id')
-        
+        if address_type == "Billing" or address_type == "billing":
+            all_address = Address.objects.filter(user=user, address_type='billing').order_by('-default', '-id')
+        elif address_type == "Shipping" or address_type == "shipping":
+            all_address = Address.objects.filter(user=user, address_type='shipping').order_by('-default', '-id')
 
         # countries
         country = COUNTRY[1:]
@@ -329,11 +322,11 @@ class CustomerAddress(View):
 
         if not profile:
             profile = None
-        
+
         if not all_address:
             all_address = None
 
-        context ={
+        context = {
             'profile': profile,
             'email' : user.email,
             'phone' : user.phone,
@@ -344,14 +337,16 @@ class CustomerAddress(View):
         }
         return render(request, self.template_name, context)
 
+
 class CheckUsername(View):
+
     def get(self, request):
         data = {
             'status': '0',
             'message': 'error'
         }
         registrationType = request.GET.get('type')
-        if registrationType=="email":
+        if registrationType == "email":
             email = request.GET.get('email')
             user = User.objects.filter(email=email)
             if user.exists():
@@ -364,7 +359,7 @@ class CheckUsername(View):
                     'status': '0',
                     'message': 'email not exists.'
                 }
-        elif registrationType=="phone":
+        elif registrationType == "phone":
             phone = request.GET.get('phone')
             country_code = request.GET.get('country_code')
             phone = normalize_phone(phone, country_code)
@@ -381,6 +376,7 @@ class CheckUsername(View):
                 }
         return JsonResponse(data)
 
+
 class SendPhoneOTP(View):
     def get(self, request):
         data = {
@@ -389,17 +385,19 @@ class SendPhoneOTP(View):
         }
         return JsonResponse(data)
 
+
 class UserQueryView(View):
     template_name = 'contact.html'
+
     def get(self, request):
         form = UserQueryForm
-        return render(request, self.template_name, {'form':form})
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
         form = UserQueryForm(request.POST)
         if form.is_valid():
             form.save()
             form.cleaned_data
-            messages.success(request, "We recieved your message." )
+            messages.success(request, "We recieved your message.")
             return redirect('customer_query')
-        return render(request, self.template_name, {'form':form})   
+        return render(request, self.template_name, {'form': form})

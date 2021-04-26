@@ -1,5 +1,6 @@
 from commons.ip_detect import set_country_data
 
+
 class ProductPricingMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response

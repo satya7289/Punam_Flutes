@@ -1,12 +1,9 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 
-from customer.models import User
 from commons.models import TimeStampedModel
 
-User = get_user_model()
-
 AddressType = [['billing', 'billing'], ['shipping', 'shipping']]
+
 
 class Address(TimeStampedModel):
     full_name = models.CharField(max_length=1024, blank=True, null=True)
@@ -18,7 +15,7 @@ class Address(TimeStampedModel):
     state = models.CharField(max_length=1024, null=True, blank=True)
     country = models.CharField(max_length=1024, null=False, blank=False)
     address_type = models.CharField(max_length=1024, choices=AddressType, blank=True, null=True, default='')
-    default = models.BooleanField(default=False,blank=True,null=True)
+    default = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         full_name = self.full_name if self.full_name else ''
