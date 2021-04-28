@@ -51,7 +51,7 @@ class OrderInvoice(View):
 
                 # TAX CALCULATION
                 product_tax = 0
-                tax_hsn = ""
+                tax_hsn = set()
                 tax_type = ""
                 tax_rate = ""
                 tax_amount = ""
@@ -78,7 +78,7 @@ class OrderInvoice(View):
                                 category_tax = float(taxRule.value)
 
                             # Update hsn, type, rate
-                            tax_hsn += str(taxRule.display_name) + '<br>'
+                            tax_hsn.add(taxRule.display_name)
                             tax_type += str(taxRule.gst_type) + '<br>'
                             tax_rate += str(taxRule.value) + '%<br>'
                             tax_amount += str(category_tax) + '<br>'
@@ -109,7 +109,7 @@ class OrderInvoice(View):
                 product.discount = format(product_discount, '.2f')
                 product.qty = product.quantity
                 product.net_ammount = format(float(product_price) * float(product.quantity), '.2f')
-                product.hsn = tax_hsn
+                product.hsn = '<br>'.join(tax_hsn)
                 product.tax_rate = tax_rate
                 product.tax_amount = tax_amount
                 product.tax_type = tax_type
