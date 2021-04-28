@@ -114,9 +114,9 @@ class OrderInvoice(View):
                 product.tax_amount = tax_amount
                 product.tax_type = tax_type
                 product.net_tax_amount = format(product_tax, '.2f')
-                product.total_amount = format(float(product.net_ammount) + float(product_tax) - float(product_discount), '.2f')
+                product.total_amount = float(format(float(product.net_ammount) + float(product_tax) - float(product_discount), '.2f'))
 
-                totalAmount = product.total_amount
+                totalAmount += product.total_amount
 
             gst_state = GSTState.objects.filter(name__icontains=address.state).first()
             state_code = ""
