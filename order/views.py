@@ -105,13 +105,13 @@ class OrderInvoice(View):
 
                 # Add additional details to products
                 product.title = product.product.title
-                product.unit_price = format(product_price, '.2f')
+                product.unit_price = product_price
                 product.discount = format(product_discount, '.2f')
                 product.qty = product.quantity
-                product.net_ammount = float(product_price) * float(product.quantity)
+                product.net_ammount = format(float(product_price) * float(product.quantity), '.2f')
                 product.hsn = tax_hsn
-                product.tax_rate = format(tax_rate, '.2f')
-                product.tax_amount = format(tax_amount, '.2f')
+                product.tax_rate = tax_rate
+                product.tax_amount = tax_amount
                 product.tax_type = tax_type
                 product.net_tax_amount = format(product_tax, '.2f')
                 product.total_amount = format(float(product.net_ammount) + float(product_tax) - float(product_discount), '.2f')
@@ -119,7 +119,6 @@ class OrderInvoice(View):
                 totalAmount = product.total_amount
 
             gst_state = GSTState.objects.filter(name__icontains=address.state).first()
-            print(gst_state)
             state_code = ""
             if gst_state:
                 state_code = gst_state.code
