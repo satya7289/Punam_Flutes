@@ -105,16 +105,16 @@ class OrderInvoice(View):
 
                 # Add additional details to products
                 product.title = product.product.title
-                product.unit_price = product_price
-                product.discount = product_discount
+                product.unit_price = format(product_price, '.2f')
+                product.discount = format(product_discount, '.2f')
                 product.qty = product.quantity
                 product.net_ammount = float(product_price) * float(product.quantity)
                 product.hsn = tax_hsn
-                product.tax_rate = tax_rate
-                product.tax_amount = tax_amount
+                product.tax_rate = format(tax_rate, '.2f')
+                product.tax_amount = format(tax_amount, '.2f')
                 product.tax_type = tax_type
-                product.net_tax_amount = product_tax
-                product.total_amount = float(product.net_ammount) + float(product_tax) - float(product_discount)
+                product.net_tax_amount = format(product_tax, '.2f')
+                product.total_amount = format(float(product.net_ammount) + float(product_tax) - float(product_discount), '.2f')
 
                 totalAmount = product.total_amount
 
@@ -126,9 +126,9 @@ class OrderInvoice(View):
             context = {
                 'order_id': order.id,
                 'products': products,
-                'total_amount': totalAmount,
-                'total_tax_amount': totalTax,
-                'total_discount': coupon_total_discount,
+                'total_amount': format(totalAmount, '.2f'),
+                'total_tax_amount': format(totalTax, '.2f'),
+                'total_discount': format(coupon_total_discount, '.2f'),
                 'shipping_address': order.shipping_address,
                 'billing_address': order.billing_address,
                 'state_code': state_code
