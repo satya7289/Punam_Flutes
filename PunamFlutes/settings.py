@@ -151,10 +151,10 @@ MESSAGE_TAGS = {
 
 # static url
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'PunamFlutes/static'),
+    os.path.join(BASE_DIR, 'static'),
 )
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # media Url
 MEDIA_URL = '/media/'
@@ -248,7 +248,6 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-print(CKEDITOR_BASEPATH)
 # Email Setup
 SEND_EMAIL = False
 AWS_SES_REGION_NAME = 'ap-south-1'

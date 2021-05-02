@@ -1,6 +1,5 @@
 # Project-specific files
 media/
-/static
 .vscode
 
 # Byte-compiled / optimized / DLL files
