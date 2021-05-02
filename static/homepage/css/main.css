@@ -1,0 +1,62 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/* 
+Common
+*/
+a{text-decoration: none;}
+body{background-color: #efefef;font-family: 'Gabriela', serif;}
+
+/* 
+HEADER
+*/
+
+#header{
+    background-color: #532726;text-transform: uppercase;
+}
+#header .container a{text-decoration: none;color: #ffffff;}
+#header .container .dropdown-menu a{text-decoration: none;color: black; font-size: 14px;}
+#header .container .navbar-toggler {cursor: pointer; background-color: #ff815d;border: 0px;padding: 10px;border-radius: 7px;}
+
+/* 
+
+HEADER 2
+*/
+#header2{ background-color: #fff;}
+#header2 .container .row div{padding: 17px 40px 17px 40px;}
+
+
+/* 
+
+BANNER
+*/
+.banner{padding-left: 0px; padding-right: 0px;}
+.advertigement{padding-right: 0px;}
+@media screen and (min-width:400px) and (max-width:540px) {
+    .advertigement{padding-left: 0px; padding-top: 5px;}
+}
+.banner .flickity-page-dots {position: absolute;display: grid;top: 25%;left: 95%;z-index: 2;width: 20px;height: 50%;}
+.banner .flickity-page-dots .dot{width: 8px; height: 30px; border-radius: 10px;}
+.banner .flickity-page-dots .dot.is-selected {background-color: #ff815d;height: 50px;}
+
+/* 
+
+TOP SELLING
+*/
+
+
+
+/* 
+NEW ARRIVALS
+*/
+#new__arrivals .container .card .card-title{font-size: 34px; padding: 50px; margin: 0px;}
+
+/* 
+
+Footer
+*/
+
+footer{
+
+}

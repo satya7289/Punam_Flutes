@@ -33,7 +33,7 @@ class HomePageView(View):
         # Get the category images
         category_images = Category.objects.filter(
             image__isnull=False, publish=True
-        )[:8]
+        )[:2]
 
         context = {
             'new_arrival_products': new_arrival_products,
