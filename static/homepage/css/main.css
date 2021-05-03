@@ -33,9 +33,6 @@ BANNER
 */
 .banner{padding-left: 0px; padding-right: 0px;}
 .advertigement{padding-right: 0px;}
-@media screen and (min-width:400px) and (max-width:540px) {
-    .advertigement{padding-left: 0px; padding-top: 5px;}
-}
 .banner .flickity-page-dots {position: absolute;display: grid;top: 25%;left: 95%;z-index: 2;width: 20px;height: 50%;}
 .banner .flickity-page-dots .dot{width: 8px; height: 30px; border-radius: 10px;}
 .banner .flickity-page-dots .dot.is-selected {background-color: #ff815d;height: 50px;}
@@ -60,3 +57,10 @@ Footer
 footer{
 
 }
+
+
+
+/* 
+
+RESPONSIVE
+*/

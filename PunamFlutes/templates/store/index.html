@@ -59,7 +59,7 @@
           <div class="w-100 bg-cover" style="background-image: url('{% static 'homepage/img/advertigment/advertigement.jpg' %}');">
             <a href="{{ slideshow.redirect_link }}">
               <div class="container d-flex flex-column">
-                <div class="row align-items-center py-12" style="min-height: 550px;">
+                <div class="row align-items-center py-12" style="min-height: 550px; ">
                   
                 </div>
               </div>
@@ -168,13 +168,14 @@
   </div>
 </section>
 
+<!-- ABOUT -->
 <section style="margin-top:30px;">
   <div class="container">
       <div class="card">
           <div class="card-body">
               <div class="row">
                   <div class="col-12 col-md-5 offer">
-                      <img src="{% static 'homepage/img/about_us.jpg'%}" alt="">
+                      <img class="img-fluid" src="{% static 'homepage/img/about_us.jpg'%}" alt="">
                   </div>
                   <div class="col-12 col-md-7">
                       <p style="color: #ff815d; font-family: 'Poppins'; font-size: 25px; font-weight: 400; text-transform: uppercase;">ABOUT US</p>
