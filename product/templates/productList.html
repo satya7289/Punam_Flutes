@@ -2,6 +2,20 @@
 {% load staticfiles %}
 {% block content %}
 
+<style>
+  body{background-color: #fff;}
+
+  /* For mobile or tab */
+  @media only screen and (max-width: 766px) {
+    #product__filter{display: none;}
+    #mob__product__filter{display: block;}
+  }
+
+  /* For big screen */
+  @media screen and (min-width: 766px) {
+    #mob__product__filter{display: none;}
+  }
+</style>
 
 <!-- Product Detail Modal -->
 <div class="modal fade" id="modalProduct" tabindex="-1" role="dialog" aria-hidden="true">
@@ -85,7 +99,7 @@
 <section class="py-11">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-2 col-lg-2">
+      <div id="product__filter" class="col-12 col-md-2 col-lg-2">
 
         <!-- Filters -->
         <form class="mb-10 mb-md-0">
@@ -158,7 +172,7 @@
                 <!-- Actions -->
                 <div class="card-actions">
                   <span class="card-action">
-                    <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
+                    <button class="btn btn-xs btn-circle" onclick="viewProduct(this)"
                       data-id="{{product.id}}"  
                       data-title="{{product.title}}"
                       data-currency="{{currency_symbol}}"
@@ -169,7 +183,7 @@
                     </button>
                   </span>
                   <span class="card-action">
-                    <button class="btn btn-xs btn-circle btn-white-primary" onclick="AddToCart(this)"
+                    <button class="btn btn-xs btn-circle" onclick="AddToCart(this)"
                       data-id="{{product.id}}"
                       data-quantity="1"
                     >
@@ -177,7 +191,7 @@
                     </button>
                   </span>
                   <!-- <span class="card-action">
-                    <button class="btn btn-xs btn-circle btn-white-primary" data-toggle="button">
+                    <button class="btn btn-xs btn-circle" data-toggle="button">
                       <i class="fe fe-heart"></i>
                     </button>
                   </span> -->
@@ -186,7 +200,7 @@
               </div>
 
               <!-- Body -->
-              <div class="card-body px-0">
+              <div class="card-body px-0 text-center">
 
                 <!-- Category -->
                 <div class="font-size-xs">
@@ -216,7 +230,7 @@
                     </div>
                     <!-- Actions -->
                     <div>
-                      <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
+                      <button class="btn btn-xs btn-circle" onclick="viewProduct(this)"
                         data-id="{{product.id}}"  
                         data-title="{{product.title}}"
                         data-currency="{{currency_symbol}}"
@@ -230,7 +244,7 @@
                           <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
                         {% endfor %}
                       </select>
-                      <button class="btn btn-xs btn-circle btn-white-primary" onclick="AddToCart(this)"
+                      <button class="btn btn-xs btn-circle" onclick="AddToCart(this)"
                           data-id="{{product.id}}"
                           data-quantity="1"
                         >
@@ -242,7 +256,7 @@
 
                 <!-- Actions -->
                 <div>
-                  <button class="btn btn-xs btn-circle btn-white-primary" onclick="viewProduct(this)"
+                  <button class="btn btn-xs btn-circle" onclick="viewProduct(this)"
                     data-id="{{product.id}}"  
                     data-title="{{product.title}}"
                     data-currency="{{currency_symbol}}"
@@ -256,7 +270,7 @@
                       <option value="{{ i }}">{{ i }}</option>
                     {% endfor %}
                   </select>
-                  <button class="btn btn-xs btn-circle btn-white-primary" onclick="AddToCart(this)"
+                  <button class="btn btn-xs btn-circle" onclick="AddToCart(this)"
                       data-id="{{product.id}}"
                       data-quantity="1"
                     >
@@ -273,56 +287,87 @@
           </div>
           {% endfor %}
       </div>
-      </div>
+    </div>
   </div>
 
 
-    <!-- Pagination -->
-    <nav class="d-flex justify-content-center justify-content-md-end">
-      {% if products.has_other_pages %}
-      <ul class="pagination justify-content-center">
-      
-          {% if products.has_previous %}
-          <li class="page-item">
-              <a class="page-link" href="?page={{ products.previous_page_number }}">
-                  <span aria-hidden="true">&laquo;</span>
-              </a>
-          </li>
-          {% else %}
-  `       <li class="page-item disabled">
-              <a class="page-link" href="#">
-                  <span aria-hidden="true">&laquo;</span>
-              </a>
-          </li>
-          {% endif %}
+  <!-- Pagination -->
+  <nav class="d-flex justify-content-center justify-content-md-end">
+    {% if products.has_other_pages %}
+    <ul class="pagination justify-content-center">
+    
+        {% if products.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.previous_page_number }}">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+`       <li class="page-item disabled">
+            <a class="page-link" href="#">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
 
-          {% for i in products.paginator.page_range %}
-              {% if products.number == i %}
-                  <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
-              {% else %}
-                  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-              {% endif %}
-          {% endfor %}
+        {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+                <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
 
-          {% if products.has_next %}
-          <li class="page-item">
-              <a class="page-link" href="?page={{ products.next_page_number }}">
-                  <span aria-hidden="true">&raquo;</span>
-              </a>
-          </li>
-          {% else %}
-          <li class="page-item disabled">
-              <a class="page-link" href="#">
-                  <span aria-hidden="true">&raquo;</span>
-              </a>
-          </li>
-          {% endif %}
-      {% endif %}
-      </ul>
-    </nav>
+        {% if products.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ products.next_page_number }}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    {% endif %}
+    </ul>
+  </nav>
 
-  </div>
-  </div>
+  <div class="row py-10">
+    <div id="mob__product__filter" class="col align-self-center">
+
+      <!-- Filters -->
+      <form class="mb-10 mb-md-0">
+        <ul class="nav nav-vertical">
+          <li class="nav-item">
+
+            <!-- Toggle -->
+            <a class="nav-link dropdown-toggle font-size-lg text-reset border-bottom mb-6" data-toggle="collapse"
+              href="#mob__categoryCollapse">
+              Products
+            </a>
+
+            <!-- Collapse -->
+            <div class="collapse show" id="mob__categoryCollapse">
+              <div class="form-group">
+                <ul class="list-styled mb-0">
+                  <li class="list-styled-item">
+                    {% for cat in categories %}
+                    <div class="custom-control custom-checkbox mb-3">
+                        <a href="{% url 'product_list' category_id=cat.id %}">{{cat.display_name}}</a>
+                    </div>
+                    {% endfor %}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
+
+    </div>
   </div>
 </section>
 

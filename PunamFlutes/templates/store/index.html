@@ -5,13 +5,37 @@
 {% block categories_name %}
 {% endblock%}
 
+<!--  Service -->
+<section id="header2">
+  <div class="container">
+      <div class="row">
+          <div class="col-6 col-sm-4 col-md-3">
+              <img src="{% static 'homepage/icons/warrenty.png'%}" alt="">
+              <span>Professional Choice</span>
+          </div>
+          <div class="col-6 col-sm-4 col-md-3">
+              <img src="{% static 'homepage/icons/support.png'%}" alt="">
+              <span>Support</span>
+          </div>
+          <div class="col-6 col-sm-4 col-md-3">
+              <img src="{% static 'homepage/icons/specialists.png'%}" alt="">
+              <span>Product Specialists</span>
+          </div>
+          <div class="col-6 col-sm-4 col-md-3">
+              <img src="{% static 'homepage/icons/products.png'%}" alt="">
+              <span>100+ products</span>
+          </div>
+      </div>
+  </div>
+</section>
+
 <!-- SLIDER -->
 <section>
   <div class="container">
     <div class="row">
       {% if slideshows %}
-      <div class="col-12 col-md-12 col-xl-12">
-        <div data-flickity='{"prevNextButtons": true, "fade": true}'>
+      <div class="col-12 col-md-9 col-xl-9 banner">
+        <div data-flickity='{"pageDots": true, "fade": true, "autoPlay": true}'>
     
           {% for slideshow in slideshows %}
           <!-- Item -->
@@ -28,103 +52,72 @@
           {% endfor %}
         </div>
       </div>
+      <div class="col-12 col-md-3 col-xl-3 advertigement">
+        <!-- <div data-flickity='{"pageDots": true, "fade": true, "autoPlay": true}'> -->
+    
+          <!-- Item -->
+          <div class="w-100 bg-cover" style="background-image: url('{% static 'homepage/img/advertigment/advertigement.jpg' %}');">
+            <a href="{{ slideshow.redirect_link }}">
+              <div class="container d-flex flex-column">
+                <div class="row align-items-center py-12" style="min-height: 550px; ">
+                  
+                </div>
+              </div>
+            </a>
+            
+          </div>
+        <!-- </div> -->
+      </div>
       {% endif %}
     </div>
   </div>
 
 </section>
 
-    <!-- CATEGORIES -->
-    
-    <!-- <section class="pt-6">
-      <div class="container-fluid px-3 px-md-6">
-        <div class="row mx-n3">
-          {% for cat in categories %}
-            {% if forloop.counter <= 3 %}
-            <div class="col-12 col-sm-4 d-flex flex-column px-3">
 
-              <div class="card card-xl mb-3 mb-sm-0" style="min-height: 280px">
-  
-                <div class="card-bg">
-                  <div class="card-bg-img bg-cover" style="background-image: url(../static/assets/img/products/product-22.jpg);"></div>
-                </div>
-  
-                <div class="card-body my-auto">
-  
-                  <h5 class="mb-0">{{ cat.display_name }}</h5>
-  
-                  <a class="btn btn-link stretched-link px-0 text-reset" href="{% url 'product_list' category_id=cat.id %}">
+<!-- Category Images -->
+{% if category_images %}
+<section style="margin-top: 30px;">
+  <div class="container">
+      <div class="row">
+      {% for cat_image in category_images %}
+
+          <div class="col-12 col-md-6 col-lg-6">
+
+            <a href="{% url 'product_list' category_id=cat_image.id %}" style="color: black;">
+            <!-- Card -->
+              <div class="card card-lg">
+                
+                <!-- Image -->
+                <img class="card-img-top" src="{{ cat_image.image.url }}" alt="{{ cat_image.alt }}">
+
+                <!-- <div class="card-body position-relative mx-6 mx-lg-11 mt-n11 bg-white text-center">
+
+                  <h4 class="mb-0">{{ cat_image.display_name }}</h4>
+                  <div class="btn btn-link stretched-link px-0 text-reset" href="!#">
                     Shop Now <i class="fe fe-arrow-right ml-2"></i>
-                  </a>
-  
-                </div>
-  
-              </div>
-  
+                  </div>
+
+                </div> -->
+              </a>
+
             </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </section> -->
 
-    <!-- Category Images -->
-    {% if category_images %}
-    <section>
-      <div class="container">
-        <div class="row  mt-10 mb-0">
-          <div class="col-12">
-            <h2 class="mt-7 text-center">Top Category</h2>
           </div>
-        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
-        <div class="row">
-          {% for cat_image in category_images %}
-
-              <div class="col-6 col-md-3 col-lg-3">
-
-                <a href="{% url 'product_list' category_id=cat_image.id %}" style="color: black;">
-                <!-- Card -->
-                  <div class="card card-lg">
-                    
-                    <!-- Image -->
-                    <img class="card-img-top" src="{{ cat_image.image.url }}" alt="{{ cat_image.alt }}">
-
-                    <!-- Body -->
-                    <div class="card-body position-relative mx-7 mx-md-2 mx-lg-6 mt-n7 bg-white text-center">
-
-                      <!-- Heading -->
-                      <h6 class="mb-0"></h6>{{ cat_image.display_name }}
-
-
-                      <!-- Link -->
-                      <div class="btn btn-link stretched-link px-0 text-reset" href="!#">
-                        Shop Now <i class="fe fe-arrow-right ml-2"></i>
-                      </div>
-
-                    </div>
-                  </a>
-
-                </div>
-
-              </div>
-          {% endfor %}
-        </div>
+<!-- ARRIVALS -->
+<section id="new__arrivals" style="margin-top:30px;">
+  <div class="container">
+    <div class="card">
+      <div class="card-title">
+        <div class="title">New Arrival Flutes</div>
       </div>
-    </section>
-    {% endif %}
-
-    <!-- ARRIVALS -->
-    <section class="py-12">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="mb-10 text-center">New Arrivals</h2>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
+      <div class="card-body">
         <div class="flickity-page-dots-progress" data-flickity='{"pageDots": true}'>
 
           {% for product in new_arrival_products %}
@@ -170,119 +163,33 @@
 
         </div>
       </div>
-    </section>
-
-      <!-- FEATURES -->
-  <section class="py-9">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-3">
-
-          <!-- Item -->
-          <div class="d-flex mb-6 mb-lg-0">
-
-            <!-- Icon -->
-            <i class="fe fe-truck font-size-lg text-primary"></i>
-
-            <!-- Body -->
-            <div class="ml-6">
-
-              <!-- Heading -->
-              <h6 class="heading-xxs mb-1">
-                Free shipping
-              </h6>
-
-              <!-- Text -->
-              <p class="mb-0 font-size-sm text-muted">
-                From all orders over $100
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-
-          <!-- Item -->
-          <div class="d-flex mb-6 mb-lg-0">
-
-            <!-- Icon -->
-            <i class="fe fe-repeat font-size-lg text-primary"></i>
-
-            <!-- Body -->
-            <div class="ml-6">
-
-              <!-- Heading -->
-              <h6 class="mb-1 heading-xxs">
-                Free returns
-              </h6>
-
-              <!-- Text -->
-              <p class="mb-0 font-size-sm text-muted">
-                Return money within 30 days
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-
-          <!-- Item -->
-          <div class="d-flex mb-6 mb-md-0">
-
-            <!-- Icon -->
-            <i class="fe fe-lock font-size-lg text-primary"></i>
-
-            <!-- Body -->
-            <div class="ml-6">
-
-              <!-- Heading -->
-              <h6 class="mb-1 heading-xxs">
-                Secure shopping
-              </h6>
-
-              <!-- Text -->
-              <p class="mb-0 font-size-sm text-muted">
-                You're in safe hands
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-        <div class="col-12 col-md-6 col-lg-3">
-
-          <!-- Item -->
-          <div class="d-flex">
-
-            <!-- Icon -->
-            <i class="fe fe-tag font-size-lg text-primary"></i>
-
-            <!-- Body -->
-            <div class="ml-6">
-
-              <!-- Heading -->
-              <h6 class="mb-1 heading-xxs">
-                Over 5000 products
-              </h6>
-
-              <!-- Text -->
-              <p class="mb-0 font-size-sm text-muted">
-                We have everything you need
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-      </div>
     </div>
-  </section>
+    
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section style="margin-top:30px;">
+  <div class="container">
+      <div class="card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-12 col-md-5 offer">
+                      <img class="img-fluid" src="{% static 'homepage/img/about_us.jpg'%}" alt="">
+                  </div>
+                  <div class="col-12 col-md-7">
+                      <p style="color: #ff815d; font-family: 'Poppins'; font-size: 25px; font-weight: 400; text-transform: uppercase;">ABOUT US</p>
+                      <p style="font-family: 'Gabriela'; font-size: 25px; font-weight: 400; overflow: hidden; ">
+                          The belief that each and every single piece of Bansuri must fulfill the best possible standard  before it is taken out of the workshop is what makes the quality of Punam Flutes stand out.
+                      </p>
+                      <p style="font-family: 'Poppins'; font-weight: 400; ">Punam Flutes was founded by Master Craftsman- Mr Subhash Thakur on the ideology of designing and building the finest professional, innovative and world-class Bansuris. </p>
+                      <a href="" style="text-transform: uppercase; text-decoration: none; color: #ff815d; padding: 10px; border-radius: 25px; border: 1px solid #ff815d;">Explore More</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
 
 {% endblock %}
 
