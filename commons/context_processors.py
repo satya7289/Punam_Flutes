@@ -31,7 +31,8 @@ def extras(request):
         # 'categories_product': categories_product,
         'currency_symbol': settings.CURRENCY_SYMBOL,
         'contactUsMap': contactUsMap,
-        'contactUsContact': contactUsContact
+        'contactUsContact': contactUsContact,
+        'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY
     }
     return context
 

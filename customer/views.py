@@ -1,4 +1,5 @@
 import os
+import requests
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, get_user_model, logout
@@ -7,6 +8,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib import messages
+from django.conf import settings
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -97,6 +99,20 @@ class Registration(View):
         return render(request, self.template_name, {'countryCodes': self.countryCodes})
 
     def post(self, request):
+        # Recaptcha Validation
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        data = {
+            'secret': settings.RECAPTCHA_PRIVATE_KEY,
+            'response': recaptcha_response
+        }
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
+
+        if not result['success']:
+            self.message = "Registration fails, tick the recaptcha"
+            messages.add_message(request, messages.WARNING, self.message)
+            return redirect('customer_register')
+
         registrationType = request.POST['type']
         password = request.POST['password']
         cnf_password = request.POST['cnf_password']
