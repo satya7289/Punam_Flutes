@@ -154,7 +154,7 @@ class ChooseShippingAddress(View):
             order.shipping_address = address
             order.save()
 
-            return redirect('choose_billing_address')
+            return redirect('checkout')
         state = (IndianStates + IndianUnionTerritories)
         context = {
             'form': form,
