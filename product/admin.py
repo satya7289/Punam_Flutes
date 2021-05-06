@@ -80,7 +80,7 @@ class CountryCurrencyAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title', 'search_tags')
-    list_display = ('__str__', 'title', 'search_tags', 'SellingPrice', 'categories', 'publish', 'update_at', 'created_at')
+    list_display = ('__str__', 'title', 'search_tags', 'publish', 'update_at', 'created_at')
     list_filter = ('publish', 'category')
     form = ProductAdminForm
     exclude = ('images', 'category', )
@@ -91,20 +91,20 @@ class ProductAdmin(admin.ModelAdmin):
         InventoryInline,
     ]
 
-    def categories(self, obj):
-        toShow = ''
-        for cat in obj.category.all():
-            toShow += format_html("<p>{}</p>", cat)
-        return format_html(toShow)
+    # def categories(self, obj):
+    #     toShow = ''
+    #     for cat in obj.category.all():
+    #         toShow += format_html("<p>{}</p>", cat)
+    #     return format_html(toShow)
 
-    def Description(self, obj):
-        return format_html(obj.description)
+    # def Description(self, obj):
+    #     return format_html(obj.description)
 
-    def SellingPrice(self, obj):
-        toShow = ''
-        for cc in obj.countrycurrency_set.all():
-            toShow += format_html("<p><b> {} </b> {} {} </p><br>", cc.country, float(cc.selling_price), cc.currency)
-        return format_html(toShow)
+    # def SellingPrice(self, obj):
+    #     toShow = ''
+    #     for cc in obj.countrycurrency_set.all():
+    #         toShow += format_html("<p><b> {} </b> {} {} </p><br>", cc.country, float(cc.selling_price), cc.currency)
+    #     return format_html(toShow)
 
 
 class InventoryAdmin(admin.ModelAdmin):
