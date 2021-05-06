@@ -80,7 +80,7 @@ class CountryCurrencyAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title', 'search_tags')
-    list_display = ('__str__', 'title', 'search_tags', 'SellingPrice', 'categories', 'publish', 'created_at')
+    list_display = ('__str__', 'title', 'search_tags', 'SellingPrice', 'categories', 'publish', 'update_at', 'created_at')
     list_filter = ('publish', 'category')
     form = ProductAdminForm
     exclude = ('images', 'category', )
@@ -109,7 +109,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class InventoryAdmin(admin.ModelAdmin):
     search_fields = ('product__title',)
-    list_display = ('__str__', 'Product', 'type', 'available', 'sold', 'SellingPrice', 'MRP')
+    list_display = ('__str__', 'Product', 'type', 'available', 'sold', 'SellingPrice', 'MRP', 'update_at', 'created_at')
     list_filter = ('type', 'product__category', 'product__publish',)
 
     def SellingPrice(self, obj):
