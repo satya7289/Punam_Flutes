@@ -77,6 +77,14 @@ TEMPLATES = [
     },
 ]
 
+# For caching
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)
+
 WSGI_APPLICATION = 'PunamFlutes.wsgi.application'
 
 AUTH_USER_MODEL = 'customer.User'
