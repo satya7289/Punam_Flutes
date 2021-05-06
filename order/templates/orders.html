@@ -18,6 +18,7 @@
                 <th scope="col">Payment</th>
                 <th scope="col">Order Status</th>
                 <th scope="col">Action</th>
+                <th scope="col">Shipping Status</th>
               </tr>
             </thead>
             <tbody>
@@ -93,6 +94,13 @@
                             {% if order.status == 'Delivered' %}
                                 <a href="{% url 'order_invoice' %}?order_id={{ order.id }}"><button class="btn btn-primary">Invoice</button></a>
                             {% endif %}
+                        </td>
+                        <td>
+                            {% if order.courier_tracker %}
+                            {{ order.courier_tracker }}
+                            {% else %}
+                            Not Shipped
+                            {% endif%}
                         </td>
                     </tr>
               {% endfor %}
