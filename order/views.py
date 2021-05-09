@@ -169,12 +169,7 @@ def process_payment(request):
     order = Order.objects.filter(id=order_id).first()
 
     if order:
-        g = get_ip_detail(request)
-        if g['message'] == 'success':
-            currency = g['data']['geoplugin_currencyCode']
-        else:
-            currency = settings.CURRENCY_SYMBOL
-
+        currency = settings.DEFAULT_CURRENCY
         if request.POST.get('razorpay'):
             # Razorpay
             client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
