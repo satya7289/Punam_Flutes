@@ -10,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from cart.models import Cart
 from order.models import Order, Payment
 from commons.product_price import get_price_of_product
-from commons.ip_detect import get_ip_detail
 from commons.mail import SendEmail
 from tax_rules.models import TaxRule, GSTState
 from tax_rules.views import CalculateTaxForCart
@@ -169,7 +168,7 @@ def process_payment(request):
     order = Order.objects.filter(id=order_id).first()
 
     if order:
-        currency = settings.DEFAULT_CURRENCY
+        currency = settings.CURRENCY_CODE
         if request.POST.get('razorpay'):
             # Razorpay
             client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
