@@ -365,15 +365,11 @@ class Checkout(View):
         order.save()
 
         # Show payment method according to IP
-        ip_detail = get_ip_detail(request)
-        if ip_detail['message'] != 'fail':
-            country = ip_detail['country']
-        else:
-            country = settings.COUNTRY
+        country = settings.COUNTRY
 
         countryPayment = CountryPayment.objects.filter(country=country).first()
         if not countryPayment:
-            countryPayment = CountryPayment.objects.filter(country=settings.COUNTRY).first()
+            countryPayment = CountryPayment.objects.filter(country='Any').first()
 
         if countryPayment and (not countryPayment.razorpay) and (not countryPayment.cod):
             all_payment_method_off = True
