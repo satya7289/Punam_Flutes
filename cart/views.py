@@ -14,7 +14,6 @@ from cart.models import Cart, ProductQuantity
 
 from address.views import update_for_default_address
 from commons.product_price import get_price_of_product
-from commons.ip_detect import get_ip_detail
 from cart.utils import get_order, is_cart_availabe, get_cart
 from address.forms import AddressCreateForm
 from commons.state import IndianStates, IndianUnionTerritories
