@@ -173,19 +173,14 @@ def process_payment(request):
             # Razorpay
             client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
             amount = float('%.2f' % order.total)
-            if currency == "INR":
-                amount *= 100
-                resp = client.order.create(dict(
-                    amount=amount,
-                    currency=currency,
-                    receipt=str(order.id)
-                ))
-            else:
-                resp = client.order.create(dict(
-                    base_amount=amount,
-                    currency=currency,
-                    receipt=str(order.id)
-                ))
+            # if currency == "INR":
+                # amount *= 100
+            amount *= 100
+            resp = client.order.create(dict(
+                amount=amount,
+                currency=currency,
+                receipt=str(order.id)
+            ))
             # print(resp)
             if resp['status'] == "created":
                 payment = Payment.objects.filter(order=order.id).first()
