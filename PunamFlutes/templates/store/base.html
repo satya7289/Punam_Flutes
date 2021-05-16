@@ -212,7 +212,7 @@
                   <ul class="list-styled font-size-sm">
                   {% for cat in categories %}
                     <li class="list-styled-item">
-                      <a class="list-styled-link" href="{% url 'product_list' category_id=cat.id %}">{{cat.display_name}}</a>
+                      <a class="list-styled-link" href="{% url 'category_product_list' slug=cat.slug %}">{{cat.display_name}}</a>
                     </li>
                   {% endfor %}
                   </ul>
@@ -408,7 +408,7 @@
               {% for cat in categories %}
                 {% if forloop.counter <= 4 %}
                   <li>
-                    <a class="text-gray-300" href="{% url 'product_list' category_id=cat.id %}">{{cat.display_name}}</a>
+                    <a class="text-gray-300" href="{% url 'category_product_list' slug=cat.slug %}">{{cat.display_name}}</a>
                   </li>
                 {% endif %}
               {% endfor %}

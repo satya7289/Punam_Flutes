@@ -1,5 +1,5 @@
 import requests
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.conf import settings
 from django.core.paginator import Paginator
@@ -19,11 +19,17 @@ class ProductListView(View):
     paginate_by = 12
 
     def get(self, request, *args, **kwargs):
-        category_id = kwargs['category_id']
+        category_id = kwargs.get('category_id')
+        slug = kwargs.get('slug')
 
         # Get the category and list of products according to the category
-        category = Category.objects.get(id=category_id)
-        products = Product.objects.filter(category__id=category_id, publish=True)
+        if category_id:
+            category = Category.objects.get(id=category_id)
+        elif slug:
+            category = Category.objects.filter(slug=slug).first()
+        if not category:
+            return redirect('dashboard')
+        products = Product.objects.filter(category__id=category.id, publish=True)
 
         return self.pagination(products, category)
 
@@ -57,10 +63,17 @@ class ProductDetailView(View):
 
     def get(self, request, *args, **kwargs):
         product_id = kwargs['product_id']
-        category_id = kwargs['category_id']
+        category_id = kwargs.get('category_id')
+        slug = kwargs.get('slug')
 
         # Get the category and product detail
-        category = Category.objects.get(id=category_id)
+        if category_id:
+            category = Category.objects.get(id=category_id)
+        elif slug:
+            category = Category.objects.filter(slug=slug).first()
+        if not category:
+            return redirect('dashboard')
+
         product = Product.objects.get(id=product_id, publish=True)
 
         # Get the price of the product according to the user's location
