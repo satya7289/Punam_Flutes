@@ -250,15 +250,22 @@
     }
   })
 
+  const blocked_domain = {{ blocked_domain|safe }};
+
   /* Email validation */
   const emailPatt = new RegExp(/^[a-zA-Z0-9.!'*+_`{|}~-]+@([a-zA-Z])+\.([a-zA-Z])+$/);
   $('#registerEmail').keyup(function(){
-    if(emailPatt.test($(this).val())){
+    var domain = $(this).val();
+    if(domain.indexOf('@')!=-1)
+      domain = domain.substring(domain.indexOf('@')+1, domain.length);
+    else
+      domain = '';
+    if(emailPatt.test($(this).val()) && !blocked_domain.includes(domain)){
       $.ajax({
         url: "{% url 'check_username' %}",
         data: {'type': 'email', 'email': $(this).val()},
         success: function(data){
-          console.log(data.status, data.status=="0")
+          // console.log(data.status, data.status=="0")
           if(data.status=="1"){   // email exits
             if($('#registerEmail').hasClass('is-valid')){
               $('#registerEmail').removeClass('is-valid');
