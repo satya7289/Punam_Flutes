@@ -24,9 +24,11 @@ class Address(TimeStampedModel):
             '%s %s' % (self.city, self.postal_code)
             if (self.city and self.postal_code) else self.postal_code)
         address_fields = [
-            full_name, mobile_number,
+            full_name,
             self.street_address.replace('\r\n', ', '), self.state,
-            postal_state, str(self.country)]
+            postal_state, str(self.country),
+            mobile_number
+        ]
         populated_address_fields = [
             field for field in address_fields if field]
         return ', '.join(populated_address_fields)
