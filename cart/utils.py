@@ -22,6 +22,14 @@ def get_cart(user):
     return Cart.objects.filter(user=user, is_checkout=False).first()
 
 
+def update_order_for_additional_data(order):
+    order.country = settings.COUNTRY
+    order.currency = settings.CURRENCY_SYMBOL
+    order.currency_code = settings.CURRENCY_CODE
+    order.save()
+    return order
+
+
 def get_order(user):
     cart = Cart.objects.filter(user=user, is_checkout=False).first()
 

@@ -41,8 +41,8 @@ class OrderInvoice(View):
             totalAmount = 0
 
             for product in products:
-                # Get the price of product according to IP
-                price_list = get_price_of_product(request, product.product)
+                # Get the price of product according to order
+                price_list = get_price_of_product(request, product.product, order.country)
                 product_price = price_list['price']
 
                 # Get the first category of the product
@@ -129,7 +129,8 @@ class OrderInvoice(View):
                 'total_discount': format(coupon_total_discount, '.2f'),
                 'shipping_address': order.shipping_address,
                 'billing_address': order.billing_address,
-                'state_code': state_code
+                'state_code': state_code,
+                'currency': order.currency if order.currency else ''
             }
             return render(request, self.template_name, context=context)
         return redirect('dashboard')
@@ -174,7 +175,7 @@ def process_payment(request):
             client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
             amount = float('%.2f' % order.total)
             # if currency == "INR":
-                # amount *= 100
+            #     amount *= 100
             amount *= 100
             resp = client.order.create(dict(
                 amount=amount,
@@ -312,7 +313,7 @@ def razorpay_done(request):
                 payment.status = True
                 payment.save()
 
-                after_successful_placed_order(request, payment)
+                after_successful_placed_order(request, payment, 'Paid')
                 return redirect('orders')
     return redirect('dashboard')
 

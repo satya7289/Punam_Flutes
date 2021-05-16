@@ -172,24 +172,24 @@
                                             <td>{{ forloop.counter }}</td>
                                             <td>{{ product.title }}</td>
                                             <td class="text-center">{{ product.unit_price }}</td>
-                                            <td class="text-center">{{ product.discount }}</td>
+                                            <td class="text-center">{{ currency }}{{ product.discount }}</td>
                                             <td class="text-center">{{ product.qty }}</td>
-                                            <td class="text-center">{{ product.net_ammount }}</td>
+                                            <td class="text-center">{{ currency }}{{ product.net_ammount }}</td>
                                             <td class="text-center">{{ product.hsn|safe }}</td>
                                             <td class="text-center">{{ product.tax_rate|safe }}</td>
                                             <td class="text-center">{{ product.tax_type|safe }}</td>
                                             <td class="text-center">{{ product.tax_amount|safe }}</td>
-                                            <td class="text-center">{{ product.net_tax_amount }}</td>
-                                            <td class="text-center">{{ product.total_amount }}</td>
+                                            <td class="text-center">{{ currency }}{{ product.net_tax_amount }}</td>
+                                            <td class="text-center">{{ currency }}{{ product.total_amount }}</td>
                                         </tr>
                                         {% endfor %}
                                         <tr>
                                             <td class="text-center"><strong>TOTAL</strong></td>
                                             <td colspan="2"></td>
-                                            <td class="text-center"><strong>{{ total_discount }}</strong></td>
+                                            <td class="text-center"><strong>{{ currency }}{{ total_discount }}</strong></td>
                                             <td colspan="5"></td>
-                                            <td class="text-center"><strong>{{ total_tax_amount }}</strong></td>
-                                            <td  class="text-center"> <strong>{{ total_amount }}</strong></td>
+                                            <td class="text-center"><strong>{{ currency }}{{ total_tax_amount }}</strong></td>
+                                            <td  class="text-center"> <strong>{{ currency }}{{ total_amount }}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
