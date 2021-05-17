@@ -81,7 +81,7 @@ class OrderAdmin(admin.ModelAdmin):
         return format_html('{}<a style="padding:5px" href="{}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>', obj.user, url)
 
     def User(self, obj):
-        if obj.cart.user:
+        if obj.cart:
             return obj.cart.user
 
     R_cart.short_description = 'Cart'
