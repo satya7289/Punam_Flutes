@@ -1,4 +1,4 @@
-from commons.ip_detect import set_country_data
+from commons.ip_detect import set_country_data, set_site_url
 
 
 class ProductPricingMiddleware:
@@ -12,6 +12,9 @@ class ProductPricingMiddleware:
 
         # set the country to setting based on IP
         set_country_data(request)
+
+        # set the site url
+        set_site_url(request)
 
         response = self.get_response(request)
 

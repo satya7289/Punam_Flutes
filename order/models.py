@@ -7,6 +7,7 @@ from coupon.models import Coupon
 from paypal.standard.ipn.models import PayPalIPN
 from commons.models import TimeStampedModel
 
+from .utils import orderStatusChangeNotification
 
 paymentMethod = [['razorpay', 'razorpay'], ['paypal', 'paypal'], ['COD', 'COD']]
 OrderStatus = [
@@ -40,6 +41,10 @@ class Order(TimeStampedModel):
 
     class Meta:
         ordering = ("-created_at",)
+
+    def save(self, *args, **kwargs):
+        orderStatusChangeNotification(self)
+        return super().save()
 
 
 class Payment(TimeStampedModel):
