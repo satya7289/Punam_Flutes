@@ -207,7 +207,7 @@
                   <p class="text-muted">{{product.search_tags}}</p>
                 </div>
 
-                <a href="{% url 'product_detail' product_id=product.id category_id=category.id %}" style="color: black;">
+                <a href="{% url 'category_product_detail' product_id=product.id slug=category.slug %}" style="color: black;">
                   <!-- Title -->
                   <div class="font-weight-bold">
                     <p class="text-body">{{product.title}}</p>
@@ -393,7 +393,7 @@ function viewProduct(e){
   let productImage = $(e).data('image');
 
   $('#modalProduct-image').prop('src',productImage);
-  $('#modalProduct-info').prop('href', "{% url 'product_detail' category_id=category.id product_id=0 %}".replace('0', productId));
+  $('#modalProduct-info').prop('href', "{% url 'category_product_detail' slug=category.slug product_id=0 %}".replace('0', productId));
   $('#modalProduct-title').html(productTitle);
   $('#modalProduct-price').html(productCurrency+productPrice)
   $('#modalProduct-id').val(productId);
