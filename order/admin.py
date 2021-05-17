@@ -11,7 +11,7 @@ from .models import (
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'OrderNumber', 'Total', 'status', 'PaymentMethod', 'Invoice', 'created_at', 'update_at')
+    list_display = ('__str__', 'OrderNumber', 'Total', 'status', 'PaymentMethod', 'Invoice', 'User', 'created_at', 'update_at')
     list_filter = ('status', 'payment__method',)
     search_fields = ('id', 'total',)
     readonly_fields = (
@@ -79,6 +79,9 @@ class OrderAdmin(admin.ModelAdmin):
     def R_user(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.user._meta.app_label, obj.user._meta.model_name), args=[obj.user.id])
         return format_html('{}<a style="padding:5px" href="{}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>', obj.user, url)
+
+    def User(self, obj):
+        return obj.cart.user
 
     R_cart.short_description = 'Cart'
     R_billing_address.short_description = 'Billing address'
