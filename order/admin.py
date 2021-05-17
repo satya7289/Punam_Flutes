@@ -15,40 +15,33 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'payment__method',)
     search_fields = ('id', 'total',)
     readonly_fields = (
+        'R_cart', 'R_billing_address', 'R_shipping_address', 'R_user', 'currency',
         'Payment', 'Invoice',
         'Total',
-        # 'country', 'currency', 'currency_code',
         'created_at', 'update_at'
     )
     fieldsets = (
         (None, {
             'fields': (
-                'cart', 'billing_address', 'shipping_address', 'user', 'status',
-                'Total', 'Payment', 'Invoice',
-                'customization_request', 'courier_tracker',
+                'R_cart', 'R_billing_address', 'R_shipping_address', 'R_user', 'status',
+                ('total', 'currency'),
+                ('customization_request', 'courier_tracker'),
+                'Payment', 'Invoice',
             )
         }),
         ('Advanced Detail', {
             'classes': ('collapse',),
             'fields': (
                 'coupon',
-                'country', 'currency', 'currency_code',
+                'country', 'currency_code',
+                'created_at', 'update_at',
             ),
         }),
     )
 
     formfield_overrides = {
-        models.TextField: {'widget': Textarea(attrs={'rows': 3, 'cols': 100})},
+        models.TextField: {'widget': Textarea(attrs={'rows': 3, 'cols': 50})},
     }
-
-    def get_form(self, request, obj, **kwargs):
-        form = super().get_form(request, obj=obj, **kwargs)
-        for order_rel in ["cart", "billing_address", "shipping_address", "user", "coupon"]:
-            field = form.base_fields[order_rel]
-            field.widget.can_add_related = False
-            field.widget.can_change_related = True
-            field.widget.can_delete_related = False
-        return form
 
     def Total(self, obj):
         total = obj.total if obj.total else '-'
@@ -67,10 +60,32 @@ class OrderAdmin(admin.ModelAdmin):
 
     def Invoice(self, obj):
         if obj.status != "Pending":
-            return format_html('<a href="{}">Invoice</a>', reverse('order_invoice') + '?order_id=' + str(obj.id))
+            return format_html('<a href="{}"  target="_blank" rel="noopener noreferrer">Invoice</a>', reverse('order_invoice') + '?order_id=' + str(obj.id))
         else:
             return format_html('<a href="">-</a>')
+    
+    def R_cart(self, obj):
+        url = reverse('admin:%s_%s_change' % (obj.cart._meta.app_label, obj.cart._meta.model_name), args=[obj.cart.id])
+        return format_html('{}<a style="padding:5px" href="{}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>',obj.cart , url)
 
+    def R_billing_address(self, obj):
+        url = reverse('admin:%s_%s_change' % (obj.billing_address._meta.app_label, obj.billing_address._meta.model_name), args=[obj.billing_address.id])
+        return format_html('{}<a style="padding:5px" href="{}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>',obj.billing_address , url)
+
+    def R_shipping_address(self, obj):
+        url = reverse('admin:%s_%s_change' % (obj.shipping_address._meta.app_label, obj.shipping_address._meta.model_name), args=[obj.shipping_address.id])
+        return format_html('{}<a style="padding:5px" href="{}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>',obj.shipping_address , url)
+
+    def R_user(self, obj):
+        url = reverse('admin:%s_%s_change' % (obj.user._meta.app_label, obj.user._meta.model_name), args=[obj.user.id])
+        return format_html('{}<a style="padding:5px" href="{}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>',obj.user , url)
+
+    R_cart.short_description = 'Cart'
+    R_billing_address.short_description = 'Billing address'
+    R_shipping_address.short_description = 'Shipping address'
+    R_user.short_description = 'User'
+    Payment.short_description = 'Payment'
+    Invoice.short_description = 'Invoice'
 
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'id', 'Order', 'method', 'status', 'razorpay', 'created_at')
