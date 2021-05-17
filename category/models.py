@@ -12,6 +12,7 @@ class Category(TimeStampedModel):
     image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False, upload_to=CATEGORY_DIR + '/%Y%m%d%M%S')
     alt = models.CharField(max_length=1024, blank=True, null=True)
     display_name = models.CharField(max_length=200, null=False)
+    slug = models.SlugField(blank=True, null=True)
     description = models.TextField()
     order = models.PositiveIntegerField(blank=True, null=True)
     publish = models.BooleanField(default=True)

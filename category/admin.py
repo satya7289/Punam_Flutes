@@ -5,8 +5,8 @@ from .models import Category
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'id', 'display_name', 'description', 'order', 'publish', 'image')
-    search_fields = ('display_name', 'description')
+    list_display = ('__str__', 'id', 'display_name', 'slug', 'order', 'publish', 'image')
+    search_fields = ('display_name', 'slug',)
     list_filter = ('publish',)
 
     def Image(self, obj):

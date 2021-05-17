@@ -143,3 +143,12 @@ class UserQuery(TimeStampedModel):
 
     def __str__(self):
         return self.full_name
+
+
+class BlockedDomain(TimeStampedModel):
+    domain = models.CharField(max_length=512, blank=True, null=True)
+    comment = models.TextField(blank=True, null=True)
+    block_status = models.BooleanField(default=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.domain if self.domain else ''

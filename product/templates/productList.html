@@ -119,7 +119,7 @@
                     <li class="list-styled-item">
                       {% for cat in categories %}
                       <div class="custom-control custom-checkbox mb-3">
-                          <a href="{% url 'product_list' category_id=cat.id %}">{{cat.display_name}}</a>
+                          <a href="{% url 'category_product_list' slug=cat.slug %}">{{cat.display_name}}</a>
                       </div>
                       {% endfor %}
                     </li>
@@ -164,7 +164,7 @@
               <div class="card-img">
 
                 <!-- Image -->
-                <a class="card-img-hover" href="{% url 'product_detail' product_id=product.id category_id=category.id %}">
+                <a class="card-img-hover" href="{% url 'category_product_detail' product_id=product.id slug=category.slug %}">
                   <img class="card-img-top card-img-back" src="{{ product.images.all.0.image.url }}" alt="...">
                   <img class="card-img-top card-img-front" src="{{ product.images.all.1.image.url }}" alt="...">
                 </a>

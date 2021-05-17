@@ -16,7 +16,7 @@ from PunamFlutes.tokens import account_activation_token
 from commons.country_currency import country as COUNTRY
 from commons.state import IndianStates, IndianUnionTerritories
 
-from customer.models import Profile, normalize_phone
+from customer.models import Profile, normalize_phone, BlockedDomain
 from address.models import Address
 from commons.mail import SendEmail
 from .forms import UserQueryForm
@@ -96,7 +96,8 @@ class Registration(View):
     countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
 
     def get(self, request):
-        return render(request, self.template_name, {'countryCodes': self.countryCodes})
+        blockedDomains = [bD['domain'] for bD in BlockedDomain.objects.filter(block_status=True).values('domain')]
+        return render(request, self.template_name, {'countryCodes': self.countryCodes, 'blocked_domain': blockedDomains})
 
     def post(self, request):
         # Recaptcha Validation
@@ -124,6 +125,14 @@ class Registration(View):
                     self.message = "User with this email already exists."
                     messages.add_message(request, messages.WARNING, self.message)
                 else:
+                    # check for blocked domain
+                    domain = email.split('@')[1]
+                    blockedDomain = BlockedDomain.objects.filter(domain=domain).first()
+                    if blockedDomain:
+                        self.message = "Opps, something went wrong!!!"
+                        messages.add_message(request, messages.WARNING, self.message)
+                        return redirect('customer_register')
+
                     email_opt = request.POST.get('email_opt')
                     if email_opt:
                         email_opt = True

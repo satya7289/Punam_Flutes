@@ -111,6 +111,7 @@ class InventoryAdmin(admin.ModelAdmin):
     search_fields = ('product__title',)
     list_display = ('__str__', 'Product', 'type', 'available', 'sold', 'SellingPrice', 'MRP', 'update_at', 'created_at')
     list_filter = ('type', 'product__category', 'product__publish',)
+    list_editable = ('type', 'available')
 
     def SellingPrice(self, obj):
         toShow = ''

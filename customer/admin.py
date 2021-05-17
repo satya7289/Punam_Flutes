@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserQuery
+from .models import UserQuery, BlockedDomain
 from django.contrib import auth
 
 
@@ -19,11 +19,18 @@ class UserQueryAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'full_name', 'email', 'contact_number', 'country', 'subject', 'created_at')
     list_filter = ('subject',)
 
+
+class BlockedDomainAdmin(admin.ModelAdmin):
+    search_fields = ('domain',)
+    list_display = ('__str__', 'domain', 'block_status', 'created_at', 'update_at')
+    list_filter = ('block_status',)
+
 # Register your models here.
 
 
 User = auth.get_user_model()
 admin.site.register(User, UserAdmin)
+admin.site.register(BlockedDomain, BlockedDomainAdmin)
 # admin.site.register(Profile, ProfileAdmin)
 admin.site.unregister(auth.models.Group)
 admin.site.register(UserQuery, UserQueryAdmin)

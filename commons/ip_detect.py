@@ -34,6 +34,10 @@ def set_country_data(request):
         settings.CURRENCY_SYMBOL = countryCurrencyRate.currency_symbol
 
 
+def set_site_url(request):
+    settings.SITE_URL = request.scheme + "://" + request.get_host()
+
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:

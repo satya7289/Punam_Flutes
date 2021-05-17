@@ -14,7 +14,7 @@ from cart.models import Cart, ProductQuantity
 
 from address.views import update_for_default_address
 from commons.product_price import get_price_of_product
-from cart.utils import get_order, is_cart_availabe, get_cart
+from cart.utils import get_order, is_cart_availabe, get_cart, update_order_for_additional_data
 from address.forms import AddressCreateForm
 from commons.state import IndianStates, IndianUnionTerritories
 
@@ -106,6 +106,9 @@ class ProcessToCheckout(View):
                     cart=get_cart(user),
                     status='Pending',
                     user=user,
+                    country=settings.COUNTRY,
+                    currency=settings.CURRENCY_SYMBOL,
+                    currency_code=settings.CURRENCY_CODE,
                 )
             return redirect('choose_shipping_address')
         return redirect('dashboard')
@@ -306,6 +309,8 @@ class Checkout(View):
                 order.billing_address = billing_address
                 order.save()
 
+        update_order_for_additional_data(order)
+
         cart = order.cart
 
         product_details = cart.product_detail.all()
@@ -356,6 +361,8 @@ class Checkout(View):
 
         # get the coupon
         coupon = Coupon.objects.filter(id=coupon_id)
+
+        update_order_for_additional_data(order)
 
         # update the order's data
         order.total = total

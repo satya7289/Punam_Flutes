@@ -45,7 +45,7 @@
 
   <!-- Shopping Cart -->
   <div class="modal fixed-right fade" id="modalShoppingCart" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-vertical" role="document">
+    <div class="modal-dialog modal-dialog-vertical" role="document" style="max-width: 330px;">
 
       <input type="hidden" id="modal__cart" value="{{ is_cart_detail}}">
       <!-- Full cart (add `.d-none` to disable it) -->
@@ -212,7 +212,7 @@
                   <ul class="list-styled font-size-sm">
                   {% for cat in categories %}
                     <li class="list-styled-item">
-                      <a class="list-styled-link" href="{% url 'product_list' category_id=cat.id %}">{{cat.display_name}}</a>
+                      <a class="list-styled-link" href="{% url 'category_product_list' slug=cat.slug %}">{{cat.display_name}}</a>
                     </li>
                   {% endfor %}
                   </ul>
@@ -408,7 +408,7 @@
               {% for cat in categories %}
                 {% if forloop.counter <= 4 %}
                   <li>
-                    <a class="text-gray-300" href="{% url 'product_list' category_id=cat.id %}">{{cat.display_name}}</a>
+                    <a class="text-gray-300" href="{% url 'category_product_list' slug=cat.slug %}">{{cat.display_name}}</a>
                   </li>
                 {% endif %}
               {% endfor %}
