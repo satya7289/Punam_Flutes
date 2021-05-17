@@ -80,7 +80,7 @@ class OrderInvoice(View):
                             tax_hsn.add(taxRule.display_name)
                             tax_type += str(taxRule.gst_type) + '<br>'
                             tax_rate += str(taxRule.value) + '%<br>'
-                            tax_amount += str(format(category_tax, '.2f') ) + '<br>'
+                            tax_amount += str(format(category_tax, '.2f')) + '<br>'
 
                             product_tax += category_tax
 
