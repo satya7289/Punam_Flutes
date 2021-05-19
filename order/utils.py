@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import reverse
 from commons.mail import SendEmail
-
+from commons.SMS import sendSMS
 
 def orderStatusChangeNotification(order):
     # send notification if status is
@@ -22,8 +22,9 @@ def orderStatusChangeNotification(order):
         'Canceled': 'Your order has been cancelled',
         'Refunded': 'Your order\'s has been refunded',
     }
-    print(order.status)
+    # print(order.status)
     if order.status == 'Canceled' or order.status == 'Shipped' or order.status == 'Delivered':
+        # send Email
         email_template = email_templates[order.status]
         email_template_subject = email_templates_subject[order.status]
         data = {
@@ -35,5 +36,23 @@ def orderStatusChangeNotification(order):
             message = "mail for order " + order.status + " has been send"
         else:
             message = "either email is not there or email not verified."
-        print(message)
-        return message
+    
+        # send SMS
+        try:
+            mobile_no = order.shipping_address.mobile_number
+            # print(mobile_no)
+            if order.status == 'Canceled':
+                type = 'order_cancelled'
+                # sms = sendSMS(mobile_no, type)
+                # sms.send()
+            elif order.status == 'Shipped':
+                type = 'order_shipped'
+                # sms = sendSMS(mobile_no, type)
+                # sms.send()
+            elif order.status == 'Delivered':
+                type = 'order_delivered'
+                sms = sendSMS(mobile_no, type)
+                sms.send()
+        except:
+            print('exception in the sending sms..!')
+
