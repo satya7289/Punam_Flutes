@@ -1,6 +1,7 @@
 import requests
 from django.conf import settings
 
+
 class sendSMS:
     # mobile and type are required paramter
     def __init__(self, mobile='', type='', *args, **kwargs):
@@ -9,7 +10,7 @@ class sendSMS:
         self.type = type
         self.args = args
         self.kwargs = kwargs
-        
+
     def configure(self):
         # configure the credentials
         mysmszone_url = 'http://sms.mysmszone.in/'
@@ -19,7 +20,7 @@ class sendSMS:
         self.sender_id = 'BASURI'
         self.api_key = settings.SMS_API_KEY
         self.to_Send = settings.SEND_SMS
-    
+
     # call this method to send sms
     def send(self):
         if self.mobile != '':
@@ -58,35 +59,31 @@ class sendSMS:
             except:
                 pass
         return False
-    
+
     def OTP(self, otp):
         message = f'{otp} is your Punam Flutes OTP. Do not share it with anyone. Thanks'
         dlt_template_id = '1207161915134996407'
         return self.send_sms(message, dlt_template_id)
-    
+
     def OrderPlaced(self,):
         message = ''
         dlt_template_id = ''
         return self.send_sms(message, dlt_template_id)
-    
 
     def OrderShipped(self,):
         message = ''
         dlt_template_id = ''
         return self.send_sms(message, dlt_template_id)
-    
 
     def OrderCancelled(self,):
         message = ''
         dlt_template_id = ''
         return self.send_sms(message, dlt_template_id)
-    
 
     def OrderDelivered(self,):
         message = 'Your Punam Flutes order has been delivered. Please contact us if you have any queries.'
         dlt_template_id = '1207161917005451759'
         return self.send_sms(message, dlt_template_id)
-    
 
     def OrderRefunded(self,):
         message = ''

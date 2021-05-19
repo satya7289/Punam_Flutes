@@ -3,6 +3,7 @@ from django.urls import reverse
 from commons.mail import SendEmail
 from commons.SMS import sendSMS
 
+
 def orderStatusChangeNotification(order):
     # send notification if status is
     # Dispatch, Shipped, Delivered, Canceled, Refunded
@@ -36,7 +37,7 @@ def orderStatusChangeNotification(order):
             message = "mail for order " + order.status + " has been send"
         else:
             message = "either email is not there or email not verified."
-    
+
         # send SMS
         try:
             mobile_no = order.shipping_address.mobile_number
@@ -55,4 +56,4 @@ def orderStatusChangeNotification(order):
                 sms.send()
         except:
             print('exception in the sending sms..!')
-
+    return message
