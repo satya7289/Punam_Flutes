@@ -1,0 +1,193 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12 col-md-6 offset-md-3">
+
+        <!-- Card -->
+        <div class="card card-lg">
+          <div class="card-body">
+            <div class="col-12">
+              <p>
+                {% for message in messages %}
+                <span class="text-danger center" id="error_login">{{message}}!!!</span><br />
+                {% endfor %}
+              </p>
+            </div>
+
+            <!-- Heading -->
+
+            <form method="post" action="{% url 'custommer_registration_phone' %}">
+
+            <h6 class="mb-7">New Customer Registration using mobile</h6>
+              {% csrf_token %}
+              <div class="row">
+                <input type="hidden" name="phone__verified" id="phone__verified" value="0">
+                <div class="col-12 col-md-6" style="display: none;">
+                  <div class="form-group">
+                    <label class="sr-only" for="CountryCode">
+                      Country Code
+                    </label>
+                    <select class="form-control form-control-sm" id="CountryCode" name="country_code"
+                      placeholder="Country Code *" required>
+                      <option value="">select country code </option>
+                      {% for code, countryCode in countryCodes.items %}
+                        {% for cCode in countryCode %}
+                          {% if code == 91 %}
+                          <option value="{{ cCode }}" selected>{{ code }}: {{ cCode }}</option>
+                          {% else %}
+                          <option value="{{ cCode }}">{{ code }}: {{ cCode }}</option>
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-12">
+
+                  <!-- Password -->
+                  <div class="form-group">
+                    <label class="sr-only" for="PhoneNumber">
+                      Phone Number
+                    </label>
+                    <input class="form-control form-control-sm" id="PhoneNumber" name="phone"
+                      type="text" placeholder="Phone Number *" required maxlength="15">
+                    <small id="PhoneNumberHelpText" class="text-danger" style="display: none;">
+                      Phone Number already exits
+                    </small>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+
+                  <!-- Password -->
+                  <div class="form-group">
+                    <label class="sr-only" for="registerPassword">
+                      Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="registerPassword" name="password" type="password"
+                      placeholder="Password *" required>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+
+                  <!-- Password -->
+                  <div class="form-group">
+                    <label class="sr-only" for="registerPasswordConfirm">
+                      Confirm Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="registerPasswordConfirm" name="cnf_password"
+                      type="password" placeholder="Confrm Password *" required>
+                  </div>
+                </div>
+
+                <!-- <div class="col-12 col-md-6 OTP">
+                  <div class="form-group">
+                    <button class="btn btn-sm btn-dark" id="send__opt">
+                      Send OTP
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6 OTP">
+                  <div class="form-group">
+                    <label class="sr-only" for="sendOTP">
+                      Send OTP
+                    </label>
+                    <input class="form-control form-control-sm" id="sendOTP" name="otp"
+                      type="text" placeholder="OTP *" required>
+                  </div>
+                </div> -->
+
+                <div class="col-12 col-md-auto">
+                  <!-- Link -->
+                  <div class="form-group font-size-sm text-muted">
+                    By registering your details, you agree with our Terms & Conditions,
+                    and Privacy and Cookie Policy.
+                  </div>
+                  <div class="form-group font-size-sm text-muted">
+                    We will send you a otp to verify your phone.
+                  </div>
+
+                </div>
+                <div class="col-12 col-md">
+                </div>
+                <div class="col-12">
+
+                  <!-- Button -->
+                  <button class="btn btn-sm btn-dark" type="submit" id="phone__register" disabled>
+                    Register
+                  </button>
+                  <a class="btn btn-sm btn-dark" href="{% url 'customer_register' %}">
+                    Register via Email
+                  </a>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+  $(document).ready(()=>{
+  });
+
+  $('#CountryCode').change(function(){
+    if($('#CountryCode').val()!=""){
+      $('#PhoneNumber').prop('disabled', false);
+    }else{
+      $('#PhoneNumber').prop('disabled', true);
+    }
+  })
+
+  /* Phone validation */
+  $('#PhoneNumber').keyup(function(){
+    if($('#CountryCode').val()!="" && $(this).val()!="" && $(this).val().length == 10){
+      $.ajax({
+        url: "{% url 'check_username' %}",
+        data: {'type': 'phone', 'phone': $(this).val(), 'country_code':$('#CountryCode').val()},
+        success: function(data){
+          console.log(data.status, data.status=="0")
+          if(data.status=="1"){   // phone exits
+            if($('#PhoneNumber').hasClass('is-valid')){
+              $('#PhoneNumber').removeClass('is-valid');
+            }
+            $('#PhoneNumber').addClass('is-invalid');
+            $('#send__opt').prop('disabled', true);
+            $('#phone__register').prop('disabled', true);
+            $('#PhoneNumberHelpText').show();
+          }else if(data.status=="0"){   // phone not exits
+            if($('#PhoneNumber').hasClass('is-invalid')){
+              $('#PhoneNumber').removeClass('is-invalid');
+            }
+            $('#PhoneNumber').addClass('is-valid');
+            $('#send__opt').prop('disabled', false);
+            $('#phone__register').prop('disabled', false);
+            $('#PhoneNumberHelpText').hide();
+          }
+        }
+      });
+
+    }else{
+      if($('#PhoneNumber').hasClass('is-valid')){
+        $('#PhoneNumber').removeClass('is-valid');
+      }
+      if(!$('#PhoneNumber').hasClass('is-invalid')){
+        $('#PhoneNumber').addClass('is-invalid');
+      }
+      $('#PhoneNumberHelpText').hide();
+      $('#phone__register').prop('disabled', true);
+    }
+  })
+</script>
+{% endblock %}
