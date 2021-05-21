@@ -40,7 +40,7 @@ class AddressCreateForm(forms.ModelForm):
             'city': TextInput(attrs={'placeholder': 'Enter city'}),
         }
         required = (
-           'full_name', 'country', 'street_address', 'postal_code', 'mobile_number'
+            'full_name', 'country', 'street_address', 'postal_code', 'mobile_number'
         )
         not_required = (
             'city', 'state',
