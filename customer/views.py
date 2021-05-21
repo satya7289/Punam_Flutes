@@ -30,7 +30,7 @@ class Registration(View):
     message = ""
 
     def get(self, request):
-        mobile_registration = True
+        mobile_registration = False
         if settings.COUNTRY == 'India':
             mobile_registration = True
         blockedDomains = [bD['domain'] for bD in BlockedDomain.objects.filter(block_status=True).values('domain')]
@@ -101,7 +101,7 @@ class Registration(View):
 
 
 class RegistrationViaPhone(View):
-    mobile_registration = True
+    mobile_registration = False
     if settings.COUNTRY == 'India':
         mobile_registration = True
     template_name = 'registration/registration_phone.html'
