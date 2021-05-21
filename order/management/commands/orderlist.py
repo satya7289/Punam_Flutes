@@ -24,14 +24,14 @@ class Command(BaseCommand):
             confirmed_orders = Order.objects.filter(
                 status='Confirmed',
                 update_at__time__lte=today.time(),
-                update_at__day=today.day - 1,
+                update_at__day__gte=today.day - 1,
                 update_at__month=today.month,
                 update_at__year=today.year
             )
             paid_orders = Order.objects.filter(
                 status='Paid',
                 update_at__time__lte=today.time(),
-                update_at__day=today.day - 1,
+                update_at__day__gte=today.day - 1,
                 update_at__month=today.month,
                 update_at__year=today.year
             )
