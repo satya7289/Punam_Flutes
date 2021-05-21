@@ -1,4 +1,4 @@
-import os
+from datetime import datetime, timezone
 import requests
 from django.views.generic import View
 from django.shortcuts import render, redirect
@@ -10,13 +10,12 @@ from django.urls import reverse
 from django.contrib import messages
 from django.conf import settings
 
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from PunamFlutes.tokens import account_activation_token
+from PunamFlutes.tokens import account_activation_token, generate_random_otp
 from commons.country_currency import country as COUNTRY
 from commons.state import IndianStates, IndianUnionTerritories
+from commons.SMS import sendSMS
 
-from customer.models import Profile, normalize_phone, BlockedDomain
+from customer.models import Profile, normalize_phone, BlockedDomain, VerifyMobileOTP
 from address.models import Address
 from commons.mail import SendEmail
 from .forms import UserQueryForm
@@ -26,78 +25,20 @@ import phonenumbers
 User = get_user_model()
 
 
-def send_html_email(to_list, subject, template_name, context, sender, attachments=None):
-    """
-    Sends html type emails to user.
-
-    """
-    msg_html = render_to_string(template_name, context)
-    msg = EmailMessage(subject=subject, body=msg_html,
-                       from_email=sender, to=to_list)
-    msg.content_subtype = "html"  # Main content is now text/html
-    if attachments:
-        for attachment in attachments:
-            msg.attach_file(attachment)
-    try:
-        delivered = msg.send(fail_silently=False)
-        if attachments:
-            for attachment in attachments:
-                os.remove(attachment)
-        return delivered
-    except Exception as e:
-        print("error in email method", e)
-        return 0
-
-
-def customer_register(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        cnf_password = request.POST['cnf_password']
-        if password == cnf_password:
-            user = User.objects.filter(email=email)
-            print(user, email, user.exists())
-            if user.exists():
-                messages.add_message(
-                    request, messages.WARNING, 'User with this email already exists.')
-            else:
-                user = User.objects.create_user(email, password)
-                context = {
-                    'user': user,
-                    'domain': request.get_host(),
-                    # generate uid
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    # generate token
-                    'token': account_activation_token.make_token(user),
-                    'from': 'punamflutes@gmail.com'
-                }
-                try:
-                    send_html_email(
-                        to_list=[user.email],
-                        subject='Email account verfication',
-                        template_name='acc_active_email.html',
-                        context=context,
-                        sender='punamflutes@gmail.com'
-                    )
-                except Exception as e:
-                    print('error while sending email', e)
-                messages.add_message(
-                    request, messages.SUCCESS, 'User created successfully. We have sent an email for email verification.')
-        else:
-            messages.add_message(request, messages.WARNING,
-                                 'Password and Confirm Password are not same.')
-
-    return render(request, 'store/register.html', {})
-
-
 class Registration(View):
-    template_name = "store/register.html"
+    template_name = "registration/registration.html"
     message = ""
-    countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
 
     def get(self, request):
+        mobile_registration = True
+        if settings.COUNTRY == 'India':
+            mobile_registration = True
         blockedDomains = [bD['domain'] for bD in BlockedDomain.objects.filter(block_status=True).values('domain')]
-        return render(request, self.template_name, {'countryCodes': self.countryCodes, 'blocked_domain': blockedDomains})
+        context = {
+            'blocked_domain': blockedDomains,
+            'mobile_registration': mobile_registration
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
         # Recaptcha Validation
@@ -114,67 +55,187 @@ class Registration(View):
             messages.add_message(request, messages.WARNING, self.message)
             return redirect('customer_register')
 
-        registrationType = request.POST['type']
         password = request.POST['password']
         cnf_password = request.POST['cnf_password']
         if password == cnf_password:
-            if registrationType == "email":
-                email = request.POST['email']
-                user = User.objects.filter(email=email)
-                if user.exists():
-                    self.message = "User with this email already exists."
-                    messages.add_message(request, messages.WARNING, self.message)
-                else:
-                    # check for blocked domain
-                    domain = email.split('@')[1]
-                    blockedDomain = BlockedDomain.objects.filter(domain=domain).first()
-                    if blockedDomain:
-                        self.message = "Opps, something went wrong!!!"
-                        messages.add_message(request, messages.WARNING, self.message)
-                        return redirect('customer_register')
+            email = request.POST['email']
+            user = User.objects.filter(email=email)
+            if user.exists():
+                self.message = "User with this email already exists."
+                messages.add_message(request, messages.WARNING, self.message)
+                return render(request, self.template_name)
 
-                    email_opt = request.POST.get('email_opt')
-                    if email_opt:
-                        email_opt = True
-                    else:
-                        email_opt = False
-                    user = User.objects.create_user(email, password)
+            # check for blocked domain
+            domain = email.split('@')[1]
+            blockedDomain = BlockedDomain.objects.filter(domain=domain).first()
+            if blockedDomain:
+                self.message = "Opps, something went wrong!!!"
+                messages.add_message(request, messages.WARNING, self.message)
+                return redirect('customer_register')
 
-                    # send account activation code
-                    uid = urlsafe_base64_encode(force_bytes(user.pk))
-                    token = account_activation_token.make_token(user)
-                    url = request.scheme + "://" + request.get_host() + reverse('activate', kwargs={'uidb64': uid, 'token': token})
-                    data = {
-                        "link": url
-                    }
-                    sendEmail = SendEmail('activation.html', data, 'Verify Account')
-                    # sendEmail.send(('satyaprakashaman60@gmail.com',))
-                    sendEmail.send((user.email,))
+            email_opt = request.POST.get('email_opt')
+            if email_opt:
+                email_opt = True
+            else:
+                email_opt = False
+            user = User.objects.create_user(email, password)
 
-                    self.message = "User created successfully. We have sent an email for email verification."
-                    messages.add_message(request, messages.SUCCESS, self.message)
-            elif registrationType == "phone":
-                country_code = request.POST['country_code']
-                phone = request.POST['phone']
-                user = User.objects.filter(phone=phone)
-                if user.exists():
-                    self.message = "User with this phone already exists."
-                    messages.add_message(request, messages.WARNING, self.message)
-                else:
-                    user = User.objects.create_user(
-                        phone,
-                        password,
-                        country_code=country_code
-                    )
-                    print(user)
-                    # TODO send account activation code
+            # send account activation code
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = account_activation_token.make_token(user)
+            url = request.scheme + "://" + request.get_host() + reverse('activate', kwargs={'uidb64': uid, 'token': token})
+            data = {
+                "link": url
+            }
+            sendEmail = SendEmail('activation.html', data, 'Verify Account')
+            # sendEmail.send(('satyaprakashaman60@gmail.com',))
+            sendEmail.send((user.email,))
 
-                    self.message = "User created successfully."
-                    messages.add_message(request, messages.SUCCESS, self.message)
-        else:
-            self.message = "Password and Confirm Password are not same."
-            messages.add_message(request, messages.WARNING, self.message)
-        return render(request, self.template_name, {'countryCodes': self.countryCodes})
+            self.message = "User created successfully. We have sent an email for email verification."
+            messages.add_message(request, messages.SUCCESS, self.message)
+            return render(request, self.template_name)
+
+        self.message = "Password and Confirm Password are not same."
+        messages.add_message(request, messages.WARNING, self.message)
+        return render(request, self.template_name)
+
+
+class RegistrationViaPhone(View):
+    mobile_registration = True
+    if settings.COUNTRY == 'India':
+        mobile_registration = True
+    template_name = 'registration/registration_phone.html'
+    template_name2 = 'registration/verify_otp.html'
+    countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'countryCodes': self.countryCodes,
+            'mobile_registration': self.mobile_registration
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        password = request.POST['password']
+        cnf_password = request.POST['cnf_password']
+        country_code = request.POST['country_code']
+        phone = request.POST['phone']
+        if password == cnf_password:
+            user = User.objects.filter(phone=phone)
+            if user.exists():
+                self.message = "User with this phone already exists."
+                messages.add_message(request, messages.WARNING, self.message)
+                return redirect('custommer_registration_phone')
+
+            user = User.objects.create_user(
+                phone,
+                password,
+                country_code=country_code
+            )
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+            # gernerate and Send OTP
+            otp = generate_random_otp()
+            VerifyMobileOTP.objects.create(
+                user=user,
+                otp=otp,
+                otp_created_at=datetime.now()
+            )
+            sms = sendSMS(phone, 'otp', OTP=otp)
+            sms.send()
+            return redirect('verify_otp', uidb64=uid)
+
+        self.message = "Password and Confirm Password are not same."
+        messages.add_message(request, messages.SUCCESS, self.message)
+        return redirect('custommer_registration_phone')
+
+
+class VerifyOTP(View):
+    template_name = 'registration/verify_otp.html'
+    message = ''
+
+    def get(self, request, *args, **kwargs):
+        try:
+            uid = force_text(urlsafe_base64_decode(kwargs.get('uidb64')))  # to extract UID
+            user = User.objects.get(id=uid)
+            mobile_number = phonenumbers.parse(user.phone).national_number
+        except:
+            return redirect('custommer_registration_phone')
+        return render(request, self.template_name, {'mobile_number': mobile_number, 'uidb64': kwargs.get('uidb64')})
+
+    def post(self, request, *args, **kwargs):
+        self.message = "Invalid OTP. Try again"
+        otp = request.POST.get('otp')
+        uid = force_text(urlsafe_base64_decode(kwargs.get('uidb64')))  # to extract UID
+        user = User.objects.get(id=uid)
+        verify_mobile_otp = VerifyMobileOTP.objects.get(user=user)
+        if verify_mobile_otp:
+            # if today's limit exceed
+            if verify_mobile_otp.today_attempts > 5:
+                self.message = "Today's limit excced try again tommorow"
+                messages.add_message(request, messages.WARNING, self.message)
+                return redirect('custommer_registration_phone')
+
+            # if otp is expired
+            if (verify_mobile_otp.otp_created_at - datetime.now(timezone.utc)).total_seconds() > (verify_mobile_otp.time_limit * 60):
+                self.message = "OTP expires. Click on resend to send another OTP"
+                messages.add_message(request, messages.WARNING, self.message)
+                return redirect('verify_otp', uidb64=kwargs.get('uidb64'))
+
+            # if otp is matched and otp is valid
+            if verify_mobile_otp.otp == otp and verify_mobile_otp.valid:
+
+                # Change the phone verified status to true
+                user.phone_verified = True
+                user.save()
+
+                # Make OTP invalid
+                verify_mobile_otp.valid = False
+                verify_mobile_otp.save()
+
+                # Return to the login page
+                self.message = "User created successfully. You can login now"
+                messages.add_message(request, messages.SUCCESS, self.message)
+                return redirect('customer_login')
+
+            verify_mobile_otp.last_attempted_at = datetime.now()
+            verify_mobile_otp.save()
+
+        messages.add_message(request, messages.ERROR, self.message)
+        return redirect('verify_otp', uidb64=kwargs.get('uidb64'))
+
+
+def resend_otp(request, *args, **kwargs):
+    try:
+        otp = generate_random_otp()
+        uid = force_text(urlsafe_base64_decode(kwargs.get('uidb64')))  # to extract UID
+        user = User.objects.get(id=uid)
+        mobile_number = phonenumbers.parse(user.phone).national_number
+        verify_mobile_otp = VerifyMobileOTP.objects.get(user=user)
+
+        if verify_mobile_otp.today_attempts > 5:
+            # calculate the difference
+            days = (verify_mobile_otp.otp_created_at - verify_mobile_otp.last_attempted_at).days
+            if days <= 0:
+                return JsonResponse({'message': 'fail', 'status': '2'})
+
+            # update the today's attempts and total attempts
+            verify_mobile_otp.total_attempts = verify_mobile_otp.today_attempts
+            verify_mobile_otp.today_attempts = 0
+
+        # update the otp and save
+        verify_mobile_otp.otp = otp
+        verify_mobile_otp.today_attempts = verify_mobile_otp.today_attempts + 1
+        verify_mobile_otp.otp_created_at = datetime.now()
+        verify_mobile_otp.save()
+
+        # Send SMS
+        sms = sendSMS(mobile_number, 'otp', OTP=otp)
+        sms = sms.send()
+        # print(otp)
+    except:
+        return JsonResponse({'message': 'fail', 'status': '0'})
+    return JsonResponse({'message': 'success', 'status': '1'})
 
 
 class Login(View):
@@ -232,36 +293,9 @@ def activate(request, uidb64, token):
         return redirect('dashboard')
 
 
-def customer_login(request):
-    """
-
-    """
-    context = {}
-    template = 'store/login.html'
-    if request.method == 'POST':
-        username = request.POST['email']
-        password = request.POST['password']
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            print('Success')
-            return render(request, 'store/index.html', context)
-        else:
-            messages.add_message(request, messages.WARNING,
-                                 'Invalid login credentials.')
-            # template = 'store/index.html'
-            return render(request, template, context)
-
-    else:
-        return render(request, template, context)
-
-
 def customer_logout(request):
     if request.user.is_authenticated:
         logout(request)
-
     return redirect('/')
 
 
@@ -364,7 +398,6 @@ class CustomerAddress(View):
 
 
 class CheckUsername(View):
-
     def get(self, request):
         data = {
             'status': '0',
@@ -399,15 +432,6 @@ class CheckUsername(View):
                     'status': '0',
                     'message': 'phone not exists.'
                 }
-        return JsonResponse(data)
-
-
-class SendPhoneOTP(View):
-    def get(self, request):
-        data = {
-            'status': '1',
-            'message': 'OTP send'
-        }
         return JsonResponse(data)
 
 

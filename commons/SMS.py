@@ -23,7 +23,7 @@ class sendSMS:
 
     # call this method to send sms
     def send(self):
-        if self.mobile != '':
+        if self.mobile == '':
             return False
         if self.type == 'otp':
             otp = self.kwargs.get('OTP')

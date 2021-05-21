@@ -67,7 +67,7 @@
                     Sign In
                   </button>
 
-                  <button style="display: none;" class="btn btn-sm btn-dark" onclick="signInViaPhone()">
+                  <button class="btn btn-sm btn-dark" onclick="signInViaPhone()">
                     SignIn via Phone
                   </button>
 
@@ -84,7 +84,7 @@
                   <input type="hidden" name="type" value="phone">
                   <input type="hidden" name="phone__verified" id="phone__verified" value="0">
 
-                  <div class="form-group">
+                  <div class="form-group" style="display: none;">
                     <label class="sr-only" for="CountryCode">
                       Country Code
                     </label>
@@ -93,7 +93,11 @@
                       <option value="">select country code </option>
                       {% for code, countryCode in countryCodes.items %}
                         {% for cCode in countryCode %}
-                          <option value="{{ cCode }}">{{ code }}: {{ cCode }}</option>
+                          {% if code == 91 %}
+                            <option value="{{ cCode }}" selected>{{ code }}: {{ cCode }}</option>
+                          {% else %}
+                            <option value="{{ cCode }}">{{ code }}: {{ cCode }}</option>
+                          {% endif %}
                         {% endfor %}
                       {% endfor %}
 
@@ -101,7 +105,7 @@
                   </div>
 
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-12">
                   <div class="form-group">
                     <label class="sr-only" for="PhoneNumber">
                       Phone Number
@@ -197,7 +201,7 @@
     }
     function signInViaPhone(){
       $('#signInByPhone').show();
-      $('#PhoneNumber').prop('disabled', true);
+      // $('#PhoneNumber').prop('disabled', true);
       $('#signInByEmail').hide();
     }
     function singInViaOTP(){

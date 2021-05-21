@@ -1,0 +1,163 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12 col-md-6 offset-md-3">
+
+        <!-- Card -->
+        <div class="card card-lg">
+          <div class="card-body">
+            <div class="col-12">
+              <p>
+                {% for message in messages %}
+                <span class="text-danger center" id="error_login">{{message}}!!!</span><br />
+                {% endfor %}
+              </p>
+            </div>
+
+            <!-- Heading -->
+            <h6 class="mb-7">New Customer</h6>
+
+            <!-- Form -->
+            <form method="post" action="{% url 'customer_register' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="sr-only" for="registerEmail">
+                      Email Address *
+                    </label>
+                    <input class="form-control form-control-sm" id="registerEmail" name="email" type="email"
+                      placeholder="Email Address *" required>
+                    <small id="registerEmailHelpText" class="text-danger" style="display: none;">
+                      Email already exits
+                    </small>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-6">
+
+                  <!-- Password -->
+                  <div class="form-group">
+                    <label class="sr-only" for="registerPassword">
+                      Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="registerPassword" name="password" type="password"
+                      placeholder="Password *" required>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-6">
+
+                  <!-- Password -->
+                  <div class="form-group">
+                    <label class="sr-only" for="registerPasswordConfirm">
+                      Confirm Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="registerPasswordConfirm" name="cnf_password"
+                      type="password" placeholder="Confrm Password *" required>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-auto">
+
+                  <!-- Link -->
+                  <div class="form-group font-size-sm text-muted">
+                    By registering your details, you agree with our Terms & Conditions,
+                    and Privacy and Cookie Policy.
+                  </div>
+
+                </div>
+                <div class="col-12 col-md">
+
+                  <!-- Newsletter -->
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" id="registerNewsletter" name="email_opt" type="checkbox" checked>
+                      <label class="custom-control-label" for="registerNewsletter">
+                        Sign me up for the Newsletter!
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-12">
+                  <script src='https://www.google.com/recaptcha/api.js'></script>
+                  <div class="g-recaptcha" data-sitekey={{SITE_KEY}}></div>
+                </div>
+                <div class="col-12">
+
+                  <!-- Button -->
+                  <button class="btn btn-sm btn-dark" type="submit" id="email__register" disabled>
+                    Register
+                  </button>
+
+                  <a href="{% url 'custommer_registration_phone' %}" class="btn btn-sm btn-dark">
+                        Register via Phone
+                  </a>
+
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+
+  const blocked_domain = {{ blocked_domain|safe }};
+
+  /* Email validation */
+  const emailPatt = new RegExp(/^[a-zA-Z0-9.!'*+_`{|}~-]+@([a-zA-Z])+\.([a-zA-Z])+$/);
+  $('#registerEmail').keyup(function(){
+    var domain = $(this).val();
+    if(domain.indexOf('@')!=-1)
+      domain = domain.substring(domain.indexOf('@')+1, domain.length);
+    else
+      domain = '';
+    if(emailPatt.test($(this).val()) && !blocked_domain.includes(domain)){
+      $.ajax({
+        url: "{% url 'check_username' %}",
+        data: {'type': 'email', 'email': $(this).val()},
+        success: function(data){
+          // console.log(data.status, data.status=="0")
+          if(data.status=="1"){   // email exits
+            if($('#registerEmail').hasClass('is-valid')){
+              $('#registerEmail').removeClass('is-valid');
+            }
+            $('#registerEmail').addClass('is-invalid');
+            $('#email__register').prop('disabled', true);
+            $('#registerEmailHelpText').show();  
+          }else if(data.status=="0"){   // email not exits
+            if($('#registerEmail').hasClass('is-invalid')){
+              $('#registerEmail').removeClass('is-invalid');
+            }
+            $('#registerEmail').addClass('is-valid');
+            $('#email__register').prop('disabled', false);
+            $('#registerEmailHelpText').hide();    
+          }
+        }
+      });
+    }else{
+      if($('#registerEmail').hasClass('is-valid')){
+        $('#registerEmail').removeClass('is-valid');
+      }
+      if(!$('#registerEmail').hasClass('is-invalid')){
+        $('#registerEmail').addClass('is-invalid');
+      }
+      $('#email__register').prop('disabled', true);
+      $('#registerEmailHelpText').hide();    
+    }
+  });
+</script>
+{% endblock %}

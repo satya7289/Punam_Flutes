@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import UserQuery, BlockedDomain
+from .models import UserQuery, BlockedDomain, VerifyMobileOTP
 from django.contrib import auth
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'username', 'email', 'phone', 'active', 'staff', 'admin', 'email_verified', 'phone_verified')
+    list_display = ('__str__', 'username', 'email', 'phone', 'email_verified', 'phone_verified', 'active', 'staff', 'admin', 'id')
     list_filter = ('active', 'staff', 'admin', 'email_verified', 'phone_verified')
 
 
@@ -29,6 +29,7 @@ class BlockedDomainAdmin(admin.ModelAdmin):
 
 
 User = auth.get_user_model()
+admin.site.register(VerifyMobileOTP)
 admin.site.register(User, UserAdmin)
 admin.site.register(BlockedDomain, BlockedDomainAdmin)
 # admin.site.register(Profile, ProfileAdmin)
