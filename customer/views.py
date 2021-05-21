@@ -111,8 +111,9 @@ class RegistrationViaPhone(View):
     def get(self, request, *args, **kwargs):
         context = {
             'countryCodes': self.countryCodes,
-            'mobile_registration': self.mobile_registration
         }
+        if not self.mobile_registration:
+            return redirect('customer_register')
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):

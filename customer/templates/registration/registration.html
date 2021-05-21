@@ -95,9 +95,11 @@
                     Register
                   </button>
 
+                  {% if mobile_registration %}
                   <a href="{% url 'custommer_registration_phone' %}" class="btn btn-sm btn-dark">
                         Register via Phone
                   </a>
+                  {% endif %}
 
                 </div>
               </div>
