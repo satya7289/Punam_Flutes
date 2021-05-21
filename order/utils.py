@@ -23,6 +23,7 @@ def orderStatusChangeNotification(order):
         'Canceled': 'Your order has been cancelled',
         'Refunded': 'Your order\'s has been refunded',
     }
+    message = ""
     # print(order.status)
     if order.status == 'Canceled' or order.status == 'Shipped' or order.status == 'Delivered':
         # send Email
