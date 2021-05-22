@@ -2,7 +2,7 @@ from django.conf import settings
 from product.models import CountryCurrencyRate
 
 
-def get_price_of_product(request, product, country=None, currency_rate=None):
+def get_price_of_product(request, product, country=None, currency_code=None, currency_rate=None):
     ###############
     #  1. get the country & currency code(based on IP or given country)
     #  2. get the product's country currency
@@ -14,9 +14,10 @@ def get_price_of_product(request, product, country=None, currency_rate=None):
     mrp_price = 0
     rate = currency_rate
 
-    if country:
+    if country and currency_code:
         Cc = CountryCurrencyRate.objects.filter(
-            country__icontains=country
+            country__icontains=country,
+            currency_code=currency_code,
         ).first()
         if Cc:
             country = Cc.country
