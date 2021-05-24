@@ -1,0 +1,105 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12 col-md-6 offset-md-3">
+
+        <!-- Card -->
+        <div class="card card-lg">
+          <div class="card-body">
+            <div class="col-12">
+              <p>
+                {% for message in messages %}
+                <span class="text-danger center" id="error_login">{{message}}!!!</span><br />
+                {% endfor %}
+              </p>
+            </div>
+
+            <div class="alert alert-success" role="alert" id='otp__send__message' style="display: none;">
+              A new One Time Password (OTP) has been sent to your mobile number
+            </div>
+
+            <div class="alert alert-warning" role="alert" id='otp__todays__limit_expire' style="display: none;">
+              Today's limit excced try again tommorow
+            </div>
+
+            <!-- Heading -->
+            <h6 class="mb-7">Verify Mobile Number</h6>
+            <p>A One Time Password (OTP) has been sent to your mobile number: {{ mobile_number }}</p>
+
+            <!-- Form -->
+            <form method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="sr-only" for="otp">
+                      Enter OTP *
+                    </label>
+                    <input class="form-control form-control-sm" id="otp" name="otp" type="text" 
+                      placeholder="Enter OTP" required>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <!-- Button -->
+                  <button class="btn btn-sm btn-dark" type="submit" id="verify" disabled>
+                    Verify
+                  </button>
+                </div>
+                <div class="col-12 col-md-6">
+                    <!-- Button -->
+                    <a class="btn btn-sm btn-dark" id="resend__otp" onclick="ResendOTP();" href="javascript:void(null)">
+                      Resend
+                    </a>
+                  </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+
+$('#error_login').fadeOut(5000);
+
+$('#otp').keyup(function(){
+    if($(this).val().length == '6'){
+        $('#verify').prop('disabled', false);
+        $('#otp').css('border', '1px solid black');
+    }else{
+        $('#verify').prop('disabled', true);
+        $('#otp').css('border','1px solid red');
+    }
+});
+
+function ResendOTP(){
+  $.ajax({
+    url: "{% url 'resend_otp' uidb64=uidb64 %}",
+    type: 'GET',
+    success: function(res) {
+      if(res.message=='success'){
+        $('#otp__send__message').show();
+        $('#otp__send__message').fadeOut(5000);
+      }
+      if(res.status=='2'){
+        $('#otp__todays__limit_expire').show();
+        $('#otp__todays__limit_expire').fadeOut(5000);
+        $('#resend__otp').prop('disabled', true);
+      }
+    }
+  });
+}
+
+</script>
+{% endblock %}

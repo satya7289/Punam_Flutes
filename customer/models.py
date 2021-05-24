@@ -152,3 +152,17 @@ class BlockedDomain(TimeStampedModel):
 
     def __str__(self):
         return self.domain if self.domain else ''
+
+
+class VerifyMobileOTP(TimeStampedModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    otp = models.CharField(max_length=10, blank=True, null=True)
+    valid = models.BooleanField(default=True)
+    time_limit = models.PositiveIntegerField(default=5, null=True)
+    today_attempts = models.PositiveIntegerField(default=1, null=True)
+    total_attempts = models.PositiveIntegerField(default=0, null=True)
+    last_attempted_at = models.DateTimeField(blank=True, null=True)
+    otp_created_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username

@@ -304,3 +304,7 @@ RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 
 # Courrier
 DELHIVERY_API_KEY = config('DELHIVERY_API_KEY')
+
+# SMS
+SEND_SMS = config('SEND_SMS', cast=bool, default=False)
+SMS_API_KEY = config('SMS_API_KEY', default='')
