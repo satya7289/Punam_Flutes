@@ -7,16 +7,20 @@ from django.utils.html import format_html
 from .models import (
     Order,
     Payment,
+    CourrierOrder,
 )
 
 
 class OrderAdmin(admin.ModelAdmin):
+    change_form_template = 'order/change_form.html'
     list_display = ('__str__', 'OrderNumber', 'Total', 'status', 'PaymentMethod', 'Invoice', 'User', 'created_at', 'update_at')
     list_filter = ('status', 'payment__method',)
     search_fields = ('id', 'total',)
     readonly_fields = (
         'R_cart', 'R_billing_address', 'R_shipping_address', 'R_user', 'currency',
-        'Payment', 'Invoice',
+        'Payment', 'Invoice', 'Courrier',
+        'CourrierName', 'TrackingNumber',
+        'TrackDelivery',
         'Total',
         'created_at', 'update_at'
     )
@@ -26,7 +30,8 @@ class OrderAdmin(admin.ModelAdmin):
                 'R_cart', 'R_billing_address', 'R_shipping_address', 'R_user', 'status',
                 ('total', 'currency'),
                 ('customization_request', 'courier_tracker'),
-                'Payment', 'Invoice',
+                'Payment', 'Invoice', 'Courrier',
+                'TrackDelivery',
             )
         }),
         ('Advanced Detail', {
@@ -34,6 +39,7 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': (
                 'coupon',
                 'country', 'currency_code',
+                'CourrierName', 'TrackingNumber',
                 'created_at', 'update_at',
             ),
         }),
@@ -51,6 +57,30 @@ class OrderAdmin(admin.ModelAdmin):
     def Payment(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.payment._meta.app_label, obj.payment._meta.model_name), args=[obj.payment.id])
         return format_html('<a href="{}">Payment Detail</a>', url, obj.payment.id)
+
+    def Courrier(self, obj):
+        try:
+            if obj.courrierorder and obj.courrierorder.tracking_number:
+                return 'Courrier Booked'
+        except:
+            pass
+        return format_html('<a id="check_courrier" data-id="{}">Check Courrier Services</a>', obj.id)
+
+    def TrackDelivery(self, obj):
+        try:
+            if obj.courrierorder and obj.courrierorder.tracking_number:
+                return format_html('<a id="tracking" data-tracking_number="{}">Track Delivery</a>', obj.courrierorder.tracking_number)
+        except:
+            pass
+        return '-'
+
+    def CourrierName(self, obj):
+        if obj.courrierorder:
+            return obj.courrierorder.courrier if obj.courrierorder.courrier else '-'
+
+    def TrackingNumber(self, obj):
+        if obj.courrierorder:
+            return obj.courrierorder.tracking_number if obj.courrierorder.tracking_number else '-'
 
     def PaymentMethod(self, obj):
         return obj.payment.method
@@ -90,6 +120,10 @@ class OrderAdmin(admin.ModelAdmin):
     R_user.short_description = 'User'
     Payment.short_description = 'Payment'
     Invoice.short_description = 'Invoice'
+    Courrier.short_description = 'Courrier Services'
+    CourrierName.short_description = 'Courrier Name'
+    TrackingNumber.short_description = 'Tracking Number'
+    TrackDelivery.short_description = 'Track Delivery Status'
 
 
 class PaymentAdmin(admin.ModelAdmin):
@@ -101,6 +135,12 @@ class PaymentAdmin(admin.ModelAdmin):
         return format_html('<a href="{}">{} Order</a>', url, obj.order.id)
 
 
+class CourrierOrderAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'courrier', 'tracking_number')
+    ordering = ('-created_at',)
+
+
 # Register your models here.
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Payment, PaymentAdmin)
+# admin.site.register(CourrierOrder, CourrierOrderAdmin)

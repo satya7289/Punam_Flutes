@@ -1,23 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.conf import settings
-from paypal.standard.forms import PayPalPaymentsForm
-from django.views.decorators.csrf import csrf_exempt
-from django.urls import reverse
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-
-from cart.models import Cart
-from order.models import Order, Payment
-from commons.product_price import get_price_of_product
 from commons.mail import SendEmail
+
+from order.models import Order
+from commons.product_price import get_price_of_product
 from tax_rules.models import TaxRule, GSTState
 from tax_rules.views import CalculateTaxForCart
 
-from cart.utils import after_successful_placed_order
-
 import json
-import razorpay
 
 
 class OrderInvoice(View):
@@ -136,119 +126,6 @@ class OrderInvoice(View):
         return redirect('dashboard')
 
 
-class OrderList(View):
-    def get(self, request):
-        template_name = 'orders.html'
-        user = request.user
-        orders = Order.objects.filter(
-            cart__in=Cart.objects.filter(
-                user=user, is_checkout=True
-            )
-        )
-        return render(request, template_name, {'orders': orders})
-
-
-class CancelOrder(View):
-    '''
-    Cancel Order if order status is Pending/Confirmed/Paid.
-    '''
-    def get(self, request):
-        if request.GET.get('id'):
-            order = Order.objects.filter(id=request.GET.get('id')).first()
-            if order.status == 'Pending' or order.status == 'Confirmed' or order.status == 'Paid':
-                order.status = 'Canceled'
-                order.save()
-        return redirect('orders')
-
-
-@login_required
-def process_payment(request):
-    host = request.get_host()
-    scheme = request.scheme
-    order_id = request.POST.get('order')
-    order = Order.objects.filter(id=order_id).first()
-
-    if order:
-        currency = settings.CURRENCY_CODE
-        if request.POST.get('razorpay'):
-            # Razorpay
-            client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
-            amount = float('%.2f' % order.total)
-            # if currency == "INR":
-            #     amount *= 100
-            amount *= 100
-            resp = client.order.create(dict(
-                amount=amount,
-                currency=currency,
-                receipt=str(order.id)
-            ))
-            # print(resp)
-            if resp['status'] == "created":
-                payment = Payment.objects.filter(order=order.id).first()
-
-                if payment:
-                    if payment.status:  # if payment is done
-                        return redirect('dashboard')
-                    else:
-                        payment.method = "razorpay"
-                        payment.razorpay = resp['id']
-                        payment.save()
-                else:
-                    payment = Payment.objects.create(
-                        order=order,
-                        method="razorpay",
-                        razorpay=resp['id']
-                    )
-
-                context = {
-                    'order': resp['id'],
-                    'key': settings.RAZORPAY_KEY,
-                    'callbackurl': scheme + "://" + host + reverse('razorpay_done'),
-                    'cancelurl': scheme + "://" + host + reverse('razorpay_cancel'),
-                }
-
-                return render(request, 'razorpayRequest.html', context)
-            return redirect('checkout')
-
-        elif request.POST.get('paypal'):
-            # Paypal
-            paypal_dict = {
-                'business': settings.PAYPAL_RECEIVER_EMAIL,
-                'amount': '%.2f' % order.total,
-                'item_name': 'Order {}'.format(order.id),
-                'invoice': str(order.id),
-                'currency_code': currency,
-                'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
-                'return_url': 'http://{}{}'.format(host, reverse('payment_done')),
-                'cancel_return': 'http://{}{}'.format(host, reverse('payment_cancelled')),
-            }
-
-            form = PayPalPaymentsForm(initial=paypal_dict)
-            return render(request, 'process_payment.html', {'order': 'order', 'form': form})
-
-        elif request.POST.get('COD'):
-            # COD
-            payment = Payment.objects.filter(order=order.id).first()
-
-            if payment:
-                if payment.status:  # if payment is done
-                    return redirect('dashboard')
-                else:
-                    payment.method = "COD"
-                    payment.save()
-            else:
-                payment = Payment.objects.create(
-                    order=order,
-                    method="COD"
-                )
-
-            after_successful_placed_order(request, payment, "Confirmed")
-            return redirect('orders')
-
-    messages.add_message(request, messages.SUCCESS, 'Oops, Something went wrong.')
-    return redirect('checkout')
-
-
 def sendInvoice(request, orderId):
     order = Order.objects.filter(id=orderId).first()
     message = "order is not created"
@@ -284,40 +161,3 @@ def sendInvoice(request, orderId):
             message = "either phone is not there or phone not verified."
         return message
     return message
-
-
-@csrf_exempt
-def payment_done(request):
-    # add payment id to the order
-    return render(request, 'payment_done.html')
-
-
-@csrf_exempt
-def payment_canceled(request):
-    return render(request, 'payment_cancelled.html')
-
-
-@csrf_exempt
-def razorpay_done(request):
-    client = razorpay.Client(auth=(settings.RAZORPAY_KEY, settings.RAZORPAY_SECRET))
-    razorpayOrderId = request.POST.get('razorpay_order_id')
-    # print(request.POST)
-    if razorpayOrderId:
-        razorpayPayment = client.order.payments(razorpayOrderId)
-
-        if razorpayPayment['items'][0]['status'] == 'captured':
-            # Update the payment status
-            payment = Payment.objects.filter(razorpay=razorpayOrderId).first()
-
-            if payment:
-                payment.status = True
-                payment.save()
-
-                after_successful_placed_order(request, payment, 'Paid')
-                return redirect('orders')
-    return redirect('dashboard')
-
-
-@csrf_exempt
-def razorpay_cancel(request):
-    return render(request, 'payment_cancelled.html')

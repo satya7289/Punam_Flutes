@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block title %} Courrier Services | Punam Flutes Admin {% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="/flutes_admin/">Punam Flutes Admin Console</a></h1>
+{% endblock %}
+
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="/flutes_admin/">{% trans 'Home' %}</a>
+
+&rsaquo; Courrier Services
+</div>
+{% endblock %}
+{% endif %}
+
+{% block content %}
+<div id="content-main">
+
+
+</div>
+{% endblock %}
