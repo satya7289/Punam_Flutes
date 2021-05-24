@@ -2,6 +2,120 @@
 {% load staticfiles %}
 {% block content %}
 
+<style>
+    .loader {
+        display:none; position:relative; left: 40%; top: 50%; z-index: 1; width: 120px;height: 120px; border: 16px solid #f3f3f3; border-radius: 50%; border-top: 16px solid #3498db; width: 120px; height: 120px; 
+        animation: spin 2s linear infinite; -webkit-animation: spin 2s linear infinite; /* Safari */
+    }
+    .progress__bar {padding: 10px; margin-left: 20%; display: none;}
+    .progress__bar ul{list-style: none; margin: 0px; padding: 0px; position: relative;}
+    .progress__bar ul li{padding: 20px;padding-left: 60px; list-style-type: none;}
+    .progress__bar ul::after{content: ''; position: absolute;display: block; width: 2px; height: 100%; background-color: #ddd; left: 35px; top: 0;}
+    .progress__bar ul li .icon::before{content: ''; position: absolute; width: 15px; height: 15px; background-color: #ddd; border-radius: 50%; left: 7px; margin-top: 6px; z-index: 2;}
+    .progress__bar ul li .icon{position: absolute; width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; left: 20px; margin-top: -5px; background-color: white; }
+ 
+    /* Add Animation */
+    @-webkit-keyframes slideIn {
+        from {bottom: -300px; opacity: 0} 
+        to {bottom: 0; opacity: 1}
+    }
+    
+    @keyframes slideIn {
+        from {bottom: -300px; opacity: 0}
+        to {bottom: 0; opacity: 1}
+    }
+    
+    @-webkit-keyframes fadeIn {
+        from {opacity: 0} 
+        to {opacity: 1}
+    }
+    
+    @keyframes fadeIn {
+        from {opacity: 0} 
+        to {opacity: 1}
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+
+<div class="modal fade" id="tracking__modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Order Tracking</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="loader"></div>
+                <div class="progress__bar">
+                    <ul>
+                        <li>
+                            <div class="icon"></div>
+                            <div> <b>Seller cancelled the order </b> <br>Faridabad Mthurard Cp (Haryana) <br>
+                                <div style="color:#ddd">
+                                    24-May-2021
+                                    19:33
+                                </div>
+                            </div>
+                        </li><li>
+                            <div class="icon"></div>
+                            <div> <b>Seller cancelled the order </b> <br>Faridabad Mthurard Cp (Haryana) <br>
+                                <div style="color:#ddd">
+                                    24-May-2021
+                                    19:33
+                                </div>
+                            </div>
+                        </li><li>
+                            <div class="icon"></div>
+                            <div> <b>Seller cancelled the order </b> <br>Faridabad Mthurard Cp (Haryana) <br>
+                                <div style="color:#ddd">
+                                    24-May-2021
+                                    19:33
+                                </div>
+                            </div>
+                        </li><li>
+                            <div class="icon"></div>
+                            <div> <b>Seller cancelled the order </b> <br>Faridabad Mthurard Cp (Haryana) <br>
+                                <div style="color:#ddd">
+                                    24-May-2021
+                                    19:33
+                                </div>
+                            </div>
+                        </li><li>
+                            <div class="icon"></div>
+                            <div> <b>Seller cancelled the order </b> <br>Faridabad Mthurard Cp (Haryana) <br>
+                                <div style="color:#ddd">
+                                    24-May-2021
+                                    19:33
+                                </div>
+                            </div>
+                        </li><li>
+                            <div class="icon"></div>
+                            <div> <b>Seller cancelled the order </b> <br>Faridabad Mthurard Cp (Haryana) <br>
+                                <div style="color:#ddd">
+                                    24-May-2021
+                                    19:33
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <section class="pt-7 pb-12">
     <div class="container">
@@ -18,12 +132,13 @@
                 <th scope="col">Payment</th>
                 <th scope="col">Order Status</th>
                 <th scope="col">Action</th>
+                <th scope="col">Tracking</th>
                 <th scope="col">Shipping Status</th>
               </tr>
             </thead>
             <tbody>
                 {% for order in orders%}
-                                <!-- Modal -->
+                <!-- Modal -->
                 <div class="modal fade" id="cartDetail-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
@@ -96,6 +211,11 @@
                             {% endif %}
                         </td>
                         <td>
+                            {% if order.courrierorder and order.courrierorder.tracking_number %}
+                                <a id="tracking" data-tracking_number="{{order.courrierorder.tracking_number}}">Track Delivery</a>
+                            {% endif %}
+                        </td>
+                        <td>
                             {% if order.courier_tracker %}
                             {{ order.courier_tracker }}
                             {% else %}
@@ -112,4 +232,46 @@
     </div>
 </section>
 
+{% endblock %}
+{% block script %}
+<script>
+    
+    $('#tracking').click(function(){
+        $('#tracking__modal').modal("show");
+        loadTracking($(this).data('tracking_number'));
+    });
+
+    function loadTracking(tracking_number){
+        $('.loader').show();
+        $.ajax({
+            url: "{% url 'track_courrier_order' %}",
+            data: {
+                "tracking_number": tracking_number
+            },
+            dataType: 'JSON',
+            success: function(data){
+                if(data.message == "success"){
+                console.log(data);
+                trackingDetail = data.resp.ShipmentData[0].Shipment;
+                updateTrackingData();
+                }
+            }
+        });
+    }
+
+    function updateTrackingData(){
+        var str = ``;
+    
+        trackingDetail.Scans.slice().reverse().forEach(scan => {
+        let scanDetail = scan.ScanDetail
+        str += `<li><div class="icon"></div>`;
+        str+= `<div> <b>` + scanDetail.Instructions + `</b> <br>` + scanDetail.ScannedLocation +`<br><div style="color:#ddd">` + scanDetail.StatusDateTime + `</div></div>`;
+        str+= `</li>`;
+        });
+    
+        $('.progress__bar ul').html(str);
+        $('.loader').hide();
+        $('.progress__bar').show();
+    }
+</script>
 {% endblock %}
