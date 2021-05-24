@@ -131,8 +131,9 @@ class PaymentAdmin(admin.ModelAdmin):
     list_filter = ('status', 'method')
 
     def Order(self, obj):
-        url = reverse('admin:%s_%s_change' % (obj.order._meta.app_label, obj.order._meta.model_name), args=[obj.order.id])
-        return format_html('<a href="{}">{} Order</a>', url, obj.order.id)
+        if obj.order:
+            url = reverse('admin:%s_%s_change' % (obj.order._meta.app_label, obj.order._meta.model_name), args=[obj.order.id])
+            return format_html('<a href="{}">{} Order</a>', url, obj.order.id)
 
 
 class CourrierOrderAdmin(admin.ModelAdmin):
