@@ -241,6 +241,10 @@
         loadTracking($(this).data('tracking_number'));
     });
 
+    $('#tracking__modal').on('hidden.bs.modal', function () {
+        $('.progress__bar').hide();
+    });
+
     function loadTracking(tracking_number){
         $('.loader').show();
         $.ajax({
