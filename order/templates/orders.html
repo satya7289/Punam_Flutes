@@ -85,7 +85,7 @@
                     <div class="col-12 col-sm-6">
                         <ul>
                             <li> <b> Order Placed </b> <br> {{ order.order_placed |default:'-'}}</li>
-                            <li> <b> Total </b> <br> {{ order.currency }} {{ order.total }}</li>
+                            <li> <b> Total </b> <br> {% if order.currency %} {{ order.currency }} {% endif %} {{ order.total }}</li>
                             <li> <b> Ship To </b> <br> <a href="{% url 'customer_address' %}?address_type=shipping">{{ order.shipping_address.full_name }}</a></li>
                         </ul>
                     </div>

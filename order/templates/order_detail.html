@@ -117,7 +117,7 @@
                             <li>Tax: {{ order.currency }}{{ totalTax }}</li>
                             <li>Shipping: {{ order.currency }}0</li>
                             <li>Coupon Discount: {{ order.currency }}0</li> -->
-                            <li>Total: {{ order.currency }}{{ order.total }}</li>
+                            <li>Total: {% if order.currency %} {{ order.currency }} {% endif %}{{ order.total }}</li>
                         </ul>
                     </div>
                 </div>
