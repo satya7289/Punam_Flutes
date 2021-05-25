@@ -11,6 +11,7 @@ from .views.payment import (
 
 from .views.order import (
     OrderList,
+    OrderDetail,
     CancelOrder,
 )
 
@@ -26,11 +27,11 @@ from .views.courrier import (
 
 urlpatterns = [
     path('', login_required(OrderList.as_view()), name='orders'),
+    path('order-detail-<int:order_id>', login_required(OrderDetail.as_view()), name='order_detail'),
     path('order-cencel', login_required(CancelOrder.as_view()), name='order_cancel'),
 
     # Invoice Related
     path('order-invoice', login_required(OrderInvoice.as_view()), name='order_invoice'),
-    # path('sendInvoice', sendInvoice, name='send-invoice'),
 
     # Courrier Related
     path('check-for-courrier', CheckForCourrier.as_view(), name='check_for_courrier'),

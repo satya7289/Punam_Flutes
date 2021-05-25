@@ -1,6 +1,12 @@
 {% extends 'store/base.html' %}
 {% load staticfiles %}
 {% block content %}
+{% load static %}
+<style>
+  .custom-control-label::before{border: 1px solid black; border-radius: 50%;}
+  .card{border-radius: 5px; max-width: 26rem; margin: 0 auto 0 auto;}
+</style>
+</style>
 
 <section class="pt-7 pb-12">
     <div class="container">
@@ -11,39 +17,47 @@
             <h3 class="mb-4">Choose Payment Method</h3>
         </div>
 
-        <div class="col-12 text-center">
+        <div class="continer col-12">
             <form id='checkout-continue-form' action="{% url 'process_payment' %}" method="post">
                 {% csrf_token %}
                 <!-- List group -->
                 <div class="col-12 mb-7">
                     <!-- Radio -->
-                    {% if razorpay %}
-                    <div class="custom-control custom-radio mb-1">
-                        <input class="custom-control-input" id="checkoutPaymentRazorpay" name="razorpay" type="radio">
-                        <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentRazorpay">
-                            <img src="data:image/png;base64,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" alt="..." width="100">
-                        </label>
+                    <div class="card">
+                        <div class="card-body">
+                            {% if razorpay %}
+                            <div class="custom-control custom-radio mb-1">
+                                <input class="custom-control-input" id="checkoutPaymentRazorpay" name="razorpay" type="radio">
+                                <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentRazorpay">
+                                    Online Payment <br>
+                                    <!-- <img src="{% static 'images/razorpay.png' %}" alt="..." width="100"> -->
+                                </label>
+                                
+                            </div>
+                            {% endif %}
+                            {% if cod %}
+                            <hr>
+                            <div class="custom-control custom-radio mb-1">
+                                <input class="custom-control-input" id="COD" name="COD" type="radio">
+                                <label class="custom-control-label font-size-sm text-body text-nowrap" for="COD">
+                                    Cash On dilivery
+                                </label>
+                            </div>
+                            {% endif %}
+                            {% if paypal %}
+                            <hr>
+                            <!-- <div class="custom-control custom-radio mb-1">
+                                <input class="custom-control-input" id="checkoutPaymentPaypal" name="paypal" type="radio">
+                                <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
+                                    <img src="{% static 'assets/img/brands/color/paypal.svg' %}" alt="...">
+                                </label>
+                            </div>  -->
+                            {% endif %}
+                            {% if all_payment_method_off %}
+                                <p>Sorry!!!All payment method are blocked in your country.</p>
+                            {% endif %}
+                        </div>
                     </div>
-                    {% endif %}
-                    {% if cod %}
-                    <div class="custom-control custom-radio mb-1">
-                        <input class="custom-control-input" id="COD" name="COD" type="radio">
-                        <label class="custom-control-label font-size-sm text-body text-nowrap" for="COD">
-                            Cash On dilivery
-                        </label>
-                    </div>
-                    {% endif %}
-                    {% if paypal %}
-                    <!-- <div class="custom-control custom-radio mb-1">
-                        <input class="custom-control-input" id="checkoutPaymentPaypal" name="paypal" type="radio">
-                        <label class="custom-control-label font-size-sm text-body text-nowrap" for="checkoutPaymentPaypal">
-                            <img src="{% static 'assets/img/brands/color/paypal.svg' %}" alt="...">
-                        </label>
-                    </div>  -->
-                    {% endif %}
-                    {% if all_payment_method_off %}
-                        <p>Sorry!!!All payment method are blocked in your country.</p>
-                    {% endif %}
                 </div>
                 <input type="hidden" name="order" value="{{ order.id }}">
             </form>

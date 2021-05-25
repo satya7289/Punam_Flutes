@@ -324,7 +324,7 @@
     trackingDetail.Scans.slice().reverse().forEach(scan => {
       let scanDetail = scan.ScanDetail
       str += `<li><div class="icon"></div>`;
-      str+= `<div> <b>` + scanDetail.Instructions + `</b> <br>` + scanDetail.ScannedLocation +`<br><div style="color:#ddd">` + scanDetail.StatusDateTime + `</div></div>`;
+      str+= `<div> <b>` + scanDetail.Instructions + `</b> <br>` + scanDetail.ScannedLocation +`<br><div style="color:darkslategrey">` + scanDetail.StatusDateTime + `</div></div>`;
       str+= `</li>`;
     });
  

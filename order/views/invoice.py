@@ -1,13 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from commons.mail import SendEmail
 
 from order.models import Order
 from commons.product_price import get_price_of_product
 from tax_rules.models import TaxRule, GSTState
-from tax_rules.views import CalculateTaxForCart
-
-import json
 
 
 class OrderInvoice(View):
@@ -124,40 +120,3 @@ class OrderInvoice(View):
             }
             return render(request, self.template_name, context=context)
         return redirect('dashboard')
-
-
-def sendInvoice(request, orderId):
-    order = Order.objects.filter(id=orderId).first()
-    message = "order is not created"
-    if order:
-        user = order.user
-
-        product_details = order.cart.product_detail.all()
-
-        # Add the price and currency according to the user's location to the product
-        for product in product_details:
-            price_list = get_price_of_product(request, product.product)
-            product.price = price_list['price']
-
-        data = {
-            'products': product_details,
-            'total': order.total,
-            'shipping_address': order.shipping_address,
-            'totalTax': json.loads(CalculateTaxForCart(request, order.cart.id, order.shipping_address.id).content)['totalTax'],
-        }
-        # return render(request, 'invoice.html', context=data)
-        if user.email and user.email_verified:
-            sendEmail = SendEmail('invoice.html', data, 'Your Invoice')
-            sendEmail.send((user.email,))
-            message = "Invoice sent"
-        else:
-            message = "either email is not there or email not verified."
-
-        if user.phone and user.phone_verified:
-            # TODO send Mobile sms
-            message = "inbox sent"
-            pass
-        else:
-            message = "either phone is not there or phone not verified."
-        return message
-    return message

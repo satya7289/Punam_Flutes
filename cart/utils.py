@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -71,6 +72,7 @@ def after_successful_placed_order(request, payment, order_status="Confirmed"):
 
     # Update the status of the coupon if applied.
     order.status = order_status
+    order.order_placed = datetime.now()
     order.save()
 
     # Update the status of the order.

@@ -22,7 +22,8 @@ class OrderAdmin(admin.ModelAdmin):
         'CourrierName', 'TrackingNumber',
         'TrackDelivery',
         'Total',
-        'created_at', 'update_at'
+        'created_at', 'update_at',
+        'order_placed',
     )
     fieldsets = (
         (None, {
@@ -40,7 +41,7 @@ class OrderAdmin(admin.ModelAdmin):
                 'coupon',
                 'country', 'currency_code',
                 'CourrierName', 'TrackingNumber',
-                'created_at', 'update_at',
+                'created_at', 'update_at', 'order_placed'
             ),
         }),
     )
@@ -64,12 +65,12 @@ class OrderAdmin(admin.ModelAdmin):
                 return 'Courrier Booked'
         except:
             pass
-        return format_html('<a id="check_courrier" data-id="{}">Check Courrier Services</a>', obj.id)
+        return format_html('<a id="check_courrier" data-id="{}" href="javascript:void(null)">Check Courrier Services</a>', obj.id)
 
     def TrackDelivery(self, obj):
         try:
             if obj.courrierorder and obj.courrierorder.tracking_number:
-                return format_html('<a id="tracking" data-tracking_number="{}">Track Delivery</a>', obj.courrierorder.tracking_number)
+                return format_html('<a id="tracking" data-tracking_number="{}" href="javascript:void(null)">Track Delivery</a>', obj.courrierorder.tracking_number)
         except:
             pass
         return '-'

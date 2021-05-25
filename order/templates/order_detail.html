@@ -14,11 +14,13 @@
     .progress__bar ul li .icon::before{content: ''; position: absolute; width: 15px; height: 15px; background-color: #ddd; border-radius: 50%; left: 7px; margin-top: 6px; z-index: 2;}
     .progress__bar ul li .icon{position: absolute; width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; left: 20px; margin-top: -5px; background-color: white; }
  
-    #order .card{margin-bottom: 10px;}
-    #order .container .card{border-radius: 5px;}
-    #order .container .card .card-header li{list-style-type: none; display: inline-block; padding: 0px 15px 0px 15px;}
-    #order .container .card .card-body li{list-style-type: none; margin: 5px; padding: 5px 15px 5px 15px; background-color: rgba(0,0,0,.03); text-align: center; border-radius: 3px; border: 1px solid black;}
-    #order .container .card .card-body li a{text-decoration: none;}
+
+    #order_detail .container .card{border-radius: 5px; margin-bottom: 10px;}
+    #order_detail .container .card .card-header li{list-style-type: none; display: inline-block; padding: 0px 15px 0px 15px;}
+    #order_detail .container .card .card-body ul{list-style: none; padding: 0px;}
+    #order_detail .container .card .card-body .order__detail li{list-style-type: none; margin: 5px; padding: 5px 15px 5px 15px; background-color: rgba(0,0,0,.03); text-align: center; border-radius: 3px; border: 1px solid black;}
+    #order_detail .container .card .card-body .order__detail li a{text-decoration: none;}
+    #order_detail .container .card .card-body .order__detail{max-height: 350px; overflow-y: scroll; position: relative;}
     
     /* Add Animation */
     @-webkit-keyframes slideIn {
@@ -74,60 +76,97 @@
     </div>
 </div>
 
-<section class="pt-7 pb-12" id="order">
+<section class="pt-7 pb-12" id="order_detail">
     <!-- orders -->
     <div class="container">
-        <h3>Your Order</h3>
-        {% for order in orders%}
-        <div class="card shadow shadow-hover lift">
-            <div class="card-header">
+        {% if order %}
+        <h3>Your Order Details</h3>
+        <div>
+            {% if order.order_placed %}
+                <b>Ordered at: </b>{{ order.order_placed |default:'-'}} |
+            {% endif %}
+            <b> Order No: </b>  {{ order.id }} 
+            {% if order.status == 'Delivered' %}
+            | <a href="{% url 'order_invoice' %}?order_id={{ order.id }}">Invoice</a>
+            {% endif %}
+         </div>
+
+        <div class="card">
+            <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-sm-6">
-                        <ul>
-                            <li> <b> Order Placed </b> <br> {{ order.order_placed |default:'-'}}</li>
-                            <li> <b> Total </b> <br> {{ order.currency }} {{ order.total }}</li>
-                            <li> <b> Ship To </b> <br> <a href="{% url 'customer_address' %}?address_type=shipping">{{ order.shipping_address.full_name }}</a></li>
-                        </ul>
+                    <div class="col-12 col-md-3">
+                        <b>Shipping Address</b> <br>
+                        {{ order.shipping_address }}
                     </div>
-                    <div class="col col-sm-6"  style="text-align: center;">
+                    <div class="col-12 col-md-3">
+                        <b>Billing Address</b> <br>
+                        {{ order.billing_address }}
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <b>Payment Method</b> <br>
+                        {% if order.payment and order.payment.method and order.payment.method == "COD" %}
+                            COD
+                        {% else %}
+                            Online
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <b>Order Summary</b> <br>
                         <ul>
-                            <li> <b>Order No: </b> {{ order.id }} <br>
-                            <a href="{% url 'order_detail' order_id=order.id %}">Order Detail</a>
-                            {% if order.status == 'Delivered' %}
-                                | <a href="{% url 'order_invoice' %}?order_id={{ order.id }}">Invoice</a>
-                            {% endif %}
-                            </li>
+                            <!-- <li>Subtotal: ₹198.00</li>
+                            <li>Tax: {{ order.currency }}{{ totalTax }}</li>
+                            <li>Shipping: {{ order.currency }}0</li>
+                            <li>Coupon Discount: {{ order.currency }}0</li> -->
+                            <li>Total: {{ order.currency }}{{ order.total }}</li>
                         </ul>
                     </div>
                 </div>
             </div>
+            {% if order.customization_request or order.coupon %}
+            <hr>
             <div class="card-body">
                 <div class="row">
+                    {% if order.customization_request %}
+                    <div class="col-12 col-md-6">
+                        <b>Customization Request</b> <br>
+                        {{ order.customization_request }}
+                    </div>
+                    {% endif %}
+                    {% if order.coupon %}
+                    <div class="col-12 col-md-6">
+                        <b>Applied Coupon</b> <br>
+                        {{ order.coupon }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row order__detail">
                     <div class="col-12 col-md-8">
                         <h5>Order Status: {{ order.status }}</h5>
                         <div class="row">
                             {% if order.cart %}
-                            {% with product=order.cart.product_detail.all.0 %}
-                            <div class="col-12 col-md-4">
+                            {% for product in order.cart.product_detail.all %}
+                            <div class="col-12 col-md-4 mb-5">
                                 {% with images=product.product.images.all %}
                                 <img class="card-img" src="{{ images.0.image.url }}" alt="Card image cap">
                                 {% endwith %}
                             </div>
-                            <div class="col-12 col-md-8">
+                            <div class="col-12 col-md-8 mb-5">
                                 <a href="{% url 'category_product_detail' product_id=product.product.id slug=product.product.category.all.0.slug %}">{{ product.product.title }}</a> <br>
                                 {% if product.quantity %}
                                 <span>Quantity: {{ product.quantity }}</span>
                                 {% endif %}
-                                <br>
-                                <br>
-                                <br>
-                                <a href="{% url 'order_detail' order_id=order.id %}"> Order Detail...</a>
                             </div>
-                            {% endwith %}
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-4 side__bar">
                         <ul>
                             {% if order.courrierorder and order.courrierorder.tracking_number %}
                             <li id="tracking" data-tracking_number="{{order.courrierorder.tracking_number}}">
@@ -160,54 +199,8 @@
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
-
-
-    <!-- Pagination -->
-    <nav class="d-flex justify-content-center">
-        {% if orders.has_other_pages %}
-        <ul class="pagination justify-content-center">
-        
-            {% if orders.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ orders.previous_page_number }}">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {% else %}
-    `       <li class="page-item">
-                <a class="page-link disabled" href="#">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {% endif %}
-
-            {% for i in orders.paginator.page_range %}
-                {% if orders.number == i %}
-                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
-                {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                {% endif %}
-            {% endfor %}
-
-            {% if orders.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ orders.next_page_number }}">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            {% else %}
-            <li class="page-item">
-                <a class="page-link disabled" href="#">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            {% endif %}
         {% endif %}
-        </ul>
-    </nav>
-
+    </div>
 </section>
 
 {% endblock %}
