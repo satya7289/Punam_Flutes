@@ -191,6 +191,34 @@
   </div>
 </section>
 
+<!-- Testimonials -->
+{% if testinomials %}
+<section id="testimonial">
+  <div class="container">
+      <div class="card">
+          <div class="card-title">Testimonials
+              <a class="read__more" href="{% url 'testinomials' %}">Read more...</a>
+          </div>
+          <div class="card-body">
+              <div class="slider">
+                {% for testinomial in testinomials %}
+                  <div class="col-md-4">
+                      <div class="card">
+                          <img class="card-img rounded-circle img-fluid" src="{{ testinomial.image.url }}" alt="Card image cap">
+                          <div class="card-body">
+                          {{ testinomial.description }}
+                          </div>
+                          <div class="card-title">{{ testinomial.name }}</div>
+                      </div>
+                  </div>
+                {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+{% endif %}
+
 {% endblock %}
 
 {% block script %}
@@ -199,6 +227,13 @@
     if($('#modal__cart').val()=="True"){
       $('#modalShoppingCart').modal("show");
     }
+    $('#testimonial .slider').flickity({
+        // options
+        groupCells: true,
+        autoPlay: true,
+        pageDots: false,
+        wrapAround: true
+     });
   })
 </script>
 {% endblock %}
