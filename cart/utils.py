@@ -97,7 +97,7 @@ def placed_order_notification(request, orderId):
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
-            price_list = get_price_of_product(request, product.product)
+            price_list = get_price_of_product(product.product)
             product.price = price_list['price']
 
         data = {

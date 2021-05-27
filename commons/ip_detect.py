@@ -37,6 +37,9 @@ def set_country_data(request):
 def set_site_url(request):
     settings.SITE_URL = request.scheme + "://" + request.get_host()
 
+def set_user(request):
+    settings.USER = request.user
+
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

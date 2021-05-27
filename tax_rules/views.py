@@ -74,7 +74,7 @@ def CalculateTaxForCart(request, cart_id=0, address_id=0):
         for product in cart.product_detail.all():
 
             # Get the price of product according to IP
-            price_list = get_price_of_product(request, product.product)
+            price_list = get_price_of_product(product.product)
             product_price = price_list['price']
 
             # Get the first category of the product

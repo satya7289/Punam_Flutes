@@ -45,7 +45,7 @@ class ProductListView(View):
 
         # Add the price and currency according to the user's location
         for product in products:
-            price_list = get_price_of_product(self.request, product)
+            price_list = get_price_of_product(product)
             product.price = price_list['price']
             product.mrp = price_list['MRP']
 
@@ -77,7 +77,7 @@ class ProductDetailView(View):
         product = Product.objects.get(id=product_id, publish=True)
 
         # Get the price of the product according to the user's location
-        get_price = get_price_of_product(request, product)
+        get_price = get_price_of_product(product)
 
         # Build the context that to be returned
         context = {

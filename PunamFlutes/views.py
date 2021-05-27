@@ -27,7 +27,7 @@ class HomePageView(View):
         # Get the new arrival products
         new_arrival_products = Product.objects.order_by('-id')[:11]
         for product in new_arrival_products:
-            price_list = get_price_of_product(request, product)
+            price_list = get_price_of_product(product)
             product.price = price_list['price']
             product.mrp = price_list['MRP']
 

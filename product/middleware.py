@@ -1,4 +1,4 @@
-from commons.ip_detect import set_country_data, set_site_url
+from commons.ip_detect import set_country_data, set_site_url, set_user
 
 
 class ProductPricingMiddleware:
@@ -15,6 +15,9 @@ class ProductPricingMiddleware:
 
         # set the site url
         set_site_url(request)
+
+        # Set the user
+        set_user(request)
 
         response = self.get_response(request)
 

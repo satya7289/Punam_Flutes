@@ -35,7 +35,7 @@ class CartView(View):
 
         # Add the price and currency according to the user's location to the product
         for product in product_details:
-            price_list = get_price_of_product(request, product.product)
+            price_list = get_price_of_product(product.product)
             product.price = price_list['price']
 
         context = {
@@ -65,11 +65,18 @@ class AddToCart(View):
                 product_quantity.save()
             else:
                 product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity)
-                cart.product_detail.add(product_quantity)
         else:
             cart = Cart.objects.create(user=user)
             product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity)
-            cart.product_detail.add(product_quantity)
+        
+        # Add product_details to the cart
+        cart.product_detail.add(product_quantity)
+
+        # Update the country, currency and currency_code
+        product_quantity.country = settings.COUNTRY
+        product_quantity.currency = settings.CURRENCY_SYMBOL
+        product_quantity.currency_code = settings.CURRENCY_CODE
+        product_quantity.save()
 
         return redirect('cart')
 
@@ -84,9 +91,17 @@ class RemoveFromCart(View):
         cart = Cart.objects.get(id=cart_id)
         product = Product.objects.get(id=product_id)
 
-        if cart:
+        if cart and product:
+            # select the product detail
             product_detail = ProductQuantity.objects.filter(product=product, cart=cart).first()
-            cart.product_detail.remove(product_detail)
+
+            if product_detail:
+                # remove the foreign Key
+                cart.product_detail.remove(product_detail)
+
+                # delete the product details
+                product_detail.delete()
+
             data = {'message': 'success', 'cart_length': len(cart.product_detail.all())}
             return JsonResponse(data)
 
@@ -321,14 +336,14 @@ class Checkout(View):
             # Add the price and currency according to the given country to the product
             country = request.GET.get('country')
             for product in product_details:
-                price_list = get_price_of_product(request, product.product)  # TODO: for the country
+                price_list = get_price_of_product(product.product)  # TODO: for the country
                 product.price = price_list['price']
                 totalPrice += float(product.price)
         else:
             # Add the price and currency according to the user's location to the product
             country = settings.COUNTRY
             for product in product_details:
-                price_list = get_price_of_product(request, product.product)
+                price_list = get_price_of_product(product.product)
                 product.price = price_list['price']
                 totalPrice += float(product.price)
 

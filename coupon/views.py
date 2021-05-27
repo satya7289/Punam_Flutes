@@ -24,7 +24,7 @@ class ValidateCoupon(View):
                         if {'id': coupon.coupon_category.id} in list(product.product.category.values('id')):
 
                             # Get the price of product according to IP
-                            price_list = get_price_of_product(request, product.product)
+                            price_list = get_price_of_product(product.product)
                             product_price = price_list['price']
 
                             # product discount = quantity * price * rate

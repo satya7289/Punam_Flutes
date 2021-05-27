@@ -28,7 +28,7 @@ class OrderInvoice(View):
 
             for product in products:
                 # Get the price of product according to order
-                price_list = get_price_of_product(request, product.product, order.country, order.currency_code)
+                price_list = get_price_of_product(product.product, order.country, order.currency_code)
                 product_price = price_list['price']
 
                 # Get the first category of the product
