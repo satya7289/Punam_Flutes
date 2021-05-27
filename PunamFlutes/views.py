@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from category.models import Category
 from product.models import Product
 from StaticData.models import SlideShow, Store, Support
+from blog.models import Testimonial
 
 from commons.product_price import get_price_of_product
 
@@ -35,10 +36,14 @@ class HomePageView(View):
             image__isnull=False, publish=True
         )[:2]
 
+        # Get the testinomials
+        testinomials = Testimonial.objects.filter(publish=True)
+
         context = {
             'new_arrival_products': new_arrival_products,
             'slideshows': slideshows,
             'category_images': category_images,
+            'testinomials': testinomials,
         }
         return render(request, self.template_name, context)
 

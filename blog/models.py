@@ -1,6 +1,11 @@
 from django.db import models
+from storages.backends.s3boto3 import S3Boto3Storage
+from django.conf import settings
+
+from commons.models import TimeStampedModel
 
 # Create your models here.
+TESTIMONIAL_DIR = 'testinomial'
 
 
 class Blog(models.Model):
@@ -25,3 +30,18 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.display_name
+
+
+class Testimonial(TimeStampedModel):
+    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False, upload_to=TESTIMONIAL_DIR + '/%Y%m%d%M%S')
+    alt = models.CharField(max_length=1024, blank=True, null=True)
+    name = models.CharField(max_length=2048, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    publish = models.BooleanField(default=True, blank=True, null=True)
+    order = models.PositiveIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ("order",)
