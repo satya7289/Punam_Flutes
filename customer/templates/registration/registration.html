@@ -3,34 +3,39 @@
 {% block content %}
 
 <style>
-.card-header{
+#registration__page .card{
+  border: 1px solid rgba(0, 0, 0, 0.301);
+}
+#registration__page .card-header{
   text-align: center;
   padding: 0;
+  background-color: #c0bbbb;
 }
-.card-header .row{
+#registration__page .card-header .row{
  padding: 0;
  margin: 0;
 }
-.card-header .row div{
+#registration__page .card-header .row div{
  padding: 10px;
 }
-.card-header a{
+#registration__page .card-header a{
   color: black;
   font-weight: 600;
 }
-.card-header .active{
-  background-color: #fff;
+#registration__page .card-header .active{
+  background-color: #ffffff;
+  /* border-right: 1px solid rgba(0, 0, 0, 0.301); */
 }
 </style>
 
-<section class="py-5">
+<section class="py-5" id="registration__page">
   <div class="container">
     <div class="row">
 
       <div class="col-12 col-md-6 offset-md-3">
 
         <!-- Card -->
-        <div class="card card-lg">
+        <div class="card">
           <div class="card-header">
             <div class="row">
               <div class="col-12 col-md-6 active">

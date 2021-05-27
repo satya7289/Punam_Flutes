@@ -6,7 +6,7 @@
 Common
 */
 a{text-decoration: none;}
-body{background-color: #efefef;font-family: 'Gabriela', serif;}
+body{background-color: #efefef;}
 
 /* 
 HEADER
@@ -47,7 +47,7 @@ TOP SELLING
 /* 
 NEW ARRIVALS
 */
-#new__arrivals .container .card .card-title{font-size: 34px; padding: 50px; margin: 0px;}
+#new__arrivals .container .card .card-title{font-size: 1.5rem; padding: 50px; margin: 0px;}
 
 /* 
 
