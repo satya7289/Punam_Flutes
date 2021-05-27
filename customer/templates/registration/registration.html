@@ -1,6 +1,28 @@
 {% extends 'store/base.html' %}
 {% load staticfiles %}
 {% block content %}
+
+<style>
+.card-header{
+  text-align: center;
+  padding: 0;
+}
+.card-header .row{
+ padding: 0;
+ margin: 0;
+}
+.card-header .row div{
+ padding: 10px;
+}
+.card-header a{
+  color: black;
+  font-weight: 600;
+}
+.card-header .active{
+  background-color: #fff;
+}
+</style>
+
 <section class="py-5">
   <div class="container">
     <div class="row">
@@ -9,7 +31,23 @@
 
         <!-- Card -->
         <div class="card card-lg">
-          <div class="card-body">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-12 col-md-6 active">
+                <a href="">
+                  Registration Via Email
+                </a>
+              </div>
+              {% if mobile_registration %}
+              <div class="col-12 col-md-6">
+                <a href="{% url 'custommer_registration_phone' %}">
+                Registration Via Mobile
+                </a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="card-body pt-0">
             <div class="col-12">
               <p>
                 {% for message in messages %}
@@ -22,7 +60,7 @@
 
             <!-- Form -->
             <form method="post" action="{% url 'customer_register' %}">
-            <h6 class="mb-7">New Customer Registration</h6>
+            <h6 class="mb-7 text-center">New Customer Registration</h6>
               {% csrf_token %}
               <div class="row">
                 <div class="col-12">
@@ -71,7 +109,7 @@
                   </div>
 
                 </div>
-                <div class="col-12 col-md">
+                <div class="col-12 col-md-auto">
 
                   <!-- Newsletter -->
                   <div class="form-group">
@@ -84,22 +122,14 @@
                   </div>
 
                 </div>
-                <div class="col-12">
+                <div class="col-12 col-md-8">
                   <script src='https://www.google.com/recaptcha/api.js'></script>
                   <div class="g-recaptcha" data-sitekey={{SITE_KEY}}></div>
                 </div>
-                <div class="col-12">
-
-                  <!-- Button -->
+                <div class="col-12 col-md-4">
                   <button class="btn btn-sm btn-dark" type="submit" id="email__register" disabled>
                     Register
                   </button>
-
-                  {% if mobile_registration %}
-                  <a href="{% url 'custommer_registration_phone' %}" class="btn btn-sm btn-dark">
-                        Register via Phone
-                  </a>
-                  {% endif %}
 
                 </div>
               </div>

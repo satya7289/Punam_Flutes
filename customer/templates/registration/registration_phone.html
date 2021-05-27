@@ -1,6 +1,26 @@
 {% extends 'store/base.html' %}
 {% load staticfiles %}
 {% block content %}
+<style>
+  .card-header{
+    text-align: center;
+    padding: 0;
+  }
+  .card-header .row{
+   padding: 0;
+   margin: 0;
+  }
+  .card-header .row div{
+   padding: 10px;
+  }
+  .card-header a{
+    color: black;
+    font-weight: 600;
+  }
+  .card-header .active{
+    background-color: #fff;
+  }
+  </style>
 <section class="py-5">
   <div class="container">
     <div class="row">
@@ -9,7 +29,21 @@
 
         <!-- Card -->
         <div class="card card-lg">
-          <div class="card-body">
+          <div class="card-header">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <a href="{% url 'customer_register' %}">
+                Registration Via Email
+              </a>
+            </div>
+            <div class="col-12 col-md-6 active">
+              <a href="">
+              Registration Via Mobile
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body pt-0">
             <div class="col-12">
               <p>
                 {% for message in messages %}
@@ -22,7 +56,7 @@
 
             <form method="post" action="{% url 'custommer_registration_phone' %}">
 
-            <h6 class="mb-7">New Customer Registration using mobile</h6>
+              <h6 class="mb-7 text-center">New Customer Registration</h6>
               {% csrf_token %}
               <div class="row">
                 <input type="hidden" name="phone__verified" id="phone__verified" value="0">
@@ -52,12 +86,12 @@
                   <!-- Password -->
                   <div class="form-group">
                     <label class="sr-only" for="PhoneNumber">
-                      Phone Number
+                      Mobile Number
                     </label>
                     <input class="form-control form-control-sm" id="PhoneNumber" name="phone"
                       type="text" placeholder="Phone Number *" required maxlength="15">
                     <small id="PhoneNumberHelpText" class="text-danger" style="display: none;">
-                      Phone Number already exits
+                      Mobile Number already exits
                     </small>
                   </div>
                 </div>
@@ -84,24 +118,6 @@
                   </div>
                 </div>
 
-                <!-- <div class="col-12 col-md-6 OTP">
-                  <div class="form-group">
-                    <button class="btn btn-sm btn-dark" id="send__opt">
-                      Send OTP
-                    </button>
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-6 OTP">
-                  <div class="form-group">
-                    <label class="sr-only" for="sendOTP">
-                      Send OTP
-                    </label>
-                    <input class="form-control form-control-sm" id="sendOTP" name="otp"
-                      type="text" placeholder="OTP *" required>
-                  </div>
-                </div> -->
-
                 <div class="col-12 col-md-auto">
                   <!-- Link -->
                   <div class="form-group font-size-sm text-muted">
@@ -111,19 +127,13 @@
                   <div class="form-group font-size-sm text-muted">
                     We will send you a otp to verify your phone.
                   </div>
-
                 </div>
-                <div class="col-12 col-md">
-                </div>
-                <div class="col-12">
+                <div class="col-12 text-center">
 
                   <!-- Button -->
                   <button class="btn btn-sm btn-dark" type="submit" id="phone__register" disabled>
                     Register
                   </button>
-                  <a class="btn btn-sm btn-dark" href="{% url 'customer_register' %}">
-                    Register via Email
-                  </a>
                 </div>
               </div>
 
