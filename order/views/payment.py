@@ -57,6 +57,9 @@ def process_payment(request):
                     'key': settings.RAZORPAY_KEY,
                     'callbackurl': scheme + "://" + host + reverse('razorpay_done'),
                     'cancelurl': scheme + "://" + host + reverse('razorpay_cancel'),
+                    'name': order.shipping_address.full_name,
+                    'email': request.user.email,
+                    'contact': order.shipping_address.mobile_number
                 }
 
                 return render(request, 'razorpayRequest.html', context)

@@ -68,7 +68,7 @@ def CalculateTaxForCart(request, cart_id=0, address_id=0):
     address = Address.objects.filter(id=shipping_address_id).first()
 
     # if address country is India
-    if address and address.country == 'India':
+    if address and address.country == 'India' and address.state:
 
         # Loop over all products in the cart
         for product in cart.product_detail.all():

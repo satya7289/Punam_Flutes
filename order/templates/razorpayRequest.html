@@ -1,11 +1,11 @@
 <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded" id="orderform">
     <input type="hidden" name="key_id" value="{{ key }}">
     <input type="hidden" name="order_id" value="{{ order }}">
-    <input type="hidden" name="name" value="Puname Flutes">
-    <input type="hidden" name="description" value="Puname Flutes Buy">
-    <input type="hidden" name="prefill[name]" value="">
-    <input type="hidden" name="prefill[contact]" value="">
-    <input type="hidden" name="prefill[email]" value="">
+    <input type="hidden" name="name" value="Punam Flutes">
+    <input type="hidden" name="description" value="Punam Flutes Shopping">
+    <input type="hidden" name="prefill[name]" value="{{ name }}">
+    <input type="hidden" name="prefill[contact]" value="{{ contact }}">
+    <input type="hidden" name="prefill[email]" value="{{ email }}">
     <input type="hidden" name="callback_url" value="{{ callbackurl }}">
     <input type="hidden" name="cancel_url" value="{{ cancelurl }}">
 </form>
