@@ -1,11 +1,14 @@
 from django.db import models
 from storages.backends.s3boto3 import S3Boto3Storage
 from django.conf import settings
+from PIL import Image
+from io import BytesIO
 
 from commons.models import TimeStampedModel
 
 # Create your models here.
 TESTIMONIAL_DIR = 'testinomial'
+storage = S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME)
 
 
 class Blog(models.Model):
@@ -42,6 +45,25 @@ class Testimonial(TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.image:
+            self.resize_image()
+
+    def resize_image(self):
+        memfile = BytesIO()
+        image = Image.open(self.image)
+        image_size = image.size
+        if image_size[0] != image_size[1]:
+            resize = (min(image_size), min(image_size))
+            if min(image_size) > 500:
+                resize = (500, 500)
+            resized_image = image.resize(resize)
+            resized_image.save(memfile, 'JPEG', quality=95)
+            storage.save(self.image.name, memfile)
+            memfile.close()
+            image.close()
 
     class Meta:
         ordering = ("order",)

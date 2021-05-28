@@ -9,12 +9,10 @@ from .views import (
     contact,
 )
 
-from blog.views import TestinomialListView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='dashboard'),
     path('contact/', contact, name='contact'),
-    path('testinomials', TestinomialListView.as_view(), name='testinomials'),
 
     path('flutes_admin/', admin.site.urls),
     path('customer/', include('customer.urls')),
@@ -26,6 +24,7 @@ urlpatterns = [
     path('tax/', include('tax_rules.urls')),
     path('coupon/', include('coupon.urls')),
     path('', include('StaticData.urls')),
+    path('', include('blog.urls')),
 ]
 
 if settings.DEBUG:

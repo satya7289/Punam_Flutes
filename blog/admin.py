@@ -16,7 +16,7 @@ class TestimonialAdminForm(forms.ModelForm):
 class TestimonialAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'name', 'order', 'publish')
     list_filter = ('publish', )
-    list_editable = ('order', 'name',)
+    list_editable = ('order', 'name', 'publish')
 
     form = TestimonialAdminForm
 
