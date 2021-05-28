@@ -5,6 +5,24 @@
 {% block categories_name %}
 {% endblock%}
 
+<style>
+/*
+TESTINOMIALS
+*/
+#testimonial{margin-top: 30px;}
+#testimonial .container .card{border: none; box-shadow: 7px 5px #532726; border-radius: 0px; padding: 13px; padding-top: 0; background: linear-gradient(180deg, #ffffff, #532726);}
+#testimonial .container .card .card-title{font-size: 34px; padding: 50px; padding-bottom: 0px; margin: 0px;}
+#testimonial .container .card .card-title .read__more{font-size: 1rem; display: block; text-align: end; margin-top: -15px;}
+#testimonial .container .card .card-body{padding-top: 16px;}
+
+#testimonial .container .card .card-body .card{background-color: #ffe5e5;  height: 500px; margin-bottom: 10px; border: none; border-top-left-radius: 20px;}
+#testimonial .container .card .card-body .card .card-img{width: 40%; margin: 0 auto 0 auto; padding: 10px;}
+#testimonial .container .card .card-body .card .card-body{text-align: center; font-weight: 500; height: 330px;  overflow: hidden; text-overflow: ellipsis; background-image: url("{% static 'homepage/icons/song.png'%}"); background-repeat: no-repeat; background-position: center;}
+#testimonial .container .card .card-body .card .card-title{font-size: 1rem; padding: 10px 0 10px 0; margin: 0 auto 0 auto; font-family: "Poppins"; font-weight: 600;}
+
+
+</style>
+
 <!--  Service -->
 <section id="header2">
   <div class="container">
@@ -169,7 +187,7 @@
 </section>
 
 <!-- ABOUT -->
-<section style="margin-top:30px;">
+<section style="margin-top:30px;" id="about_us">
   <div class="container">
       <div class="card">
           <div class="card-body">
@@ -203,7 +221,7 @@
               <div class="slider">
                 {% for testinomial in testinomials %}
                   <div class="col-md-4">
-                      <div class="card">
+                      <div class="card lift">
                           <img class="card-img rounded-circle img-fluid" src="{{ testinomial.image.url }}" alt="Card image cap">
                           <div class="card-body">
                           {{ testinomial.description }}
