@@ -56,9 +56,7 @@ class Testimonial(TimeStampedModel):
         image = Image.open(self.image)
         image_size = image.size
         if image_size[0] != image_size[1]:
-            resize = (min(image_size), min(image_size))
-            if min(image_size) > 500:
-                resize = (500, 500)
+            resize = (250, 250)
             resized_image = image.resize(resize)
             resized_image.save(memfile, 'JPEG', quality=95)
             storage.save(self.image.name, memfile)
