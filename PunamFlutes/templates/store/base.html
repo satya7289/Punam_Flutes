@@ -212,11 +212,6 @@
             <!-- Toggle -->
             <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
           </li>
-          <li class="nav-item ">
-
-            <!-- Toggle -->
-            <a class="nav-link" href="{% url 'blogs' %}">Blogs</a>
-          </li>
           <li class="nav-item dropdown {% block categories_name %} {% endblock %} ">
 
             <!-- Toggle -->
@@ -236,6 +231,12 @@
                 </div>
               </div>
             </div>
+          </li>
+
+          <li class="nav-item ">
+
+            <!-- Toggle -->
+            <a class="nav-link" href="{% url 'blogs' %}">Blogs</a>
           </li>
 
           <li class="nav-item dropdown">

@@ -31,6 +31,8 @@ class BlogDetailView(View):
         slug = kwargs['slug']
         blog = Blog.objects.filter(slug=slug).first()
         if blog:
+            blog.views = blog.views + 1
+            blog.save()
             share_url = settings.SITE_URL + reverse('blog_detail', kwargs={'slug': blog.slug})
             return render(request, self.template_name, {'blog': blog, 'share_url': share_url})
         return redirect('dashboard')
