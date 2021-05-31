@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = [
     'storages',
     'paypal.standard.ipn',
     'ckeditor',
+    'ckeditor_uploader',
     'crispy_forms',
     'captcha',
 ]
@@ -194,6 +195,7 @@ AWS_DEFAULT_ACL = None
 
 # ckeditor
 CKEDITOR_BASEPATH = STATIC_URL + 'ckeditor/ckeditor/'
+CKEDITOR_UPLOAD_PATH = "ckeditorUploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono',

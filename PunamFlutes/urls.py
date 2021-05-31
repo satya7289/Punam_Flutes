@@ -25,6 +25,8 @@ urlpatterns = [
     path('coupon/', include('coupon.urls')),
     path('', include('StaticData.urls')),
     path('', include('blog.urls')),
+
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:
