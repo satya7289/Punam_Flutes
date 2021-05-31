@@ -7,7 +7,7 @@
     #blogs .container-fluid{background-color: #efefef;}
     #blogs .container-fluid .content{display: grid; grid-gap:1rem; grid-template-columns: 2fr 6fr .5fr; position: relative;}
 
-    #blogs .container-fluid .content .advertigment{position: sticky; top: 100px; align-self: start;}
+    #blogs .container-fluid .content .advertigment{position: sticky; top: 10px; align-self: start;}
     #blogs .container-fluid .content .advertigment .card{margin-bottom: 10px;}
 
     #blogs .container-fluid .content .blog-content .card{margin-bottom: 15px; border-radius: 5px;}
@@ -49,9 +49,15 @@
         <div class="content">
             <div class="advertigment">
                 <div class="card">
-                    <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement.jpg' %}" alt="">
+                    <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement_3.png' %}" alt="">
                     <div class="card-img-overlay">
-                        <!-- Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate earum, magnam dolore consequatur est cum ipsam eos dignissimos eum odit. -->
+                    </div>
+                </div>
+
+                <h5 style="margin-top:20px; margin-bottom:0"><u>Upcomming sales</u></h5>
+                <div class="card">
+                    <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement_2.png' %}" alt="">
+                    <div class="card-img-overlay">
                     </div>
                 </div>
             </div>

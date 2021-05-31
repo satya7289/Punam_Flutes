@@ -12,11 +12,13 @@
     #blogs .container-fluid .content .advertigment .card{margin-bottom: 10px;}
 
     #blogs .container-fluid .content .blog-content .card{margin-bottom: 15px; border-radius: 5px;}
-    #blogs .container-fluid .content .blog-content .card-header{background-color: inherit; border: none; border-radius: 5px; border-bottom: 1px solid rgba(17,17,17,.125);}
-    #blogs .container-fluid .content .blog-content .card .card-footer{background-color: inherit; border-radius: 5px; border-top: 1px solid rgba(17,17,17,.125);}
+    #blogs .container-fluid .content .blog-content .card-header{background-color: inherit; border: none; border-radius: 5px; border-bottom: 1px solid rgba(17,17,17,.125); font-weight: 500;}
+    #blogs .container-fluid .content .blog-content .card-body{font-size: 0.9rem; padding: 20px;}
+    #blogs .container-fluid .content .blog-content .card .card-footer{background-color: inherit; border-radius: 5px; border-top: 1px solid rgba(17,17,17,.125); font-size: 0.9rem;}
     #blogs .container-fluid .content .blog-content .card .card-footer .wrap{position: relative; padding: 0 10px 0 10px;}
 
-    #blogs .container-fluid .content .social-media{position: sticky; top: 100px; align-self: start; max-height: 70vh; overflow-y: scroll;}
+    #blogs .container-fluid .content .social-media{position: sticky; top: 75px; align-self: start; max-height: 90vh; overflow-y: scroll;}
+    #blogs .container-fluid .content .social-media .card-body{padding: 0px; margin: 0px;}
     #blogs .container-fluid .content .social-media::-webkit-scrollbar {width: 5px;}
     #blogs .container-fluid .content .social-media::-webkit-scrollbar-track { box-shadow: inset 0 0 10px grey;  border-radius: 5px;}
     #blogs .container-fluid .content .social-media::-webkit-scrollbar-thumb {background-image: linear-gradient(to top, #0250c5 0%, #d43f8d 100%); border-radius: 10px;}
@@ -59,9 +61,15 @@
         <div class="content">
             <div class="advertigment">
                 <div class="card">
-                    <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement.jpg' %}" alt="">
+                    <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement_3.png' %}" alt="">
                     <div class="card-img-overlay">
-                        <!-- Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate earum, magnam dolore consequatur est cum ipsam eos dignissimos eum odit. -->
+                    </div>
+                </div>
+
+                <h5 style="margin-top:20px; margin-bottom:0"><u>Upcomming sales</u></h5>
+                <div class="card">
+                    <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement_2.png' %}" alt="">
+                    <div class="card-img-overlay">
                     </div>
                 </div>
                 
@@ -151,10 +159,10 @@
 
 
     $('.blog-content .card-body').each(function(){
-
+        const read_more = '<span style="color:blue;"> Read More</span>';
         var html = $(this).html();
         if(html.length>500){
-            $(this).html(html.slice(0,500) + '...');
+            $(this).html(html.slice(0,500) + '...' + read_more);
         }
     })
     
