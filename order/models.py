@@ -9,7 +9,7 @@ from commons.models import TimeStampedModel
 
 from .utils import orderStatusChangeNotification
 
-paymentMethod = [['razorpay', 'razorpay'], ['paypal', 'paypal'], ['COD', 'COD']]
+paymentMethod = [['razorpay', 'razorpay'], ['paypal', 'paypal'], ['COD', 'COD'], ['Other', 'Other']]
 OrderStatus = [
     ['Pending', 'Pending'],
     ['Confirmed', 'Confirmed'],
@@ -53,7 +53,8 @@ class Order(TimeStampedModel):
 
 class Payment(TimeStampedModel):
     order = models.OneToOneField(Order, on_delete=models.SET_NULL, blank=True, null=True)
-    method = models.CharField(max_length=20, choices=paymentMethod, null=True, blank=True)
+    method = models.CharField(max_length=256, null=True, blank=True)
+    method_name = models.CharField(max_length=512, blank=True, null=True)
     paypal = models.OneToOneField(PayPalIPN, on_delete=models.SET_NULL, null=True, blank=True)
     razorpay = models.CharField(max_length=25, null=True, blank=True)
     cod = models.CharField(max_length=25, null=True, blank=True)

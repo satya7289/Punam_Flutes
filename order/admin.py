@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.urls import reverse
 from django.forms import Textarea
@@ -8,6 +9,7 @@ from .models import (
     Order,
     Payment,
     # CourrierOrder,
+    paymentMethod,
 )
 
 
@@ -127,9 +129,20 @@ class OrderAdmin(admin.ModelAdmin):
     TrackDelivery.short_description = 'Track Delivery Status'
 
 
+class PaymentAdminForm(forms.ModelForm):
+    method = forms.ChoiceField(choices=paymentMethod)
+    method_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'If method is other specify method name'}), required=False)
+
+    class Meta:
+        models = Payment
+        fields = '__all__'
+
+
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'id', 'Order', 'method', 'status', 'razorpay', 'created_at')
     list_filter = ('status', 'method')
+
+    form = PaymentAdminForm
 
     def Order(self, obj):
         if obj.order:
