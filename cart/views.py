@@ -68,7 +68,7 @@ class AddToCart(View):
         else:
             cart = Cart.objects.create(user=user)
             product_quantity = ProductQuantity.objects.create(product=product, quantity=quantity)
-        
+
         # Add product_details to the cart
         cart.product_detail.add(product_quantity)
 

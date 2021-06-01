@@ -104,10 +104,14 @@
                     </div>
                     <div class="col-12 col-md-3">
                         <b>Payment Method</b> <br>
-                        {% if order.payment and order.payment.method and order.payment.method == "COD" %}
-                            COD
-                        {% else %}
-                            Online
+                        {% if order.payment and order.payment.method %}
+                            {% if order.payment.method == "COD" %}
+                                {{ order.payment.method }} 
+                            {% elif order.payment.method == "Other" %}
+                                {{ order.payment.method }} {% if order.payment.method_name %} | {{ order.payment.method_name }} {% endif %}
+                            {% else %}
+                                Online
+                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="col-12 col-md-3">
@@ -180,10 +184,14 @@
                             {% endif %}
                             <li>
                                 <b>Payment Method: </b> 
-                                {% if order.payment and order.payment.method and order.payment.method == "COD" %}
-                                    COD
-                                {% else %}
-                                    Online
+                                {% if order.payment and order.payment.method %}
+                                    {% if order.payment.method == "COD" %}
+                                        {{ order.payment.method }} 
+                                    {% elif order.payment.method == "Other" %}
+                                        {{ order.payment.method }} {% if order.payment.method_name %} | {{ order.payment.method_name }} {% endif %}
+                                    {% else %}
+                                        Online
+                                    {% endif %}
                                 {% endif %}
                             </li>
                             <li>

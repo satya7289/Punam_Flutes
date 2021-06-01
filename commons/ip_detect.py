@@ -37,6 +37,7 @@ def set_country_data(request):
 def set_site_url(request):
     settings.SITE_URL = request.scheme + "://" + request.get_host()
 
+
 def set_user(request):
     settings.USER = request.user
 
