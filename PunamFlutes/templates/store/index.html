@@ -141,7 +141,7 @@ TESTINOMIALS
           {% for product in new_arrival_products %}
           <!-- Item -->
           <div class="col" style="max-width: 300px;">
-            <a href="{% url 'category_product_detail' product_id=product.id slug=product.category.all.0.slug %}">
+            <a href="{% url 'category_product_detail' product_id=product.id slug=product.category.all.0.slug product_slug=product.slug %}">
             <div class="card">
 
               <!-- Image -->
