@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.contrib import admin
 from django.utils.html import format_html
-from django.db.models import F
 
 from ckeditor.widgets import CKEditorWidget
 from .models import (
@@ -80,10 +79,12 @@ class CountryCurrencyAdmin(admin.ModelAdmin):
     list_display = ('id', 'country', 'currency', 'MRP', 'selling_price')
     list_filter = ('country', 'currency')
 
+
 def update_slug(modeladmin, request, queryset):
     for product in queryset:
         product.slug = slugify(product.title)
         product.save()
+
 
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title', 'search_tags')
@@ -98,7 +99,6 @@ class ProductAdmin(admin.ModelAdmin):
         CountryCurrencyInLine,
         InventoryInline,
     ]
-
 
     # def categories(self, obj):
     #     toShow = ''
