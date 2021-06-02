@@ -18,9 +18,31 @@ def request_to_ip2c(client_ip):
     return country_code_2, country_code_3, country
 
 
+def request_to_ipstack(client_ip):
+    api_key = settings.IPSTACK_KEY
+    if client_ip != '0.0.0.0' and client_ip != '127.0.0.1' and settings.IP_BASED_PRICING:
+        url = f'http://api.ipstack.com/{client_ip}?access_key={api_key}'
+        req = requests.get(url)
+        if req.status_code == 200:
+            req = req.json()
+            if req.get('success') and not req.get('success'):
+                # TODO send notification
+                return request_to_ip2c(client_ip)
+            country = req.get('country_name')
+            country_code_2 = req.get('country_code')
+            country_code_3 = ''
+            return country_code_2, country_code_3, country
+        return request_to_ip2c(client_ip)
+    else:
+        country = settings.DEFAULT_COUNTRY
+        country_code_2 = settings.DEFAULT_CUNTRY_ALPHA_2
+        country_code_3 = settings.DEFAULT_CUNTRY_ALPHA_3
+    return country_code_2, country_code_3, country
+
+
 def set_country_data(request):
     client_ip = get_client_ip(request)
-    country_code_2, country_code_3, country = request_to_ip2c(client_ip)
+    country_code_2, country_code_3, country = request_to_ipstack(client_ip)
 
     countryCurrencyRate = CountryCurrencyRate.objects.filter(
         alpha_2_code=country_code_2,

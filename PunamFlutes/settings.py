@@ -285,6 +285,7 @@ RAZORPAY_SECRET = config('RAZORPAY_SECRET')
 
 # Fixer API
 FIXER_API_KEY = config('FIXER_API_KEY', default='')
+IPSTACK_KEY = config('IPSTACK_KEY', default='')
 
 DEFAULT_COUNTRY = config('DEFAULT_COUNTRY', default='India')
 DEFAULT_CURRENCY = config('DEFAULT_CURRENCY', default='INR')
