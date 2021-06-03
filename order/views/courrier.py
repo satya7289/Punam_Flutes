@@ -60,8 +60,7 @@ class CreateOrderForCourrier(View):
         order = Order.objects.filter(id=order_id).first()
         if order:
             shipping_address = order.shipping_address
-            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.status) else 'Prepaid'
-            courrierOrder = CourrierOrder.objects.filter(order=order).first()
+            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
             data = {
                 # common data
                 'street_address': shipping_address.street_address,
