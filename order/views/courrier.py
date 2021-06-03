@@ -54,7 +54,7 @@ class CreateOrderForCourrier(View):
         order = Order.objects.filter(id=order_id).first()
         if order:
             shipping_address = order.shipping_address
-            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.status) else 'Prepaid'
+            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
             data = {
                 'street_address': shipping_address.street_address,
                 'mobile_number': shipping_address.mobile_number,
