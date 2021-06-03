@@ -8,7 +8,7 @@ from django.utils.html import format_html
 from .models import (
     Order,
     Payment,
-    # CourrierOrder,
+    CourrierOrder,
     paymentMethod,
 )
 
@@ -151,11 +151,11 @@ class PaymentAdmin(admin.ModelAdmin):
 
 
 class CourrierOrderAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'courrier', 'tracking_number')
+    list_display = ('__str__', 'courrier', 'order', 'tracking_number')
     ordering = ('-created_at',)
 
 
 # Register your models here.
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Payment, PaymentAdmin)
-# admin.site.register(CourrierOrder, CourrierOrderAdmin)
+admin.site.register(CourrierOrder, CourrierOrderAdmin)
