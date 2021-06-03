@@ -63,16 +63,26 @@ class OrderAdmin(admin.ModelAdmin):
 
     def Courrier(self, obj):
         try:
-            if obj.courrierorder and obj.courrierorder.tracking_number:
-                return 'Courrier Booked'
+            if obj.courrierorder:
+                courrierOrder = obj.courrierorder
+                if courrierOrder.tracking_number:
+                    if courrierOrder.courrier.lower() == 'delhivery':
+                        return 'Courrier Booked'
+                    elif courrierOrder.courrier.lower() == 'ecom' and courrierOrder.courrier_booked_status:
+                        return 'Courrier Booked'
         except:
             pass
         return format_html('<a id="check_courrier" data-id="{}" href="javascript:void(null)">Check Courrier Services</a>', obj.id)
 
     def TrackDelivery(self, obj):
         try:
-            if obj.courrierorder and obj.courrierorder.tracking_number:
-                return format_html('<a id="tracking" data-order_id="{}" href="javascript:void(null)">Track Delivery</a>', obj.id)
+            if obj.courrierorder:
+                courrierOrder = obj.courrierorder
+                if courrierOrder.tracking_number:
+                    if courrierOrder.courrier.lower() == 'delhivery':
+                        return format_html('<a id="tracking" data-order_id="{}" href="javascript:void(null)">Track Delivery</a>', obj.id)
+                    elif courrierOrder.courrier.lower() == 'ecom' and courrierOrder.courrier_booked_status:
+                        return format_html('<a id="tracking" data-order_id="{}" href="javascript:void(null)">Track Delivery</a>', obj.id)              
         except:
             pass
         return '-'

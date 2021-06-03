@@ -46,6 +46,7 @@ class CheckForCourrier(View):
 
 class CreateOrderForCourrier(View):
     delhivery = Delhivery()
+    ecom = ECOM()
 
     def post(self, request):
         print(request.POST)
@@ -60,19 +61,26 @@ class CreateOrderForCourrier(View):
         if order:
             shipping_address = order.shipping_address
             payment_mode = 'COD' if(order.payment.method == 'COD' and not order.status) else 'Prepaid'
+            courrierOrder = CourrierOrder.objects.filter(order=order).first()
             data = {
+                # common data
                 'street_address': shipping_address.street_address,
                 'mobile_number': shipping_address.mobile_number,
                 'full_name': shipping_address.full_name,
                 'postal_code': shipping_address.postal_code,
                 'order_id': order.id,
-                'product_description': '',
+                'product_description': 'punam flutes',
                 'cod_amount': order.total if payment_mode == 'COD' else 0,
-                'weight': '',
+                'weight': width,
                 'shipment_height': height,
                 'shipment_width': width,
                 'shipment_length': length,
                 'category_of_goods': '',
+
+                # Extra data for ecom
+                'tracking_number': '',
+                'city': shipping_address.city,
+                'state': shipping_address.state,
             }
             if courrier == 'delhivery':
                 status_code, resp = self.delhivery.create_order(data, payment_mode)
@@ -86,6 +94,40 @@ class CreateOrderForCourrier(View):
                         message = f"Courrier Booked with {courrier}; Tracking number is {tracking_number}"
                 except:
                     pass
+            elif courrier == "ecom":
+                courrierOrder = CourrierOrder.objects.filter(order=order).first()
+
+                # if courrierOrder i.e. tracking number aks awb is not created
+                if not courrierOrder:
+                    # fetch waybill
+                    status_code, resp = self.ecom.create_waybill(payment_mode)
+                    if status_code == 200:
+                        if resp.get('success') and resp.get('success')=="yes" and resp.get("awb"):
+                            tracking_number = resp.get("awb")[0]    #  only 1 tracking number aks awb
+
+                            # update tracking number and corresponding courrier
+                            courrierOrder = CourrierOrder.objects.update_or_create(
+                                order=order,
+                                defaults={'courrier': courrier, 'tracking_number': tracking_number}
+                            )
+
+                # if not booked
+                if courrierOrder and courrierOrder.courrier.lower() == 'ecom' and courrierOrder.tracking_number and not courrierOrder.courrier_booked_status:
+                    tracking_number = courrierOrder.tracking_number
+
+                    # update the data with tracking aks awb
+                    data['tracking_number'] = tracking_number
+
+                    # create order with ecom
+                    status_code_2, resp_2 = self.ecom.create_order(data, payment_mode)
+                    if status_code_2 == 200:
+                        if resp_2.get('shipments') and len(resp_2.get('shipments'))>0:
+                            if resp_2.get('shipments')[0] and resp_2.get('shipments')[0].get('success') and resp_2.get('shipments')[0].get('success'):
+                                courrierOrder.courrier_booked_status = True
+                                courrierOrder.save()
+                                message = f"Courrier Booked with {courrier}; Tracking number is {tracking_number}"
+                    else:
+                        message = f" Courrier not booked; Generated AWB number is {tracking_number}"
 
         messages.add_message(request, messages.WARNING, message)
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
