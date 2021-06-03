@@ -307,6 +307,8 @@ RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 
 # Courrier
 DELHIVERY_API_KEY = config('DELHIVERY_API_KEY')
+ECOM_USERNAME = config('ECOM_USERNAME')
+ECOM_PASSWORD = config('ECOM_PASSWORD')
 
 # SMS
 SEND_SMS = config('SEND_SMS', cast=bool, default=False)

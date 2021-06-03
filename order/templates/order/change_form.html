@@ -53,11 +53,15 @@
   #delhivery__detail ul{list-style: none;}
   #delhivery__detail ul li{display: inline-block;}
   #delhivery__detail .container{max-height: 400px; overflow-y: scroll;}
+
+  #ecom__detail ul{list-style: none;}
+  #ecom__detail ul li{display: inline-block;}
+  #ecom__detail .container{max-height: 400px; overflow-y: scroll;}
   
-  #left {width: 30%; padding: 10px;}
-  #right{padding: 10px; max-width: 100%;}
-  #right form input{padding: 10px;font-size: 1rem;}
-  #right form button{padding: 10px; font-size: 1rem; margin: 0px;border: 0px; background-color: #417690; color: #ffffff; }
+  .left {width: 30%; padding: 10px;}
+  .right{padding: 10px; max-width: 100%;}
+  .right form input{padding: 10px;font-size: 1rem;}
+  .right form button{padding: 10px; font-size: 1rem; margin: 0px;border: 0px; background-color: #417690; color: #ffffff; }
 
   .progress__bar {padding: 10px; margin-left: 20%; max-height: 300px; overflow-y: scroll; display: none;}
   .progress__bar ul{list-style: none; margin: 0px; padding: 0px; position: relative;}
@@ -120,24 +124,46 @@
                 <p class="big__font">Delhivery</p> 
             </div>
         </div>
-        <!-- <div class="card courrier_card" id="ecom" data-courrier="ecom" style="display: none;">
+        <div class="card courrier_card" id="ecom" data-courrier="ecom" style="display: none;">
             <div class="container">
                 <h4><b>Courrier using</b></h4> 
-                <p class="big__font">ECom</p> 
+                <p class="big__font">ECOM</p> 
             </div>
-        </div> -->
+        </div>
       </div>
 
       <div class="card" style="display: none;" id="delhivery__detail">
         <div class="container">
             <h2 style="text-align: center;"><b>Delhivery</b></h2>
             <ul>
-              <li id="left"></li>
-              <li id="right">
+              <li class="left"></li>
+              <li class="right">
                 <form action="{% url 'create_order_for_courrier' %}" id="delhivery__form" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="courrier" value="delhivery">
                   <input type="hidden" name="order_id">
+                  <input type="number" name="weight" id="" placeholder="weight" required>
+                  <input type="number" name="height" id="" placeholder="Height" required>
+                  <input type="number" name="width" id="" placeholder="Width" required>
+                  <input type="number" name="length" id="" placeholder="Length" required>
+                  <button type="submit">Create Order</button>
+                </form>
+              </li>
+            </ul>
+        </div>
+      </div>
+
+      <div class="card" style="display: none;" id="ecom__detail">
+        <div class="container">
+            <h2 style="text-align: center;"><b>ECOM</b></h2>
+            <ul>
+              <li class="left"></li>
+              <li class="right">
+                <form action="{% url 'create_order_for_courrier' %}" id="ecom__form" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="courrier" value="ecom">
+                  <input type="hidden" name="order_id">
+                  <input type="number" name="weight" id="" placeholder="weight" required>
                   <input type="number" name="height" id="" placeholder="Height" required>
                   <input type="number" name="width" id="" placeholder="Width" required>
                   <input type="number" name="length" id="" placeholder="Length" required>
@@ -162,7 +188,7 @@
     <div class="modal-content">
       <div class="modal-header">
           <span class="close">&times;</span>
-          <h2>Order Tracking</h2>
+          <h3 class="modal-title">Order Tracking <span></span></h3>
       </div>
       <div class="modal-body">
         <div class="loader"></div>
@@ -191,8 +217,9 @@
   const $ = django.jQuery
   const id = $('#check_courrier').data('id');
   var delhiveryDetail;
+  var ecomDetail;
   var trackingDetail;
-  const tracking_number = $('#tracking').data('tracking_number');
+  const orderId = $('#tracking').data('order_id');
 
   $(document).ready(()=>{
     // When tracking option clicked
@@ -233,6 +260,11 @@
     $('#delhivery__form').submit((e)=>{
       $('[name="order_id"]').val(id);
     });
+
+    // Submit ecom form
+    $('#ecom__form').submit((e)=>{
+      $('[name="order_id"]').val(id);
+    });
   });
 
   // close modal
@@ -258,9 +290,13 @@
       success: function(data){
         if(data.message == "success"){
           console.log(data.delhivery_data);
-          if(data.delhivery && data.delhivery == '1'){
+          if(data.delhivery && data.delhivery == '1' && data.delhivery_data.delivery_codes.length > 0){
             $('#delhivery').show();
             delhiveryDetail = data.delhivery_data.delivery_codes[0].postal_code;
+          }
+          if(data.ecom && data.ecom == '1'){
+            $('#ecom').show();
+            ecomDetail = data.ecom_data;
           }
           console.log("df");
         }
@@ -281,17 +317,32 @@
     $('.choose__courrier').hide();
     $('.loader').show();
 
-    var str = "";
-    for(key in delhiveryDetail){
-      if(key!="center"){
-        str += "<b>" + key + "</b>: " + delhiveryDetail[key] + "<br>";
+    if(courrier=='delhivery'){
+      var str = "";
+      for(key in delhiveryDetail){
+        if(key!="center"){
+          str += "<b>" + key + "</b>: " + delhiveryDetail[key] + "<br>";
+        }
+        console.log(key, delhiveryDetail[key]);
       }
-      console.log(key, delhiveryDetail[key]);
-    }
-    $('#left').html(str);
+      $('#delhivery__detail .left').html(str);
 
-    $('.loader').hide();
-    $('#delhivery__detail').fadeIn();
+      $('.loader').hide();
+      $('#delhivery__detail').fadeIn();
+    }
+    if(courrier=='ecom'){
+      var str = "";
+      for(key in ecomDetail){
+        if(key!="center"){
+          str += "<b>" + key + "</b>: " + ecomDetail[key] + "<br>";
+        }
+        console.log(key, ecomDetail[key]);
+      }
+      $('#ecom__detail .left').html(str);
+
+      $('.loader').hide();
+      $('#ecom__detail').fadeIn();
+    }
   }
 
   // show courrier details
@@ -302,32 +353,51 @@
 
   function loadTracking(){
     $('.loader').show();
+    console.log(orderId);
     $.ajax({
       url: "{% url 'track_courrier_order' %}",
       data: {
-        "tracking_number": tracking_number
+        "order_id": orderId
       },
       dataType: 'JSON',
       success: function(data){
         if(data.message == "success"){
           console.log(data);
-          trackingDetail = data.resp.ShipmentData[0].Shipment;
-          updateTrackingData();
+          if(data.courrier && data.courrier=="delhivery"){
+            trackingDetail = data.resp.ShipmentData[0].Shipment;
+            var str =' ID: ' + data.tracking_number;
+            str += '; ' + data.courrier;
+            $('#tracking__modal .modal-title span').html(str);
+            updateTrackingData(data.courrier);
+          }else if(data.courrier && data.courrier=="ecom"){
+            trackingDetail = data.resp;
+            var str =' ID: ' + data.tracking_number;
+            str += '; ' + data.courrier;
+            $('#tracking__modal .modal-title span').html(str);
+            updateTrackingData(data.courrier);
+          }
         }
       }
     });
   }
 
-  function updateTrackingData(){
+  function updateTrackingData(courrier){
     var str = ``;
-   
-    trackingDetail.Scans.slice().reverse().forEach(scan => {
-      let scanDetail = scan.ScanDetail
-      str += `<li><div class="icon"></div>`;
-      str+= `<div> <b>` + scanDetail.Instructions + `</b> <br>` + scanDetail.ScannedLocation +`<br><div style="color:darkslategrey">` + scanDetail.StatusDateTime + `</div></div>`;
-      str+= `</li>`;
-    });
- 
+    if(courrier=="delhivery"){
+      trackingDetail.Scans.slice().reverse().forEach(scan => {
+        let scanDetail = scan.ScanDetail
+        str += `<li><div class="icon"></div>`;
+        str+= `<div> <b>` + scanDetail.Instructions + `</b> <br>` + scanDetail.ScannedLocation +`<br><div style="color:darkslategrey">` + scanDetail.StatusDateTime + `</div></div>`;
+        str+= `</li>`;
+      });
+    }else if(courrier=="ecom"){
+      trackingDetail.forEach(scan => {
+        str += `<li><div class="icon"></div>`;
+        str+= `<div> <b>` + scan.status + `</b> <br>` + scan.location_city +`<br><div style="color:darkslategrey">` + scan.date + `</div></div>`;
+        str+= `</li>`;
+      });
+    }
+
     $('.progress__bar ul').html(str);
     $('.loader').hide();
     $('.progress__bar').show();

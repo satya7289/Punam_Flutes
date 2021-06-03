@@ -21,7 +21,8 @@ OrderStatus = [
     ['Refunded', 'Refunded']
 ]
 CourrierOption = [
-    ['Delhivery', 'Delhivery']
+    ['Delhivery', 'Delhivery'],
+    ['ECOM', 'ECOM'],
 ]
 
 
@@ -71,6 +72,7 @@ class CourrierOrder(TimeStampedModel):
     order = models.OneToOneField(Order, on_delete=models.SET_NULL, blank=True, null=True)
     courrier = models.CharField(max_length=255, blank=True, null=True)
     tracking_number = models.CharField(max_length=1024, blank=True, null=True)
+    courrier_booked_status = models.BooleanField(default=False, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
