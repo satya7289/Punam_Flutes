@@ -66,7 +66,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="courrier"> Delhivery </div>
                 <div class="loader"></div>
                 <div class="progress__bar">
                     <ul></ul>
@@ -173,9 +172,17 @@
                     <div class="col-12 col-md-4 side__bar">
                         <ul>
                             {% if order.courrierorder and order.courrierorder.tracking_number %}
-                            <li id="tracking" data-tracking_number="{{order.courrierorder.tracking_number}}">
-                                <a href="javascript:void(0)">Track Package</a>
-                            </li>
+                                {% if order.courrierorder.courrier == 'delivery' or order.courrierorder.courrier == 'Delivery'%}
+                                    <li id="tracking" data-tracking_number="{{order.courrierorder.tracking_number}}" data-order_id="{{order.id}}">
+                                        <a href="javascript:void(0)">Track Package</a>
+                                    </li>
+                                {% elif order.courrierorder.courrier == 'ecom' or  order.courrierorder.courrier == 'ECOM' %} 
+                                    {% if order.courrierorder.courrier_booked_status %}
+                                    <li id="tracking" data-tracking_number="{{order.courrierorder.tracking_number}}" data-order_id="{{order.id}}">
+                                        <a href="javascript:void(0)">Track Package</a>
+                                    </li>
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
                             {% if order.status == 'Pending' or order.status == 'Confirmed' or order.status == 'Paid' %}
                                 <li>
@@ -219,40 +226,58 @@
         let str = ' ID: ' + $(this).data('tracking_number');
         $('#tracking__modal .modal-title span').html(str);
         $('#tracking__modal').modal("show");
-        loadTracking($(this).data('tracking_number'));
+        loadTracking($(this).data('order_id'));
     });
 
     $('#tracking__modal').on('hidden.bs.modal', function () {
         $('.progress__bar').hide();
     });
 
-    function loadTracking(tracking_number){
+    function loadTracking(orderId){
         $('.loader').show();
         $.ajax({
             url: "{% url 'track_courrier_order' %}",
             data: {
-                "tracking_number": tracking_number
+                "order_id": orderId
             },
             dataType: 'JSON',
             success: function(data){
                 if(data.message == "success"){
-                console.log(data);
-                trackingDetail = data.resp.ShipmentData[0].Shipment;
-                updateTrackingData();
+                    if(data.courrier && data.courrier=="delhivery"){
+                        trackingDetail = data.resp.ShipmentData[0].Shipment;
+                        var str =' ID: ' + data.tracking_number;
+                        str += '; ' + data.courrier;
+                        $('#tracking__modal .modal-title span').html(str);
+                        updateTrackingData(data.courrier);
+                    }else if(data.courrier && data.courrier=="ecom"){
+                        trackingDetail = data.resp;
+                        var str =' ID: ' + data.tracking_number;
+                        str += '; ' + data.courrier;
+                        $('#tracking__modal .modal-title span').html(str);
+                        updateTrackingData(data.courrier);
+                    }
                 }
             }
         });
     }
 
-    function updateTrackingData(){
+    function updateTrackingData(courrier){
         var str = ``;
     
-        trackingDetail.Scans.slice().reverse().forEach(scan => {
-        let scanDetail = scan.ScanDetail
-        str += `<li><div class="icon"></div>`;
-        str+= `<div> <b>` + scanDetail.Instructions + `</b> <br>` + scanDetail.ScannedLocation +`<br><div style="color:darkslategrey">` + scanDetail.StatusDateTime + `</div></div>`;
-        str+= `</li>`;
-        });
+        if(courrier=="delhivery"){
+            trackingDetail.Scans.slice().reverse().forEach(scan => {
+                let scanDetail = scan.ScanDetail
+                str += `<li><div class="icon"></div>`;
+                str+= `<div> <b>` + scanDetail.Instructions + `</b> <br>` + scanDetail.ScannedLocation +`<br><div style="color:darkslategrey">` + scanDetail.StatusDateTime + `</div></div>`;
+                str+= `</li>`;
+            });
+        }else if(courrier=="ecom"){
+            trackingDetail.forEach(scan => {
+                str += `<li><div class="icon"></div>`;
+                str+= `<div> <b>` + scan.status + `</b> <br>` + scan.location_city +`<br><div style="color:darkslategrey">` + scan.date + `</div></div>`;
+                str+= `</li>`;
+            });
+        }
     
         $('.progress__bar ul').html(str);
         $('.loader').hide();

@@ -37,7 +37,7 @@ class ECOM:
             return 200, {"message": "Not found", "status": "fail"}
         return resp
 
-    def track_order(self, tracking_number='860904701'):
+    def track_order(self, tracking_number):
         url = 'https://plapi.ecomexpress.in/track_me/api/mawbd/'
         payload = {
             "awb": tracking_number
