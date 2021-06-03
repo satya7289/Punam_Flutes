@@ -102,8 +102,8 @@ class CreateOrderForCourrier(View):
                     # fetch waybill
                     status_code, resp = self.ecom.create_waybill(payment_mode)
                     if status_code == 200:
-                        if resp.get('success') and resp.get('success')=="yes" and resp.get("awb"):
-                            tracking_number = resp.get("awb")[0]    #  only 1 tracking number aks awb
+                        if resp.get('success') and resp.get('success') == "yes" and resp.get("awb"):
+                            tracking_number = resp.get("awb")[0]   # only 1 tracking number aks awb
 
                             # update tracking number and corresponding courrier
                             courrierOrder = CourrierOrder.objects.update_or_create(
@@ -121,7 +121,7 @@ class CreateOrderForCourrier(View):
                     # create order with ecom
                     status_code_2, resp_2 = self.ecom.create_order(data, payment_mode)
                     if status_code_2 == 200:
-                        if resp_2.get('shipments') and len(resp_2.get('shipments'))>0:
+                        if resp_2.get('shipments') and len(resp_2.get('shipments')) > 0:
                             if resp_2.get('shipments')[0] and resp_2.get('shipments')[0].get('success') and resp_2.get('shipments')[0].get('success'):
                                 courrierOrder.courrier_booked_status = True
                                 courrierOrder.save()
@@ -153,18 +153,18 @@ class TrackCourrierOrder(View):
                     status_code, resp = self.delhivery.track_order(tracking_number)
                     if status_code == 200:
                         json_resp = {
-                        "message": "success",
-                        "courrier": 'delhivery',
-                        "tracking_number": tracking_number, 
-                        "resp": resp
-                    }
+                            "message": "success",
+                            "courrier": 'delhivery',
+                            "tracking_number": tracking_number,
+                            "resp": resp
+                        }
                 elif courrierorder.courrier == 'ECOM' or courrierorder.courrier == 'ecom':
                     status_code, resp = self.ecom.track_order(tracking_number)
                     if status_code == 200:
                         json_resp = {
                             "message": "success",
                             "courrier": "ecom",
-                            "tracking_number": tracking_number, 
+                            "tracking_number": tracking_number,
                             "resp": resp
                         }
                     # print(resp)

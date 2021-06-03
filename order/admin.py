@@ -82,7 +82,7 @@ class OrderAdmin(admin.ModelAdmin):
                     if courrierOrder.courrier.lower() == 'delhivery':
                         return format_html('<a id="tracking" data-order_id="{}" href="javascript:void(null)">Track Delivery</a>', obj.id)
                     elif courrierOrder.courrier.lower() == 'ecom' and courrierOrder.courrier_booked_status:
-                        return format_html('<a id="tracking" data-order_id="{}" href="javascript:void(null)">Track Delivery</a>', obj.id)              
+                        return format_html('<a id="tracking" data-order_id="{}" href="javascript:void(null)">Track Delivery</a>', obj.id)
         except:
             pass
         return '-'

@@ -36,7 +36,7 @@ class ECOM:
                     return 200, res
             return 200, {"message": "Not found", "status": "fail"}
         return resp
-    
+
     def track_order(self, tracking_number='860904701'):
         url = 'https://plapi.ecomexpress.in/track_me/api/mawbd/'
         payload = {
@@ -66,12 +66,11 @@ class ECOM:
         }
         return self.request_to_ecom(url, payload, "POST")
 
-
     def create_order(self, data, payment_mode='COD'):
         # payment_mode: options: COD/PPD
         payment_mode = 'PPD' if payment_mode == 'Prepaid' else payment_mode
         json_input = {
-            "AWB_NUMBER":  data.get('tracking_number'),  # (mandatory)
+            "AWB_NUMBER": data.get('tracking_number'),  # (mandatory)
             "ORDER_NUMBER": str(data.get('order_id')),  # (mandatory)
             "PRODUCT": payment_mode,
             "CONSIGNEE": data.get('full_name'),  # (mandatory)
@@ -107,8 +106,8 @@ class ECOM:
             "ADDONSERVICE": [""],
             "DG_SHIPMENT": "false",
             "ADDITIONAL_INFORMATION": {
-                "essentialProduct":"N",
-                "OTP_REQUIRED_FOR_DELIVERY":"N",
+                "essentialProduct": "N",
+                "OTP_REQUIRED_FOR_DELIVERY": "N",
                 "DELIVERY_TYPE": "",
                 "SELLER_TIN": "",
                 "INVOICE_NUMBER": "",
@@ -132,7 +131,7 @@ class ECOM:
                 "GST_TAX_TOTAL": "0.0",
                 "GST_TAX_CGSTN": "0.0",
                 "GST_TAX_SGSTN": "0.0",
-                "GST_TAX_IGSTN": "0.0" 
+                "GST_TAX_IGSTN": "0.0"
             }
         }
 
