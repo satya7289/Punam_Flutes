@@ -150,9 +150,9 @@ class PaymentAdmin(admin.ModelAdmin):
             return format_html('<a href="{}">{} Order</a>', url, obj.order.id)
 
 
-class CourrierOrderAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'courrier', 'tracking_number')
-    ordering = ('-created_at',)
+# class CourrierOrderAdmin(admin.ModelAdmin):
+#     list_display = ('__str__', 'courrier', 'tracking_number')
+#     ordering = ('-created_at',)
 
 
 # Register your models here.
