@@ -60,6 +60,6 @@ class ECOM:
 
         
 
-ecom = ECOM()
-# print(ecom.check_pincode('854360'))
-print(ecom.track_order())
+# ecom = ECOM()
+# # print(ecom.check_pincode('854360'))
+# print(ecom.track_order())

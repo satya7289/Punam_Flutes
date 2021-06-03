@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 from commons.Courrier.delhivery import Delhivery
+from commons.Courrier.ecom import ECOM
 from order.models import Order, CourrierOrder
 
 
@@ -11,6 +12,7 @@ class CheckForCourrier(View):
     message = 'fail'
     status = '0'
     delhivery = Delhivery()
+    ecom = ECOM()
     json_res = {
         'message': message,
         'status': status,
@@ -31,10 +33,13 @@ class CheckForCourrier(View):
                     self.json_res['status'] = '1'
                     self.json_res['message'] = "success"
 
-                # TODO: Check With Ecom Courrier
-        self.json_res['delhivery'] = '1'
-        self.json_res['delhivery_data'] = res
-        self.json_res['message'] = "success"
+                # Check With Ecom Courrier
+                status_code, res = self.ecom.check_pincode(pincode)
+                if status_code == 200:
+                    self.json_res['ecom'] = '0' if res.get('message') else '1'
+                    self.json_res['ecom_data'] = res
+                    self.json_res['status'] = '1'
+                    self.json_res['message'] = "success"
 
         return JsonResponse(self.json_res)
 
@@ -88,18 +93,37 @@ class CreateOrderForCourrier(View):
 
 class TrackCourrierOrder(View):
     delhivery = Delhivery()
+    ecom = ECOM()
 
     def get(self, request):
-        tracking_number = request.GET.get('tracking_number')
+        order_id = request.GET.get('order_id')
         json_resp = {
             "message": "fail"
         }
-        if tracking_number:
-            status_code, resp = self.delhivery.track_order(tracking_number)
-            if status_code == 200:
-                json_resp = {
-                    "message": "success",
-                    "resp": resp
-                }
-                # print(resp)
+        order = Order.objects.filter(id=order_id).first()
+        if order:
+            courrierorder = order.courrierorder
+            # courrierorder.courrier = 'ecom'
+            # courrierorder.tracking_number = '860904688'
+            if courrierorder and courrierorder.tracking_number:
+                tracking_number = courrierorder.tracking_number
+                if courrierorder.courrier == 'Delhivery' or courrierorder.courrier == 'delhivery':
+                    status_code, resp = self.delhivery.track_order(tracking_number)
+                    if status_code == 200:
+                        json_resp = {
+                        "message": "success",
+                        "courrier": 'delhivery',
+                        "tracking_number": tracking_number, 
+                        "resp": resp
+                    }
+                elif courrierorder.courrier == 'ECOM' or courrierorder.courrier == 'ecom':
+                    status_code, resp = self.ecom.track_order(tracking_number)
+                    if status_code == 200:
+                        json_resp = {
+                            "message": "success",
+                            "courrier": "ecom",
+                            "tracking_number": tracking_number, 
+                            "resp": resp
+                        }
+                    # print(resp)
         return JsonResponse(json_resp)

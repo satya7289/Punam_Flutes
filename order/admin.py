@@ -8,7 +8,7 @@ from django.utils.html import format_html
 from .models import (
     Order,
     Payment,
-    # CourrierOrder,
+    CourrierOrder,
     paymentMethod,
 )
 
@@ -72,7 +72,7 @@ class OrderAdmin(admin.ModelAdmin):
     def TrackDelivery(self, obj):
         try:
             if obj.courrierorder and obj.courrierorder.tracking_number:
-                return format_html('<a id="tracking" data-tracking_number="{}" href="javascript:void(null)">Track Delivery</a>', obj.courrierorder.tracking_number)
+                return format_html('<a id="tracking" data-order_id="{}" href="javascript:void(null)">Track Delivery</a>', obj.id)
         except:
             pass
         return '-'
@@ -150,12 +150,12 @@ class PaymentAdmin(admin.ModelAdmin):
             return format_html('<a href="{}">{} Order</a>', url, obj.order.id)
 
 
-# class CourrierOrderAdmin(admin.ModelAdmin):
-#     list_display = ('__str__', 'courrier', 'tracking_number')
-#     ordering = ('-created_at',)
+class CourrierOrderAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'courrier', 'order', 'tracking_number')
+    ordering = ('-created_at',)
 
 
 # Register your models here.
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Payment, PaymentAdmin)
-# admin.site.register(CourrierOrder, CourrierOrderAdmin)
+admin.site.register(CourrierOrder, CourrierOrderAdmin)
