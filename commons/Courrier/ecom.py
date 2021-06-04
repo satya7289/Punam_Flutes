@@ -87,22 +87,22 @@ class ECOM:
             "COLLECTABLE_VALUE": data.get('cod_amount'),
             "DECLARED_VALUE": 1,
             "ACTUAL_WEIGHT": float(data.get('weight')),  # (optional)
-            "VOLUMETRIC_WEIGHT": float(data.get('weight')),  # (optional)
+            "VOLUMETRIC_WEIGHT": 0,  # (optional)
             "LENGTH": float(data.get('shipment_length')),  # (optional)
             "BREADTH": float(data.get('shipment_width')),  # (optional)
             "HEIGHT": float(data.get('shipment_height')),  # (optional)
             "PICKUP_NAME": "PUNAM FLUTES",
-            "PICKUP_ADDRESS_LINE1": "B/144, 2nd Floor Duggal Colony  Deoli Road Khanpur New DelhiNew Delhi 110062 Phone :9911186668",
+            "PICKUP_ADDRESS_LINE1": "A 58, Jawahar Park, Deoli road, Khanpur New Delhi 110062 Phone :8505922922",
             "PICKUP_ADDRESS_LINE2": "",
             "PICKUP_PINCODE": "110062",
-            "PICKUP_PHONE": "",
-            "PICKUP_MOBILE": "9911186668",
+            "PICKUP_PHONE": "991118668",
+            "PICKUP_MOBILE": "8505922922",
             "RETURN_NAME": "PUNAM FLUTES",
-            "RETURN_ADDRESS_LINE1": "B/144, 2nd Floor Duggal Colony  Deoli Road Khanpur New DelhiNew Delhi 110062 Phone :9911186668",
+            "RETURN_ADDRESS_LINE1": "A 58, Jawahar Park, Deoli road, Khanpur New Delhi 110062 Phone :8505922922",
             "RETURN_ADDRESS_LINE2": "",
             "RETURN_PINCODE": "110062",
-            "RETURN_PHONE": "",
-            "RETURN_MOBILE": "9911186668",
+            "RETURN_PHONE": "991118668",
+            "RETURN_MOBILE": "8505922922",
             "ADDONSERVICE": [""],
             "DG_SHIPMENT": "false",
             "ADDITIONAL_INFORMATION": {
@@ -113,13 +113,13 @@ class ECOM:
                 "INVOICE_NUMBER": "",
                 "INVOICE_DATE": "",
                 "ESUGAM_NUMBER": "",
-                "ITEM_CATEGORY": "",
-                "PACKING_TYPE": "",
+                "ITEM_CATEGORY": "Musical Instrument or Case",
+                "PACKING_TYPE": "WH",
                 "PICKUP_TYPE": "WH",
                 "RETURN_TYPE": "WH",
                 "CONSIGNEE_ADDRESS_TYPE": "WH",
                 "PICKUP_LOCATION_CODE": "",
-                "SELLER_GSTIN": "",
+                "SELLER_GSTIN": "07ANLPP2290D1ZY",
                 "GST_HSN": "",
                 "GST_ERN": "",
                 "GST_TAX_NAME": "",
