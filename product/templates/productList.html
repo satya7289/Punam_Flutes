@@ -7,11 +7,17 @@
   #product__filter a{
     color: black;
   }
-
+  .content{display: grid; grid-template-columns: 1fr 7fr; grid-column-gap: 2rem; position: relative;}
+  .content .filter{position: sticky; top: 50px; align-self: start;}
+  .content .product .product-search{position: sticky; top: 0px; align-self: start; z-index: 10;}
+  .content .product .product-search .search-bar{position: relative; width: 100%; margin: 0 auto 0 auto;}
+  .content .product .product-search .search-bar form input[type="search"]{padding: 10px; width: 100%; z-index: 2; border: 2px solid rgb(114, 3, 3); outline-offset: 0px; border-radius: 5px;}
+  .content .product .product-search .search-bar form button[type="submit"]{padding: 10px 0 10px 0; position: absolute; right: 0px; width: 10%; border: 2px solid rgb(114, 3, 3); border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
   /* For mobile or tab */
   @media only screen and (max-width: 766px) {
     #product__filter{display: none;}
     #mob__product__filter{display: block;}
+    .content{grid-template-columns: 0fr 1fr;}
   }
 
   /* For big screen */
@@ -99,42 +105,54 @@
   </div>
 </div>
 
-<section class="py-11">
+<section class="pt-7">
   <div class="container">
-    <div class="row">
-      <div id="product__filter" class="col-12 col-md-2 col-lg-2">
+    <div class="content">
+      <div class="filter">
+        <div id="product__filter">
 
-        <!-- Filters -->
-        <form class="mb-10 mb-md-0">
-          <ul class="nav nav-vertical" id="filterNav">
-            <li class="nav-item">
-
-              <!-- Toggle -->
-              <a class="nav-link dropdown-toggle font-size-lg text-reset border-bottom mb-6" data-toggle="collapse"
-                href="#categoryCollapse">
-                Products
-              </a>
-
-              <!-- Collapse -->
-              <div class="collapse show" id="categoryCollapse">
-                <div class="form-group">
-                  <ul class="list-styled mb-0" id="productsNav">
-                    <li class="list-styled-item">
-                      {% for cat in categories %}
-                      <div class="custom-control custom-checkbox mb-3">
-                          <a href="{% url 'category_product_list' slug=cat.slug %}">{{cat.display_name}}</a>
-                      </div>
-                      {% endfor %}
-                    </li>
-                  </ul>
+          <!-- Filters -->
+          <form class="mb-10 mb-md-0">
+            <ul class="nav nav-vertical" id="filterNav">
+              <li class="nav-item">
+  
+                <!-- Toggle -->
+                <a class="nav-link dropdown-toggle font-size-lg text-reset border-bottom mb-6" data-toggle="collapse"
+                  href="#categoryCollapse">
+                  Products
+                </a>
+  
+                <!-- Collapse -->
+                <div class="collapse show" id="categoryCollapse">
+                  <div class="form-group">
+                    <ul class="list-styled mb-0" id="productsNav">
+                      <li class="list-styled-item">
+                        {% for cat in categories %}
+                        <div class="custom-control custom-checkbox mb-3">
+                            <a href="{% url 'category_product_list' slug=cat.slug %}">{{cat.display_name}}</a>
+                        </div>
+                        {% endfor %}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </form>
-
+              </li>
+            </ul>
+          </form>
+  
+        </div>
       </div>
-      <div class="col-12 col-md-10 col-lg-10">
+      <div class="product">
+        <!-- search -->
+        <!-- <div class="product-search">
+            <div class="search-bar text-center">
+              <form action="">
+                <input class="" type="search" name="search" id="" placeholder="Search Product...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+              </form>
+            </div>
+        </div>         -->
+
         <!-- Header -->
         <div class="row align-items-center mb-7">
           <div class="col-12 col-md">
@@ -341,8 +359,8 @@
     </ul>
   </nav>
 
-  <div class="row py-10">
-    <div id="mob__product__filter" class="col align-self-center">
+  <div class="row py-10" id="mob__product__filter">
+    <div class="col align-self-center">
 
       <!-- Filters -->
       <form class="mb-10 mb-md-0">

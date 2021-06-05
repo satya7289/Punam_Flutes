@@ -49,7 +49,6 @@ class CreateOrderForCourrier(View):
     ecom = ECOM()
 
     def post(self, request):
-        print(request.POST)
         order_id = request.POST.get('order_id')
         courrier = request.POST.get('courrier')
         height = request.POST.get('height')
@@ -61,6 +60,10 @@ class CreateOrderForCourrier(View):
         if order:
             shipping_address = order.shipping_address
             payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
+            product_list = order.cart.product_detail.all()
+            product_desc = ''
+            for product in product_list:
+                product_desc += product.product.title + ', '
             data = {
                 # common data
                 'street_address': shipping_address.street_address,
@@ -68,7 +71,7 @@ class CreateOrderForCourrier(View):
                 'full_name': shipping_address.full_name,
                 'postal_code': shipping_address.postal_code,
                 'order_id': order.id,
-                'product_description': 'punam flutes',
+                'product_description': product_desc,
                 'cod_amount': order.total if payment_mode == 'COD' else 0,
                 'weight': width,
                 'shipment_height': height,
@@ -125,6 +128,10 @@ class CreateOrderForCourrier(View):
                                 courrierOrder.courrier_booked_status = True
                                 courrierOrder.save()
                                 message = f"Courrier Booked with {courrier}; Tracking number is {tracking_number}"
+                            else:
+                                reason = resp_2.get('shipments')[0].get('reason')
+                                message = f" Courrier not booked; reason- {reason}"
+
                     else:
                         message = f" Courrier not booked; Generated AWB number is {tracking_number}"
 

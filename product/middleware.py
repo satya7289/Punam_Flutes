@@ -10,11 +10,11 @@ class ProductPricingMiddleware:
         # Code to be executed for each request before
         # the view (and later middleware) are called.
 
-        restrict_for_country_data = ['flutes_admin', 'blogs', 'testinomials', 'service-worker.js']
-        # restrict_for_country_data_2 = ['/store', '/support', '/customer']
+        # restrict_for_country_data = ['flutes_admin', 'blogs', 'testinomials', 'service-worker.js']
+        restrict_for_country_data = ['', 'product', 'cart', 'order', 'tax', 'coupon']
         # print(request.get_full_path())
         requested_url = request.get_full_path().split('/')
-        if len(requested_url) > 1 and requested_url[1] not in restrict_for_country_data:
+        if len(requested_url) > 1 and requested_url[1] in restrict_for_country_data:
             # set the country to setting based on IP
             set_country_data(request)
 
