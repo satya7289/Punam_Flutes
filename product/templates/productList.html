@@ -400,7 +400,7 @@ function viewProduct(e){
   let productSlug = $(e).data('slug');
 
   $('#modalProduct-image').prop('src',productImage);
-  $('#modalProduct-info').prop('href', "{% url 'category_product_detail' slug=category.slug product_id=0 product_slug=1 %}".replace('0', productId)).replace('1', productSlug));
+  $('#modalProduct-info').prop('href', "{% url 'category_product_detail' slug=category.slug product_id=0 product_slug=1 %}".replace('0', productId).replace('1', productSlug));
   $('#modalProduct-title').html(productTitle);
   $('#modalProduct-price').html(productCurrency+productPrice)
   $('#modalProduct-id').val(productId);

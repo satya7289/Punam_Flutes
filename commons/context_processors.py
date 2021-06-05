@@ -73,7 +73,7 @@ def cartDetail(request):
         'cart_detail': {
             'cart': cart,
             'products': product_details,
-            'range': [i + 1 for i in range(5)]
+            'range': [1, 2, 5, 10],
         },
         'is_cart_detail': True if len(product_details) > 0 else False
     }

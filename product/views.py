@@ -53,7 +53,7 @@ class ProductListView(View):
         context = {
             'products': products,
             'category': category,
-            'range': [i + 1 for i in range(5)],
+            'range': [1, 2, 5, 10],
         }
         return render(self.request, self.template_name, context)
 
@@ -86,7 +86,7 @@ class ProductDetailView(View):
             'price': get_price['price'],
             'mrp': get_price['MRP'],
             'currency': settings.CURRENCY_SYMBOL,
-            'range': [i + 1 for i in range(5)]
+            'range': [1, 2, 5, 10],
         }
         return render(request, self.template_name, context)
 

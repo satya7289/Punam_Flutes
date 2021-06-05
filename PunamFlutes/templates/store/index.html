@@ -20,11 +20,17 @@ TESTINOMIALS
 #testimonial .container .card .card-body .card .card-body{text-align: center; font-weight: 500; height: 330px;  overflow: hidden; text-overflow: ellipsis; background-image: url("{% static 'homepage/icons/song.png'%}"); background-repeat: no-repeat; background-position: center;}
 #testimonial .container .card .card-body .card .card-title{font-size: 1rem; padding: 10px 0 10px 0; margin: 0 auto 0 auto; font-family: "Poppins"; font-weight: 600;}
 
+/* BANNER */
+.banner{padding-left: 0px; padding-right: 0px; margin-top: -10px;}
+.banner .flickity-page-dots {position: absolute;display: grid;top: 25%;left: 95%;z-index: 2;width: 20px;height: 50%;}
+.banner .flickity-page-dots .dot{width: 8px; height: 30px; border-radius: 10px;}
+.banner .flickity-page-dots .dot.is-selected {background-color: #ff815d;height: 50px;}
+
 
 </style>
 
 <!--  Service -->
-<section id="header2">
+<!-- <section id="header2">
   <div class="container">
       <div class="row">
           <div class="col-6 col-sm-4 col-md-3">
@@ -45,88 +51,22 @@ TESTINOMIALS
           </div>
       </div>
   </div>
-</section>
+</section> -->
 
 <!-- SLIDER -->
 <section>
-  <div class="container">
-    <div class="row">
-      {% if slideshows %}
-      <div class="col-12 col-md-9 col-xl-9 banner">
-        <div data-flickity='{"pageDots": true, "fade": true, "autoPlay": true}'>
-    
-          {% for slideshow in slideshows %}
-          <!-- Item -->
-          <div class="w-100 bg-cover" style="background-image: url('{{ slideshow.image.url }}');">
-            <a href="{{ slideshow.redirect_link }}">
-              <div class="container d-flex flex-column">
-                <div class="row align-items-center py-12" style="min-height: 550px;">
-                  
-                </div>
-              </div>
-            </a>
-            
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="col-12 col-md-3 col-xl-3 advertigement">
-        <!-- <div data-flickity='{"pageDots": true, "fade": true, "autoPlay": true}'> -->
-    
-          <!-- Item -->
-          <div class="w-100 bg-cover" style="background-image: url('{% static 'homepage/img/advertigment/advertigement.jpg' %}');">
-            <a href="{{ slideshow.redirect_link }}">
-              <div class="container d-flex flex-column">
-                <div class="row align-items-center py-12" style="min-height: 550px; ">
-                  
-                </div>
-              </div>
-            </a>
-            
-          </div>
-        <!-- </div> -->
-      </div>
-      {% endif %}
-    </div>
-  </div>
+  <div class="container-fluid m-0 p-0">
 
-</section>
-
-
-<!-- Category Images -->
-{% if category_images %}
-<section style="margin-top: 30px;">
-  <div class="container">
-      <div class="row">
-      {% for cat_image in category_images %}
-
-          <div class="col-12 col-md-6 col-lg-6">
-
-            <a href="{% url 'category_product_list' slug=cat_image.slug %}" style="color: black;">
-            <!-- Card -->
-              <div class="card card-lg">
-                
-                <!-- Image -->
-                <img class="card-img-top" src="{{ cat_image.image.url }}" alt="{{ cat_image.alt }}">
-
-                <!-- <div class="card-body position-relative mx-6 mx-lg-11 mt-n11 bg-white text-center">
-
-                  <h4 class="mb-0">{{ cat_image.display_name }}</h4>
-                  <div class="btn btn-link stretched-link px-0 text-reset" href="!#">
-                    Shop Now <i class="fe fe-arrow-right ml-2"></i>
-                  </div>
-
-                </div> -->
-              </a>
-
-            </div>
-
-          </div>
+    <div class="card banner w-100" data-flickity='{"pageDots": true, "fade": true, "autoPlay": true}'>
+      {% for slideshow in slideshows %}
+        <img class="card-img" src="{{ slideshow.image.url }}" alt="">
       {% endfor %}
     </div>
+    <div class="row">
+    </div>
   </div>
+
 </section>
-{% endif %}
 
 <!-- ARRIVALS -->
 <section id="new__arrivals" style="margin-top:30px;">

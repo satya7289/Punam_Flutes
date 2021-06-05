@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
 <!-- CONTENT -->
-<section class="py-12">
+<section class="py-5">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center">
@@ -10,8 +10,9 @@
       <div class="col-12 col-md-6 offset-md-3 LOGIN" style="display:none">
 
         <!-- Card -->
-        <div class="card card-lg mb-10 mb-md-0">
-          <div class="card-body">
+        <div class="card">
+          <div class="card-header"> <h4 class="text-center">Login using email</h4></div>
+          <div class="card-body mt-0 pt-0 mb-0 pb-0">
             <div class="col-12">
               <p>
                 {% for message in messages %}
@@ -25,7 +26,6 @@
 
             <!-- Form -->
             <form method="post" action="{% url 'customer_login' %}" id="signInByEmail">
-              <h6 class="mb-7">Login using Email</h6>
               {% csrf_token %}
               <div class="row">
                 <input type="hidden" name="type" value="email">
@@ -33,8 +33,8 @@
                 <div class="col-12">
                   <!-- Email -->
                   <div class="form-group">
-                    <label class="sr-only" for="loginEmail">
-                      Email Address *
+                    <label class="" for="loginEmail">
+                      Email Address
                     </label>
                     <input class="form-control form-control-sm" id="loginEmail" name="email" type="email"
                       placeholder="Email Address *" required>
@@ -44,8 +44,8 @@
                 <div class="col-12">
                   <!-- Password -->
                   <div class="form-group">
-                    <label class="sr-only" for="loginPassword">
-                      Password *
+                    <label class="" for="loginPassword">
+                      Password
                     </label>
                     <input class="form-control form-control-sm" id="loginPassword" type="password" name="password"
                       placeholder="Password *" required>
@@ -76,7 +76,6 @@
             </form>
 
             <form method="post" action="{% url 'customer_login' %}" id="signInByPhone">
-              <h6 class="mb-7">Login using Mobile</h6>
               {% csrf_token %}
               <div class="row">
                 <input type="hidden" name="type" value="phone">
@@ -86,7 +85,7 @@
                   <input type="hidden" name="phone__verified" id="phone__verified" value="0">
 
                   <div class="form-group" style="display: none;">
-                    <label class="sr-only" for="CountryCode">
+                    <label class="" for="CountryCode">
                       Country Code
                     </label>
                     <select class="form-control form-control-sm" id="CountryCode" name="country_code"
@@ -108,7 +107,7 @@
                 </div>
                 <div class="col-12 col-md-12">
                   <div class="form-group">
-                    <label class="sr-only" for="PhoneNumber">
+                    <label class="" for="PhoneNumber">
                       Phone Number
                     </label>
                     <input class="form-control form-control-sm" id="PhoneNumber" name="phone"
@@ -119,7 +118,7 @@
                 <div class="col-12 PASSWORD">
                   <!-- Password -->
                   <div class="form-group">
-                    <label class="sr-only" for="loginPassword">
+                    <label class="" for="loginPassword">
                       Password *
                     </label>
                     <input class="form-control form-control-sm" id="loginPassword" type="password" name="password"
@@ -152,22 +151,6 @@
                   </div>
                 </div>
 
-                <!-- <div class="col-12 col-md-auto PASSWORD">
-                  <div class="form-group">
-                    <a class="font-size-sm text-reset" data-toggle="modal" onclick="singInViaOTP()">
-                      Signin Via OTP
-                    </a>
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-auto OTP">
-                  <div class="form-group">
-                    <a class="font-size-sm text-reset" data-toggle="modal" onclick="singInViaPASSWORD()">
-                      Signin Via Password
-                    </a>
-                  </div>
-                </div> -->
-
                 <div class="col-12">
                   <button class="btn btn-sm btn-dark" type="submit">
                     Sign In
@@ -176,10 +159,14 @@
                   <button class="btn btn-sm btn-dark" onclick="signInViaEmail()">
                     SignIn via Email
                   </button>
-
                 </div>
               </div>
             </form>
+          </div>
+          <div class="card-footer mt-0 pt-0">
+            <div class="col-12 mt-3 text-right">
+              Click <a href="{% url 'customer_register' %}">here</a> for registration.
+            </div>
           </div>
         </div>
       </div>
@@ -197,13 +184,17 @@
     });
 
     function signInViaEmail(){
+      var str=`<h4 class="text-center">Login using email</h4>`;
       $('#signInByPhone').hide();
       $('#signInByEmail').show();
+      $('.LOGIN .card-header').html(str);
     }
     function signInViaPhone(){
+      var str=`<h4 class="text-center">Login using mobile</h4>`;
       $('#signInByPhone').show();
       // $('#PhoneNumber').prop('disabled', true);
       $('#signInByEmail').hide();
+      $('.LOGIN .card-header').html(str);
     }
     function singInViaOTP(){
       $('.PASSWORD').hide();
