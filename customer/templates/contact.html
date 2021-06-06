@@ -3,6 +3,10 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
+<style>
+  .mapouter{position:relative;text-align:right;height:500px;width:300px;max-width:100%;}
+</style>
+
 <!-- BREADCRUMB -->
 <nav class="py-5">
   <div class="container">
@@ -25,7 +29,7 @@
 </nav>
 
 <!-- CONTENT -->
-<section class="pt-7 pb-12">
+<section class="">
   <div class="container">
     {% for message in messages %}
     <div class="container-fluid p-0" id="messageID">
@@ -38,14 +42,11 @@
     </div>
     {% endfor %}
     <div class="row justify-content-between">
-      <div class="col-12 col-md-12 my-1 text-center">
-        {% if contactUsMap %}
-          {{ contactUsMap.description_3 | safe }}
-        {% endif %}
-      </div>
       <div class="col-12 col-md-12 my-1">
         <div class="card" style="width: auto;  border-radius: 0.5rem;">
-          <h5 class="my-1 text-center"><u>Contact Us</u></h5>
+          <div class="card-header">
+            <h5 class="my-1 text-center">Contact Us</h5>
+          </div>
             <div class="card-body">
                 {% if form.errors %}
                   {% for field in form %}
@@ -61,39 +62,53 @@
                       </div>
                   {% endfor %}
                 {% endif %}
-               
-               <form action="" method="post">
-                 {% csrf_token %}
-                  <div class="form-row">
-                    <div class="form-group col-md-6 mb-0">
-                      {{ form.full_name|as_crispy_field }} 
-                    </div>
-                    <div class="form-group col-md-6 mb-0">
-                      {{ form.email|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-6 mb-0">
-                      {{ form.country|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-6 mb-0">
-                      {{ form.contact_number|as_crispy_field }}
-                    </div>
+              <div class="row">
+                <div class="col-md-4 embed-responsive">
+                  {% if contactUsContact %}
+                    {{ contactUsContact.description_2 | safe }}
+                  {% endif %}
+                  <br>
+                  {% if contactUsMap %}
+                  <iframe width="100%" height="100%" id="gmap_canvas" src="{{ contactUsMap.description_3 | safe }}" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                  </iframe>
+                  {% endif %}
+                </div>
+                <div class="col-md-8">
+                  <form action="" method="post">
+                    {% csrf_token %}
+                     <div class="form-row">
+                       <div class="form-group col-md-6 mb-0">
+                         {{ form.full_name|as_crispy_field }} 
+                       </div>
+                       <div class="form-group col-md-6 mb-0">
+                         {{ form.email|as_crispy_field }}
+                       </div>
+                       <div class="form-group col-md-6 mb-0">
+                         {{ form.country|as_crispy_field }}
+                       </div>
+                       <div class="form-group col-md-6 mb-0">
+                         {{ form.contact_number|as_crispy_field }}
+                       </div>
+                       
+                       <div class="form-group col-md-12 mb-0">
+                         {{ form.subject|as_crispy_field }}
+                       </div>
+                       <div class="form-group col-md-12 mb-0">
+                         {{ form.message|as_crispy_field }}
+                       </div>
+                       <div class="form-group col-md-6 mb-0">
+                         {{ form.captcha|as_crispy_field }}
+                       </div>
+   
+                       <div class="form-group col-md-6 mb-0">
+                         <button type="submit" class="btn btn-primary">Submit</button>
+                       </div>
+                     </div>
                     
-                    <div class="form-group col-md-12 mb-0">
-                      {{ form.subject|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-12 mb-0">
-                      {{ form.message|as_crispy_field }}
-                    </div>
-                    <div class="form-group col-md-6 mb-0">
-                      {{ form.captcha|as_crispy_field }}
-                    </div>
-
-                    <div class="form-group col-md-6">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
-                 
-               </form>
+                  </form>
+                </div>
+              </div>
+               
             </div>
         </div>
       </div>
