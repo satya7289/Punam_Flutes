@@ -60,36 +60,14 @@
     }
 
     /* HEADER */
-    #header{background-color: #532726; z-index: 10; position: sticky; top:0;}
+    #header{background-color: #3b476d; z-index: 10; position: sticky; top:0;}
     #header .container a{text-decoration: none;color: #ffffff;}
     #header .container .dropdown-menu a{text-decoration: none;color: black; font-size: 14px;}
     #header .container .navbar-toggler {cursor: pointer; background-color: #ff815d;border: 0px;padding: 10px;border-radius: 7px;}
 
-    .form-control {
-        display: block;
-        width: 100%;
-        height: calc(1.5em + .75rem + 2px);
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #495057;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
-    .form-control:focus {
-        color: #495057;
-        background-color: #fff;
-        border-color: #80bdff;
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
-    }
-    .form-group {
-        margin-bottom: 1rem;
-    }
+    .form-control {display: block; width: 100%;height: calc(1.5em + .75rem + 2px); padding: .375rem .75rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; border-radius: .25rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;}
+    .form-control:focus {color: #495057; background-color: #fff; border-color: #80bdff; outline: 0; box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);}
+    .form-group {margin-bottom: 1rem;}
 
 
     @media screen and (min-width: 1500px) {
@@ -434,7 +412,7 @@
 
 
   <!-- FOOTER -->
-  <footer class="bg-dark bg-cover @@classList" style="background-image: url({% static 'homepage/img/footer_background.jpg'%})">
+  <footer class="bg-cover @@classList" style="background-color: #3b476d;">
     <div class="py-12 border-bottom border-gray-700">
       <div class="container">
         <div class="row">

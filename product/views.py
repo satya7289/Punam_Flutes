@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.conf import settings
+from django.db.models import Q
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
@@ -21,6 +22,8 @@ class ProductListView(View):
     def get(self, request, *args, **kwargs):
         category_id = kwargs.get('category_id')
         slug = kwargs.get('slug')
+        q = request.GET.get('q')
+        not_found = False
 
         # Get the category and list of products according to the category
         if category_id:
@@ -29,11 +32,24 @@ class ProductListView(View):
             category = Category.objects.filter(slug=slug).first()
         if not category:
             return redirect('dashboard')
+
+        # if search query is there
+        if q:
+            products = Product.objects.filter(
+                Q(search_tags__icontains=q)
+                | Q(title__icontains=q)
+            )
+            if products:
+                return self.pagination(products, category, q)
+            not_found = True
+        else:
+            q = ''
+
         products = Product.objects.filter(category__id=category.id, publish=True)
 
-        return self.pagination(products, category)
+        return self.pagination(products, category, q, not_found)
 
-    def pagination(self, products, category):
+    def pagination(self, products, category, search='', not_found=False):
         paginator = Paginator(products, self.paginate_by)
         page = self.request.GET.get("page")
         try:
@@ -54,6 +70,8 @@ class ProductListView(View):
             'products': products,
             'category': category,
             'range': [1, 2, 5, 10],
+            'search': search,
+            'not_found': not_found
         }
         return render(self.request, self.template_name, context)
 
