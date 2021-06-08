@@ -1,5 +1,7 @@
-from datetime import datetime, timezone
 import requests
+from django.contrib.auth.forms import PasswordResetForm
+from django.db.models.query_utils import Q
+from django.contrib.auth.tokens import default_token_generator
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, get_user_model, logout
@@ -19,6 +21,8 @@ from customer.models import Profile, normalize_phone, BlockedDomain, VerifyMobil
 from address.models import Address
 from commons.mail import SendEmail
 from .forms import UserQueryForm
+
+from datetime import datetime, timezone
 
 import phonenumbers
 
@@ -451,3 +455,37 @@ class UserQueryView(View):
             messages.success(request, "We recieved your message.")
             return redirect('customer_query')
         return render(request, self.template_name, {'form': form})
+
+
+class PasswordResetRequest(View):
+    template_name = 'forgetPassword/password_reset.html'
+    email_template = 'forgetPassword/password_reset_email.txt'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'password_reset_form': PasswordResetForm()
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        password_reset_form = PasswordResetForm(request.POST)
+        if password_reset_form.is_valid():
+            data = password_reset_form.cleaned_data['email']
+            user = User.objects.filter(Q(email=data))
+            if user.exists():
+                user = user.first()
+                subject = "Password Reset Requested"
+                email_template = self.email_template
+                data = {
+                    "email": user.email,
+                    'site_url': settings.SITE_URL,
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "user": user,
+                    'token': default_token_generator.make_token(user),
+                }
+                sendEmail = SendEmail(email_template, data, subject)
+                sendEmail.send((user.email,))
+                return redirect("password_reset_done")
+            message = 'User with this email does not exits.'
+            messages.add_message(request, messages.SUCCESS, message)
+        return redirect('password_reset')
