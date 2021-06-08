@@ -86,7 +86,10 @@ def export_as_ecom_soft_data(modeladmin, request, queryset):
     for order in queryset:
         if order.cart:
             product_desc = ''
-            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
+            if order.payment:
+                payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
+            else:
+                payment_mode = ''
             payment_mode = 'PPD' if payment_mode == 'Prepaid' else payment_mode
             shipping_address = order.shipping_address
             if shipping_address:
@@ -193,7 +196,10 @@ def export_as_delivery_soft_data(modeladmin, request, queryset):
     for order in queryset:
         if order.cart:
             product_desc = ''
-            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
+            if order.payment:
+                payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
+            else:
+                payment_mode = ''
             shipping_address = order.shipping_address
             if shipping_address:
                 consignee_list.append(shipping_address.full_name)
