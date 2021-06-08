@@ -33,6 +33,7 @@ def download_sheet(data, filename):
     response['Content-Disposition'] = f'attachment; filename={filename}'
     return response
 
+
 def export_as_down_to_stock(modeladmin, request, queryset):
     order_no_list = []
     customer_name_list = []
@@ -103,10 +104,10 @@ def export_as_ecom_soft_data(modeladmin, request, queryset):
                 state_list.append('')
                 mobile_list.append('')
 
-            cod_amount =  order.total if payment_mode == 'COD' else 0
+            cod_amount = order.total if payment_mode == 'COD' else 0
             for i, productQ in enumerate(order.cart.product_detail.all()):
                 product_desc += str(productQ.quantity) + ' ' + productQ.product.title + ', '
-            
+
             order_no_list.append(order.id)
             product_method_list.append(payment_mode)
             item_descriptions_list.append(product_desc)
@@ -175,6 +176,7 @@ def export_as_ecom_soft_data(modeladmin, request, queryset):
     }
     return download_sheet(data, filename)
 
+
 def export_as_delivery_soft_data(modeladmin, request, queryset):
     order_no_list = []
     consignee_list = []
@@ -208,10 +210,10 @@ def export_as_delivery_soft_data(modeladmin, request, queryset):
                 state_list.append('')
                 mobile_list.append('')
 
-            cod_amount =  order.total if payment_mode == 'COD' else 0
+            cod_amount = order.total if payment_mode == 'COD' else 0
             for i, productQ in enumerate(order.cart.product_detail.all()):
                 product_desc += str(productQ.quantity) + ' ' + productQ.product.title + ', '
-            
+
             order_no_list.append(order.id)
             product_method_list.append(payment_mode)
             item_descriptions_list.append(product_desc)
