@@ -81,11 +81,11 @@ class ECOM:
             "PINCODE": data.get('postal_code'),  # (mandatory)
             "STATE": data.get('state'),  # (mandatory)
             "MOBILE": data.get('mobile_number'),  # (mandatory)
-            "TELEPHONE": "0123456789",
+            "TELEPHONE": "",
             "ITEM_DESCRIPTION": data.get('product_description'),  # (mendatory)
             "PIECES": 1,
             "COLLECTABLE_VALUE": data.get('cod_amount'),
-            "DECLARED_VALUE": 1,
+            "DECLARED_VALUE": data.get('total'),
             "ACTUAL_WEIGHT": float(data.get('weight')),  # (optional)
             "VOLUMETRIC_WEIGHT": 0,  # (optional)
             "LENGTH": float(data.get('shipment_length')),  # (optional)

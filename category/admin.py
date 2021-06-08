@@ -8,6 +8,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'id', 'display_name', 'slug', 'order', 'publish', 'image')
     search_fields = ('display_name', 'slug',)
     list_filter = ('publish',)
+    list_editable = ('publish', 'order')
 
     def Image(self, obj):
         url = obj.image.url if obj.image and obj.image.url else ''
