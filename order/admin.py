@@ -1,9 +1,13 @@
 from django import forms
 from django.db import models
 from django.urls import reverse
-from django.forms import Textarea
 from django.contrib import admin
+from django.forms import Textarea
+from django.http import HttpResponse
 from django.utils.html import format_html
+
+import pandas as pd
+from io import BytesIO
 
 from .models import (
     Order,
@@ -11,6 +15,244 @@ from .models import (
     CourrierOrder,
     paymentMethod,
 )
+
+
+def download_sheet(data, filename):
+    df = pd.DataFrame(data)
+    excel_file = BytesIO()
+    xlwriter = pd.ExcelWriter(excel_file, engine='xlsxwriter')
+    df.to_excel(xlwriter)
+    xlwriter.save()
+    xlwriter.close()
+    excel_file.seek(0)
+
+    # set the mime type so that the browser knows what to do with the file
+    response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
+    # set the file name in the Content-Disposition header
+    response['Content-Disposition'] = f'attachment; filename={filename}'
+    return response
+
+def export_as_down_to_stock(modeladmin, request, queryset):
+    order_no_list = []
+    customer_name_list = []
+    contact_no_list = []
+    sku_list = []
+    product_quantity_list = []
+    filename = 'order_down_to_stock.xlsx'
+    for order in queryset:
+        if order.cart:
+            for i, productQ in enumerate(order.cart.product_detail.all()):
+                if i == 0:
+                    shipping_address = order.shipping_address
+                    order_no = order.id
+                    customer_name = shipping_address.full_name if shipping_address else ''
+                    contact_no = shipping_address.mobile_number if shipping_address else ''
+                else:
+                    order_no = ''
+                    customer_name = ''
+                    contact_no = ''
+                order_no_list.append(order_no)
+                customer_name_list.append(customer_name)
+                contact_no_list.append(contact_no)
+                sku_list.append(productQ.product.title)
+                product_quantity_list.append(productQ.quantity)
+    data = {
+        "Order No": order_no_list,
+        "Customer Name": customer_name_list,
+        "Contact No": contact_no_list,
+        "SKU": sku_list,
+        "Product Qty": product_quantity_list,
+    }
+
+    return download_sheet(data, filename)
+
+
+def export_as_ecom_soft_data(modeladmin, request, queryset):
+    order_no_list = []
+    product_method_list = []
+    consignee_list = []
+    consignee_add_list = []
+    destination_city_list = []
+    pincode_list = []
+    state_list = []
+    mobile_list = []
+    item_descriptions_list = []
+    pieces_list = []
+    cod_amount_list = []
+    declared_val_list = []
+    filename = 'order_ecom_soft_data.xlsx'
+    for order in queryset:
+        if order.cart:
+            product_desc = ''
+            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
+            payment_mode = 'PPD' if payment_mode == 'Prepaid' else payment_mode
+            shipping_address = order.shipping_address
+            if shipping_address:
+                consignee_list.append(shipping_address.full_name)
+                consignee_add_list.append(shipping_address.street_address)
+                destination_city_list.append(shipping_address.city)
+                pincode_list.append(shipping_address.postal_code)
+                state_list.append(shipping_address.state)
+                mobile_list.append(shipping_address.mobile_number)
+            else:
+                consignee_list.append('')
+                consignee_add_list.append('')
+                destination_city_list.append('')
+                pincode_list.append('')
+                state_list.append('')
+                mobile_list.append('')
+
+            cod_amount =  order.total if payment_mode == 'COD' else 0
+            for i, productQ in enumerate(order.cart.product_detail.all()):
+                product_desc += str(productQ.quantity) + ' ' + productQ.product.title + ', '
+            
+            order_no_list.append(order.id)
+            product_method_list.append(payment_mode)
+            item_descriptions_list.append(product_desc)
+            pieces_list.append(1)
+            cod_amount_list.append(cod_amount)
+            declared_val_list.append(order.total)
+
+    data = {
+        'AWB_NUMBER': '',
+        'ORDER_NUMBER': order_no_list,
+        'PRODUCT': product_method_list,
+        'CONSIGNEE': consignee_list,
+        'CONSIGNEE_ADDRESS1': consignee_add_list,
+        'CONSIGNEE_ADDRESS2': '',
+        'CONSIGNEE_ADDRESS3': '',
+        'DESTINATION_CITY': destination_city_list,
+        'PINCODE': pincode_list,
+        'STATE': state_list,
+        'MOBILE': mobile_list,
+        'TELEPHONE': '',
+        'ITEM_DESCRIPTION': item_descriptions_list,
+        'PIECES': pieces_list,
+        'COLLECTABLE_VALUE': cod_amount_list,
+        'DECLARED_VALUE': declared_val_list,
+        'ACTUAL_WEIGHT': '',
+        'VOLUMETRIC_WEIGHT': '',
+        'LENGTH': '',
+        'BREADTH': '',
+        'HEIGHT': '',
+        "PICKUP_NAME": "PUNAM FLUTES",
+        "PICKUP_ADDRESS_LINE1": "A 58, Jawahar Park, Deoli road, Khanpur New Delhi 110062 Phone :8505922922",
+        "PICKUP_ADDRESS_LINE2": "",
+        "PICKUP_PINCODE": "110062",
+        "PICKUP_PHONE": "991118668",
+        "PICKUP_MOBILE": "8505922922",
+        "RETURN_NAME": "PUNAM FLUTES",
+        "RETURN_ADDRESS_LINE1": "A 58, Jawahar Park, Deoli road, Khanpur New Delhi 110062 Phone :8505922922",
+        "RETURN_ADDRESS_LINE2": "",
+        "RETURN_PINCODE": "110062",
+        "RETURN_PHONE": "991118668",
+        "RETURN_MOBILE": "8505922922",
+        'DG_SHIPMENT': '',
+        'SELLER_TIN': '',
+        'INVOICE_NUMBER': '',
+        'INVOICE_DATE': '',
+        'ESUGAM_NUMBER': '',
+        "ITEM_CATEGORY": "Musical Instrument or Case",
+        "PACKING_TYPE": "WH",
+        "PICKUP_TYPE": "WH",
+        "RETURN_TYPE": "WH",
+        "CONSIGNEE_ADDRESS_TYPE": "WH",
+        "PICKUP_LOCATION_CODE": "",
+        "SELLER_GSTIN": "07ANLPP2290D1ZY",
+        'GST_HSN': '',
+        'GST_ERN': '',
+        'GST_TAX_NAME': '',
+        'GST_TAX_BASE': '',
+        'DISCOUNT': '',
+        "GST_TAX_RATE_CGSTN": "0.0",
+        "GST_TAX_RATE_SGSTN": "0.0",
+        "GST_TAX_RATE_IGSTN": "0.0",
+        "GST_TAX_TOTAL": "0.0",
+        "GST_TAX_CGSTN": "0.0",
+        "GST_TAX_SGSTN": "0.0",
+        "GST_TAX_IGSTN": "0.0"
+    }
+    return download_sheet(data, filename)
+
+def export_as_delivery_soft_data(modeladmin, request, queryset):
+    order_no_list = []
+    consignee_list = []
+    city_list = []
+    state_list = []
+    country_list = []
+    consignee_add_list = []
+    pincode_list = []
+    mobile_list = []
+    product_method_list = []
+    cod_amount_list = []
+    item_descriptions_list = []
+    filename = 'order_delivery_soft_data.xlsx'
+    for order in queryset:
+        if order.cart:
+            product_desc = ''
+            payment_mode = 'COD' if(order.payment.method == 'COD' and not order.payment.status) else 'Prepaid'
+            shipping_address = order.shipping_address
+            if shipping_address:
+                consignee_list.append(shipping_address.full_name)
+                consignee_add_list.append(shipping_address.street_address)
+                pincode_list.append(shipping_address.postal_code)
+                city_list.append(shipping_address.city)
+                state_list.append(shipping_address.state)
+                country_list.append(shipping_address.country)
+                mobile_list.append(shipping_address.mobile_number)
+            else:
+                consignee_list.append('')
+                consignee_add_list.append('')
+                pincode_list.append('')
+                state_list.append('')
+                mobile_list.append('')
+
+            cod_amount =  order.total if payment_mode == 'COD' else 0
+            for i, productQ in enumerate(order.cart.product_detail.all()):
+                product_desc += str(productQ.quantity) + ' ' + productQ.product.title + ', '
+            
+            order_no_list.append(order.id)
+            product_method_list.append(payment_mode)
+            item_descriptions_list.append(product_desc)
+            cod_amount_list.append(cod_amount)
+    data = {
+        'Waybill': '',
+        'Reference No': order_no_list,
+        'Consignee Name': consignee_list,
+        'City': city_list,
+        'State': state_list,
+        'Country': country_list,
+        'Address': consignee_add_list,
+        'Pincode': pincode_list,
+        'Phone': '',
+        'Mobile': mobile_list,
+        'Weight': '',
+        'Payment Mode': product_method_list,
+        'Package': '',
+        'Amount': '',
+        'Cod Amount': cod_amount_list,
+        'Product to be Shipped': item_descriptions_list,
+        'Return Address': 'PUNAMEXPRESS, A 58, Jawahar Park, Deoli Road, Khanpur, New Delhi, 110062',
+        'Return Pin': '110062',
+        'fragile_shipment': 'true',
+        'Seller Name': 'PUNAMEXPRESS ',
+        'Seller Address': 'A 58 First floor Jawahar Park Deoli road Khanpur New Delhi 110062',
+        'Seller CST No': '',
+        'Seller TIN': '',
+        'Invoice No': '',
+        'Invoice Date': '',
+        'Quantity': '',
+        'Commodity Value': '',
+        'Tax Value': '',
+        'Category of Goods': 'Indigenious Handmade Musical Instruments',
+        'Seller_GST_TIN': '07ANLPP2290D1ZY',
+        'HSN_Code': '',
+        'Return Reason': '',
+        'Vendor Pickup Location': 'PUNAM EXPRESS',
+        'EWBN': ''
+    }
+    return download_sheet(data, filename)
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -51,6 +293,7 @@ class OrderAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={'rows': 3, 'cols': 50})},
     }
+    actions = [export_as_down_to_stock, export_as_ecom_soft_data, export_as_delivery_soft_data]
 
     def Total(self, obj):
         total = obj.total if obj.total else '-'

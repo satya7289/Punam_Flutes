@@ -83,6 +83,7 @@ class CreateOrderForCourrier(View):
                 'tracking_number': '',
                 'city': shipping_address.city,
                 'state': shipping_address.state,
+                'total': order.total,
             }
             if courrier == 'delhivery':
                 status_code, resp = self.delhivery.create_order(data, payment_mode)
