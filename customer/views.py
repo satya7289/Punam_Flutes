@@ -459,7 +459,7 @@ class UserQueryView(View):
 
 class PasswordResetRequest(View):
     template_name = 'forgetPassword/password_reset.html'
-    email_template = 'forgetPassword/password_reset_email.txt'
+    email_template = 'forgetPassword/password_reset_email.html'
 
     def get(self, request, *args, **kwargs):
         context = {
