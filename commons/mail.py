@@ -1,5 +1,6 @@
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
+from django.http import HttpResponse
 from django.conf import settings
 
 
@@ -34,12 +35,15 @@ class SendEmail:
         #     print("error in email method", e)
         #     return 0
         if sendMailTo:
-            send_mail(
-                self.subject,
-                "",
-                sendMailFrom,
-                sendMailTo,
-                fail_silently=self.fail_silently,
-                html_message=self.buildHtmlMessage(sendMailTo, sendMailFrom),
-            )
-            print(send_mail)
+            try:
+                send_mail(
+                    self.subject,
+                    "",
+                    sendMailFrom,
+                    sendMailTo,
+                    fail_silently=self.fail_silently,
+                    html_message=self.buildHtmlMessage(sendMailTo, sendMailFrom),
+                )
+                # print(send_mail)
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
