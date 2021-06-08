@@ -36,6 +36,7 @@ def download_sheet(data, filename):
 
 def export_as_down_to_stock(modeladmin, request, queryset):
     order_no_list = []
+    payment_mode_list = []
     customer_name_list = []
     contact_no_list = []
     sku_list = []
@@ -53,13 +54,19 @@ def export_as_down_to_stock(modeladmin, request, queryset):
                     order_no = ''
                     customer_name = ''
                     contact_no = ''
+                try:
+                    payment_mode = order.payment.method
+                except:
+                    payment_mode = ''
                 order_no_list.append(order_no)
+                payment_mode_list.append(payment_mode)
                 customer_name_list.append(customer_name)
                 contact_no_list.append(contact_no)
                 sku_list.append(productQ.product.title)
                 product_quantity_list.append(productQ.quantity)
     data = {
         "Order No": order_no_list,
+        "Payment Mode": payment_mode_list,
         "Customer Name": customer_name_list,
         "Contact No": contact_no_list,
         "SKU": sku_list,
