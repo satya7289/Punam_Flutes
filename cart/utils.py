@@ -110,7 +110,7 @@ def placed_order_notification(request, orderId):
         # return render(request, 'invoice.html', context=data)
         if user.email and user.email_verified:
             sendEmail = SendEmail('invoice.html', data, 'Your Invoice')
-            sendEmail.send((user.email,))
+            sendEmail.send((user.email, settings.DEFAULT_EMAIL_TO,))
             message = "Invoice sent"
         else:
             message = "either email is not there or email not verified."
