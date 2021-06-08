@@ -34,7 +34,7 @@ def orderStatusChangeNotification(order):
         }
         if order.cart.user.email and order.cart.user.email_verified:
             sendEmail = SendEmail(email_template, data, email_template_subject)
-            sendEmail.send((order.cart.user.email,))
+            sendEmail.send((order.cart.user.email, settings.DEFAULT_EMAIL_TO,))
             message = "mail for order " + order.status + " has been send"
         else:
             message = "either email is not there or email not verified."
