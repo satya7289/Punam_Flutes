@@ -37,7 +37,7 @@ class Product(TimeStampedModel):
     customization_description = models.TextField(blank=True, null=True)
     generic_name = models.CharField(max_length=512, blank=True, null=True)
     manufacture = models.CharField(max_length=512, blank=True, null=True)
-    region_of_origin = models.CharField(max_length=512, blank=True, null=True)
+    country_of_origin = models.CharField(max_length=512, blank=True, null=True)
     material = models.CharField(max_length=512, blank=True, null=True)
     category = models.ManyToManyField(Category, blank=True)
     images = models.ManyToManyField(ProductImage, blank=True)
