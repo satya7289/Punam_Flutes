@@ -22,7 +22,9 @@ class ProductAdminForm(forms.ModelForm):
     #     self.fields['images'].disabled = True
     #     self.fields['images'].widget.can_change_related = False
 
+    short_description = forms.CharField(widget=CKEditorWidget(), required=False)
     description = forms.CharField(widget=CKEditorWidget())
+    customization_description = forms.CharField(widget=CKEditorWidget(), required=False)
 
     class Meta:
         model = Product
@@ -31,8 +33,12 @@ class ProductAdminForm(forms.ModelForm):
 
 class CountryCurrencyForm(forms.ModelForm):
     currency_code = CountryCurrencyRate.objects.all().values('currency_code').distinct()
+    countries = CountryCurrencyRate.objects.all().values('country').distinct()
     currency_code_choice = tuple(map(lambda x: (x['currency_code'], x['currency_code']), currency_code))
     currency_code_choice = (('', '-----'),) + currency_code_choice
+    countries_choice = tuple(map(lambda x: (x['country'], x['country']), countries))
+    countries_choice = (('', '-----'),('Any', 'Any country')) + countries_choice
+    country = forms.ChoiceField(choices=countries_choice, required=True)
     currency = forms.ChoiceField(choices=currency_code_choice, required=True)
 
     class Meta:

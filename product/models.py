@@ -24,7 +24,14 @@ class ProductImage(TimeStampedModel):
 class Product(TimeStampedModel):
     title = models.CharField(max_length=200, default='Flute')
     search_tags = models.CharField(max_length=200)
-    description = models.TextField()
+    sku = models.CharField(max_length=256, blank=True, null=True)
+    short_description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    customization_description = models.TextField(blank=True, null=True)
+    generic_name = models.CharField(max_length=512, blank=True, null=True)
+    manufacture = models.CharField(max_length=512, blank=True, null=True)
+    region_of_origin = models.CharField(max_length=512, blank=True, null=True)
+    material = models.CharField(max_length=512, blank=True, null=True)
     category = models.ManyToManyField(Category, blank=True)
     images = models.ManyToManyField(ProductImage, blank=True)
     slug = models.SlugField(max_length=1024, blank=True, null=True)
@@ -43,16 +50,12 @@ class Product(TimeStampedModel):
 
 
 class CountryCurrency(TimeStampedModel):
-    country = models.CharField(
-        max_length=100, blank=True, choices=Country, null=True, default='')
-    currency = models.CharField(
-        max_length=30, blank=True, null=True)
-    MRP = models.DecimalField(
-        decimal_places=2, max_digits=20, default=0.0)
-    selling_price = models.DecimalField(
-        decimal_places=2, max_digits=20, default=0.0)
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE)
+    country = models.CharField(max_length=255, blank=True, null=True, default='')
+    currency = models.CharField(max_length=30, blank=True, null=True)
+    MRP = models.DecimalField(decimal_places=2, max_digits=20, default=0.0)
+    selling_price = models.DecimalField(decimal_places=2, max_digits=20, default=0.0)
+    shipping_price = models.DecimalField(decimal_places=2, max_digits=20, default=0.0, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Country Currencies"
