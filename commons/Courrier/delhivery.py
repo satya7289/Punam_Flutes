@@ -69,6 +69,7 @@ class Delhivery:
 
                 "products_desc": data['product_description'],  # Description of product which is used in shipping label
                 "cod_amount": data['cod_amount'],
+                "total_amount": data['total'],
 
                 "weight": data['weight'],  # (optional)
                 "shipment_height": data['shipment_height'],  # (optional)

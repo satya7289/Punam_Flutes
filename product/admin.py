@@ -10,7 +10,8 @@ from .models import (
     CountryCurrency,
     ProductImage,
     Inventory,
-    CountryCurrencyRate
+    CountryCurrencyRate,
+    Continent
 )
 
 # Register your models here.
@@ -37,7 +38,7 @@ class CountryCurrencyForm(forms.ModelForm):
     currency_code_choice = tuple(map(lambda x: (x['currency_code'], x['currency_code']), currency_code))
     currency_code_choice = (('', '-----'),) + currency_code_choice
     countries_choice = tuple(map(lambda x: (x['country'], x['country']), countries))
-    countries_choice = (('', '-----'),('Any', 'Any country')) + countries_choice
+    countries_choice = (('', '-----'), ('Any', 'Any country')) + Continent + countries_choice
     country = forms.ChoiceField(choices=countries_choice, required=True)
     currency = forms.ChoiceField(choices=currency_code_choice, required=True)
 

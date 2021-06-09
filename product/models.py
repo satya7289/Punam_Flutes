@@ -1,13 +1,20 @@
 from django.db import models
 from django.utils.text import slugify
 from storages.backends.s3boto3 import S3Boto3Storage
-from commons.country_currency import country as Country
 from django.conf import settings
 
 from category.models import Category
 from commons.models import TimeStampedModel
 
 InventoryType = [['limited', 'limited'], ['unlimited', 'unlimited']]
+Continent = (
+    ('Asia', 'Asia'),
+    ('Africa', 'Africa'),
+    ('Europe', 'Europe'),
+    ('NAmerica', 'North America'),
+    ('SAmerica', 'South America'),
+    ('Australia', 'Australia'),
+)
 
 
 class ProductImage(TimeStampedModel):

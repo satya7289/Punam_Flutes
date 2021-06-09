@@ -197,6 +197,7 @@ def export_as_delivery_soft_data(modeladmin, request, queryset):
     pincode_list = []
     mobile_list = []
     product_method_list = []
+    declared_val_list = []
     cod_amount_list = []
     item_descriptions_list = []
     filename = 'order_delivery_soft_data.xlsx'
@@ -231,6 +232,7 @@ def export_as_delivery_soft_data(modeladmin, request, queryset):
             product_method_list.append(payment_mode)
             item_descriptions_list.append(product_desc)
             cod_amount_list.append(cod_amount)
+            declared_val_list.append(order.total)
     data = {
         'Waybill': '',
         'Reference No': order_no_list,
@@ -244,8 +246,7 @@ def export_as_delivery_soft_data(modeladmin, request, queryset):
         'Mobile': mobile_list,
         'Weight': '',
         'Payment Mode': product_method_list,
-        'Package': '',
-        'Amount': '',
+        'Package Amount': declared_val_list,
         'Cod Amount': cod_amount_list,
         'Product to be Shipped': item_descriptions_list,
         'Return Address': 'PUNAMEXPRESS, A 58, Jawahar Park, Deoli Road, Khanpur, New Delhi, 110062',
