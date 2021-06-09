@@ -46,7 +46,7 @@ def set_country_data(request):
 
     countryCurrencyRate = CountryCurrencyRate.objects.filter(
         alpha_2_code=country_code_2,
-        alpha_3_code=country_code_3,
+        # alpha_3_code=country_code_3,
         country__icontains=country
     ).first()
 
