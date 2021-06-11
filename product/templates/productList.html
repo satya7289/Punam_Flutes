@@ -186,6 +186,8 @@
         
         <div class="row">
           {% for product in products %}
+          {% with productImages=product.images.all %}
+                  
           <div class="col-6 col-md-3">
 
             <!-- Card -->
@@ -196,8 +198,14 @@
 
                 <!-- Image -->
                 <a class="card-img-hover" href="{% url 'category_product_detail' product_id=product.id slug=category.slug product_slug=product.slug %}">
-                  <img class="card-img-top card-img-back" src="{{ product.images.all.0.image.url }}" alt="...">
-                  <img class="card-img-top card-img-front" src="{{ product.images.all.1.image.url }}" alt="...">
+                  {% if productImages.0.image_list %}
+                  <img class="card-img-top card-img-back" src="{{ productImages.0.image_list.url }}" alt="...">
+                  <img class="card-img-top card-img-front" src="{{ productImages.1.image_list.url }}" alt="...">
+                  {% else %}
+                  <img class="card-img-top card-img-back" src="{{ productImages.0.image.url }}" alt="...">
+                  <img class="card-img-top card-img-front" src="{{ productImages.1.image.url }}" alt="...">
+                  {% endif %}
+                  
                 </a>
 
                 <!-- Actions -->
@@ -208,7 +216,7 @@
                       data-title="{{product.title}}"
                       data-currency="{{currency_symbol}}"
                       data-price="{{product.price}}"
-                      data-image="{{product.images.all.0.image.url}}"
+                      data-image="{{productImages.0.image.url}}"
                       data-slug="{{product.slug}}"
                     >
                       <i class="fe fe-eye"></i>
@@ -294,7 +302,7 @@
                     data-title="{{product.title}}"
                     data-currency="{{currency_symbol}}"
                     data-price="{{product.price}}"
-                    data-image="{{product.images.all.0.image.url}}"
+                    data-image="{{productImages.0.image.url}}"
                     data-slug="{{product.slug}}"
                   >
                     <i class="fe fe-eye"></i>
@@ -319,6 +327,7 @@
             </div>
 
           </div>
+          {% endwith %}
           {% endfor %}
       </div>
     </div>

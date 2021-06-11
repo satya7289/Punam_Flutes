@@ -103,7 +103,7 @@ class OrderInvoice(View):
 
                 totalAmount += product.total_amount
 
-            gst_state = GSTState.objects.filter(name__icontains=address.state).first()
+            gst_state = GSTState.objects.filter(name__icontains=address.state).first() if address.state else None
             state_code = ""
             if gst_state:
                 state_code = gst_state.code

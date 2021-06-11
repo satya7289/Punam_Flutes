@@ -1,10 +1,9 @@
-from os import stat
 from django import forms
 from django.forms import TextInput
 
-from commons.country_currency import country as COUNTRY
 from address.models import Address
 from product.models import CountryCurrencyRate
+
 
 class AddressCreateForm(forms.ModelForm):
     countries = CountryCurrencyRate.objects.all().values('country').distinct()
@@ -20,8 +19,8 @@ class AddressCreateForm(forms.ModelForm):
             self.fields[field].required = True
         for field in self.Meta.not_required:
             self.fields[field].required = False
-    
-    # def save(self, *args, **kwargs): 
+
+    # def save(self, *args, **kwargs):
     #     form_ = super().save()
     #     req = kwargs.get('req')
     #     if req:

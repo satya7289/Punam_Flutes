@@ -87,17 +87,27 @@ class CountryCurrencyAdmin(admin.ModelAdmin):
     list_filter = ('country', 'currency')
 
 
+class ProductImageAdmin(admin.ModelAdmin):
+    fields = ('image', 'image_list', 'image_detail')
+
+
 def update_slug(modeladmin, request, queryset):
     for product in queryset:
         product.slug = slugify(product.title)
         product.save()
 
 
+def resize_product_image(modeladmin, request, queryset):
+    for product in queryset:
+        for image in product.images.all():
+            image.save()
+
+
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title', 'search_tags')
     list_display = ('__str__', 'title', 'search_tags', 'publish', 'slug', 'update_at', 'created_at')
     list_filter = ('publish', 'category')
-    actions = [update_slug]
+    actions = [update_slug, resize_product_image]
     form = ProductAdminForm
     exclude = ('images', 'category', )
     inlines = [
@@ -154,6 +164,6 @@ class CountryCurrencyRateAdmin(admin.ModelAdmin):
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CountryCurrency, CountryCurrencyAdmin)
-admin.site.register(ProductImage)
+admin.site.register(ProductImage, ProductImageAdmin)
 admin.site.register(Inventory, InventoryAdmin)
 admin.site.register(CountryCurrencyRate, CountryCurrencyRateAdmin)
