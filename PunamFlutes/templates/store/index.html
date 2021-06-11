@@ -100,7 +100,11 @@ TESTINOMIALS
                 <!-- Image -->
                 {% for image in product.images.all%}
                   {% if forloop.counter <= 1 %}
+                  {% if image.image_list %}
+                  <img class="card-img-top" src="{{ image.image_list.url }}" alt="...">
+                  {% else %}
                     <img class="card-img-top" src="{{ image.image.url }}" alt="...">
+                  {% endif %}
                   {% endif%}
                 {% endfor %}
 

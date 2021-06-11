@@ -6,6 +6,9 @@ from django.conf import settings
 from category.models import Category
 from commons.models import TimeStampedModel
 
+from PIL import Image
+from io import BytesIO
+
 InventoryType = [['limited', 'limited'], ['unlimited', 'unlimited']]
 Continent = (
     ('Asia', 'Asia'),
@@ -16,16 +19,118 @@ Continent = (
     ('Australia', 'Australia'),
 )
 
+PRODUCT_IMAGE_DIR = 'productImage'
+storage = S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME)
+
+# Resize image sizes
+
 
 class ProductImage(TimeStampedModel):
     """
     Models to store all the uploaded product images to S3 bucket.
     """
-    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False, upload_to='productImage/%Y%m%d%M%S')
+    image = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=False, null=False, upload_to=PRODUCT_IMAGE_DIR + '/%Y%m%d%M%S')
+    image_list = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=True, null=True, upload_to=PRODUCT_IMAGE_DIR + '/%Y%m%d%M%S')
+    image_detail = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=True, null=True, upload_to=PRODUCT_IMAGE_DIR + '/%Y%m%d%M%S')
+    image_small = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=True, null=True, upload_to=PRODUCT_IMAGE_DIR + '/%Y%m%d%M%S')
+    image_big = models.ImageField(storage=S3Boto3Storage(bucket=settings.AWS_STORAGE_BUCKET_NAME), blank=True, null=True, upload_to=PRODUCT_IMAGE_DIR + '/%Y%m%d%M%S')
     # image = models.ImageField(upload_to='productImage/')
 
     def __str__(self):
         return str(self.image)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.image:
+            self.resize_image()
+
+    def get_resize(self, original_size, resize_with):
+        w, h = original_size
+        ratio = w / h
+        if ratio > 1:
+            return (resize_with, int(resize_with // ratio))
+        else:
+            return (int(resize_with * ratio), resize_with)
+
+    def get_resized_image(self, image, resize_size):
+        memfile = BytesIO()
+        resized_image = image.resize(resize_size)
+        resized_image.save(memfile, 'JPEG', quality=95)
+        return memfile
+
+    def resize_image(self):
+        input_image = self.image
+        input_list_image = self.image_list
+        input_detail_image = self.image_detail
+        # input_small_image = self.image_small
+        # input_big_image = self.image_big
+        image_name = input_image.name
+
+        image = Image.open(input_image)  # fetch the image
+        image_size = image.size  # Get the size of the image
+
+        # for the list image resize_with(320)
+        list_resize = self.get_resize(image_size, 320)
+        filename = f'resized_{list_resize[0]}_{list_resize[1]}_{image_name}'
+        if input_list_image:
+            list_image = Image.open(input_list_image)
+            list_image_size = list_image.size
+            if list_resize != list_image_size:
+                memfile = self.get_resized_image(image, list_resize)
+                self.image_list.save(filename, memfile)
+                memfile.close()
+        else:
+            memfile = self.get_resized_image(image, list_resize)
+            self.image_list.save(filename, memfile)
+            memfile.close()
+
+        # for the detail image (450, 450) if same otherwaise resize_with(355)
+        if image_size[0] == image_size[1]:
+            detail_resize = (450, 450)
+        else:
+            detail_resize = self.get_resize(image_size, 355)
+        filename = f'resized_{detail_resize[0]}_{detail_resize[1]}_{image_name}'
+        if input_detail_image:
+            detail_image = Image.open(input_detail_image)
+            detail_image_size = detail_image.size
+            if detail_resize != detail_image_size:
+                memfile = self.get_resized_image(image, detail_resize)
+                self.image_detail.save(filename, memfile)
+                memfile.close()
+        else:
+            memfile = self.get_resized_image(image, detail_resize)
+            self.image_detail.save(filename, memfile)
+            memfile.close()
+
+        # # for the small image: (40, 40)
+        # small_resize = (40, 40)
+        # filename = f'resized_{small_resize[0]}_{small_resize[1]}_{image_name}'
+        # if input_small_image:
+        #     small_image = Image.open(input_small_image)
+        #     small_image_size = small_image.size
+        #     if small_resize != small_image_size:
+        #         memfile = self.get_resized_image(image, small_resize)
+        #         self.image_small.save(filename, memfile)
+        #         memfile.close()
+        # else:
+        #     memfile = self.get_resized_image(image, small_resize)
+        #     self.image_small.save(filename, memfile)
+        #     memfile.close()
+
+        # # for the big image: size: (1500, 1500)
+        # big_reize = (1500, 1500)
+        # filename = f'resized_{big_reize[0]}_{big_reize[1]}_{image_name}'
+        # if input_big_image:
+        #     big_image = Image.open(input_big_image)
+        #     big_image_size = big_image.size
+        #     if big_reize != big_image_size:
+        #         memfile = self.get_resized_image(image, big_reize)
+        #         self.image_big.save(filename, memfile)
+        #         memfile.close()
+        # else:
+        #     memfile = self.get_resized_image(image, big_reize)
+        #     self.image_big.save(filename, memfile)
+        #     memfile.close()
 
 
 class Product(TimeStampedModel):
@@ -97,51 +202,3 @@ class CountryCurrencyRate(TimeStampedModel):
 
     class Meta:
         ordering = ("country",)
-
-# class Product(models.Model):
-#     title = models.CharField(max_length=200, default='Flute')
-#     search_tags = models.CharField(max_length=200)
-#     description = models.TextField()
-#     category = models.OneToOneField(
-#         'category.Category', on_delete=models.CASCADE)
-#     image = models.OneToOneField(
-#         'product.ProductImage', on_delete=models.CASCADE, default=None)
-
-#     def __str__(self):
-#         return self.title
-
-# class Product(models.Model):
-#     title = models.CharField(max_length=200, default='Flute')
-#     search_tags = models.CharField(max_length=200)
-#     description = models.TextField()
-#     category = models.OneToOneField(
-#         'category.Category', on_delete=models.CASCADE)
-#     image = models.OneToOneField(
-#         'product.ProductImage', on_delete=models.CASCADE, default=None)
-
-#     def __str__(self):
-#         return self.title
-
-
-# class ProductImage(models.Model):
-#     """
-#     Models to store all the uploaded product images to S3 bucket.
-
-#     """
-
-#     product_image_1 = models.ImageField(storage=S3Boto3Storage(
-#         bucket='punam-flutes-prods'), blank=False, null=False)
-#     product_image_2 = models.ImageField(storage=S3Boto3Storage(
-#         bucket='punam-flutes-prods'), blank=True, null=True)
-#     product_image_3 = models.ImageField(storage=S3Boto3Storage(
-#         bucket='punam-flutes-prods'), blank=True, null=True)
-#     product_image_4 = models.ImageField(storage=S3Boto3Storage(
-#         bucket='punam-flutes-prods'), blank=True, null=True)
-#     product_image_5 = models.ImageField(storage=S3Boto3Storage(
-#         bucket='punam-flutes-prods'), blank=True, null=True)
-#     product_image_6 = models.ImageField(storage=S3Boto3Storage(
-#         bucket='punam-flutes-prods'), blank=True, null=True)
-#     timestamp = models.DateTimeField(auto_now=True)
-
-#     def __str__(self):
-#         return str(self.product_image_1)
