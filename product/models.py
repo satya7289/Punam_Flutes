@@ -55,7 +55,8 @@ class ProductImage(TimeStampedModel):
     def get_resized_image(self, image, resize_size):
         memfile = BytesIO()
         resized_image = image.resize(resize_size)
-        resized_image.save(memfile, 'JPEG', quality=95)
+        rgb_resized_image = resized_image.convert('RGB')
+        rgb_resized_image.save(memfile, 'JPEG', quality=95)
         return memfile
 
     def resize_image(self):

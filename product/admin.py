@@ -100,7 +100,7 @@ def update_slug(modeladmin, request, queryset):
 def resize_product_image(modeladmin, request, queryset):
     for product in queryset:
         for image in product.images.all():
-            image.save()
+            image.resize_image()
 
 
 class ProductAdmin(admin.ModelAdmin):
