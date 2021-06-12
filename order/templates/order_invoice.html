@@ -119,7 +119,7 @@
                                     {{ shipping_address.street_address|default:'' }}<br>
                                     {{ shipping_address.city|default:'' }}<br>
                                     {{ shipping_address.state|default:'' }} {{ shipping_address.postal_code|default:'' }} {{ shipping_address.country|default:'' }}<br>
-                                    {% if shippng_address.mobile_number %}
+                                    {% if shipping_address.mobile_number %}
                                     <abbr title="Phone">P:</abbr> {{ shipping_address.mobile_number }} <br>
                                     {% endif %}
                                     {% if state_code %}
