@@ -58,11 +58,12 @@ def export_as_down_to_stock(modeladmin, request, queryset):
                     payment_mode = order.payment.method
                 except:
                     payment_mode = ''
+                sku = productQ.product.sku if productQ.product.sku else productQ.product.title
                 order_no_list.append(order_no)
                 payment_mode_list.append(payment_mode)
                 customer_name_list.append(customer_name)
                 contact_no_list.append(contact_no)
-                sku_list.append(productQ.product.title)
+                sku_list.append(sku)
                 product_quantity_list.append(productQ.quantity)
     data = {
         "Order No": order_no_list,
