@@ -62,7 +62,8 @@ def export_as_down_to_stock(modeladmin, request, queryset):
                 try:
                     payment_status = order.payment.status
                 except:
-                    payment_status = ''
+                    payment_status = False
+                payment_status = 'Done' if payment_status else 'Not Done'
                 sku = productQ.product.sku if productQ.product.sku else productQ.product.title
                 order_no_list.append(order_no)
                 payment_mode_list.append(payment_mode)
