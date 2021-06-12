@@ -48,12 +48,12 @@
                   {% for image in product.images.all%}
 
                   {% if image.image_detail %}
-                  <div class="embed-responsive embed-responsive-1by1 bg-cover mb-4"
-                      style="background-image: url({{ image.image_detail.url }});">
+                  <div class="embed-responsive embed-responsive-1by1 mb-4"
+                      style="background-image: url({{ image.image_detail.url }}); background-size:contain;">
                     </div>
                   {% else %}
                     <div class="embed-responsive embed-responsive-1by1 bg-cover mb-4"
-                      style="background-image: url({{ image.image.url }});">
+                      style="background-image: url({{ image.image.url }}); background-size:contain;">
                     </div>
                   {% endif %}
                   {% endfor %}
