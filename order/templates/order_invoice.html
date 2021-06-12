@@ -104,31 +104,27 @@
                             <div class="col-xs-6">
                                 <address>
                                     <strong>Billed To:</strong><br>
-                                    {% if billing_address.full_name %}
-                                         {{ billing_address.full_name }} <br>
-                                    {% endif %}
-                                    {{ billing_address.street_address }}<br>
-                                    {{ billing_address.city }}<br>
-                                    {{ billing_address.state }}, {{ billing_address.postal_code }}, {{ billing_address.country }}<br>
-                                    {% if billing_address.mobile_number %}
-                                    <abbr title="Phone">P:</abbr> {{ billing_address.mobile_number }} <br>
-                                    {% endif %}
+                                    {{ billing_address.full_name|default:'' }} <br>
+                                    {{ billing_address.street_address|default:'' }}<br>
+                                    {{ billing_address.city|default:'' }}<br>
+                                    {{ billing_address.state|default:'' }} {{ billing_address.postal_code|default:'' }} {{ billing_address.country|default:'' }}<br>
+                                    <abbr title="Phone">P:</abbr> {{ billing_address.mobile_number|default:'' }} <br>
                                     <!-- <strong>State/UT Code:</strong> -->
                                 </address>
                             </div>
                             <div class="col-xs-6 text-right">
                                 <address>
                                     <strong>Shipped To:</strong><br>
-                                    {% if shipping_address.full_name %}
-                                         {{ shipping_address.full_name }} <br>
-                                    {% endif %}
-                                    {{ shipping_address.street_address }}<br>
-                                    {{ shipping_address.city }}<br>
-                                    {{ shipping_address.state }}, {{ shipping_address.postal_code }}, {{ shipping_address.country }}<br>
+                                    {{ shipping_address.full_name|default:'' }} <br>
+                                    {{ shipping_address.street_address|default:'' }}<br>
+                                    {{ shipping_address.city|default:'' }}<br>
+                                    {{ shipping_address.state|default:'' }} {{ shipping_address.postal_code|default:'' }} {{ shipping_address.country|default:'' }}<br>
                                     {% if shippng_address.mobile_number %}
                                     <abbr title="Phone">P:</abbr> {{ shipping_address.mobile_number }} <br>
                                     {% endif %}
+                                    {% if state_code %}
                                     <strong>State/UT Code:</strong> {{ state_code }}
+                                    {% endif %}
                                 </address>
                             </div>
                         </div>

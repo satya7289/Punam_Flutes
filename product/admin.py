@@ -88,7 +88,8 @@ class CountryCurrencyAdmin(admin.ModelAdmin):
 
 
 class ProductImageAdmin(admin.ModelAdmin):
-    fields = ('image', 'image_list', 'image_detail')
+    list_display = ('image', 'image_list', 'image_detail')
+    fields = ('image',)
 
 
 def update_slug(modeladmin, request, queryset):
