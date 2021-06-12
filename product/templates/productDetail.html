@@ -49,11 +49,11 @@
 
                   {% if image.image_detail %}
                   <div class="embed-responsive embed-responsive-1by1 mb-4"
-                      style="background-image: url({{ image.image_detail.url }}); background-size:contain;">
+                      style="background-image: url({{ image.image_detail.url }}); background-size:contain; background-repeat: no-repeat;">
                     </div>
                   {% else %}
                     <div class="embed-responsive embed-responsive-1by1 mb-4"
-                      style="background-image: url({{ image.image.url }}); background-size:contain;">
+                      style="background-image: url({{ image.image.url }}); background-size:contain; background-repeat: no-repeat;">
                     </div>
                   {% endif %}
                   {% endfor %}
