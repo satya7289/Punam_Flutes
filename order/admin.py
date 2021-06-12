@@ -60,7 +60,7 @@ def export_as_down_to_stock(modeladmin, request, queryset):
                 except:
                     payment_mode = ''
                 try:
-                    payment_status = order.payment.method
+                    payment_status = order.payment.status
                 except:
                     payment_status = ''
                 sku = productQ.product.sku if productQ.product.sku else productQ.product.title
