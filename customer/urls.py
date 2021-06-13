@@ -10,6 +10,8 @@ from customer.views import (
     Registration,
     CheckUsername,
     Login,
+    OtpLogin,
+    sendLoginOTP,
     UserQueryView,
     RegistrationViaPhone,
     VerifyOTP,
@@ -20,6 +22,8 @@ from customer.views import (
 urlpatterns = [
     # login - logout
     path('login/', Login.as_view(), name='customer_login'),
+    path('otp-login/', OtpLogin.as_view(), name='customer_otp_login'),
+    path('send-otp/', sendLoginOTP, name='send_login_otp'),
     path('logout/', customer_logout, name='logout'),
 
     # registeration

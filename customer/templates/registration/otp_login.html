@@ -1,0 +1,180 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<style>
+    #otp-login #sendOTPButton{border-radius: 5px; padding: 5px; height: min-content; background-color: rgb(0, 0, 85);}
+    #otp-login #verifyOTPButton, #resendOTPButton{border-radius: 5px; height: min-content; padding: 5px 15px 5px 15px;}
+    .valid_number{border-color: green;}
+    .valid_number:focus {color: #495057; background-color: #fff; border-color: green; outline: 0; box-shadow: 0 0 0 0.2rem rgb(0 255 0 / 25%);}
+    .invalid_number{border-color: red;}
+    .invalid_number:focus {color: #495057; background-color: #fff; border-color: red; outline: 0; box-shadow: 0 0 0 0.2rem rgb(225 0 0 / 25%);}
+</style>
+
+
+<!-- CONTENT -->
+<section class="py-5" id="otp-login">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+      </div>
+      <div class="col-12 col-md-6 offset-md-3">
+
+        <!-- Card -->
+        <div class="card">
+          <div class="card-header"> <h4 class="text-center">Login using Mobile OTP</h4></div>
+          <div class="card-body mt-0 pt-0 mb-0 pb-0">
+            <div class="col-12" id="MESSAGE">
+              <p>
+                {% for message in messages %}
+                <span class="text-danger center error_login">{{message}}!!!</span><br />
+                {% endfor %}
+              </p>
+            </div>
+
+            <form method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="form-group" style="display: none;">
+                    <label class="" for="CountryCode">
+                      Country Code
+                    </label>
+                    <select class="form-control form-control-sm" id="CountryCode" name="country_code"
+                      placeholder="Country Code *" required>
+                      <option value="">select country code </option>
+                      {% for code, countryCode in countryCodes.items %}
+                        {% for cCode in countryCode %}
+                          {% if code == 91 %}
+                            <option value="{{ cCode }}" selected>{{ code }}: {{ cCode }}</option>
+                          {% else %}
+                            <option value="{{ cCode }}">{{ code }}: {{ cCode }}</option>
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+
+                    </select>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-12">
+                  <div class="form-group">
+                    <label class="" for="PhoneNumber">
+                      Phone Number *
+                    </label>
+                    <input class="form-control form-control-sm" id="PhoneNumber" name="phone"
+                      type="text" placeholder="Enter phone number *" required maxlength="10">
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <button class="btn btn-info" id="sendOTPButton" type="button" disabled>
+                      Send OTP
+                    </button>
+                </div>
+
+                <div class="col-12 col-md-10 OTP">
+                  <div class="form-group">
+                    <label class="sr-only" for="sendOTP">
+                      Enter OTP
+                    </label>
+                    <input class="form-control form-control-sm" id="sendOTPInput" name="otp"
+                      type="text" placeholder="Enter OTP *" required maxlength="6">
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-12 text-center OTP">
+                  <button class="btn btn-info" type="button" id=resendOTPButton>
+                    Resend OTP
+                  </button>
+                  <button class="btn btn-info" type="submit" id=verifyOTPButton>
+                    Verify
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer mt-0 pt-2">
+              <div class="row">
+                <div class="col-md-6 mt-3 text-center">
+                    <a href="{% url 'customer_login' %}">Login with email</a>
+                  </div>
+                <div class="col-md-6 mt-3 text-center">
+                  Click <a href="{% url 'customer_register' %}">here</a> for registration.
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+  
+  $(document).ready(()=>{
+    $('.OTP').hide();
+  });
+
+  $('#CountryCode').change(function(){
+    if($('#CountryCode').val()!=""){
+      $('#PhoneNumber').prop('disabled', false);
+    }else{
+      $('#PhoneNumber').prop('disabled', true);
+    }
+    
+  });
+  $('#PhoneNumber').keyup(function(){
+    if($(this).val().length == 10){
+        $('#sendOTPButton').prop('disabled', false);
+        if($(this).hasClass('invalid_number')){
+          $(this).removeClass('invalid_number');
+        }
+        $(this).addClass('valid_number');
+    }else{
+        $('#sendOTPButton').prop('disabled', true);
+        if($(this).hasClass('valid_number')){
+          $(this).removeClass('valid_number');
+        }
+        $(this).addClass('invalid_number');
+    }
+  });
+
+  // On click resend OTP
+  $('#resendOTPButton').click(function(){
+    var phone = $('#PhoneNumber').val();
+    var country_code = $('#CountryCode').val();
+    $.ajax({
+      url: "{% url 'send_login_otp' %}",
+      data: {'phone': phone, 'country_code': country_code},
+      success: function(data){
+        if(data.status == '1'){
+          $('.OTP').show();
+        }
+      }
+    });
+  });
+
+  // On click send OTP
+  $('#sendOTPButton').click(function(){
+    $(this).prop('disabled', true);
+    var phone = $('#PhoneNumber').val();
+    var country_code = $('#CountryCode').val();
+    $.ajax({
+      url: "{% url 'send_login_otp' %}",
+      data: {'phone': phone, 'country_code': country_code},
+      success: function(data){
+        if(data.status == '1'){
+          $('.OTP').show();
+        }else if(data.status == '0'){
+          var str = `<span class="text-danger center error_login">`+ data.message +`</span><br/>`;
+          $('#MESSAGE p').html(str);
+          $('#MESSAGE').fadeOut(5000);
+        }
+      }
+    });
+  });
+
+</script>
+{% endblock %}
