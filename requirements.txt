@@ -15,6 +15,7 @@ pandas==1.2.4
 phonenumbers==8.12.19
 Pillow==8.1.0
 psycopg2==2.7.5
+pyotp==2.6.0
 python-decouple==3.4.0
 razorpay==1.2.0
 s3transfer==0.3.3

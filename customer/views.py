@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.conf import settings
 
-from PunamFlutes.tokens import account_activation_token, generate_random_otp
+from PunamFlutes.tokens import account_activation_token, generate_random_otp, generate_totp
 from commons.country_currency import country as COUNTRY
 from commons.state import IndianStates, IndianUnionTerritories
 from commons.SMS import sendSMS
@@ -244,7 +244,7 @@ def resend_otp(request, *args, **kwargs):
 
 
 class Login(View):
-    template_name = "store/login.html"
+    template_name = "registration/login.html"
     template_name2 = 'store/index.html'
     message = ""
     countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
@@ -274,6 +274,60 @@ class Login(View):
         self.message = "Invalid login credentials."
         messages.add_message(request, messages.WARNING, self.message)
         return render(request, self.template_name)
+
+
+class OtpLogin(View):
+    template_name = "registration/otp_login.html"
+    template_name2 = 'store/index.html'
+    message = ""
+    countryCodes = phonenumbers.COUNTRY_CODE_TO_REGION_CODE
+
+    def get(self, request):
+        return render(request, self.template_name, {'countryCodes': self.countryCodes})
+
+    def post(self, request):
+        country_code = request.POST['country_code']
+        phone = request.POST['phone']
+        phone = normalize_phone(phone, country_code)
+        input_otp = request.POST['otp']
+        user = User.objects.filter(username=phone)
+        if user.exists():
+            user = user.first()
+            generated_otp = generate_totp(user.id, 3)
+            if generated_otp == input_otp:
+                login(request, user)
+                return render(request, self.template_name2)
+            self.message = "Invalid OTP. Try resend OTP"
+        messages.add_message(request, messages.WARNING, self.message)
+        return render(request, self.template_name)
+
+
+def sendLoginOTP(request):
+    phonenumber = request.GET.get('phone')
+    country_code= request.GET.get('country_code')
+    print(phonenumber, country_code)
+    phone = normalize_phone(phonenumber, country_code)
+    user = User.objects.filter(username=phone)
+    if user.exists():
+        user = user.first()
+        # generate OTP
+        otp = generate_totp(user.id, 3)
+        mobile_number = phonenumbers.parse(user.phone).national_number
+
+        # # Send SMS
+        # sms = sendSMS(mobile_number, 'otp', OTP=otp)
+        # sms = sms.send()
+        print(otp, mobile_number)
+        data = {
+            'status': '1',
+            'message': 'OTP is send to your phone number'
+        }
+        return JsonResponse(data)
+    data = {
+        'status': '0',
+        'message': 'User does not exit with this phone number'
+    }
+    return JsonResponse(data)
 
 
 def activate(request, uidb64, token):
