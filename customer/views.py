@@ -304,8 +304,7 @@ class OtpLogin(View):
 
 def sendLoginOTP(request):
     phonenumber = request.GET.get('phone')
-    country_code= request.GET.get('country_code')
-    print(phonenumber, country_code)
+    country_code = request.GET.get('country_code')
     phone = normalize_phone(phonenumber, country_code)
     user = User.objects.filter(username=phone)
     if user.exists():
@@ -314,10 +313,10 @@ def sendLoginOTP(request):
         otp = generate_totp(user.id, 3)
         mobile_number = phonenumbers.parse(user.phone).national_number
 
-        # # Send SMS
-        # sms = sendSMS(mobile_number, 'otp', OTP=otp)
-        # sms = sms.send()
-        print(otp, mobile_number)
+        # Send SMS
+        sms = sendSMS(mobile_number, 'otp', OTP=otp)
+        sms = sms.send()
+        # print(otp, mobile_number)
         data = {
             'status': '1',
             'message': 'OTP is send to your phone number'

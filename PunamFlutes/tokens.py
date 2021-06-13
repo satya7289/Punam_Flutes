@@ -24,6 +24,7 @@ def generate_random_otp():
     otp = random.randint(111111, 999999)
     return otp
 
+
 def generate_totp(user_id, interval=2):
     secret_key = base64.b32encode(str(user_id).encode())
     min = interval * 60
