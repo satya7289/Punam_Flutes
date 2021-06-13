@@ -297,7 +297,7 @@ class OtpLogin(View):
             if generated_otp == input_otp:
                 login(request, user)
                 return render(request, self.template_name2)
-            self.message = "Invalid OTP. Try resend OTP"
+            self.message = "Invalid OTP."
         messages.add_message(request, messages.WARNING, self.message)
         return render(request, self.template_name)
 
