@@ -1,6 +1,7 @@
 from django.urls import path, re_path
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
+from django.views.generic.base import TemplateView
 
 from customer.views import (
     customer_logout,
@@ -21,7 +22,9 @@ from customer.views import (
 
 urlpatterns = [
     # login - logout
-    path('login/', Login.as_view(), name='customer_login'),
+    path('login/', TemplateView.as_view(template_name='registration/main_login.html'), name='customer_login'),
+    path('login-via-email/', Login.as_view(), name='customer_email_login'),
+    path('login-via-phone/', Login.as_view(template_name='registration/phone_login.html'), name='customer_phone_login'),
     path('otp-login/', OtpLogin.as_view(), name='customer_otp_login'),
     path('send-otp/', sendLoginOTP, name='send_login_otp'),
     path('logout/', customer_logout, name='logout'),

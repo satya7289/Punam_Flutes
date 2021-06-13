@@ -1,0 +1,120 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<!-- CONTENT -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+      </div>
+      <div class="col-12 col-md-6 offset-md-3">
+
+        <!-- Card -->
+        <div class="card">
+          <div class="card-header"> <h4 class="text-center">Login using phone</h4></div>
+          <div class="card-body mt-0 pt-0 mb-0 pb-0">
+            <div class="col-12">
+              <p>
+                {% for message in messages %}
+                <span class="text-danger center" id="error_login">{{message}}!!!</span><br />
+                {% endfor %}
+              </p>
+            </div>
+
+            <!-- Heading -->
+
+
+            <!-- Form -->
+            <form method="post" action="{% url 'customer_login' %}">
+              {% csrf_token %}
+              <div class="row">
+                <input type="hidden" name="type" value="phone">
+                <input type="hidden" name="phone__verified" id="phone__verified" value="0">
+                <div class="col-12 col-md-6">
+                  <input type="hidden" name="type" value="phone">
+                  <input type="hidden" name="phone__verified" id="phone__verified" value="0">
+
+                  <div class="form-group" style="display: none;">
+                    <label class="" for="CountryCode">
+                      Country Code
+                    </label>
+                    <select class="form-control form-control-sm" id="CountryCode" name="country_code"
+                      placeholder="Country Code *" required>
+                      <option value="">select country code </option>
+                      {% for code, countryCode in countryCodes.items %}
+                        {% for cCode in countryCode %}
+                          {% if code == 91 %}
+                            <option value="{{ cCode }}" selected>{{ code }}: {{ cCode }}</option>
+                          {% else %}
+                            <option value="{{ cCode }}">{{ code }}: {{ cCode }}</option>
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+
+                    </select>
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-12">
+                  <div class="form-group">
+                    <label class="" for="PhoneNumber">
+                      Phone Number *
+                    </label>
+                    <input class="form-control form-control-sm" id="PhoneNumber" name="phone"
+                      type="text" placeholder="Enter phone number *" required maxlength="15">
+                  </div>
+                </div>
+
+                <div class="col-12 PASSWORD">
+                  <!-- Password -->
+                  <div class="form-group">
+                    <label class="" for="loginPassword">
+                      Password *
+                    </label>
+                    <input class="form-control form-control-sm" id="loginPassword" type="password" name="password"
+                      placeholder="Password *" required>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-auto">
+                  <!-- Link -->
+                  <div class="form-group">
+                    <a class="font-size-sm" href="{% url 'customer_otp_login' %}">Login with OTP</a>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button class="btn btn-sm btn-info" type="submit">
+                    Sign In
+                  </button>
+
+                  <a class="btn btn-sm btn-info" href="{% url 'customer_login' %}">
+                    SignIn via Email
+                  </a>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer mt-0 pt-0">
+            <div class="col-12 mt-3 text-right">
+              Click <a href="{% url 'customer_register' %}">here</a> for registration.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+    $('#CountryCode').change(function(){
+        if($('#CountryCode').val()!=""){
+        $('#PhoneNumber').prop('disabled', false);
+        }else{
+        $('#PhoneNumber').prop('disabled', true);
+        }
+    })
+</script>
+{% endblock %}

@@ -58,6 +58,7 @@ class sendSMS:
                     return True
             except:
                 pass
+        print(message)
         return False
 
     def OTP(self, otp):

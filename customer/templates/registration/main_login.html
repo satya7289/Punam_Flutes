@@ -1,0 +1,42 @@
+{% extends 'store/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<style>
+    /* #login-page .card{background-image: url({% static 'homepage/img/bg/login_bg.jpg' %}); background-size:cover;} */
+    #login-page li{list-style: none; padding: 5px; margin-bottom: 5px; border-radius: 5px; border: 1px solid darkgray;  margin-left: 50%; transform: translateX(-50%); box-shadow: 3px 1px 3px 1px #888888; font-weight: 500;}
+    #login-page ul a{text-decoration: none; color: inherit;}
+    #login-page ul a:hover{background-color: aliceblue;}
+</style>
+
+<!-- CONTENT -->
+<section class="py-5" id="login-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 offset-md-2">
+
+        <!-- Card -->
+        <div class="card">
+          <div class="card-body text-center">
+            
+            <h3 class="">Welcome Back. 🤝</h3>
+            <p>Sign in to place order for your favorite flutes</p>
+
+            <ul>
+                <a href="{% url 'customer_email_login' %}"><li>Sign in with Email</li></a>
+                <a href="{% url 'customer_phone_login' %}"><li>Sign in with Phone</li></a>
+                <a href="{% url 'customer_otp_login' %}"><li>Sign in with OTP</li></a>
+            </ul>
+
+            <p class="text-center">No account? <a href="{% url 'customer_register' %}">Create one</a> </p>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+
+{% endblock %}

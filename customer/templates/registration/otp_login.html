@@ -66,13 +66,13 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-md-2 SENDOPT">
                     <button class="btn btn-info" id="sendOTPButton" type="button" disabled>
                       Send OTP
                     </button>
                 </div>
 
-                <div class="col-12 col-md-10 OTP">
+                <div class="col-12 col-md-12 OTP">
                   <div class="form-group">
                     <label class="sr-only" for="sendOTP">
                       Enter OTP
@@ -82,10 +82,10 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-md-12 text-center OTP">
+                <div class="col-12 col-md-12 OTP"> Not recieved otp?
                   <button class="btn btn-info" type="button" id=resendOTPButton>
                     Resend OTP
-                  </button>
+                  </button> &nbsp; &nbsp;&nbsp; &nbsp;
                   <button class="btn btn-info" type="submit" id=verifyOTPButton>
                     Verify
                   </button>
@@ -150,6 +150,7 @@
       data: {'phone': phone, 'country_code': country_code},
       success: function(data){
         if(data.status == '1'){
+          $('.SENDOPT').hide();
           $('.OTP').show();
         }
       }
@@ -166,6 +167,7 @@
       data: {'phone': phone, 'country_code': country_code},
       success: function(data){
         if(data.status == '1'){
+          $('.SENDOPT').hide();
           $('.OTP').show();
         }else if(data.status == '0'){
           var str = `<span class="text-danger center error_login">`+ data.message +`</span><br/>`;

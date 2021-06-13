@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-sm-12 text-center">
       </div>
-      <div class="col-12 col-md-6 offset-md-3 LOGIN" style="display:none">
+      <div class="col-12 col-md-6 offset-md-3">
 
         <!-- Card -->
         <div class="card">
@@ -21,10 +21,6 @@
               </p>
             </div>
 
-            <!-- Heading -->
-
-
-            <!-- Form -->
             <form method="post" action="{% url 'customer_login' %}" id="signInByEmail">
               {% csrf_token %}
               <div class="row">
@@ -42,7 +38,6 @@
                 </div>
 
                 <div class="col-12">
-                  <!-- Password -->
                   <div class="form-group">
                     <label class="" for="loginPassword">
                       Password
@@ -53,114 +48,24 @@
                 </div>
 
                 <div class="col-12 col-md-auto">
-                  <!-- Link -->
                   <div class="form-group">
                     <a href="{% url 'password_reset' %}" class="font-size-sm">Forgot Password?</a>
                   </div>
 
                 </div>
                 <div class="col-12">
-
-                  <!-- Button -->
                   <button class="btn btn-sm btn-info" type="submit">
                     Sign In
                   </button>
 
-                  <button class="btn btn-sm btn-info" onclick="signInViaPhone()">
+                  <a class="btn btn-sm btn-info" href="{% url 'customer_phone_login' %}">
                     SignIn via Phone
-                  </button>
+                  </a>
 
                 </div>
               </div>
             </form>
 
-            <form method="post" action="{% url 'customer_login' %}" id="signInByPhone">
-              {% csrf_token %}
-              <div class="row">
-                <input type="hidden" name="type" value="phone">
-                <input type="hidden" name="phone__verified" id="phone__verified" value="0">
-                <div class="col-12 col-md-6">
-                  <input type="hidden" name="type" value="phone">
-                  <input type="hidden" name="phone__verified" id="phone__verified" value="0">
-
-                  <div class="form-group" style="display: none;">
-                    <label class="" for="CountryCode">
-                      Country Code
-                    </label>
-                    <select class="form-control form-control-sm" id="CountryCode" name="country_code"
-                      placeholder="Country Code *" required>
-                      <option value="">select country code </option>
-                      {% for code, countryCode in countryCodes.items %}
-                        {% for cCode in countryCode %}
-                          {% if code == 91 %}
-                            <option value="{{ cCode }}" selected>{{ code }}: {{ cCode }}</option>
-                          {% else %}
-                            <option value="{{ cCode }}">{{ code }}: {{ cCode }}</option>
-                          {% endif %}
-                        {% endfor %}
-                      {% endfor %}
-
-                    </select>
-                  </div>
-
-                </div>
-                <div class="col-12 col-md-12">
-                  <div class="form-group">
-                    <label class="" for="PhoneNumber">
-                      Phone Number *
-                    </label>
-                    <input class="form-control form-control-sm" id="PhoneNumber" name="phone"
-                      type="text" placeholder="Enter phone number *" required maxlength="15">
-                  </div>
-                </div>
-
-                <div class="col-12 PASSWORD">
-                  <!-- Password -->
-                  <div class="form-group">
-                    <label class="" for="loginPassword">
-                      Password *
-                    </label>
-                    <input class="form-control form-control-sm" id="loginPassword" type="password" name="password"
-                      placeholder="Password *" required>
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-6 OTP">
-                  <div class="form-group">
-                    <button class="btn btn-sm btn-dark" id="sendOTPInput">
-                      Send OTP
-                    </button>
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-6 OTP">
-                  <div class="form-group">
-                    <label class="sr-only" for="sendOTP">
-                      Send OTP
-                    </label>
-                    <input class="form-control form-control-sm" id="sendOTPInput" name="otp"
-                      type="text" placeholder="OTP *" required>
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-auto">
-                  <!-- Link -->
-                  <div class="form-group">
-                    <a class="font-size-sm" href="{% url 'customer_otp_login' %}">Login with OTP</a>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <button class="btn btn-sm btn-info" type="submit">
-                    Sign In
-                  </button>
-
-                  <button class="btn btn-sm btn-info" onclick="signInViaEmail()">
-                    SignIn via Email
-                  </button>
-                </div>
-              </div>
-            </form>
           </div>
           <div class="card-footer mt-0 pt-0">
             <div class="col-12 mt-3 text-right">
@@ -175,41 +80,5 @@
 
 {% endblock %}
 {% block script %}
-<script>
-    $(document).ready(()=>{
-      $('.LOGIN').show();
-      $('#signInByPhone').hide();
-      $('.OTP').hide();
-    });
 
-    function signInViaEmail(){
-      var str=`<h4 class="text-center">Login using email</h4>`;
-      $('#signInByPhone').hide();
-      $('#signInByEmail').show();
-      $('.LOGIN .card-header').html(str);
-    }
-    function signInViaPhone(){
-      var str=`<h4 class="text-center">Login using mobile</h4>`;
-      $('#signInByPhone').show();
-      // $('#PhoneNumber').prop('disabled', true);
-      $('#signInByEmail').hide();
-      $('.LOGIN .card-header').html(str);
-    }
-    function singInViaOTP(){
-      $('.PASSWORD').hide();
-      $('.OTP').show();
-    }
-    function singInViaPASSWORD(){
-      $('.PASSWORD').show();
-      $('.OTP').hide();
-    }
-
-    $('#CountryCode').change(function(){
-    if($('#CountryCode').val()!=""){
-      $('#PhoneNumber').prop('disabled', false);
-    }else{
-      $('#PhoneNumber').prop('disabled', true);
-    }
-  })
-</script>
 {% endblock %}

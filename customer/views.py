@@ -299,7 +299,7 @@ class OtpLogin(View):
                 return render(request, self.template_name2)
             self.message = "Invalid OTP."
         messages.add_message(request, messages.WARNING, self.message)
-        return render(request, self.template_name)
+        return render(request, self.template_name, {'countryCodes': self.countryCodes})
 
 
 def sendLoginOTP(request):
