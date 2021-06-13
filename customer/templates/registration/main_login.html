@@ -22,10 +22,10 @@
             <p>Sign in to place order for your favorite flutes</p>
 
             <ul>
-                <a href="{% url 'customer_email_login' %}"><li>Sign in with Email</li></a>
+                <a href="{% url 'customer_email_login' %}"><li>Sign in with email</li></a>
                 {% if mobile_registration %}
-                <a href="{% url 'customer_phone_login' %}"><li>Sign in with Phone</li></a>
-                <a href="{% url 'customer_otp_login' %}"><li>Sign in with OTP</li></a>
+                <a href="{% url 'customer_phone_login' %}"><li>Sign in with phone</li></a>
+                <a href="{% url 'customer_otp_login' %}"><li>Sign in with phone OTP</li></a>
                 {% endif %}
             </ul>
 
