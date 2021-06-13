@@ -17,6 +17,10 @@ class ProductPricingMiddleware:
         if len(requested_url) > 1 and requested_url[1] in restrict_for_country_data:
             # set the country to setting based on IP
             set_country_data(request)
+        
+        url = request.get_full_path()
+        if url == '/customer/login/':
+            set_country_data(request)
 
         # set the site url
         set_site_url(request)

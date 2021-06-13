@@ -32,7 +32,8 @@ def extras(request):
         'currency_symbol': settings.CURRENCY_SYMBOL,
         'contactUsMap': contactUsMap,
         'contactUsContact': contactUsContact,
-        'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY
+        'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+        'mobile_registration': True if settings.COUNTRY == 'India' else False
     }
     return context
 

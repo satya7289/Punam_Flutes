@@ -23,8 +23,10 @@
 
             <ul>
                 <a href="{% url 'customer_email_login' %}"><li>Sign in with Email</li></a>
+                {% if mobile_registration %}
                 <a href="{% url 'customer_phone_login' %}"><li>Sign in with Phone</li></a>
                 <a href="{% url 'customer_otp_login' %}"><li>Sign in with OTP</li></a>
+                {% endif %}
             </ul>
 
             <p class="text-center">No account? <a href="{% url 'customer_register' %}">Create one</a> </p>
