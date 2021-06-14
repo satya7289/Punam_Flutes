@@ -21,7 +21,7 @@
               </p>
             </div>
 
-            <form method="post" action="{% url 'customer_login' %}" id="signInByEmail">
+            <form method="post" id="signInByEmail">
               {% csrf_token %}
               <div class="row">
                 <input type="hidden" name="type" value="email">
