@@ -3,6 +3,10 @@
 {% block content %}
 <style>
   body{background-color: #fff;}
+  .exzoom .exzoom_img_box{background: inherit;}
+  .exzoom .exzoom_img_ul_outer {border: none;}
+  .exzoom .exzoom_nav {left: 0;}
+  .exzoom .exzoom_preview {border: none;}
 </style>
 
 <!-- BREADCRUMB -->
@@ -36,62 +40,26 @@
       <div class="col-12">
         <div class="row">
           <div class="col-12 col-md-6">
-
-            <!-- Images -->
-            <div class="form-row mb-10 mb-md-0">
-              <div class="col-2">
-
-                <!-- Slider -->
-                <div class="flickity-nav flickity-vertical"
-                  data-flickity='{"asNavFor": "#productSlider", "draggable": false}'>
-
+            <div class="exzoom" id="exzoom">
+              <!-- Images -->
+              <div class="exzoom_img_box">
+                <ul class='exzoom_img_ul'>
                   {% for image in product.images.all%}
-
                   {% if image.image_detail %}
-                  <div class="embed-responsive embed-responsive-1by1 mb-4"
-                      style="background-image: url({{ image.image_detail.url }}); background-position:center; background-size:contain; background-repeat: no-repeat;">
-                    </div>
+                    <li><img src="{{image.image_detail.url}}"/></li>
                   {% else %}
-                    <div class="embed-responsive embed-responsive-1by1 mb-4"
-                      style="background-image: url({{ image.image.url }});  background-position:center; background-size:contain; background-repeat: no-repeat;">
-                    </div>
+                    <li><img src="{{image.image.url}}"/></li>
                   {% endif %}
                   {% endfor %}
-                </div>
-
+                </ul>
               </div>
-              <div class="col-10">
-
-                <!-- Card -->
-                <div class="card">
-
-                  <!-- Badge -->
-                    <!-- <div class="badge badge-secondary card-badge card-badge-right text-uppercase">
-                      Out of Stock
-                    </div>  -->
-
-                  <!-- Slider -->
-                  <div data-flickity='{"draggable": false, "fade": true}' id="productSlider">
-
-                    {% for image in product.images.all %}
-                      <!-- Item -->
-                      {% if image.image_detail %}
-                      <a href="{{ image.image_detail.url }}" data-fancybox>
-                        <img src="{{ image.image_detail.url }}" alt="..." class="card-img-top">
-                      </a>
-                      {% else %}
-                      <a href="{{ image.image.url }}" data-fancybox>
-                        <img src="{{ image.image.url }}" alt="..." class="card-img-top">
-                      </a>
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-
-                </div>
-
-              </div>
+              <div class="exzoom_nav"></div>
+              <!-- Nav Buttons -->
+              <p class="exzoom_btn">
+                  <!-- <span><a href="javascript:void(0);" class="exzoom_prev_btn"> < </a></span>
+                  <span><a href="javascript:void(0);" class="exzoom_next_btn"> > </a></span> -->
+              </p>
             </div>
-
           </div>
           <div class="col-12 col-md-6 pl-lg-10">
 
@@ -109,100 +77,92 @@
             <h3 class="mb-2">{{product.title}}</h3>
 
             <!-- Price -->
-            <div class="mb-7 text-gray-400">
+            <div class="mb-3 text-gray-400">
               <span class="ml-1 font-size-h5 font-weight-bold" id="product_price">
                 <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ currency_symbol }} {{ mrp }}</span>
                 <span class="text-primary">{{ currency_symbol }} {{ price }}</span>
               </span>
             </div>
-
-            <div class="mb-8 ml-n1">
-              <div class="custom-control custom-control-inline custom-control-img">
-                <input type="radio" class="custom-control-input" id="imgRadioOne" name="imgRadio"
-                  data-toggle="form-caption" data-target="#colorCaption" value="White" checked>
-                <label class="custom-control-label" for="imgRadioOne">
-                  {% for image in product.images.all%}
-                    {% if forloop.counter <= 1 %}
-                      {% if image.image_detail %}
-                      <span class="embed-responsive embed-responsive-1by1 bg-cover"
-                        style="background-image: url({{ image.image_detail.url }});">
-                      </span>
-                      {% else %}
-                      <span class="embed-responsive embed-responsive-1by1 bg-cover"
-                        style="background-image: url({{ image.image.url }});">
-                      </span>
-                      {% endif %}
-                    {% endif%}
-                  {% endfor %}
-                </label>
-              </div>
+            <div class="mb-7">
+              {{product.short_description|safe}}
             </div>
-            <form action="{% url 'add_to_cart' %}" method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="form-group">
-                
-
-                {% if product.inventory and product.inventory.type == "limited" and product.inventory.available == 0 %}
-                  <div class="col-12 col-lg-auto font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
-                    <span> Out of stock</span>
-                  </div>
+            <div class="mb-3">
+              <form action="{% url 'add_to_cart' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
                   
-                {% elif product.inventory and product.inventory.type == "limited" and product.inventory.available < 5 %}
-                  <div class="col-12 col-lg-auto font-weight-bold text-danger" style="padding: 0.5rem; margin: .5rem;">
-                    <span> Only {{ product.inventory.available }} available</span>
-                  </div>
 
-                  <div class="form-row mb-7">
-                    <div class="col-12 col-lg-auto">
-
-                      <!-- Submit -->
-                      <select class="custom-select custom-select-xl w-auto " name="quantity">
-                        {% for  _ in ''|center:product.inventory.available %}
-                          <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-                        {% endfor %}
-                      </select>
-  
-  
+                  {% if product.inventory and product.inventory.type == "limited" and product.inventory.available == 0 %}
+                    <div class="col-12 col-lg-auto font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
+                      <span> Out of stock</span>
                     </div>
-                    <div class="col-12 col-lg-auto">
                     
-                      <input type="hidden" name="product_id" value="{{ product.id}}">
-                      <!-- Wishlist -->
-                      <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
-                        Add to cart <i class="fe fe-shopping-cart"></i>
-                      </button>
-  
-                    </div>
-                  </div>
-
-                {% else %}
-                  <div class="form-row mb-7">
-                    <div class="col-12 col-lg-auto">
-
-                      <!-- Submit -->
-                      <select class="custom-select custom-select-xl w-auto " name="quantity">
-                        {% for  i in range %}
-                          <option value="{{ i}}">{{ i }}</option>
-                        {% endfor %}
-                      </select>
-
-
-                    </div>
-                    <div class="col-12 col-lg-auto">
-                    
-                      <input type="hidden" name="product_id" value="{{ product.id}}">
-                      <!-- Wishlist -->
-                      <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
-                        Add to cart <i class="fe fe-shopping-cart"></i>
-                      </button>
-
+                  {% elif product.inventory and product.inventory.type == "limited" and product.inventory.available < 5 %}
+                    <div class="col-12 col-lg-auto font-weight-bold text-danger" style="padding: 0.5rem; margin: .5rem;">
+                      <span> Only {{ product.inventory.available }} available</span>
                     </div>
 
-                  </div>
-                {% endif %}
+                    <div class="form-row mb-7">
+                      <div class="col-12 col-lg-auto">
 
-              </div>
-            </form>
+                        <!-- Submit -->
+                        <select class="custom-select custom-select-xl w-auto " name="quantity">
+                          {% for  _ in ''|center:product.inventory.available %}
+                            <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                          {% endfor %}
+                        </select>
+    
+    
+                      </div>
+                      <div class="col-12 col-lg-auto">
+                      
+                        <input type="hidden" name="product_id" value="{{ product.id}}">
+                        <!-- Wishlist -->
+                        <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
+                          Add to cart <i class="fe fe-shopping-cart"></i>
+                        </button>
+    
+                      </div>
+                    </div>
+
+                  {% else %}
+                    <div class="form-row mb-7">
+                      <div class="col-12 col-lg-auto">
+
+                        <!-- Submit -->
+                        <select class="custom-select custom-select-xl w-auto " name="quantity">
+                          {% for  i in range %}
+                            <option value="{{ i}}">{{ i }}</option>
+                          {% endfor %}
+                        </select>
+
+
+                      </div>
+                      <div class="col-12 col-lg-auto">
+                      
+                        <input type="hidden" name="product_id" value="{{ product.id}}">
+                        <!-- Wishlist -->
+                        <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
+                          Add to cart <i class="fe fe-shopping-cart"></i>
+                        </button>
+
+                      </div>
+
+                    </div>
+                  {% endif %}
+
+                </div>
+              </form>
+            </div>
+            <div class="mb-0">
+              
+              <h5 class="text-gray-600">Details</h5>
+              <strong>Generic name: </strong> {{product.generic_name|default:'Not available'}} <br>
+              <strong>Manufacture: </strong> {{product.manufacture|default:'Not available'}} <br>
+              <strong>Material: </strong> {{product.material|default:'Not available'}} <br>
+              <strong>Country of origin: </strong> {{product.country_of_origin|default:'Not available'}} <br>
+              <strong>SKU: </strong> {{product.sku|default:'Not available'}} <br>
+            </div>
           </div>
         </div>
       </div>
@@ -216,29 +176,53 @@
     <div class="row">
       <div class="col-12">
 
-        <!-- Nav -->
-        <div class="nav nav-tabs nav-overflow justify-content-start justify-content-md-center border-bottom">
-          <a class="nav-link active" data-toggle="tab" href="#descriptionTab">
-            Description
-          </a>        
-        </div>
-
-        <!-- Content -->
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="descriptionTab">
-            <div class="row justify-content-center py-9">
-              <div class="col-12 col-lg-10 col-xl-8">
-                <div class="row">
-                  <div class="col-12">
-
-                      {{product.description|safe}}
-
+                <!-- Nav -->
+                <div class="nav nav-tabs nav-overflow justify-content-start justify-content-md-center border-bottom">
+                  <a class="nav-link active" data-toggle="tab" href="#descriptionTab">
+                    Description
+                  </a>
+                  <a class="nav-link" data-toggle="tab" href="#detail">
+                    Technical Details
+                  </a>
+                  <a class="nav-link" data-toggle="tab" href="#customization">
+                    Customization Details
+                  </a>
+                </div>
+        
+                <!-- Content -->
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="descriptionTab">
+                    <div class="row justify-content-center py-9">
+                      <div class="col-12 col-lg-10 col-xl-8">
+                          {{product.description|safe}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="detail">
+                    <div class="row justify-content-center py-9">
+                      <div class="col-12 col-lg-10 col-xl-8 text-center">
+                        <p><strong>Generic name: </strong> {{product.generic_name|default:'Not available'}} </p>
+                        <p><strong>Manufacture: </strong> {{product.manufacture|default:'Not available'}} </p>
+                        <p><strong>Material: </strong> {{product.material|default:'Not available'}} </p>
+                        <p><strong>Country of origin: </strong> {{product.country_of_origin|default:'Not available'}} </p>
+                        <p><strong>SKU: </strong> {{product.sku|default:'Not available'}} </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="customization">
+                    <div class="row justify-content-center py-9">
+                      <div class="col-12 col-lg-10 col-xl-8">
+        
+                        {% if product.customization_description %}
+                        {{product.customization_description|safe}}
+                        {% else %}
+                        <p> Customization on this product not available!!</p>
+                        {% endif %}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>         
-        </div>
+        
 
       </div>
     </div>
@@ -248,6 +232,13 @@
 {% endblock %}
 
 {% block script %}
+<script>
+  $(function(){
+      $("#exzoom").exzoom({
+        "autoPlay": false,
+      });
+  });
+</script>
 <script>
 
 $(document).ready(()=>{
