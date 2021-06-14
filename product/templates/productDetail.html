@@ -155,13 +155,19 @@
               </form>
             </div>
             <div class="mb-0">
-              
-              <h5 class="text-gray-600">Details</h5>
-              <strong>Generic name: </strong> {{product.generic_name|default:'Not available'}} <br>
-              <strong>Manufacture: </strong> {{product.manufacture|default:'Not available'}} <br>
-              <strong>Material: </strong> {{product.material|default:'Not available'}} <br>
-              <strong>Country of origin: </strong> {{product.country_of_origin|default:'Not available'}} <br>
-              <strong>SKU: </strong> {{product.sku|default:'Not available'}} <br>
+              <div class="row">
+                <div class="col-md-3">
+                  <h5 class="text-gray-600">Details</h5>
+                </div>
+                <div class="col-md-9">
+                  <strong>Generic name: </strong> {{product.generic_name|default:'Not available'}} <br>
+                  <strong>Manufacture: </strong> {{product.manufacture|default:'Not available'}} <br>
+                  <strong>Material: </strong> {{product.material|default:'Not available'}} <br>
+                  <strong>Country of origin: </strong> {{product.country_of_origin|default:'Not available'}} <br>
+                  <strong>SKU: </strong> {{product.sku|default:'Not available'}} <br>
+                  <a href="#descriptionTab">More Information</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -200,7 +206,7 @@
                   </div>
                   <div class="tab-pane fade" id="detail">
                     <div class="row justify-content-center py-9">
-                      <div class="col-12 col-lg-10 col-xl-8 text-center">
+                      <div class="col-12 col-lg-10 col-xl-8">
                         <p><strong>Generic name: </strong> {{product.generic_name|default:'Not available'}} </p>
                         <p><strong>Manufacture: </strong> {{product.manufacture|default:'Not available'}} </p>
                         <p><strong>Material: </strong> {{product.material|default:'Not available'}} </p>
