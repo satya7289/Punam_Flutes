@@ -44,7 +44,6 @@ def get_order(user):
     return None
 
 
-
 def calculate_tax_for_product_in_order(product_price, quantity, product, order):
     '''
     @param: product_price price of product A/Q to IP
@@ -93,7 +92,7 @@ def calculate_tax_for_product_in_order(product_price, quantity, product, order):
                 product_tax += category_tax
     data = {
         'product_tax': float(product_tax),
-        'tax_hsn': list(tax_hsn), 
+        'tax_hsn': list(tax_hsn),
         'tax_type': tax_type,
         'tax_rate': tax_rate,
         'tax_amount': tax_amount

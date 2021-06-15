@@ -339,7 +339,7 @@ class Checkout(View):
             total_tax += tax_list['product_tax']
 
             extra = {
-                'tax_hsn': tax_list['tax_hsn'], 
+                'tax_hsn': tax_list['tax_hsn'],
                 'tax_type': tax_list['tax_type'],
                 'tax_rate': tax_list['tax_rate'],
                 'tax_amount': tax_list['tax_amount']
@@ -391,11 +391,11 @@ class Checkout(View):
         coupon = Coupon.objects.filter(id=coupon_id)
         if coupon.exists():
             coupon = coupon.first()
-        
+
         # Validate the total amount
         cart = order.cart
         product_details = cart.product_detail.all()
-        
+
         o_total = 0
         for productQ in product_details:
             # Update the coupon discount
