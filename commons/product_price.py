@@ -12,6 +12,7 @@ def get_price_of_product(request, product, country=None, currency_code=None, cur
 
     price = 0
     mrp_price = 0
+    shipping_price = 0
     rate = currency_rate
 
     if country and currency_code:
@@ -56,9 +57,11 @@ def get_price_of_product(request, product, country=None, currency_code=None, cur
 
         price = float(default.selling_price) * rate
         mrp_price = float(default.MRP) * rate
+        shipping_price = float(default.shipping_price) * rate
 
     to_return = {
         'price': format(price, '.2f'),
-        'MRP': format(mrp_price, '.2f')
+        'MRP': format(mrp_price, '.2f'),
+        'shipping_price': format(shipping_price, '.2f')
     }
     return to_return

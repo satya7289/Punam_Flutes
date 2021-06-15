@@ -8,6 +8,7 @@ from order.models import Order
 from commons.mail import SendEmail
 from tax_rules.views import CalculateTaxForCart
 from commons.product_price import get_price_of_product
+from tax_rules.models import TaxRule, GSTState
 
 
 def is_cart_availabe(user):
@@ -41,6 +42,83 @@ def get_order(user):
         if order:
             return order
     return None
+
+
+
+def calculate_tax_for_product_in_order(product_price, quantity, product, order):
+    '''
+    @param: product_price price of product A/Q to IP
+    @param: quantity quantity of product
+    @param: product model instance
+    @param: order model instance
+    '''
+    address = order.shipping_address
+    # Get the first category of the product
+    first_category = product.category.first()
+
+    # TAX CALCULATION
+    product_tax = 0
+    tax_hsn = set()
+    tax_type = ""
+    tax_rate = ""
+    tax_amount = ""
+
+    if address and address.country == 'India' and address.state:
+        # If category exits
+        if first_category:
+
+            # get all tax rule for given address(state, country) and category
+            taxRules = TaxRule.objects.filter(
+                country=address.country,
+                state__in=GSTState.objects.filter(name__icontains=address.state),
+                category__in=[first_category.id]
+            ).distinct()
+
+            # loop through all tax rules
+            for taxRule in taxRules:
+
+                # if tax method is not fixed:
+                # product tax = quantity * price * rate
+                if taxRule.method.lower() == 'percent':
+                    category_tax = float(quantity) * float(product_price) * float(taxRule.value / 100)
+                else:
+                    category_tax = float(taxRule.value)
+
+                # Update hsn, type, rate
+                tax_hsn.add(taxRule.display_name)
+                tax_type += str(taxRule.gst_type) + '<br>'
+                tax_rate += str(taxRule.value) + '%<br>'
+                tax_amount += str(format(category_tax, '.2f')) + '<br>'
+
+                product_tax += category_tax
+    data = {
+        'product_tax': float(product_tax),
+        'tax_hsn': list(tax_hsn), 
+        'tax_type': tax_type,
+        'tax_rate': tax_rate,
+        'tax_amount': tax_amount
+    }
+    return data
+
+
+def calculate_coupon_for_product(product_detail, coupon):
+    '''
+    @param: product_detail model instance
+    @param: coupon model instance
+    '''
+    product = product_detail.product
+    product_price = product_detail.amount
+    quantity = product_detail.quantity
+    product_discount = 0
+    if coupon:
+        if {'id': coupon.coupon_category.id} in list(product.category.values('id')):
+
+            # product discount = quantity * price * rate
+            if coupon.coupon_method.lower() == 'percent':
+                product_discount = float(quantity) * float(product_price) * float(coupon.coupon_value / 100)
+            else:
+                product_discount = float(coupon.coupon_value)
+    return product_discount
 
 
 def after_successful_placed_order(request, payment, order_status="Confirmed"):
