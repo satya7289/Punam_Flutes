@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.conf import settings
+from django.contrib import messages
 from django.http import JsonResponse
 
 
@@ -14,9 +15,12 @@ from cart.models import Cart, ProductQuantity
 
 from address.views import update_for_default_address
 from commons.product_price import get_price_of_product
-from cart.utils import get_order, is_cart_availabe, get_cart, update_order_for_additional_data
+from cart.utils import get_order, is_cart_availabe, get_cart, update_order_for_additional_data, calculate_tax_for_product_in_order, calculate_coupon_for_product
 from address.forms import AddressCreateForm
 from commons.state import IndianStates, IndianUnionTerritories
+
+
+import json
 
 
 class CartView(View):
@@ -309,28 +313,49 @@ class Checkout(View):
                 order.billing_address = billing_address
                 order.save()
 
+        # Update the order additional data
         update_order_for_additional_data(order)
 
         cart = order.cart
-
         product_details = cart.product_detail.all()
 
         totalPrice = 0
+        subtotal = 0
+        total_tax = 0
+        total_shipping_price = 0
 
-        if request.GET.get('country'):
-            # Add the price and currency according to the given country to the product
-            country = request.GET.get('country')
-            for product in product_details:
-                price_list = get_price_of_product(request, product.product)  # TODO: for the country
-                product.price = price_list['price']
-                totalPrice += float(product.price)
-        else:
-            # Add the price and currency according to the user's location to the product
-            country = settings.COUNTRY
-            for product in product_details:
-                price_list = get_price_of_product(request, product.product)
-                product.price = price_list['price']
-                totalPrice += float(product.price)
+        country = settings.COUNTRY
+        for productQ in product_details:
+            product = productQ.product
+            price_list = get_price_of_product(request, product)
+            productQ.price = price_list['price']
+            productQ.mrp = price_list['MRP']
+            productQ.shipping_price = price_list['shipping_price']
+            subtotal += float(productQ.price)
+            total_shipping_price += float(productQ.shipping_price)
+
+            # tax calculation
+            tax_list = calculate_tax_for_product_in_order(productQ.price, productQ.quantity, product, order)
+            total_tax += tax_list['product_tax']
+
+            extra = {
+                'tax_hsn': tax_list['tax_hsn'],
+                'tax_type': tax_list['tax_type'],
+                'tax_rate': tax_list['tax_rate'],
+                'tax_amount': tax_list['tax_amount']
+            }
+            extra = json.dumps(extra)
+
+            # update the product_details
+            productQ.amount = float(price_list['price'])
+            productQ.tax_amount = float(tax_list['product_tax'])
+            productQ.shipping_amount = float(price_list['shipping_price'])
+            productQ.coupon_amount = 0
+            productQ.total_amount = productQ.amount + productQ.tax_amount + productQ.shipping_amount
+            productQ.extra = extra
+            productQ.save()
+
+        totalPrice = float(subtotal) + float(total_tax) + float(total_shipping_price)
 
         context = {
             'cart': cart,
@@ -338,6 +363,9 @@ class Checkout(View):
             'country': country,
             'order': order,
             'total_price': totalPrice,
+            'subtotal': subtotal,
+            'total_tax': total_tax,
+            'total_shipping_price': total_shipping_price,
             'billing_address': order.billing_address,
             'shipping_address': order.shipping_address,
         }
@@ -361,14 +389,35 @@ class Checkout(View):
 
         # get the coupon
         coupon = Coupon.objects.filter(id=coupon_id)
+        if coupon.exists():
+            coupon = coupon.first()
 
-        update_order_for_additional_data(order)
+        # Validate the total amount
+        cart = order.cart
+        product_details = cart.product_detail.all()
+
+        o_total = 0
+        for productQ in product_details:
+            # Update the coupon discount
+            discount = calculate_coupon_for_product(productQ, coupon)
+            productQ.coupon_amount = discount
+            productQ.total_amount = float(productQ.total_amount) - float(discount)
+            productQ.save()
+
+            o_total += productQ.total_amount
+
+        # if o_total and total not equal redirect to checkout
+        if float(o_total) != float(total):
+            messages.add_message(request, messages.WARNING, 'Something went wrong. Try again')
+            return redirect('checkout')
 
         # update the order's data
         order.total = total
         order.customization_request = customization_request
-        order.coupon = coupon.first() if coupon and coupon.first() else None
+        order.coupon = coupon if coupon else None
         order.save()
+
+        update_order_for_additional_data(order)
 
         # Show payment method according to IP
         country = settings.COUNTRY

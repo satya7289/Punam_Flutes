@@ -376,8 +376,14 @@ class OrderAdmin(admin.ModelAdmin):
             return format_html('<a href="">-</a>')
 
     def R_cart(self, obj):
-        url = reverse('admin:%s_%s_change' % (obj.cart._meta.app_label, obj.cart._meta.model_name), args=[obj.cart.id])
-        return format_html('{}<a style="padding:5px" href="{}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>', obj.cart, url)
+        cart = obj.cart
+        url = reverse('admin:%s_%s_change' % (cart._meta.app_label, cart._meta.model_name), args=[cart.id])
+        html = f'{cart}<ol>'
+        for productQ in cart.product_detail.all():
+            html += f'<li>{productQ}</li>'
+        html += '</ol>'
+        html += f'<a style="padding:5px" href="{url}"><img src="/static/admin/img/icon-changelink.svg" alt="Change"></a>'
+        return format_html(html)
 
     def R_billing_address(self, obj):
         url = reverse('admin:%s_%s_change' % (obj.billing_address._meta.app_label, obj.billing_address._meta.model_name), args=[obj.billing_address.id])
