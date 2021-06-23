@@ -2,7 +2,7 @@ from django.db import models
 from django.core import validators
 from commons.models import TimeStampedModel
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager)
+    AbstractBaseUser, BaseUserManager, PermissionsMixin)
 from django.utils.translation import ugettext_lazy as _
 
 import phonenumbers
@@ -41,7 +41,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self, username, password=None, **extra_fields):
         user = self._create_user(username, password, **extra_fields)
-        print(user)
+        # print(user)
         return user
 
     def create_staffuser(self, username, password=None, **extra_fields):
@@ -58,7 +58,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         _('email or phone'), max_length=255, unique=True, db_index=True,
         help_text=_('Required. 255 characters or fewer. Letters, digits and '
@@ -89,16 +89,6 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.username
 
-    def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
-
     @property
     def is_staff(self):
         "Is the user a member of staff?"
@@ -113,6 +103,11 @@ class User(AbstractBaseUser):
     def is_active(self):
         "Is the user active?"
         return self.active
+
+    @property
+    def is_superuser(self):
+        "Is the user active?"
+        return self.admin
 
 
 class Profile(TimeStampedModel):
