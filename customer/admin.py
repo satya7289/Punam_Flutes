@@ -1,11 +1,35 @@
+
+from django import forms
+from django.contrib import auth
 from django.contrib import admin
 from .models import UserQuery, BlockedDomain, VerifyMobileOTP
-from django.contrib import auth
+
+
+User = auth.get_user_model()
+
+
+class CustomUserForm(forms.ModelForm):
+    groups = forms.ModelMultipleChoiceField(queryset=auth.models.Group.objects.all(), required=False)
+
+    class Meta:
+        models = User
+        fields = '__all__'
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(CustomUserForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
 
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'username', 'email', 'phone', 'email_verified', 'phone_verified', 'active', 'staff', 'admin', 'id')
     list_filter = ('active', 'staff', 'admin', 'email_verified', 'phone_verified')
+    search_fields = ('email', 'phone', )
+    exclude = ('user_permissions',)
+    form = CustomUserForm
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -25,13 +49,9 @@ class BlockedDomainAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'domain', 'block_status', 'created_at', 'update_at')
     list_filter = ('block_status',)
 
-# Register your models here.
 
-
-User = auth.get_user_model()
 admin.site.register(VerifyMobileOTP)
 admin.site.register(User, UserAdmin)
 admin.site.register(BlockedDomain, BlockedDomainAdmin)
 # admin.site.register(Profile, ProfileAdmin)
-admin.site.unregister(auth.models.Group)
 admin.site.register(UserQuery, UserQueryAdmin)
