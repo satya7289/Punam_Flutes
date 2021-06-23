@@ -1,15 +1,200 @@
 <!DOCTYPE html>
+<html>
+<head>
+<title>invoice</title>
+</head>
+<body style="    background: #cccccc; font-family: Helvetica, sans-serif;font-size:13px;padding: 50px 10px;">
+    <div class="container" style="max-width: 850px; margin:0 auto; padding: 10px;background-color: white;">
+
+        <table width="100%">
+          <tr>
+            <td width="30%"><div class="logotype" style="background: #3b476d;color:#fff;height:75px;  line-height: 75px; text-align: center; font-size:11px; " ><h1 style="margin: 0;"><strong>PUNAM FLUTES</strong></h1> </div></td>
+            <td width="70%"><div style="color:#fff; text-align: center;background: #3b476d;border-left: 15px solid #fff;padding-left: 30px;font-size: 26px;font-weight: bold;letter-spacing: -1px;height: 73px;line-height: 75px;">Order invoice</div></td>
+            <td></td>
+          </tr>
+        </table> 
+        <br>
+        <table width="100%" style="border-collapse: collapse;">
+          <tr>
+            <td widdth="50%" style="background:#eee;padding:20px;">
+              <strong>Invoice</strong> <br>
+              <strong>Date:</strong> {{order_placed}}<br>
+              <strong>Order-nr:</strong>{{ order_id }}<br>
+              <strong>E-mail:</strong> info@flute.in<br>
+              <strong>Phone:</strong>  +91 8505-922-922, +91 8920-038-458 <br>
+            </td>
+            <td style="background:#eee;padding:20px;">
+              <strong>Vendor :</strong><br>
+                Punam Flutes <br>
+                info@flute.in <br>
+                A 58, Jawahar Park Deoli Road Road Khanpur <br>
+                New Delhi, Delhi <br>
+                India, 110062 <br>
+            </td>
+          </tr>
+        </table><br>
+        <table width="100%">
+          <tr>
+            <td>
+              <table>
+                <tr>
+                  <td style="vertical-align: text-top;">
+                    <div style="background: #ffd9e8 url(https://cdn0.iconfinder.com/data/icons/commerce-line-1/512/comerce_delivery_shop_business-07-128.png);width: 50px;height: 50px;margin-right: 10px;background-position: center;background-size: 42px;"></div>   
+                  </td>
+                  <td>
+                    <strong>Billed To :</strong><br>
+                    {{ billing_address.full_name|default:'' }} <br>
+                    {{ billing_address.street_address|default:'' }}<br>
+                    {{ billing_address.city|default:'' }}<br>
+                    {{ billing_address.state|default:'' }} {{ billing_address.postal_code|default:'' }} {{ billing_address.country|default:'' }}<br>
+                    <abbr title="Phone">P:</abbr> {{ billing_address.mobile_number|default:'' }} <br>
+                    {% if state_code %}
+                    <strong>State/UT Code:</strong> {{ state_code }}
+                    {% endif %}	  
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td style="vertical-align: text-top;">
+                    <div style="background: #ffd9e8 url(https://cdn4.iconfinder.com/data/icons/app-custom-ui-1/48/Check_circle-128.png) no-repeat;width: 50px;height: 50px;margin-right: 10px;background-position: center;background-size: 25px;"></div>   
+                  </td>
+                  <td>
+                      <strong>Shipped To:</strong><br>
+                      {{ shipping_address.full_name|default:'' }} <br>
+                      {{ shipping_address.street_address|default:'' }}<br>
+                      {{ shipping_address.city|default:'' }}<br>
+                      {{ shipping_address.state|default:'' }} {{ shipping_address.postal_code|default:'' }} {{ shipping_address.country|default:'' }}<br>
+                      {% if shipping_address.mobile_number %}
+                      <abbr title="Phone">P:</abbr> {{ shipping_address.mobile_number }} <br>
+                      {% endif %}
+                      {% if state_code %}
+                      <strong>State/UT Code:</strong> {{ state_code }}
+                      {% endif %}
+                  </td>
+                </tr>
+              </table>
+            </td>
+            
+          </tr>
+        </table><br>
+        <table width="100%" style="border-top:1px solid #eee;padding:10px 0 0px 0">
+          <tr>
+            <td><strong>PAN No: </strong>ANLPP2290D</td>
+          </tr>
+      <tr>
+            <td><strong>GST Registeration No: </strong>07ANLPP2290D1ZY</td>
+          </tr>
+        </table>
+    <br>
+      <table width="100%" style="border-top:1px solid #eee;border-bottom:1px solid #eee;padding:0 0 8px 0">
+        <tr>
+          <td><h3>Checkout details</h3>Your checkout made by {{ payment_method }}<td>
+        </tr>
+      </table>
+    <br>
+        <div style="background: #ffd9e8 url(https://cdn4.iconfinder.com/data/icons/basic-ui-2-line/32/shopping-cart-shop-drop-trolly-128.png) no-repeat;width: 50px;height: 50px;margin-right: 10px;background-position: center;background-size: 25px;float: left; margin-bottom: 15px;"></div> 
+        <h3>ORDER SUMMARY</h3>
+      
+        <table width="100%" style="border-collapse: collapse;">
+          <tr>
+            <td class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"><b>#</b></td>
+            <td width="100%" class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"><b>Product</b></td>
+            <td class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"><b>Unit Price</b></td>
+            <td class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>Discount</b></td>
+            <td class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>Qty</b></td>
+            <td  class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"><b> Net Amount</b></td>
+            <td  class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>HSN No</b></td>
+            <td  class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>Tax Rate</b></td>
+            <td  class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>Tax Type</b></td>
+            <td  class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>Tax Amount</b></td>
+            <td  class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>Net Tax Amount</b></td>
+            <td  class="column-header" style="background:#eee;text-transform:uppercase;padding:10px;font-size:11px;border-right:1px solid #eee;"> <b>Total Amount</b></td>
+          </tr>
+          {% for product in products %}
+          <tr>
+            <td class="row" style="padding:0px; text-align:center; border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ forloop.counter }}</td>
+            <td class="row" style="padding:5px 5px 10px 10px;border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ product.title }}</td>
+            <td class="row" style="padding:5px;border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ currency }}{{ product.unit_price }} </td>
+            <td class="row" style="padding:0px; text-align:center; border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ currency }}{{ product.discount }}</td>
+            <td class="row" style="padding:0px; text-align:center; border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ product.qty }}</td>
+            <td class="row" style="padding:5px; text-align:center;border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ currency }}{{ product.net_ammount }}</td>
+            <td class="row" style="padding:5px;border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ product.hsn|safe }}</td>
+            <td class="row" style="padding:0px; text-align:center; border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ product.tax_rate|safe }}</td>
+            <td class="row" style="padding:0px; text-align:center; border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ product.tax_type|safe }}</td>
+            <td class="row" style="padding:0px; text-align:center;border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ product.tax_amount|safe }}</td>
+            <td class="row" style="padding:0px; text-align:center; border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ currency }}{{ product.net_tax_amount }}</td>
+            <td class="row" style="padding:0px; text-align:center; border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:1px solid #eee;">{{ currency }}{{ product.total_amount }}</td>
+          </tr>
+          {% endfor %}
+    <tr>
+    <td class="row" style="padding:0px; text-align:center; padding:20px 0 0 0;  font-size:15px;"><strong>Total</strong></td>
+            <td class="row"></td>
+            <td class="row"></td>
+            <td class="row"  style="text-align:center; font-weight:600;">{{ currency }}{{ total_discount }}</td>
+            <td class="row"></td>
+            <td class="row"></td>
+            <td class="row"></td>
+            <td class="row"></td>
+            <td class="row"></td>
+            <td class="row"></td>
+            <td class="row"  style="text-align:center; font-weight:600;">{{ currency }}{{ total_tax_amount }}</td>
+            <td class="row"  style="text-align:center; font-weight:600;">{{ currency }}{{ total_amount }}</td>
+    </tr>
+    
+        </table><br>
+        <table width="100%" style="background:#eee;padding:20px;">
+          <tr>
+            <td>
+              <table width="300px" style="float:right">
+                <tr>
+                  <td><strong>Sub-total:</strong></td>
+                  <td style="text-align:right">{{ currency }}{{ subtotal }}</td>
+                </tr>  
+                <tr>
+                  <td><strong>Shipping fee:</strong></td>    
+                  <td style="text-align:right">{{ currency }}{{ total_shipping }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Tax:</strong></td>    
+                  <td style="text-align:right">{{ currency }}{{ total_tax_amount }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Discount:</strong></td>    
+                  <td style="text-align:right">{{ currency }}{{ total_discount }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Grand total:</strong></td>    
+                  <td style="text-align:right">{{ currency }}{{ total_amount }}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div class="alert" style="background: #3b476d;padding:20px;margin:20px 0;line-height:22px;color:#fff; text-align: center;">
+          NOTE : This is computer generated receipt and does not require physical signature. <br>
+
+          For any queries relating to billing, product, returns, please write us at info@flute.in	
+        </div>
+      </div><!-- container -->
+</body>
+
+</html>
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     
 
-    <!-- Gabriela font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Gabriela&display=swap" rel="stylesheet">
     <style>
@@ -74,7 +259,6 @@
 <body>
     <div class="container">
         <div class="row">
-            <!-- BEGIN INVOICE -->
             <div class="col-xs-12">
                 <div class="grid invoice">
                     <div class="grid-body">
@@ -92,10 +276,6 @@
                                 </div>
                                 <div class="col-xs-6 text-right">
                                     <a class="btn" onclick="printInvoice()" id="print">Print</a>
-                                    <!-- <address>
-                                        <strong>Order Date:</strong><br>
-                                        18-04-2022
-                                    </address> -->
                                 </div>
                             </div>
                         </div>
@@ -109,7 +289,6 @@
                                     {{ billing_address.city|default:'' }}<br>
                                     {{ billing_address.state|default:'' }} {{ billing_address.postal_code|default:'' }} {{ billing_address.country|default:'' }}<br>
                                     <abbr title="Phone">P:</abbr> {{ billing_address.mobile_number|default:'' }} <br>
-                                    <!-- <strong>State/UT Code:</strong> -->
                                 </address>
                             </div>
                             <div class="col-xs-6 text-right">
@@ -199,7 +378,6 @@
                     </div>
                 </div>
             </div>
-            <!-- END INVOICE -->
         </div>
     </div>
     <script>
@@ -211,4 +389,13 @@
     </script>
     
 </body>
-</html>
+</html> -->
+
+
+
+<!-- <strong>Vendor :</strong><br>
+Punam Flutes <br>
+info@flute.in <br>
+A 58, Jawahar Park Deoli Road Road Khanpur <br>
+New Delhi, Delhi <br>
+India, 110062 <br> -->
