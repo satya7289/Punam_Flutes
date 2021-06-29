@@ -6,15 +6,15 @@
     #blogs .header{position: sticky; top: 0; z-index: 12;background-image: linear-gradient(180deg, #3b476d 0%, #efefef 100%); padding: 10px;}
     #blogs .header h3{text-align: left; font-family: 'Gabriela', serif; font-weight: 600; background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     #blogs .container-fluid{background-color: #efefef;}
-    #blogs .container-fluid .content{display: grid; grid-gap:1rem; grid-template-columns: 1fr 2fr 1fr; position: relative;}
+    #blogs .container-fluid .content{display: grid; grid-gap:1rem; grid-template-columns: 1fr 4fr; position: relative;}
 
     #blogs .container-fluid .content .advertigment{position: sticky; top: 100px; align-self: start;}
     #blogs .container-fluid .content .advertigment .card{margin-bottom: 10px;}
 
     #blogs .container-fluid .content .blog-content .card{margin-bottom: 15px; border-radius: 5px;}
-    #blogs .container-fluid .content .blog-content .card-header{background-color: inherit; border: none; border-radius: 5px; border-bottom: 1px solid rgba(17,17,17,.125); font-weight: 500;}
+    #blogs .container-fluid .content .blog-content .card-header{background-color: inherit; border: none; border-radius: 5px; font-weight: 500;}
     #blogs .container-fluid .content .blog-content .card-body{font-size: 0.9rem; padding: 20px;}
-    #blogs .container-fluid .content .blog-content .card .card-footer{background-color: inherit; border-radius: 5px; border-top: 1px solid rgba(17,17,17,.125); font-size: 0.9rem;}
+    #blogs .container-fluid .content .blog-content .card .card-footer{background-color: inherit; border-radius: 5px; border-top: 1px solid rgba(17,17,17,.125);}
     #blogs .container-fluid .content .blog-content .card .card-footer .wrap{position: relative; padding: 0 10px 0 10px;}
 
     #blogs .container-fluid .content .social-media{position: sticky; top: 75px; align-self: start; max-height: 90vh; overflow-y: scroll;}
@@ -37,17 +37,17 @@
 
     /* For mobile */
     @media only screen and (max-width: 576px) {
-        #blogs .container-fluid .content{grid-template-columns:0fr 1fr 0fr;}
+        #blogs .container-fluid .content{grid-template-columns:0fr 1fr;}
     }
 
     /* For tab */
     @media screen and (min-width: 576px) {
-        #blogs .container-fluid .content{grid-template-columns:1fr 2fr 0fr;}
+        #blogs .container-fluid .content{grid-template-columns:1fr 4fr;}
     }
 
     /* For big screen */
     @media  screen and (min-width: 992px) {
-        #blogs .container-fluid .content{grid-template-columns: 1fr 2fr 1fr;}
+        #blogs .container-fluid .content{grid-template-columns: 1fr 4fr;}
     }
 </style>
 
@@ -59,7 +59,7 @@
     </div>
     <div class="container-fluid">
         <div class="content">
-            <div class="advertigment">
+            <!-- <div class="advertigment">
                 <div class="card">
                     <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement_3.png' %}" alt="">
                     <div class="card-img-overlay">
@@ -73,7 +73,16 @@
                     </div>
                 </div>
                 
+            </div> -->
+
+            <div class="social-media">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="fb-page" data-href="https://www.facebook.com/Punam-Flutes-258509497608" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Punam-Flutes-258509497608" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Punam-Flutes-258509497608">Facebook</a></blockquote></div>
+                    </div>
+                </div>
             </div>
+
 
             <div class="blog-content">
                 {% if blogs %}
@@ -84,19 +93,24 @@
                         {{ blog.blog_title }}
                     </div>
                     {% endif %}
-                    <div class="card-body" data-detail="{% url 'blog_detail' slug=blog.slug %}" onclick="referToBlogPage(this)">
-                        {{ blog.blog_front_content|safe }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            {% if blog.image1 %}
+                                <img class="img-fluid card-img-bottom" src="{{ blog.image1.url }}" alt="">
+                            {% endif %}
+        
+                            {% if blog.type == 'video' and blog.video1 %}
+                            <div class="card-img">
+                                <iframe width="100%" height="315" src="{{ blog.video1 }}?autoplay=1&mute=1"></iframe>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body" data-detail="{% url 'blog_detail' slug=blog.slug %}" onclick="referToBlogPage(this)">
+                                {{ blog.blog_front_content|safe }}
+                            </div>
+                        </div>
                     </div>
-
-                    {% if blog.image1 %}
-                        <img class="img-fluid card-img-bottom" src="{{ blog.image1.url }}" alt="">
-                    {% endif %}
-
-                    {% if blog.type == 'video' and blog.video1 %}
-                    <div class="card-img">
-                        <iframe width="100%" height="315" src="{{ blog.video1 }}?autoplay=1&mute=1"></iframe>
-                    </div>
-                    {% endif %}
 
                     <div class="card-footer">
                         <div class="row justify-content-between">
@@ -129,14 +143,6 @@
                 {% endfor %}
                 {% endif %}
                 
-            </div>
-
-            <div class="social-media">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="fb-page" data-href="https://www.facebook.com/Punam-Flutes-258509497608" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Punam-Flutes-258509497608" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Punam-Flutes-258509497608">Facebook</a></blockquote></div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -45,11 +45,14 @@
               <div class="exzoom_img_box">
                 <ul class='exzoom_img_ul'>
                   {% for image in product.images.all%}
+                  <li><img src="{{image.image.url}}"/></li>
+                  {% comment %}
                   {% if image.image_detail %}
                     <li><img src="{{image.image_detail.url}}"/></li>
                   {% else %}
                     <li><img src="{{image.image.url}}"/></li>
                   {% endif %}
+                  {% endcomment %}
                   {% endfor %}
                 </ul>
               </div>
@@ -142,8 +145,10 @@
                       
                         <input type="hidden" name="product_id" value="{{ product.id}}">
                         <!-- Wishlist -->
-                        <button type="submit" class="btn btn-outline-dark btn-block mb-2" data-toggle="button">
-                          Add to cart <i class="fe fe-shopping-cart"></i>
+                        <button type="submit" class="btn btn-block mb-2" data-toggle="button" style="background-image: linear-gradient(
+                          45deg
+                          , #fa709a 0%, #fee140 100%); color:#fff;">
+                          Add to cart
                         </button>
 
                       </div>
