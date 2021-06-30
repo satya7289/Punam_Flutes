@@ -4,17 +4,17 @@
 
 <style>
 
-    #blogs .container-fluid{background-color: #efefef;}
-    #blogs .container-fluid .content{display: grid; grid-gap:1rem; grid-template-columns: 2fr 6fr .5fr; position: relative;}
+    #blogs .container{background-color: #efefef;}
+    #blogs .container .content{display: grid; grid-gap:1rem; grid-template-columns:1fr; position: relative;}
 
-    #blogs .container-fluid .content .advertigment{position: sticky; top: 10px; align-self: start;}
-    #blogs .container-fluid .content .advertigment .card{margin-bottom: 10px;}
+    #blogs .container .content .advertigment{position: sticky; top: 10px; align-self: start;}
+    #blogs .container .content .advertigment .card{margin-bottom: 10px;}
 
-    #blogs .container-fluid .content .blog-content .card{margin-bottom: 15px; border-radius: 5px;}
-    #blogs .container-fluid .content .blog-content .card .slideshow .slider{margin-left:50%; transform: translateX(-50%);}
-    #blogs .container-fluid .content .blog-content .card-header{background-color: inherit; text-align: center; border: none; font-size: 1.5rem;}
-    #blogs .container-fluid .content .blog-content .card .card-footer{background-color: inherit; border-radius: 5px;}
-    #blogs .container-fluid .content .blog-content .card .card-footer .wrap{position: relative; padding: 0 10px 0 10px;}
+    #blogs .container .content .blog-content .card{margin-bottom: 15px; border-radius: 5px; position: relative;}
+    #blogs .container .content .blog-content .card .slideshow .slider{margin-left:50%; transform: translateX(-50%);}
+    #blogs .container .content .blog-content .card-header{background-color: inherit; text-align: center; border: none; font-size: 1.5rem;}
+    #blogs .container .content .blog-content .card .card-footer{background-color: inherit; border-radius: 5px;}
+    #blogs .container .content .blog-content .card .card-footer .wrap{position: relative; padding: 0 10px 0 10px;}
 
 
     .social {text-align: center;position: fixed; z-index: 10; top: 50%; right: 0px; width: 50px; transform: translateY(-50%);}
@@ -29,25 +29,25 @@
     .linkedin {background-color: #0077b5;}
 
     /* For mobile */
-    @media only screen and (max-width: 576px) {
-        #blogs .container-fluid .content{grid-template-columns:0fr 6fr .5fr;}
-    }
+    /* @media only screen and (max-width: 576px) {
+        #blogs .container .content{grid-template-columns:0fr 6fr .5fr;}
+    } */
 
     /* For tab */
-    @media screen and (min-width: 576px) {
-        #blogs .container-fluid .content{grid-template-columns:1fr 6fr .5fr;}
-    }
+    /* @media screen and (min-width: 576px) {
+        #blogs .container .content{grid-template-columns:1fr 6fr .5fr;}
+    } */
 
     /* For big screen */
-    @media  screen and (min-width: 992px) {
-        #blogs .container-fluid .content{grid-template-columns:2fr 6fr .5fr;}
-    }
+    /* @media  screen and (min-width: 992px) {
+        #blogs .container .content{grid-template-columns:2fr 6fr .5fr;}
+    } */
 </style>
 
 <section id="blogs" class="py-5">
-    <div class="container-fluid">
+    <div class="container">
         <div class="content">
-            <div class="advertigment">
+            <!-- <div class="advertigment">
                 <div class="card">
                     <img class="card-img img-fluid" src="{% static 'homepage/img/advertigment/advertigement_3.png' %}" alt="">
                     <div class="card-img-overlay">
@@ -60,7 +60,7 @@
                     <div class="card-img-overlay">
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="blog-content">
                 <div class="card">
                     <div class="card-header">{{ blog.blog_title }}</div>
@@ -83,20 +83,20 @@
                     <div class="card-body">
                         {{blog.blog_content|safe}}
                     </div>
+                    <div class="social">
+                        <a class="fbtn share facebook" href="https://www.facebook.com/sharer/sharer.php?u={{share_url}}"><i class="fa fa-facebook"></i></a> 
+            
+                        <a class="fbtn share gplus" href="https://plus.google.com/share?url={{share_url}}"><i class="fa fa-google-plus"></i></a> 
+            
+                        <a class="fbtn share twitter" href="https://twitter.com/intent/tweet?text=title&amp;url={{share_url}}&amp;via=creativedevs"><i class="fa fa-twitter"></i></a> 
+            
+                        <a class="fbtn share pinterest" href="http://pinterest.com/pin/create/button/?url={{share_url}}&amp;description=data&amp;media=image"><i class="fa fa-pinterest"></i></a>
+            
+                        <a class="fbtn share linkedin" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{share_url}}&amp;title=title&amp;source={{share_url}}/"><i class="fa fa-linkedin"></i></a>
+                    </div>
                 </div>
+                
             </div>
-        </div>
-
-        <div class="social">
-            <a class="fbtn share facebook" href="https://www.facebook.com/sharer/sharer.php?u={{share_url}}"><i class="fa fa-facebook"></i></a> 
-
-            <a class="fbtn share gplus" href="https://plus.google.com/share?url={{share_url}}"><i class="fa fa-google-plus"></i></a> 
-
-            <a class="fbtn share twitter" href="https://twitter.com/intent/tweet?text=title&amp;url={{share_url}}&amp;via=creativedevs"><i class="fa fa-twitter"></i></a> 
-
-            <a class="fbtn share pinterest" href="http://pinterest.com/pin/create/button/?url={{share_url}}&amp;description=data&amp;media=image"><i class="fa fa-pinterest"></i></a>
-
-            <a class="fbtn share linkedin" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{share_url}}&amp;title=title&amp;source={{share_url}}/"><i class="fa fa-linkedin"></i></a>
         </div>
     </div>
 </section>

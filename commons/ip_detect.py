@@ -42,7 +42,12 @@ def request_to_ipstack(client_ip):
 
 def set_country_data(request):
     client_ip = get_client_ip(request)
-    country_code_2, country_code_3, country = request_to_ipstack(client_ip)
+    try:
+        country_code_2, country_code_3, country = request_to_ipstack(client_ip)
+    except:
+        # send notification/inform
+        country_code_2, country_code_3, country = request_to_ip2c(client_ip)
+        
 
     countryCurrencyRate = CountryCurrencyRate.objects.filter(
         alpha_2_code=country_code_2,
