@@ -82,8 +82,8 @@
 
                     <input type="hidden" name="product_id" id="modalProduct-id" value="">
                     <!-- Submit -->
-                    <button type="submit" class="btn btn-block btn-info mb-2">
-                      Add to Cart <i class="fe fe-shopping-cart ml-2"></i>
+                    <button type="submit" class="btn btn-block btn-info mb-2" style="background-image: linear-gradient(45deg, #fa709a 0%, #fee140 100%); color:#fff; border:none;">
+                      Add to Cart</i>
                     </button>
 
                   </div>
@@ -150,7 +150,7 @@
             <div class="search-bar text-center">
               <form action="">
                 <input class="" type="search" name="q" value="{{search}}" placeholder="Search Product...">
-                <button type="submit"><i class="fa fa-search"></i></button>
+                <button type="submit"><i class="fe fe-search"></i></button>
               </form>
             </div>
         </div>        
@@ -199,11 +199,13 @@
                 <!-- Image -->
                 <a class="card-img-hover" href="{% url 'category_product_detail' product_id=product.id slug=category.slug product_slug=product.slug %}">
                   {% if productImages.0.image_list %}
-                  <img class="card-img-top card-img-back" src="{{ productImages.0.image_list.url }}" alt="...">
-                  <img class="card-img-top card-img-front" src="{{ productImages.1.image_list.url }}" alt="...">
+                  <!-- <img class="card-img-top card-img-back" src="{{ productImages.0.image_list.url }}" alt="..."> -->
+                  <!-- <img class="card-img-top card-img-front" src="{{ productImages.1.image_list.url }}" alt="..."> -->
+                  <img class="card-img-top " src="{{ productImages.1.image_list.url }}" alt="...">
                   {% else %}
-                  <img class="card-img-top card-img-back" src="{{ productImages.0.image.url }}" alt="...">
-                  <img class="card-img-top card-img-front" src="{{ productImages.1.image.url }}" alt="...">
+                  <!-- <img class="card-img-top card-img-back" src="{{ productImages.0.image.url }}" alt="..."> -->
+                  <!-- <img class="card-img-top card-img-front" src="{{ productImages.1.image.url }}" alt="..."> -->
+                  <img class="card-img-top " src="{{ productImages.1.image.url }}" alt="...">
                   {% endif %}
                   
                 </a>
@@ -463,7 +465,11 @@ function AddToCart(e){
       // console.log('added to cart');
     }
   })
-  window.location.reload();
+  if("{{request.user.is_authenticated}}"=="False"){
+    window.location ='{% url "customer_login" %}';
+  }else{
+    window.location.reload();
+  }
 }
 
 </script>

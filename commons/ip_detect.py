@@ -47,7 +47,6 @@ def set_country_data(request):
     except:
         # send notification/inform
         country_code_2, country_code_3, country = request_to_ip2c(client_ip)
-        
 
     countryCurrencyRate = CountryCurrencyRate.objects.filter(
         alpha_2_code=country_code_2,
