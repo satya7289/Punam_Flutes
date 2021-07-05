@@ -3,6 +3,7 @@
 {% block content %}
 <style>
   body{background-color: #fff;}
+
   .exzoom .exzoom_img_box{background: inherit;}
   .exzoom .exzoom_img_ul_outer {border: none;}
   .exzoom .exzoom_nav {left: 0;}
@@ -40,29 +41,35 @@
       <div class="col-12">
         <div class="row">
           <div class="col-12 col-md-6">
-            <div class="exzoom" id="exzoom">
-              <!-- Images -->
-              <div class="exzoom_img_box">
-                <ul class='exzoom_img_ul'>
-                  {% for image in product.images.all%}
-                  <li><img src="{{image.image.url}}"/></li>
-                  {% comment %}
-                  {% if image.image_detail %}
-                    <li><img src="{{image.image_detail.url}}"/></li>
-                  {% else %}
-                    <li><img src="{{image.image.url}}"/></li>
-                  {% endif %}
-                  {% endcomment %}
-                  {% endfor %}
-                </ul>
+
+            <div class="row">
+              <div class="col-md-10">
+                <div class="exzoom" id="exzoom">
+                  <!-- Images -->
+                  <div class="exzoom_img_box">
+                    <ul class='exzoom_img_ul'>
+                      {% for image in product.images.all%}
+                      <li><img class="img-fluid" src="{{image.image.url}}"/></li>
+                      {% comment %}
+                      {% if image.image_detail %}
+                        <li><img class="img-fluid" src="{{image.image_detail.url}}"/></li>
+                      {% else %}
+                        <li><img class="img-fluid" src="{{image.image.url}}"/></li>
+                      {% endif %}
+                      {% endcomment %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <div class="exzoom_nav"></div>
+                  <!-- Nav Buttons -->
+                  <p class="exzoom_btn">
+                      <!-- <span><a href="javascript:void(0);" class="exzoom_prev_btn"> < </a></span>
+                      <span><a href="javascript:void(0);" class="exzoom_next_btn"> > </a></span> -->
+                  </p>
+                </div>
               </div>
-              <div class="exzoom_nav"></div>
-              <!-- Nav Buttons -->
-              <p class="exzoom_btn">
-                  <!-- <span><a href="javascript:void(0);" class="exzoom_prev_btn"> < </a></span>
-                  <span><a href="javascript:void(0);" class="exzoom_next_btn"> > </a></span> -->
-              </p>
             </div>
+            
           </div>
           <div class="col-12 col-md-6 pl-lg-10">
 
