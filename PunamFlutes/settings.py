@@ -25,7 +25,6 @@ LOCAL_APPS = [
     'category',
     'coupon',
     'customer',
-    'mart_profile',
     'order',
     'product',
     'address',
