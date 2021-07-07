@@ -54,6 +54,7 @@ class UserManager(BaseUserManager):
         user = self._create_user(username, password, **extra_fields)
         user.staff = True
         user.admin = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -103,11 +104,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_active(self):
         "Is the user active?"
         return self.active
-
-    @property
-    def is_superuser(self):
-        "Is the user active?"
-        return self.admin
 
 
 class Profile(TimeStampedModel):
