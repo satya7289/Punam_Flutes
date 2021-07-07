@@ -3,11 +3,16 @@
 {% block content %}
 <style>
   body{background-color: #fff;}
+  .gallery .active img {border: 1px solid #333 !important;}
+  .gallery{display: flex; align-items: center; justify-content: space-between;flex-direction: row-reverse;}
+  .gallery #thumbnail{max-width: 80px;}
+  .gallery #thumbnail .tn{padding: 1px;margin: 1px;}
 
-  .exzoom .exzoom_img_box{background: inherit;}
-  .exzoom .exzoom_img_ul_outer {border: none;}
-  .exzoom .exzoom_nav {left: 0;}
-  .exzoom .exzoom_preview {border: none;}
+  @media only screen and (max-width: 766px) {
+    .gallery{flex-direction: column;}
+    .gallery #thumbnail{display: flex; flex-direction: row; margin-top: 45px; max-width: 100%;align-items: center;}
+  }
+
 </style>
 
 <!-- BREADCRUMB -->
@@ -41,35 +46,23 @@
       <div class="col-12">
         <div class="row">
           <div class="col-12 col-md-6">
-
-            <div class="row">
-              <div class="col-md-10">
-                <div class="exzoom" id="exzoom">
-                  <!-- Images -->
-                  <div class="exzoom_img_box">
-                    <ul class='exzoom_img_ul'>
-                      {% for image in product.images.all%}
-                      <li><img class="img-fluid" src="{{image.image.url}}"/></li>
-                      {% comment %}
-                      {% if image.image_detail %}
-                        <li><img class="img-fluid" src="{{image.image_detail.url}}"/></li>
-                      {% else %}
-                        <li><img class="img-fluid" src="{{image.image.url}}"/></li>
-                      {% endif %}
-                      {% endcomment %}
-                      {% endfor %}
-                    </ul>
-                  </div>
-                  <div class="exzoom_nav"></div>
-                  <!-- Nav Buttons -->
-                  <p class="exzoom_btn">
-                      <!-- <span><a href="javascript:void(0);" class="exzoom_prev_btn"> < </a></span>
-                      <span><a href="javascript:void(0);" class="exzoom_next_btn"> > </a></span> -->
-                  </p>
-                </div>
+            <div class="gallery">
+              {% with images=product.images.all %}
+              <div id="preview">
+                <img id="img_01" class="img-fluid" src="{{ images.0.image_detail.url }}" data-zoom-image="{{ images.0.image.url }}"/>
               </div>
+              <div id="thumbnail">
+                {% for image in images %}
+                <div class="tn">
+                  <a href="#" data-image="{{image.image_detail.url}}" data-zoom-image="{{image.image.url}}">
+                    <img id="img_01" class="img-fluid" src="{{image.image_detail.url}}"/>
+                  </a>
+                </div>
+                 
+                {% endfor %}
+              </div>
+              {% endwith %}
             </div>
-            
           </div>
           <div class="col-12 col-md-6 pl-lg-10">
 
@@ -251,10 +244,17 @@
 
 {% block script %}
 <script>
-  $(function(){
-      $("#exzoom").exzoom({
-        "autoPlay": false,
-      });
+  $('#img_01').ezPlus({
+    gallery: 'thumbnail', cursor: 'pointer', galleryActiveClass: 'active',
+    imageCrossfade: true, loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif',borderSize:1,
+    zoomWindowWidth:500, zoomWindowHeight:500,
+  });
+
+  //pass the images to Fancybox
+  $('#img_01').bind('click', function (e) {
+      var ez = $('#img_01').data('ezPlus');
+      $.fancyboxPlus(ez.getGalleryList());
+      return false;
   });
 </script>
 <script>
