@@ -33,6 +33,7 @@ def extras(request):
         'contactUsMap': contactUsMap,
         'contactUsContact': contactUsContact,
         'SITE_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+        'SITE_URL': settings.SITE_URL ,
         'mobile_registration': True if settings.COUNTRY == 'India' else False
     }
     return context

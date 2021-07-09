@@ -8,9 +8,13 @@
   .gallery #thumbnail{max-width: 80px;}
   .gallery #thumbnail .tn{padding: 1px;margin: 1px;}
 
+  .share-product{box-shadow: 2px 5px 8px #dbdbdb;padding: 10px; margin: 1px; border-top-left-radius: 15px; text-align: center; font-size: 1.3rem;}
+  .share-product .share{padding: 30px;}
+
   @media only screen and (max-width: 766px) {
     .gallery{flex-direction: column;}
     .gallery #thumbnail{display: flex; flex-direction: row; margin-top: 45px; max-width: 100%;align-items: center;}
+    .share-product .share {padding: 8px;}
   }
 
 </style>
@@ -76,14 +80,24 @@
               </div>
             </div>
 
+            {% with productInventory=product.inventory%}
+
             <!-- Heading -->
             <h3 class="mb-2">{{product.title}}</h3>
 
             <!-- Price -->
             <div class="mb-3 text-gray-400">
+              {% if productInventory and productInventory.type == "limited" and productInventory.available == 0 %}
+                <span class="font-weight-bold text-danger"style="padding: 0.5rem;">Out of stock</span>
+              {% elif productInventory and productInventory.type == "limited" and productInventory.available < 5 %}
+                <span class="font-weight-bold text-danger"style="padding: 0.5rem;">Only {{ productInventory.available }} available</span>
+              {% else %}
+                <span class="font-weight-bold text-success"style="padding: 0.5rem;">In stock</span>
+              {%endif %}
+
               <span class="ml-1 font-size-h5 font-weight-bold" id="product_price">
                 <span class="font-size-xs text-gray-350 text-decoration-line-through">{{ currency_symbol }} {{ mrp }}</span>
-                <span class="text-primary">{{ currency_symbol }} {{ price }}</span>
+                <span style="color: #B12704;">{{ currency_symbol }} {{ price }}</span>
               </span>
             </div>
             <div class="mb-7">
@@ -95,28 +109,22 @@
                 <div class="form-group">
                   
 
-                  {% if product.inventory and product.inventory.type == "limited" and product.inventory.available == 0 %}
+                  {% if productInventory and productInventory.type == "limited" and productInventory.available == 0 %}
                     <div class="col-12 col-lg-auto font-weight-bold text-center" style="background-color: brown; padding: 0.5rem; margin: .5rem;">
                       <span> Out of stock</span>
                     </div>
                     
-                  {% elif product.inventory and product.inventory.type == "limited" and product.inventory.available < 5 %}
-                    <div class="col-12 col-lg-auto font-weight-bold text-danger" style="padding: 0.5rem; margin: .5rem;">
-                      <span> Only {{ product.inventory.available }} available</span>
-                    </div>
-
-                    <div class="form-row mb-7">
-                      <div class="col-12 col-lg-auto">
-
-                        <!-- Submit -->
-                        <select class="custom-select custom-select-xl w-auto " name="quantity">
-                          {% for  _ in ''|center:product.inventory.available %}
+                  {% elif productInventory and productInventory.type == "limited" and productInventory.available < 5 %}
+                   
+                    <div class="form-row">
+                      <div class="col-12 col-lg-auto mb-2">
+                        <select class="custom-select custom-select-xl w-100 " name="quantity">
+                          {% for  _ in ''|center:productInventory.available %}
                             <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
                           {% endfor %}
                         </select>
-    
-    
                       </div>
+
                       <div class="col-12 col-lg-auto">
                       
                         <input type="hidden" name="product_id" value="{{ product.id}}">
@@ -129,18 +137,17 @@
                     </div>
 
                   {% else %}
-                    <div class="form-row mb-7">
-                      <div class="col-12 col-lg-auto">
 
+                    <div class="form-row">
+                      <div class="col-12 col-lg-auto mb-2">
                         <!-- Submit -->
-                        <select class="custom-select custom-select-xl w-auto " name="quantity">
+                        <select class="custom-select custom-select-xl w-100 " name="quantity">
                           {% for  i in range %}
                             <option value="{{ i}}">{{ i }}</option>
                           {% endfor %}
                         </select>
-
-
                       </div>
+
                       <div class="col-12 col-lg-auto">
                       
                         <input type="hidden" name="product_id" value="{{ product.id}}">
@@ -150,7 +157,6 @@
                         </button>
 
                       </div>
-
                     </div>
                   {% endif %}
 
@@ -159,7 +165,20 @@
             </div>
             <div class="mb-0">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-12 share-product">
+                    <span class="share-text">Share</span>
+                    <a class="fbtn share facebook" href="https://www.facebook.com/sharer/sharer.php?u={{SITE_URL}}{{ request.path }}"><i class="fa fa-facebook"></i></a> 
+          
+                    <a class="fbtn share whatsapp" href="https://api.whatsapp.com/send?text={{SITE_URL}}{{ request.path }}"><i class="fa fa-whatsapp"></i></a> 
+        
+                    <a class="fbtn share twitter" href="https://twitter.com/intent/tweet?url={{SITE_URL}}{{ request.path }}&text="><i class="fa fa-twitter"></i></a> 
+        
+                    <a class="fbtn share pinterest" href="http://pinterest.com/pin/create/button/?url={{SITE_URL}}{{ request.path }}&amp;description=data&amp;media=image"><i class="fa fa-pinterest"></i></a>
+        
+                    <a class="fbtn share linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{SITE_URL}}{{ request.path }}&title=&summary=&source="><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </div>
+                <!-- <div class="col-md-3">
                   <h5 class="text-gray-600">Details</h5>
                 </div>
                 <div class="col-md-9">
@@ -170,8 +189,9 @@
                   <strong>SKU: </strong> {{product.sku|default:'Not available'}} <br>
                   <a href="#descriptionTab">More Information</a>
                 </div>
-              </div>
+              </div> -->
             </div>
+            {% endwith %}
           </div>
         </div>
       </div>

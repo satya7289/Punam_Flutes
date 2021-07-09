@@ -113,7 +113,6 @@ class OrderInvoice(View):
             state_code = ""
             if gst_state:
                 state_code = gst_state.code
-            
             try:
                 payment_method = order.payment.method
             except:
