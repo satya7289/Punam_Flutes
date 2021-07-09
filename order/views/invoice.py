@@ -25,11 +25,14 @@ class OrderInvoice(View):
             coupon_total_discount = 0
             totalTax = 0
             totalAmount = 0
+            subtotal = 0
+            totalShipping = 0
 
             for product in products:
                 # Get the price of product according to order
                 price_list = get_price_of_product(request, product.product, order.country, order.currency_code)
                 product_price = price_list['price']
+                shipping_price = price_list['shipping_price']
 
                 # Get the first category of the product
                 first_category = product.product.category.first()
@@ -100,23 +103,35 @@ class OrderInvoice(View):
                 product.tax_type = tax_type
                 product.net_tax_amount = format(product_tax, '.2f')
                 product.total_amount = float(format(float(product.net_ammount) + float(product_tax) - float(product_discount), '.2f'))
+                product.shipping = shipping_price
 
+                subtotal += float(product.net_ammount)
+                totalShipping += float(product.shipping)
                 totalAmount += product.total_amount
 
             gst_state = GSTState.objects.filter(name__icontains=address.state).first() if address.state else None
             state_code = ""
             if gst_state:
                 state_code = gst_state.code
+            
+            try:
+                payment_method = order.payment.method
+            except:
+                payment_method = ''
             context = {
                 'order_id': order.id,
                 'products': products,
+                'subtotal': subtotal,
+                'total_shipping': totalShipping,
                 'total_amount': format(totalAmount, '.2f'),
                 'total_tax_amount': format(totalTax, '.2f'),
                 'total_discount': format(coupon_total_discount, '.2f'),
                 'shipping_address': order.shipping_address,
                 'billing_address': order.billing_address,
                 'state_code': state_code,
-                'currency': order.currency if order.currency else ''
+                'currency': order.currency if order.currency else '',
+                'payment_method': payment_method,
+                'order_placed': order.order_placed
             }
             return render(request, self.template_name, context=context)
         return redirect('dashboard')
