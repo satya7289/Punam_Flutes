@@ -28,7 +28,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'username', 'email', 'phone', 'email_verified', 'phone_verified', 'active', 'staff', 'admin', 'id')
     list_filter = ('active', 'staff', 'admin', 'email_verified', 'phone_verified')
     search_fields = ('email', 'phone', )
-    exclude = ('user_permissions',)
+    exclude = ('user_permissions', 'is_superuser')
     form = CustomUserForm
 
 

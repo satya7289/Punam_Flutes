@@ -281,10 +281,14 @@ def export_as_delivery_soft_data(modeladmin, request, queryset):
 
 
 class OrderAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/custom_for_order_list.js',)
+
     change_form_template = 'order/change_form.html'
-    list_display = ('__str__', 'OrderNumber', 'Total', 'status', 'PaymentMethod', 'Invoice', 'User', 'created_at', 'update_at')
+    list_display = ('__str__', 'OrderNumber', 'Total', 'status', 'PaymentMethod', 'Invoice', 'User', 'country', 'update_at', 'order_placed')
     list_filter = ('status', 'payment__method',)
-    search_fields = ('id', 'total',)
+    search_fields = ('id', 'total', 'user__username', 'user__email', 'user__phone', 'country', 'shipping_address__state')
+    search_labels = ('country')
     readonly_fields = (
         'R_cart', 'R_billing_address', 'R_shipping_address', 'R_user', 'currency',
         'Payment', 'Invoice', 'Courrier',
