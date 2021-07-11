@@ -298,6 +298,18 @@ class OtpLogin(View):
                 login(request, user)
                 return render(request, self.template_name2)
             self.message = "Invalid OTP."
+        else:
+            unique_id = request.session.session_key
+            generated_otp = generate_totp(unique_id, 3)
+            if generated_otp == input_otp:
+                # Create new user and logged in
+                user = User.objects.create_user(phone, "")
+                user.set_unusable_password()
+                user.phone_verified = True
+                user.save()
+                login(request, user)
+                return render(request, self.template_name2)
+            self.message = "Invalid OTP."
         messages.add_message(request, messages.WARNING, self.message)
         return render(request, self.template_name, {'countryCodes': self.countryCodes})
 
@@ -307,11 +319,18 @@ def sendLoginOTP(request):
     country_code = request.GET.get('country_code')
     phone = normalize_phone(phonenumber, country_code)
     user = User.objects.filter(username=phone)
-    if user.exists():
-        user = user.first()
+    try:
+        if user.exists():
+            user = user.first()
+            unique_id = user.id
+        else:
+            if not request.session or not request.session.session_key:
+                request.session.save()
+            unique_id = request.session.session_key
+
         # generate OTP
-        otp = generate_totp(user.id, 3)
-        mobile_number = phonenumbers.parse(user.phone).national_number
+        otp = generate_totp(unique_id, 3)
+        mobile_number = phonenumbers.parse(phone).national_number
 
         # Send SMS
         sms = sendSMS(mobile_number, 'otp', OTP=otp)
@@ -322,10 +341,11 @@ def sendLoginOTP(request):
             'message': 'OTP is send to your phone number'
         }
         return JsonResponse(data)
-    data = {
-        'status': '0',
-        'message': 'User does not exit with this phone number'
-    }
+    except:
+        data = {
+            'status': '0',
+            'message': 'error'
+        }
     return JsonResponse(data)
 
 
